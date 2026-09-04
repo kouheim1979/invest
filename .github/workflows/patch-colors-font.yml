@@ -1,0 +1,69 @@
+name: Patch portfolio colors and fonts
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Reverse gain/loss colors and enlarge text
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('app-v3.html')
+          s = p.read_text(encoding='utf-8')
+          reps = {
+            '--up:#d93025;--down:#1565c0':'--up:#1565c0;--down:#d93025',
+            '.brand{font-size:20px':'.brand{font-size:22px',
+            'margin-top:7px;font-size:13px':'margin-top:7px;font-size:15px',
+            '.notice{font-size:11px':'.notice{font-size:13px',
+            '.label{font-size:11px':'.label{font-size:13px',
+            '.big{font-weight:850;font-size:21px':'.big{font-weight:850;font-size:25px',
+            '.sub{font-size:11px':'.sub{font-size:13px',
+            '.status{font-size:11px':'.status{font-size:13px',
+            'padding:7px 10px;font-size:12px;font-weight:750':'padding:8px 11px;font-size:14px;font-weight:750',
+            'white-space:nowrap;font-size:12px;font-variant-numeric':'white-space:nowrap;font-size:14px;font-variant-numeric',
+            'color:#69717a;font-size:10px':'color:#69717a;font-size:12px',
+            '.name{font-weight:780}':'.name{font-weight:780;font-size:15px}',
+            'padding:6px 8px;font-size:11px;font-weight:800':'padding:7px 9px;font-size:13px;font-weight:800',
+            '.mn{font-weight:850;flex:1}':'.mn{font-weight:850;flex:1;font-size:16px}',
+            '.mcode{font-size:10px':'.mcode{font-size:12px',
+            '.mp{text-align:right;font-weight:850;font-size:18px':'.mp{text-align:right;font-weight:850;font-size:22px',
+            '.mchg{font-size:11px':'.mchg{font-size:13px',
+            '.k{font-size:9px':'.k{font-size:11px',
+            '.v{font-size:12px':'.v{font-size:14px',
+            '@media(max-width:800px){.summary{grid-template-columns:1fr 1fr}.big{font-size:18px}':'@media(max-width:800px){.summary{grid-template-columns:1fr 1fr}.big{font-size:22px}',
+            '.brand{font-size:17px}':'.brand{font-size:19px}',
+            '.notice{font-size:10px}':'.notice{font-size:12px}'
+          }
+          for old,new in reps.items():
+              s = s.replace(old,new)
+          p.write_text(s, encoding='utf-8')
+
+          i = Path('index.html')
+          if i.exists():
+              x = i.read_text(encoding='utf-8')
+              import re
+              x = re.sub(r'app-v3\.html\?v=[^"\'<>]+', 'app-v3.html?v=20260905-color-font', x)
+              i.write_text(x, encoding='utf-8')
+          PY
+      - name: Commit patch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add app-v3.html index.html
+          if git diff --cached --quiet; then
+            echo 'No changes needed'
+            exit 0
+          fi
+          git commit -m 'Reverse gain/loss colors and enlarge fonts [skip ci]'
+          git push origin HEAD:main
