@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#f5f5f7">
+<title>Apple株価 ウォッチリスト登録</title>
+<style>
+:root{--bg:#f5f5f7;--card:#fff;--text:#1d1d1f;--muted:#6e6e73;--line:#e5e5ea;--blue:#007aff;--green:#34c759;--red:#ff3b30}*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Hiragino Sans","Yu Gothic UI",sans-serif}body{padding-bottom:calc(110px + env(safe-area-inset-bottom))}.top{position:sticky;top:0;z-index:20;padding:calc(12px + env(safe-area-inset-top)) 14px 12px;background:rgba(245,245,247,.94);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}.topin{max-width:720px;margin:auto}.title{font-size:24px;font-weight:850;letter-spacing:-.02em}.sub{font-size:13px;color:var(--muted);margin-top:4px;line-height:1.45}.wrap{max-width:720px;margin:auto;padding:12px}.hero{background:linear-gradient(145deg,#ffffff,#f8fbff);border:1px solid #dce8ff;border-radius:18px;padding:16px;margin-bottom:12px}.progress{display:flex;align-items:flex-end;justify-content:space-between;gap:10px}.count{font-size:30px;font-weight:900}.pct{font-size:14px;color:var(--muted);font-weight:750}.bar{height:9px;background:#e9edf2;border-radius:99px;overflow:hidden;margin-top:10px}.bar>i{display:block;height:100%;background:var(--green);width:0;transition:.25s}.guide{font-size:13px;color:#4f5965;line-height:1.55;margin-top:12px}.guide b{color:#222}.tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.btn{border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 13px;font-size:14px;font-weight:800;color:#2c2c2e}.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}.btn.danger{color:var(--red)}.current{background:var(--card);border:2px solid #cfe1ff;border-radius:18px;padding:15px;margin-bottom:12px;box-shadow:0 6px 22px #0000000a}.eyebrow{font-size:11px;color:var(--blue);font-weight:900;letter-spacing:.08em}.cname{font-size:23px;font-weight:900;margin-top:4px}.csymbol{font-size:15px;color:var(--muted);margin-top:3px}.copyrow{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:12px}.copytext{background:#f2f2f7;border-radius:12px;padding:12px;font-size:16px;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.list{display:grid;gap:8px}.item{display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:15px;padding:12px}.item.done{opacity:.55}.check{width:28px;height:28px;border:2px solid #c7c7cc;border-radius:50%;display:grid;place-items:center;font-size:16px;background:#fff}.item.done .check{background:var(--green);border-color:var(--green);color:#fff}.nm{font-weight:850;font-size:16px}.sm{font-size:12px;color:var(--muted);margin-top:2px}.copymini{border:0;background:#edf4ff;color:#0059c7;border-radius:10px;padding:8px 10px;font-weight:850}.bottom{position:fixed;left:0;right:0;bottom:0;z-index:30;background:rgba(255,255,255,.94);backdrop-filter:blur(18px);border-top:1px solid var(--line);padding:10px 12px calc(10px + env(safe-area-inset-bottom))}.bottomin{max-width:720px;margin:auto;display:grid;grid-template-columns:1fr 1.35fr;gap:8px}.bigbtn{border:0;border-radius:14px;padding:14px 10px;font-size:16px;font-weight:900}.bigbtn.copy{background:#eaf2ff;color:#0059c7}.bigbtn.next{background:var(--blue);color:#fff}.toast{position:fixed;left:50%;bottom:120px;transform:translate(-50%,16px);background:#1c1c1e;color:#fff;padding:10px 14px;border-radius:999px;font-size:13px;opacity:0;transition:.2s;z-index:50;pointer-events:none;white-space:nowrap}.toast.on{opacity:1;transform:translate(-50%,0)}.note{font-size:12px;color:var(--muted);line-height:1.55;margin:14px 3px 4px}@media(max-width:420px){.title{font-size:22px}.count{font-size:27px}.cname{font-size:21px}.bottomin{grid-template-columns:1fr 1.2fr}}
+</style>
+</head>
+<body>
+<header class="top"><div class="topin"><div class="title">Apple株価 ウォッチリスト登録</div><div class="sub">今の持ち株を、Apple純正「株価」へ最短操作で登録する補助アプリ</div></div></header>
+<main class="wrap">
+<section class="hero"><div class="progress"><div><div class="count" id="count">0 / 0</div><div class="pct" id="pct">0% 完了</div></div><button class="btn danger" id="reset">進捗をリセット</button></div><div class="bar"><i id="bar"></i></div><div class="guide"><b>使い方：</b> 下の「コピーして次へ」→ iPhoneの「株価」アプリへ切替 → 検索欄に貼付 → ＋をタップ → この画面へ戻る、を繰り返します。</div></section>
+<div class="tools"><button class="btn" id="reload">持ち株を再読込</button><button class="btn" id="allDone">全部追加済みにする</button><a class="btn" href="./app-v3.html" style="text-decoration:none">ポートフォリオへ戻る</a></div>
+<section class="current" id="current"><div class="eyebrow">NEXT</div><div class="cname" id="cname">—</div><div class="csymbol" id="csymbol">—</div><div class="copyrow"><div class="copytext" id="copytext">—</div><button class="btn primary" id="copyOne">コピー</button></div></section>
+<section class="list" id="list"></section>
+<div class="note">※ Appleは「株価」アプリのウォッチリストへ外部Webアプリから直接追加する公開APIを提供していないため、最後の「＋」だけは株価アプリ側でタップが必要です。追加済み進捗はこのiPhone内に保存されます。</div>
+</main>
+<div class="bottom"><div class="bottomin"><button class="bigbtn copy" id="mark">追加済みにする</button><button class="bigbtn next" id="next">コピーして次へ</button></div></div>
+<div class="toast" id="toast"></div>
+<script>
+const PORT_KEY='kouheim_portfolio_v2', PROG_KEY='kouheim_apple_stocks_progress_v1';
+const FALLBACK=[
+['1820.T','西松建設'],['2193.T','クックパッド'],['2685.T','アンドエスティHD'],['2811.T','カゴメ'],['2928.S','RIZAP G'],['3289.T','東急不動産HD'],['3395.T','サンマルクHD'],['4755.T','楽天グループ'],['4801.T','セントラルスポーツ'],['5726.T','大阪チタニウム'],['6594.T','ニデック'],['6723.T','ルネサス'],['6819.T','伊豆シャボテンR'],['6841.T','横河電機'],['6902.T','デンソー'],['7545.T','西松屋'],['7590.T','タカショー'],['7606.T','ユナイテッドアローズ'],['7974.T','任天堂'],['8173.T','Joshin'],['8267.T','イオン'],['8306.T','三菱UFJ FG'],['8316.T','三井住友FG'],['8604.T','野村HD'],['9434.T','ソフトバンク']
+].map(([symbol,name])=>({symbol,name}));
+let stocks=[],done={};
+const $=s=>document.querySelector(s);
+function baseCode(s){return String(s||'').replace(/\.(T|S)$/i,'')}
+function searchText(x){return `${baseCode(x.symbol)} ${x.name}`.trim()}
+function loadProgress(){try{done=JSON.parse(localStorage.getItem(PROG_KEY)||'{}')||{}}catch{done={}}}
+function saveProgress(){localStorage.setItem(PROG_KEY,JSON.stringify(done))}
+function loadStocks(){try{const raw=JSON.parse(localStorage.getItem(PORT_KEY)||'[]');stocks=Array.isArray(raw)&&raw.length?raw.map(x=>({symbol:String(x.symbol||x.code||'').toUpperCase(),name:String(x.name||'')})).filter(x=>x.symbol):FALLBACK}catch{stocks=FALLBACK}render()}
+function nextIndex(){const i=stocks.findIndex(x=>!done[x.symbol]);return i<0?(stocks.length?0:-1):i}
+async function copyText(t){try{await navigator.clipboard.writeText(t);toast(`コピーしました：${t}`);return true}catch{const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();toast(`コピーしました：${t}`);return true}}
+function render(){const n=stocks.length,dc=stocks.filter(x=>done[x.symbol]).length,p=n?Math.round(dc/n*100):0;$('#count').textContent=`${dc} / ${n}`;$('#pct').textContent=`${p}% 完了`;$('#bar').style.width=`${p}%`;const ni=nextIndex(),cur=ni>=0?stocks[ni]:null;$('#cname').textContent=cur?cur.name:'すべて完了';$('#csymbol').textContent=cur?cur.symbol:'—';$('#copytext').textContent=cur?searchText(cur):'—';$('#current').style.opacity=cur?1:.65;$('#list').innerHTML=stocks.map(x=>`<div class="item ${done[x.symbol]?'done':''}" data-symbol="${x.symbol}"><button class="check" data-check="${x.symbol}">${done[x.symbol]?'✓':''}</button><div><div class="nm">${escapeHtml(x.name)}</div><div class="sm">${escapeHtml(x.symbol)} · 検索: ${escapeHtml(searchText(x))}</div></div><button class="copymini" data-copy="${x.symbol}">コピー</button></div>`).join('')}
+function escapeHtml(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function currentStock(){const i=nextIndex();return i>=0?stocks[i]:null}
+function markCurrent(){const x=currentStock();if(!x)return;done[x.symbol]=true;saveProgress();render();toast(`${x.name} を追加済みにしました`)}
+function toast(t){const x=$('#toast');x.textContent=t;x.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>x.classList.remove('on'),1800)}
+$('#copyOne').onclick=()=>{const x=currentStock();if(x)copyText(searchText(x))};
+$('#mark').onclick=markCurrent;
+$('#next').onclick=async()=>{const x=currentStock();if(!x){toast('すべて完了しています');return}await copyText(searchText(x));done[x.symbol]=true;saveProgress();render()};
+$('#reset').onclick=()=>{if(confirm('追加済みの進捗をすべてリセットしますか？')){done={};saveProgress();render()}};
+$('#allDone').onclick=()=>{stocks.forEach(x=>done[x.symbol]=true);saveProgress();render();toast('すべて追加済みにしました')};
+$('#reload').onclick=()=>{loadStocks();toast('現在の持ち株を読み込みました')};
+$('#list').onclick=e=>{const c=e.target.closest('[data-copy]');if(c){const x=stocks.find(v=>v.symbol===c.dataset.copy);if(x)copyText(searchText(x));return}const k=e.target.closest('[data-check]');if(k){const s=k.dataset.check;done[s]=!done[s];saveProgress();render()}};
+loadProgress();loadStocks();
+</script>
+</body></html>
