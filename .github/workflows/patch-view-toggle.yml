@@ -18,48 +18,7 @@ jobs:
       - name: Add standard / Apple Stocks style switch
         shell: bash
         run: |
-          python - <<'PY'
-          from pathlib import Path
-          import re
-
-          p = Path('app-v3.html')
-          s = p.read_text(encoding='utf-8')
-
-          css = r'''
-.view-switch{display:flex;gap:3px;width:max-content;max-width:100%;margin:0 0 10px auto;background:#e8eaed;border-radius:11px;padding:3px}.view-switch button{border:0;background:transparent;color:#555;border-radius:8px;padding:7px 12px;font-size:13px;font-weight:850}.view-switch button.on{background:#fff;color:#111;box-shadow:0 1px 4px #0002}.apple-look{--bg:#000;--line:#29292d;--muted:#98989f;color:#f5f5f7;background:#000}.apple-look .top{background:#000;box-shadow:none;border-bottom:1px solid #242428}.apple-look .search input{background:#1c1c1e;color:#fff}.apple-look .search input::placeholder{color:#8e8e93}.apple-look .notice{background:#111113;color:#a9b5c7;border-color:#2b2b31}.apple-look .box{background:#111113;border-color:#29292d}.apple-look .panel{background:#000;border-color:#29292d}.apple-look .head{background:#111113!important;border-color:#29292d!important}.apple-look select,.apple-look .pill{background:#1c1c1e;border-color:#34343a;color:#f5f5f7}.apple-look .pill.primary{background:#0a84ff;border-color:#0a84ff}.apple-look .view-switch{background:#1c1c1e}.apple-look .view-switch button{color:#aaa}.apple-look .view-switch button.on{background:#3a3a3c;color:#fff;box-shadow:none}.apple-look .mc{background:#000;border:0;border-radius:0;border-bottom:1px solid #29292d;margin:0;padding:13px 4px}.apple-look .mobile{background:#000;padding-top:0}.apple-look .grid{grid-template-columns:repeat(3,1fr);border-top-color:#29292d;margin-top:9px}.apple-look .k,.apple-look .mcode,.apple-look .sub{color:#8e8e93}.apple-look .edit{background:#1c1c1e;color:#64a8ff}.apple-look .name a,.apple-look .mn a{color:#f5f5f7}.apple-look table th{background:#111113;color:#aaa}.apple-look th,.apple-look td{border-bottom-color:#29292d}.apple-look td{color:#f5f5f7}.apple-look .code{color:#64a8ff}.apple-look .empty{color:#98989f}.apple-look .empty strong{color:#f5f5f7}
-@media(max-width:800px){.view-switch{margin:0 0 8px auto}.view-switch button{font-size:12px;padding:7px 10px}.apple-look .summary{gap:6px;margin-bottom:7px}.apple-look .box{padding:10px}.apple-look .big{font-size:21px}.apple-look .mc .mtop{align-items:center}.apple-look .mn{font-size:17px}.apple-look .mp{font-size:23px}.apple-look .mchg{font-size:13px}}
-'''
-          if '.view-switch{' not in s:
-              s = s.replace('</style>', css + '</style>', 1)
-
-          switch = '''<div class="view-switch" aria-label="表示切替"><button id="viewStandard" type="button">標準</button><button id="viewApple" type="button">Apple株価風</button></div>\n'''
-          if 'id="viewStandard"' not in s:
-              s = s.replace('<section class="summary">', switch + '<section class="summary">', 1)
-
-          if "VIEW_KEY='kouheim_portfolio_view_v1'" not in s:
-              s = s.replace("const KEY='kouheim_portfolio_v2',OLD='kouheim_portfolio_v1';", "const KEY='kouheim_portfolio_v2',OLD='kouheim_portfolio_v1',VIEW_KEY='kouheim_portfolio_view_v1';", 1)
-
-          js = r'''
-function applyView(){let v=localStorage.getItem(VIEW_KEY)||'standard',apple=v==='apple';document.body.classList.toggle('apple-look',apple);const a=$('#viewApple'),n=$('#viewStandard');if(a)a.classList.toggle('on',apple);if(n)n.classList.toggle('on',!apple)}
-function setView(v){localStorage.setItem(VIEW_KEY,v);applyView()}
-'''
-          if 'function applyView()' not in s:
-              marker = "function toast(t){"
-              s = s.replace(marker, js + marker, 1)
-
-          if "$('#viewStandard').onclick" not in s:
-              marker = "window.openEdit=openEdit;load();refresh();"
-              repl = "$('#viewStandard').onclick=()=>setView('standard');$('#viewApple').onclick=()=>setView('apple');window.openEdit=openEdit;applyView();load();refresh();"
-              s = s.replace(marker, repl, 1)
-
-          p.write_text(s, encoding='utf-8')
-
-          idx = Path('index.html')
-          t = idx.read_text(encoding='utf-8')
-          t = re.sub(r'app-v3\.html\?v=[^\"\'<]+', 'app-v3.html?v=20260905-view-toggle', t)
-          idx.write_text(t, encoding='utf-8')
-          PY
-
+          python -c "import base64;exec(base64.b64decode('ZnJvbSBwYXRobGliIGltcG9ydCBQYXRoCmltcG9ydCByZQoKcCA9IFBhdGgoJ2FwcC12My5odG1sJykKcyA9IHAucmVhZF90ZXh0KGVuY29kaW5nPSd1dGYtOCcpCgpjc3MgPSByJycnCi52aWV3LXN3aXRjaHtkaXNwbGF5OmZsZXg7Z2FwOjNweDt3aWR0aDptYXgtY29udGVudDttYXgtd2lkdGg6MTAwJTttYXJnaW46MCAwIDEwcHggYXV0bztiYWNrZ3JvdW5kOiNlOGVhZWQ7Ym9yZGVyLXJhZGl1czoxMXB4O3BhZGRpbmc6M3B4fS52aWV3LXN3aXRjaCBidXR0b257Ym9yZGVyOjA7YmFja2dyb3VuZDp0cmFuc3BhcmVudDtjb2xvcjojNTU1O2JvcmRlci1yYWRpdXM6OHB4O3BhZGRpbmc6N3B4IDEycHg7Zm9udC1zaXplOjEzcHg7Zm9udC13ZWlnaHQ6ODUwfS52aWV3LXN3aXRjaCBidXR0b24ub257YmFja2dyb3VuZDojZmZmO2NvbG9yOiMxMTE7Ym94LXNoYWRvdzowIDFweCA0cHggIzAwMDJ9LmFwcGxlLWxvb2t7LS1iZzojMDAwOy0tbGluZTojMjkyOTJkOy0tbXV0ZWQ6Izk4OTg5Zjtjb2xvcjojZjVmNWY3O2JhY2tncm91bmQ6IzAwMH0uYXBwbGUtbG9vayAudG9we2JhY2tncm91bmQ6IzAwMDtib3gtc2hhZG93Om5vbmU7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgIzI0MjQyOH0uYXBwbGUtbG9vayAuc2VhcmNoIGlucHV0e2JhY2tncm91bmQ6IzFjMWMxZTtjb2xvcjojZmZmfS5hcHBsZS1sb29rIC5zZWFyY2ggaW5wdXQ6OnBsYWNlaG9sZGVye2NvbG9yOiM4ZThlOTN9LmFwcGxlLWxvb2sgLm5vdGljZXtiYWNrZ3JvdW5kOiMxMTExMTM7Y29sb3I6I2E5YjVjNztib3JkZXItY29sb3I6IzJiMmIzMX0uYXBwbGUtbG9vayAuYm94e2JhY2tncm91bmQ6IzExMTExMztib3JkZXItY29sb3I6IzI5MjkyZH0uYXBwbGUtbG9vayAucGFuZWx7YmFja2dyb3VuZDojMDAwO2JvcmRlci1jb2xvcjojMjkyOTJkfS5hcHBsZS1sb29rIC5oZWFke2JhY2tncm91bmQ6IzExMTExMyFpbXBvcnRhbnQ7Ym9yZGVyLWNvbG9yOiMyOTI5MmQhaW1wb3J0YW50fS5hcHBsZS1sb29rIHNlbGVjdCwuYXBwbGUtbG9vayAucGlsbHtiYWNrZ3JvdW5kOiMxYzFjMWU7Ym9yZGVyLWNvbG9yOiMzNDM0M2E7Y29sb3I6I2Y1ZjVmN30uYXBwbGUtbG9vayAucGlsbC5wcmltYXJ5e2JhY2tncm91bmQ6IzBhODRmZjti b3JkZXItY29sb3I6IzBhODRmZn0uYXBwbGUtbG9vayAudmlldy1zd2l0Y2h7YmFja2dyb3VuZDojMWMxYzFlfS5hcHBsZS1sb29rIC52aWV3LXN3aXRjaCBidXR0b257Y29sb3I6I2FhYX0uYXBwbGUtbG9vayAudmlldy1zd2l0Y2ggYnV0dG9uLm9ue2JhY2tncm91bmQ6IzNhM2EzYztjb2xvcjojZmZmO2JveC1zaGFkb3c6bm9uZX0uYXBwbGUtbG9vayAubWN7YmFja2dyb3VuZDojMDAwO2JvcmRlcjowO2JvcmRlci1yYWRpdXM6MDtib3JkZXItYm90dG9tOjFweCBzb2xpZCAjMjkyOTJkO21hcmdpbjowO3BhZGRpbmc6MTNweCA0cHh9LmFwcGxlLWxvb2sgLm1vYmlsZXtiYWNrZ3JvdW5kOiMwMDA7cGFkZGluZy10b3A6MH0uYXBwbGUtbG9vayAuZ3JpZHtncmlkLXRlbXBsYXRlLWNvbHVtbnM6cmVwZWF0KDMsMWZyKTtib3JkZXItdG9wLWNvbG9yOiMyOTI5MmQ7bWFyZ2luLXRvcDo5cHh9LmFwcGxlLWxvb2sgLmssLmFwcGxlLWxvb2sgLm1jb2RlLC5hcHBsZS1sb29rIC5zdWJ7Y29sb3I6IzhlOGU5M30uYXBwbGUtbG9vayAuZWRpdHtiYWNrZ3JvdW5kOiMxYzFjMWU7Y29sb3I6IzY0YThmZn0uYXBwbGUtbG9vayAubmFtZSBhLC5hcHBsZS1sb29rIC5tbiBhe2NvbG9yOiNmNWY1Zjd9LmFwcGxlLWxvb2sgdGFibGUgdGh7YmFja2dyb3VuZDojMTExMTEzO2NvbG9yOiNhYWF9LmFwcGxlLWxvb2sgdGgsLmFwcGxlLWxvb2sgdGR7Ym9yZGVyLWJvdHRvbS1jb2xvcjojMjkyOTJkfS5hcHBsZS1sb29rIHRke2NvbG9yOiNmNWY1Zjd9LmFwcGxlLWxvb2sgLmNvZGV7Y29sb3I6IzY0YThmZn0uYXBwbGUtbG9vayAuZW1wdHl7Y29sb3I6Izk4OTg5Zn0uYXBwbGUtbG9vayAuZW1wdHkgc3Ryb25ne2NvbG9yOiNmNWY1Zjd9CkBtZWRpYShtYXgtd2lkdGg6ODA wcHgpey52aWV3LXN3aXRjaHttYXJnaW46MCAwIDhweCBhdXRvfS52aWV3LXN3aXRjaCBidXR0b257Zm9udC1zaXplOjEycHg7cGFkZGluZzo3cHggMTBweH0uYXBwbGUtbG9vayAuc3VtbWFyeXtnYXA6NnB4O21hcmdpbi1ib3R0b206N3B4fS5hcHBsZS1sb29rIC5ib3h7cGFkZGluZzoxMHB4fS5hcHBsZS1sb29rIC5iaWd7Zm9udC1zaXplOjIxcHh9LmFwcGxlLWxvb2sgLm1jIC5tdG9we2FsaWduLWl0ZW1zOmNlbnRlcn0uYXBwbGUtbG9vayAubW57Zm9udC1zaXplOjE3cHh9LmFwcGxlLWxvb2sgLm1we2ZvbnQtc2l6ZToyM3B4fS5hcHBsZS1sb29rIC5tY2hne2ZvbnQtc2l6ZToxM3B4fX0KJycnCmlmICcudmlldy1zd2l0Y2h7JyBub3QgaW4gczoKICAgIHMgPSBzLnJlcGxhY2UoJzwvc3R5bGU+JywgY3NzICsgJzwvc3R5bGU+JywgMSkKCnN3aXRjaCA9ICc8ZGl2IGNsYXNzPSJ2aWV3LXN3aXRjaCIgYXJpYS1sYWJlbD0i6KGo56S65YiH5pu/Ij48YnV0dG9uIGlkPSJ2aWV3U3RhbmRhcmQiIHR5cGU9ImJ1dHRvbiI+5qiZ5rqWPC9idXR0b24+PGJ1dHRvbiBpZD0idmlld0FwcGxlIiB0eXBlPSJidXR0b24iPkFwcGxl5qCq5L6h6aKoPC9idXR0b24+PC9kaXY+XG4nCmlmICdpZD0idmlld1N0YW5kYXJkIicgbm90IGluIHM6CiAgICBzID0gcy5yZXBsYWNlKCc8c2VjdGlvbiBjbGFzcz0ic3VtbWFyeSI+Jywgc3dpdGNoICsgJzxzZWN0aW9uIGNsYXNzPSJzdW1tYXJ5Ij4nLCAxKQoKaWYgIlZJRVdfS0VZPSdrb3VoZWltX3BvcnRmb2xpb192aWV3X3YxJyIgbm90IGluIHM6CiAgICBzID0gcy5yZXBsYWNlKCJjb25zdCBLRVk9J2tvdWhlaW1fcG9ydGZvbGlvX3YyJyxPTEQ9J2tvdWhlaW1fcG9ydGZvbGlvX3YxJzsiLCAiY29uc3QgS0VZPSdrb3VoZWltX3BvcnRmb2xpb192MicsT0xEPSdrb3VoZWltX3BvcnRmb2xpb192MScsVklFV19LRVk9J2tvdWhlaW1fcG9ydGZvbGlvX3ZpZXdfdjEnOyIsIDEpCgpqcyA9IHInJycKZnVuY3Rpb24gYXBwbHlWaWV3KCl7bGV0IHY9bG9jYWxTdG9yYWdlLmdldEl0ZW0oVklFV19LRVkpfHwnc3RhbmRhcmQnLGFwcGxlPXY9PT0nYXBwbGUnO2RvY3VtZW50LmJvZHkuY2xhc3NMaXN0LnRvZ2dsZSgnYXBwbGUtbG9vaycsYXBwbGUpO2NvbnN0IGE9JCgnI3ZpZXdBcHBsZScpLG49JCgnI3ZpZXdTdGFuZGFyZCcpO2lmKGEpYS5jbGFzc0xpc3QudG9nZ2xlKCdvbicsYXBwbGUpO2lmKG4pbi5jbGFzc0xpc3QudG9nZ2xlKCdvbicsIWFwcGxlKX0KZnVuY3Rpb24gc2V0Vmlldyh2KXtsb2NhbFN0b3JhZ2Uuc2V0SXRlbShWSUVXX0tFWSx2KTthcHBseVZpZXcoKX0KJycnCmlmICdmdW5jdGlvbiBhcHBseVZpZXcoKScgbm90IGluIHM6CiAgICBzID0gcy5yZXBsYWNlKCJmdW5jdGlvbiB0b2FzdCh0KXsiLCBqcyArICJmdW5jdGlvbiB0b2FzdCh0KXsiLCAxKQoKaWYgIiQoJyN2aWV3U3RhbmRhcmQnKS5vbmNsaWNrIiBub3QgaW4gczoKICAgIHMgPSBzLnJlcGxhY2UoIndpbmRvdy5vcGVuRWRpdD1vcGVuRWRpdDtsb2FkKCk7cmVmcmVzaCgpOyIsICIkKCcjdmlld1N0YW5kYXJkJykub25jbGljaz0oKT0+c2V0Vmlldygnc3RhbmRhcmQnKTskKCcjdmlld0FwcGxlJykub25jbGljaz0oKT0+c2V0VmlldygnYXBwbGUnKTt3aW5kb3cub3BlbkVkaXQ9b3BlbkVkaXQ7YXBwbHlWaWV3KCk7bG9hZCgpO3JlZnJlc2goKTsiLCAxKQoKcC53cml0ZV90ZXh0KHMsIGVuY29kaW5nPSd1dGYtOCcpCgppZHggPSBQYXRoKCdpbmRleC5odG1sJykKdCA9IGlkeC5yZWFkX3RleHQoZW5jb2Rpbmc9J3V0Zi04JykKdCA9IHJlLnN1YihyJ2FwcC12M1wuaHRtbFw/dj1bXlwiXCc8XSsnLCAnYXBwLXYzLmh0bWw/dj0yMDI2MDkwNS12aWV3LXRvZ2dsZScsIHQpCmlkeC53cml0ZV90ZXh0KHQsIGVuY29kaW5nPSd1dGYtOCcpCg=='))"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add app-v3.html index.html
