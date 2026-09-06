@@ -2,10 +2,10 @@
 const LOTS_KEY='kouheim_portfolio_lots_v1';
 let LOTS=[],ownerFilter='all',brokerFilter='all',taxFilter='all';
 const OWNER_LABEL={OTS:'本人',OKS:'妻',MIK:'MIK',RIN:'RIN'};
-const TAX_LABEL={specific:'特定',nisa:'NISA',oldNisa:'旧NISA',juniorNisa:'ジュニアNISA',general:'一般',unknown:'未確認'};
+const TAX_LABEL={specific:'特定',nisa:'NISA',oldNisa:'旧NISA',juniorNisa:'ジュニアNISA',general:'一般',unknown:'区分未判定'};
 const ownerLabel=x=>OWNER_LABEL[x]||x||'—';
 const brokerLabel=x=>x==='eSmart'?'eスマート':x==='SBI'?'SBI':x||'—';
-const taxLabel=x=>TAX_LABEL[x]||x||'未確認';
+const taxLabel=x=>TAX_LABEL[x]||x||'区分未判定';
 const isNisa=x=>['nisa','oldNisa','juniorNisa'].includes(x);
 
 function normalizeTax(v){
@@ -41,7 +41,7 @@ function saveLots(){LOTS.length?localStorage.setItem(LOTS_KEY,JSON.stringify(LOT
 function invalidateLots(symbol){const n=LOTS.length;LOTS=LOTS.filter(x=>x.symbol!==symbol);if(LOTS.length!==n)saveLots()}
 function taxMatches(x){
   if(taxFilter==='all')return true;
-  if(taxFilter==='nisa')return isNisa(x.tax);
+  if(taxFilter==='nisa')return x.tax==='nisa';
   if(taxFilter==='specific')return x.tax==='specific';
   if(taxFilter==='unknown')return x.tax==='unknown';
   return x.tax===taxFilter;
@@ -72,18 +72,22 @@ function ownerSummary(symbol){
 }
 function taxSummary(symbol){
   if(!LOTS.length)return'';
-  const a={nisa:0,specific:0,unknown:0,other:0};
+  const a={nisa:0,oldNisa:0,juniorNisa:0,specific:0,unknown:0,other:0};
   for(const l of LOTS.filter(x=>x.symbol===symbol)){
-    if(isNisa(l.tax))a.nisa+=l.shares;
+    if(l.tax==='nisa')a.nisa+=l.shares;
+    else if(l.tax==='oldNisa')a.oldNisa+=l.shares;
+    else if(l.tax==='juniorNisa')a.juniorNisa+=l.shares;
     else if(l.tax==='specific')a.specific+=l.shares;
     else if(l.tax==='unknown')a.unknown+=l.shares;
     else a.other+=l.shares
   }
   const out=[];
   if(a.nisa)out.push(`NISA ${nf(a.nisa,3)}株`);
+  if(a.oldNisa)out.push(`旧NISA ${nf(a.oldNisa,3)}株`);
+  if(a.juniorNisa)out.push(`ジュニアNISA ${nf(a.juniorNisa,3)}株`);
   if(a.specific)out.push(`特定 ${nf(a.specific,3)}株`);
   if(a.other)out.push(`一般 ${nf(a.other,3)}株`);
-  if(a.unknown)out.push(`未確認 ${nf(a.unknown,3)}株`);
+  if(a.unknown)out.push(`区分未判定 ${nf(a.unknown,3)}株`);
   return out.join(' · ')
 }
 
@@ -101,7 +105,7 @@ function inject(){
 .lot-row.head{border:0;padding:0 10px;color:var(--muted);font-size:10px}.lot-cell{font-size:12px;font-weight:750}.lot-cell.num{text-align:right;font-variant-numeric:tabular-nums}.lot-owner{font-weight:900}
 .taxbadge{display:inline-flex;align-items:center;border-radius:999px;padding:3px 7px;font-size:10px;font-weight:850;background:#eef4ff;color:#174ea6}
 .taxbadge.specific{background:#f0f1f2;color:#45484d}.taxbadge.unknown{background:#fff4e5;color:#8a4b00}.taxbadge.oldNisa,.taxbadge.juniorNisa{background:#eaf7ed;color:#137333}
-.lot-note{font-size:11px;color:var(--muted);line-height:1.5;margin-top:10px}
+.lot-note{font-size:11px;color:var(--muted);line-height:1.5;margin-top:10px}.junior-account-note{font-size:11px;color:var(--muted);line-height:1.5;margin-top:9px;padding-top:8px;border-top:1px solid var(--line)}
 .apple-look .account-filters{background:#111113;border-color:#29292d}.apple-look .fchip{background:#1c1c1e;border-color:#34343a;color:#ddd}.apple-look .fchip.on{background:#f5f5f7;color:#111;border-color:#f5f5f7}.apple-look .lotbtn small{color:#64a8ff}.apple-look .lot-row{border-color:#34343a}.apple-look .modal{background:#1c1c1e;color:#f5f5f7}.apple-look .lot-note{color:#98989f}
 @media(max-width:800px){
 .account-filters{padding:9px}.filter-label{width:100%;min-width:0}.lot-status{width:100%;margin-left:0}.fchip{font-size:12px;padding:7px 10px}
@@ -120,16 +124,17 @@ function inject(){
   <button class="fchip" data-broker="all">全口座</button><button class="fchip" data-broker="SBI">SBI</button><button class="fchip" data-broker="eSmart">eスマート</button>
  </div>
  <div class="filter-row"><div class="filter-label">口座区分</div>
-  <button class="fchip" data-tax="all">すべて</button><button class="fchip" data-tax="nisa">NISA</button><button class="fchip" data-tax="specific">特定</button><button class="fchip" data-tax="unknown">未確認</button>
+  <button class="fchip" data-tax="all">すべて</button><button class="fchip" data-tax="nisa">NISA</button><button class="fchip" data-tax="oldNisa">旧NISA</button><button class="fchip" data-tax="juniorNisa">ジュニアNISA</button><button class="fchip" data-tax="specific">特定</button><button class="fchip" data-tax="unknown">区分未判定</button>
   <div class="lot-status" id="lotStatus"></div>
  </div>
+ <div class="junior-account-note"><b>ジュニアNISA口座：</b> MIK・RIN はSBI証券に口座あり。銘柄ごとの所属が資料で確認できないものは「区分未判定」と表示します。</div>
 </section>`)
   }
   if(!document.getElementById('lotBack')){
     document.getElementById('toast')?.insertAdjacentHTML('beforebegin',`
 <div class="back" id="lotBack"><div class="modal">
  <h2 id="lotTitle">保有内訳</h2><div class="desc" id="lotDesc"></div><div class="lot-table" id="lotTable"></div>
- <div class="lot-note">「NISA」は成長投資枠・旧NISA・ジュニアNISAをまとめて絞り込みます。「未確認」は資料から口座区分を確定できていない明細です。</div>
+ <div class="lot-note">NISA・旧NISA・ジュニアNISA・特定を個別に絞り込めます。「区分未判定」は、保有名義や証券会社は分かるものの、銘柄単位の税区分を資料から確定できていない明細です。</div>
  <div class="actions"><button class="save" id="lotClose">閉じる</button></div>
 </div></div>`)
   }
@@ -189,12 +194,12 @@ render=function(){
 <td><div class="name"><a target="_blank" rel="noopener" href="https://finance.yahoo.co.jp/quote/${encodeURIComponent(h.symbol)}">${esc(h.name||'—')}</a></div><div class="sub">${m.q?esc(m.q.time||'取得済'):'株価未取得'}</div>${os?`<div class="ownerline">${esc(os)}</div>`:''}${ts?`<div class="taxline">${esc(ts)}</div>`:''}</td>
 <td class="price">${m.q?yen(m.q.price,m.q.price<100?2:0):'取得不可'}</td>
 <td class="${cl(m.d)}">${sg(m.d,m.q?.price<100?2:0)}<div class="sub ${cl(m.dp)}">${sg(m.dp,2,'%')}</div></td>
-<td><button class="lotbtn" onclick="openLots('${esc(h.symbol)}')">${nf(h.shares,3)}株<small>NISA/特定 内訳 ›</small></button></td>
+<td><button class="lotbtn" onclick="openLots('${esc(h.symbol)}')">${nf(h.shares,3)}株<small>口座区分 内訳 ›</small></button></td>
 <td>${yen(h.cost,2)}</td><td>${yen(m.val)}</td><td class="gain ${cl(m.g)}">${ys(m.g)}<div class="sub ${cl(m.gp)}">${sg(m.gp,2,'%')}</div></td>
 <td>${i>=0?`<button class="edit" onclick="openEdit(${i})">編集</button>`:''}</td></tr>`}).join('');
   $('#mobile').innerHTML=r.map(({h,i,m})=>{let os=ownerSummary(h.symbol),ts=taxSummary(h.symbol);return`<div class="mc">
 <div class="mtop"><div class="mn"><a target="_blank" rel="noopener" href="https://finance.yahoo.co.jp/quote/${encodeURIComponent(h.symbol)}">${esc(h.name||h.symbol)}</a><div class="mcode">${esc(h.symbol)} · ${m.q?esc(m.q.time||'取得済'):'株価未取得'}</div>${os?`<div class="ownerline">${esc(os)}</div>`:''}${ts?`<div class="taxline">${esc(ts)}</div>`:''}</div><div><div class="mp">${m.q?yen(m.q.price,m.q.price<100?2:0):'—'}</div><div class="mchg ${cl(m.d)}">${sg(m.d,m.q?.price<100?2:0)} (${sg(m.dp,2,'%')})</div></div></div>
-<div class="grid"><div><div class="k">保有数</div><button class="lotbtn v" onclick="openLots('${esc(h.symbol)}')">${nf(h.shares,3)}株<small>NISA/特定 内訳 ›</small></button></div><div><div class="k">取得単価</div><div class="v">${yen(h.cost,2)}</div></div><div><div class="k">評価額</div><div class="v">${yen(m.val)}</div></div><div><div class="k">取得額</div><div class="v">${yen(m.acq)}</div></div><div><div class="k">評価損益</div><div class="v ${cl(m.g)}">${ys(m.g)}</div></div><div><div class="k">損益率</div><div class="v ${cl(m.gp)}">${sg(m.gp,2,'%')}</div></div></div>
+<div class="grid"><div><div class="k">保有数</div><button class="lotbtn v" onclick="openLots('${esc(h.symbol)}')">${nf(h.shares,3)}株<small>口座区分 内訳 ›</small></button></div><div><div class="k">取得単価</div><div class="v">${yen(h.cost,2)}</div></div><div><div class="k">評価額</div><div class="v">${yen(m.val)}</div></div><div><div class="k">取得額</div><div class="v">${yen(m.acq)}</div></div><div><div class="k">評価損益</div><div class="v ${cl(m.g)}">${ys(m.g)}</div></div><div><div class="k">損益率</div><div class="v ${cl(m.gp)}">${sg(m.gp,2,'%')}</div></div></div>
 <div style="text-align:right;margin-top:8px">${i>=0?`<button class="edit" onclick="openEdit(${i})">編集</button>`:''}</div></div>`}).join('');
   summary()
 };
