@@ -1,0 +1,59 @@
+name: Patch Junior NISA UI
+
+on:
+  push:
+    paths:
+      - '.github/workflows/patch-junior-nisa-ui.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch account classification UI
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          p = Path('account-filters.js')
+          s = p.read_text(encoding='utf-8')
+
+          replacements = [
+            ("unknown:'未確認'", "unknown:'区分未判定'"),
+            ("const taxLabel=x=>TAX_LABEL[x]||x||'未確認';", "const taxLabel=x=>TAX_LABEL[x]||x||'区分未判定';"),
+            ("if(taxFilter==='nisa')return isNisa(x.tax);", "if(taxFilter==='nisa')return x.tax==='nisa';"),
+            ("const a={nisa:0,specific:0,unknown:0,other:0};", "const a={nisa:0,oldNisa:0,juniorNisa:0,specific:0,unknown:0,other:0};"),
+            ("if(isNisa(l.tax))a.nisa+=l.shares;\n    else if(l.tax==='specific')a.specific+=l.shares;", "if(l.tax==='nisa')a.nisa+=l.shares;\n    else if(l.tax==='oldNisa')a.oldNisa+=l.shares;\n    else if(l.tax==='juniorNisa')a.juniorNisa+=l.shares;\n    else if(l.tax==='specific')a.specific+=l.shares;"),
+            ("if(a.nisa)out.push(`NISA ${nf(a.nisa,3)}株`);\n  if(a.specific)", "if(a.nisa)out.push(`NISA ${nf(a.nisa,3)}株`);\n  if(a.oldNisa)out.push(`旧NISA ${nf(a.oldNisa,3)}株`);\n  if(a.juniorNisa)out.push(`ジュニアNISA ${nf(a.juniorNisa,3)}株`);\n  if(a.specific)"),
+            ("if(a.unknown)out.push(`未確認 ${nf(a.unknown,3)}株`);", "if(a.unknown)out.push(`区分未判定 ${nf(a.unknown,3)}株`);"),
+            ("<button class=\"fchip\" data-tax=\"all\">すべて</button><button class=\"fchip\" data-tax=\"nisa\">NISA</button><button class=\"fchip\" data-tax=\"specific\">特定</button><button class=\"fchip\" data-tax=\"unknown\">未確認</button>", "<button class=\"fchip\" data-tax=\"all\">すべて</button><button class=\"fchip\" data-tax=\"nisa\">NISA</button><button class=\"fchip\" data-tax=\"oldNisa\">旧NISA</button><button class=\"fchip\" data-tax=\"juniorNisa\">ジュニアNISA</button><button class=\"fchip\" data-tax=\"specific\">特定</button><button class=\"fchip\" data-tax=\"unknown\">区分未判定</button>"),
+            ("  <div class=\"lot-status\" id=\"lotStatus\"></div>\n </div>\n</section>", "  <div class=\"lot-status\" id=\"lotStatus\"></div>\n </div>\n <div class=\"junior-account-note\"><b>ジュニアNISA口座：</b> MIK・RIN はSBI証券に口座あり。銘柄ごとの所属が資料で確認できないものは「区分未判定」と表示します。</div>\n</section>"),
+            (".lot-note{font-size:11px;color:var(--muted);line-height:1.5;margin-top:10px}", ".lot-note{font-size:11px;color:var(--muted);line-height:1.5;margin-top:10px}.junior-account-note{font-size:11px;color:var(--muted);line-height:1.5;margin-top:9px;padding-top:8px;border-top:1px solid var(--line)}"),
+            ("「NISA」は成長投資枠・旧NISA・ジュニアNISAをまとめて絞り込みます。「未確認」は資料から口座区分を確定できていない明細です。", "NISA・旧NISA・ジュニアNISA・特定を個別に絞り込めます。「区分未判定」は、保有名義や証券会社は分かるものの、銘柄単位の税区分を資料から確定できていない明細です。"),
+            ("NISA/特定 内訳 ›", "口座区分 内訳 ›"),
+          ]
+
+          for old, new in replacements:
+              if old not in s:
+                  print('warning: pattern not found:', old[:80])
+              s = s.replace(old, new)
+
+          p.write_text(s, encoding='utf-8')
+
+          app = Path('app-v3.html')
+          a = app.read_text(encoding='utf-8')
+          a = a.replace('account-filters.js?v=20260906-tax2', 'account-filters.js?v=20260906-junior-nisa')
+          app.write_text(a, encoding='utf-8')
+          PY
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add account-filters.js app-v3.html
+          if ! git diff --cached --quiet; then
+            git commit -m "feat: add Junior NISA classification filters [skip ci]"
+            git push origin HEAD:main
+          fi
