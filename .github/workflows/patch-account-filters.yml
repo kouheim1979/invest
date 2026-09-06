@@ -1,4 +1,4 @@
-name: Patch account ownership filters
+name: Bump NISA filter cache
 
 on:
   push:
@@ -15,27 +15,28 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: main
-      - name: Attach account filters module
+      - name: Bump app cache keys
         shell: bash
         run: |
           python - <<'PY'
           from pathlib import Path
           import re
-          p = Path('app-v3.html')
-          s = p.read_text(encoding='utf-8')
-          tag = '<script src="./account-filters.js?v=20260906-1"></script>'
-          if 'account-filters.js' not in s:
-              s = s.replace('</body>', tag + '</body>', 1)
-          p.write_text(s, encoding='utf-8')
-          i = Path('index.html')
-          t = i.read_text(encoding='utf-8')
-          t = re.sub(r'app-v3\.html\?v=[^\"\'<]+', 'app-v3.html?v=20260906-account-filters', t)
-          i.write_text(t, encoding='utf-8')
+
+          app = Path('app-v3.html')
+          s = app.read_text(encoding='utf-8')
+          s = re.sub(r'account-filters\.js\?v=[^"\']+', 'account-filters.js?v=20260906-tax2', s)
+          app.write_text(s, encoding='utf-8')
+
+          idx = Path('index.html')
+          t = idx.read_text(encoding='utf-8')
+          t = re.sub(r'app-v3\.html\?v=[^"\']+', 'app-v3.html?v=20260906-tax2', t)
+          idx.write_text(t, encoding='utf-8')
           PY
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add app-v3.html index.html
           if ! git diff --cached --quiet; then
-            git commit -m "Enable owner and brokerage account filters"
+            git commit -m "chore: refresh NISA filter assets"
+            git pull --rebase origin main
             git push origin HEAD:main
           fi
