@@ -1,0 +1,50 @@
+name: Patch live quote refresh
+
+on:
+  push:
+    paths:
+      - '.github/workflows/patch-live-quotes.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Patch app auto refresh
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          p = Path('app-v3.html')
+          s = p.read_text(encoding='utf-8')
+
+          old = "async function readQuotes(){const stamp=Date.now(),urls=[`./quotes.json?ts=${stamp}`,`https://raw.githubusercontent.com/kouheim1979/invest/main/quotes.json?ts=${stamp}`];"
+          new = "async function readQuotes(){const stamp=Date.now(),urls=[`https://raw.githubusercontent.com/kouheim1979/invest/main/quotes.json?ts=${stamp}`,`./quotes.json?ts=${stamp}`];"
+          if old not in s:
+              raise SystemExit('readQuotes pattern not found')
+          s = s.replace(old, new, 1)
+
+          old2 = "window.openEdit=openEdit;applyView();load();refresh();"
+          new2 = "window.openEdit=openEdit;applyView();load();refresh();setInterval(()=>{if(!document.hidden)refresh()},60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh()});"
+          if old2 not in s:
+              raise SystemExit('startup pattern not found')
+          s = s.replace(old2, new2, 1)
+          p.write_text(s, encoding='utf-8')
+
+          i = Path('index.html')
+          t = i.read_text(encoding='utf-8')
+          t = t.replace('app-v3.html?v=20260906-tax2','app-v3.html?v=20260907-livequotes')
+          i.write_text(t, encoding='utf-8')
+          PY
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add app-v3.html index.html
+          git commit -m "fix: restore intraday quote updates [skip ci]"
+          git push origin HEAD:main
