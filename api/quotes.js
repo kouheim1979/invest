@@ -8,7 +8,8 @@ const SYMBOLS = [
 const UA = 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 Version/18.0 Mobile/15E148 Safari/604.1';
 
 function finite(v) {
-  const n = Number(String(v ?? '').replace(/,/g, ''));
+  if (v == null || typeof v === 'boolean' || String(v).trim() === '') return null;
+  const n = Number(String(v).replace(/,/g, ''));
   return Number.isFinite(n) ? n : null;
 }
 
@@ -22,7 +23,7 @@ function jstTime(ts) {
 
 async function fetchNomuraRizap() {
   const url = 'https://quote.nomura.co.jp/nomura/cgi-bin/parser.pl?MKTN=S&QCODE=2928&TEMPLATE=nomura_tp_kabu_01';
-  const r = await fetch(url, { headers: { 'User-Agent': UA }, cache: 'no-store' });
+  const r = await fetch(url, { headers: { 'User-Agent': UA }, cache: 'no-store', signal: AbortSignal.timeout(7000) });
   if (!r.ok) throw new Error(`Nomura HTTP ${r.status}`);
   const buf = Buffer.from(await r.arrayBuffer());
   let text;
@@ -38,7 +39,9 @@ async function fetchNomuraRizap() {
   const price = pm ? finite(pm[1]) : null;
   const prev = vm ? finite(vm[1]) : null;
   if (price == null) throw new Error('RIZAP current price not found');
-  return { price, prev, time: jstTime() };
+  const tm = text.match(/(?:現在値|現在価格)[\s\S]{0,200}?(\d{1,2})\/(\d{1,2})\s+(\d{1,2}):(\d{2})/);
+  const time = tm ? `${tm[1].padStart(2, '0')}/${tm[2].padStart(2, '0')} ${tm[3].padStart(2, '0')}:${tm[4]}` : '配信時刻不明';
+  return { price, prev, time, marketTime: null };
 }
 
 async function fetchYahoo(symbol) {
@@ -48,7 +51,7 @@ async function fetchYahoo(symbol) {
       const url = `https://${host}/v8/finance/chart/${encodeURIComponent(symbol)}?range=5d&interval=1d&includePrePost=false&events=div%2Csplits`;
       const r = await fetch(url, {
         headers: { 'User-Agent': UA, 'Accept': 'application/json' },
-        cache: 'no-store'
+        cache: 'no-store', signal: AbortSignal.timeout(7000)
       });
       if (!r.ok) throw new Error(`Yahoo HTTP ${r.status}`);
       const data = await r.json();
@@ -57,9 +60,14 @@ async function fetchYahoo(symbol) {
       const meta = x.meta || {};
       const closes = (x?.indicators?.quote?.[0]?.close || []).map(finite).filter(v => v != null);
       const price = finite(meta.regularMarketPrice) ?? closes.at(-1) ?? null;
-      const prev = finite(meta.chartPreviousClose) ?? finite(meta.previousClose) ?? (closes.length > 1 ? closes.at(-2) : null);
-      if (price == null) throw new Error('Yahoo no price');
-      return { price, prev, time: jstTime(finite(meta.regularMarketTime)) };
+      const marketTime = finite(meta.regularMarketTime);
+      const day = ts => new Date(ts * 1000 + 9 * 3600000).toISOString().slice(0, 10);
+      const series = (x?.indicators?.quote?.[0]?.close || []);
+      const prior = marketTime ? (x.timestamp || []).map((ts, i) => ({ ts, close: finite(series[i]) })).filter(v => v.close != null && day(v.ts) < day(marketTime)) : [];
+      const prev = finite(meta.previousClose) ?? prior.at(-1)?.close ?? null;
+      if (!(price > 0)) throw new Error('Yahoo no price');
+      if (symbol === '2928.S' && (!marketTime || Date.now() - marketTime * 1000 > 7 * 86400000)) throw new Error('Stale Sapporo quote');
+      return { price, prev, time: marketTime ? jstTime(marketTime) : '配信時刻不明', marketTime };
     } catch (e) {
       lastError = e?.message || String(e);
     }
@@ -83,16 +91,19 @@ module.exports = async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(204).end();
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
 
+  const rawSymbols = req.query?.symbols;
+  const symbols = rawSymbols == null ? SYMBOLS : [...new Set(String(rawSymbols).split(',').map(s => s.trim().toUpperCase()))];
+  if (!symbols.length || symbols.length > 60 || symbols.some(s => !/^[0-9A-Z]{4,6}\.[TS]$/.test(s))) return res.status(400).json({ error: 'Invalid symbols' });
   const quotes = {};
   const failures = {};
-  const results = await Promise.allSettled(SYMBOLS.map(async s => [s, await fetchOne(s)]));
+  const results = await Promise.allSettled(symbols.map(async s => [s, await fetchOne(s)]));
   results.forEach((result, i) => {
-    const s = SYMBOLS[i];
+    const s = symbols[i];
     if (result.status === 'fulfilled') quotes[s] = result.value[1];
     else failures[s] = result.reason?.message || String(result.reason);
   });
 
-  res.status(200).json({
+  res.status(Object.keys(quotes).length ? 200 : 503).json({
     updatedAt: new Date().toISOString(),
     quotes,
     failures,
@@ -100,3 +111,4 @@ module.exports = async function handler(req, res) {
     source: 'serverless-live'
   });
 };
+

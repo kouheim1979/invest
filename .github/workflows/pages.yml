@@ -13,8 +13,8 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
-  cancel-in-progress: true
+  group: portfolio-publish
+  cancel-in-progress: false
 
 jobs:
   deploy:
@@ -29,6 +29,7 @@ jobs:
           fetch-depth: 0
 
       - name: Fetch current quotes
+        continue-on-error: true
         shell: bash
         run: |
           python3 - <<'PY'
@@ -75,7 +76,7 @@ jobs:
               prev = finite(vm.group(1)) if vm else None
               if price is None:
                   raise RuntimeError('RIZAP current price not found')
-              return {'price':price,'prev':prev,'time':datetime.now(JST).strftime('%m/%d %H:%M')}
+              return {'price':price,'prev':prev,'time':'配信時刻不明'}
 
           def fetch(symbol):
               if symbol == '2928.S':
@@ -101,18 +102,20 @@ jobs:
                       price = finite(meta.get('regularMarketPrice'))
                       if price is None and closes:
                           price = closes[-1]
-                      prev = finite(meta.get('chartPreviousClose'))
-                      if prev is None:
-                          prev = finite(meta.get('previousClose'))
-                      if prev is None and len(closes) > 1:
-                          prev = closes[-2]
+                      prev = finite(meta.get('previousClose'))
+                      market_ts = finite(meta.get('regularMarketTime'))
+                      if prev is None and market_ts:
+                          market_day = datetime.fromtimestamp(market_ts, JST).date()
+                          raw_closes = (((r.get('indicators') or {}).get('quote') or [{}])[0].get('close') or [])
+                          prior = [finite(c) for t, c in zip(r.get('timestamp') or [], raw_closes) if finite(c) is not None and datetime.fromtimestamp(t, JST).date() < market_day]
+                          prev = prior[-1] if prior else None
                       if price is None:
                           raise RuntimeError('no price')
                       ts = finite(meta.get('regularMarketTime'))
                       if symbol == '2928.S' and ts and (datetime.now(timezone.utc).timestamp() - ts) > 7*86400:
                           raise RuntimeError('stale Sapporo quote')
-                      qtime = datetime.fromtimestamp(ts, JST).strftime('%m/%d %H:%M') if ts else datetime.now(JST).strftime('%m/%d %H:%M')
-                      return symbol, {'price': price, 'prev': prev, 'time': qtime}
+                      qtime = datetime.fromtimestamp(ts, JST).strftime('%m/%d %H:%M') if ts else '配信時刻不明'
+                      return symbol, {'price': price, 'prev': prev, 'time': qtime, 'marketTime': ts}
                   except Exception as e:
                       last_error = str(e)
               return symbol, {'error': last_error or 'unknown error'}
@@ -127,11 +130,25 @@ jobs:
                   else:
                       failures[symbol] = result.get('error','error')
 
+          try:
+              with open('quotes.json', encoding='utf-8') as fp:
+                  previous = json.load(fp)
+          except (OSError, ValueError):
+              previous = {}
+          fresh_count = len(quotes)
+          for symbol in failures:
+              old = previous.get('quotes', {}).get(symbol)
+              if old and finite(old.get('price')) is not None:
+                  quotes[symbol] = {**old, 'updatedAt': old.get('updatedAt') or previous.get('updatedAt'), 'stale': True}
+          if fresh_count == 0:
+              raise SystemExit('No fresh quotes; existing quotes.json kept unchanged')
+
           out = {
               'updatedAt': datetime.now(timezone.utc).isoformat().replace('+00:00','Z'),
               'quotes': quotes,
               'failures': failures,
-              'count': len(quotes)
+              'count': len(quotes),
+              'freshCount': fresh_count
           }
           with open('quotes.json','w',encoding='utf-8') as fp:
               json.dump(out, fp, ensure_ascii=False, separators=(',',':'))
@@ -148,6 +165,7 @@ jobs:
           git add quotes.json
           if ! git diff --cached --quiet; then
             git commit -m "chore: refresh quotes [skip ci]"
+            git pull --rebase origin main
             git push origin HEAD:main
           else
             echo "quotes.json unchanged"
@@ -162,3 +180,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+

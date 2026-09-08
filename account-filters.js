@@ -20,7 +20,7 @@ function normalizeTax(v){
   return'unknown';
 }
 const normLot=x=>{
-  const shares=Number(x.shares??0),cost=Number(x.cost??0),a=Number(x.amount);
+  const shares=Number(x.shares??0),cost=Number(x.cost??0),a=x.amount==null||x.amount===''?NaN:Number(x.amount);
   return{
     symbol:String(x.symbol||x.code||'').trim().toUpperCase(),
     name:String(x.name||'').trim(),
@@ -58,7 +58,7 @@ function aggregate(ls){
     x.shares+=l.shares;x.amount+=l.amount
   }
   return Object.values(z).filter(x=>x.shares>0).map(x=>({
-    symbol:x.symbol,name:x.name,shares:x.shares,cost:x.amount/x.shares,
+    symbol:x.symbol,name:x.name,shares:x.shares,cost:x.amount/x.shares,amount:x.amount,
     _i:H.findIndex(h=>h.symbol===x.symbol)
   }))
 }
@@ -100,7 +100,7 @@ function inject(){
 .fchip{border:1px solid #d4d9df;background:#f8f9fa;color:#42464b;border-radius:999px;padding:7px 11px;font-size:13px;font-weight:800}
 .fchip.on{background:#202124;color:#fff;border-color:#202124}.lot-status{margin-left:auto;font-size:11px;color:var(--muted)}
 .ownerline,.taxline{font-size:11px;color:var(--muted);margin-top:3px}.taxline{font-weight:750}
-.lotbtn{border:0;background:transparent;color:inherit;font:inherit;font-weight:800;padding:0;text-align:right}.lotbtn small{display:block;font-size:10px;color:#174ea6;margin-top:2px}
+.cost-total{padding:12px;background:#eef4ff;border-radius:10px;font-size:16px}.cost-total b{display:block;font-size:24px;margin-top:4px}.apple-look .cost-total{background:#29292d}.lotbtn{border:0;background:transparent;color:inherit;font:inherit;font-weight:800;padding:0;text-align:right}.lotbtn small{display:block;font-size:10px;color:#174ea6;margin-top:2px}
 .lot-table{display:grid;gap:8px;margin-top:12px}.lot-row{display:grid;grid-template-columns:.9fr 1.05fr 1.05fr .65fr .85fr .95fr;gap:7px;align-items:center;border:1px solid var(--line);border-radius:11px;padding:10px}
 .lot-row.head{border:0;padding:0 10px;color:var(--muted);font-size:10px}.lot-cell{font-size:12px;font-weight:750}.lot-cell.num{text-align:right;font-variant-numeric:tabular-nums}.lot-owner{font-weight:900}
 .taxbadge{display:inline-flex;align-items:center;border-radius:999px;padding:3px 7px;font-size:10px;font-weight:850;background:#eef4ff;color:#174ea6}
@@ -160,7 +160,13 @@ function filterState(){
 function openLots(symbol){
   let ls=LOTS.filter(x=>x.symbol===symbol&&lotMatches(x));
   if(!ls.length&&anyFilter())ls=LOTS.filter(x=>x.symbol===symbol);
-  if(!ls.length)return toast('この銘柄の口座内訳がありません');
+  if(!ls.length){
+    const h=activeHoldings().find(x=>x.symbol===symbol);if(!h)return;
+    $('#lotTitle').textContent=`${h.name||symbol} の取得額`;
+    $('#lotDesc').textContent=`${symbol} · ${nf(h.shares,3)}株`;
+    $('#lotTable').innerHTML=`<div class="cost-total">取得額 <b>${yen(m(h).acq)}</b></div><div>取得単価 ${yen(h.cost,2)} × ${nf(h.shares,3)}株</div><div class="lot-note">この端末には名義・口座別の内訳が登録されていません。</div>`;
+    $('#lotBack').classList.add('on');return
+  }
   const h=H.find(x=>x.symbol===symbol)||ls[0],shares=ls.reduce((s,x)=>s+x.shares,0),amount=ls.reduce((s,x)=>s+x.amount,0);
   $('#lotTitle').textContent=`${h.name||symbol} の保有内訳`;
   $('#lotDesc').textContent=`${symbol} · ${anyFilter()?'表示条件内 ':'全体 '}合計 ${nf(shares,3)}株 · 取得額 ${yen(amount)}`;
@@ -194,12 +200,12 @@ render=function(){
 <td><div class="name"><a target="_blank" rel="noopener" href="https://finance.yahoo.co.jp/quote/${encodeURIComponent(h.symbol)}">${esc(h.name||'—')}</a></div><div class="sub">${m.q?esc(m.q.time||'取得済'):'株価未取得'}</div>${os?`<div class="ownerline">${esc(os)}</div>`:''}${ts?`<div class="taxline">${esc(ts)}</div>`:''}</td>
 <td class="price">${m.q?yen(m.q.price,m.q.price<100?2:0):'取得不可'}</td>
 <td class="${cl(m.d)}">${sg(m.d,m.q?.price<100?2:0)}<div class="sub ${cl(m.dp)}">${sg(m.dp,2,'%')}</div></td>
-<td><button class="lotbtn" onclick="openLots('${esc(h.symbol)}')">${nf(h.shares,3)}株<small>口座区分 内訳 ›</small></button></td>
-<td>${yen(h.cost,2)}</td><td>${yen(m.val)}</td><td class="gain ${cl(m.g)}">${ys(m.g)}<div class="sub ${cl(m.gp)}">${sg(m.gp,2,'%')}</div></td>
+<td><button class="lotbtn" onclick="openLots('${esc(h.symbol)}')">${nf(h.shares,3)}株<small>取得額・口座内訳 ›</small></button></td>
+<td>${yen(h.cost,2)}</td><td class="acquisition">${yen(m.acq)}</td><td>${yen(m.val)}</td><td class="gain ${cl(m.g)}">${ys(m.g)}<div class="sub ${cl(m.gp)}">${sg(m.gp,2,'%')}</div></td>
 <td>${i>=0?`<button class="edit" onclick="openEdit(${i})">編集</button>`:''}</td></tr>`}).join('');
   $('#mobile').innerHTML=r.map(({h,i,m})=>{let os=ownerSummary(h.symbol),ts=taxSummary(h.symbol);return`<div class="mc">
 <div class="mtop"><div class="mn"><a target="_blank" rel="noopener" href="https://finance.yahoo.co.jp/quote/${encodeURIComponent(h.symbol)}">${esc(h.name||h.symbol)}</a><div class="mcode">${esc(h.symbol)} · ${m.q?esc(m.q.time||'取得済'):'株価未取得'}</div>${os?`<div class="ownerline">${esc(os)}</div>`:''}${ts?`<div class="taxline">${esc(ts)}</div>`:''}</div><div><div class="mp">${m.q?yen(m.q.price,m.q.price<100?2:0):'—'}</div><div class="mchg ${cl(m.d)}">${sg(m.d,m.q?.price<100?2:0)} (${sg(m.dp,2,'%')})</div></div></div>
-<div class="grid"><div><div class="k">保有数</div><button class="lotbtn v" onclick="openLots('${esc(h.symbol)}')">${nf(h.shares,3)}株<small>口座区分 内訳 ›</small></button></div><div><div class="k">取得単価</div><div class="v">${yen(h.cost,2)}</div></div><div><div class="k">評価額</div><div class="v">${yen(m.val)}</div></div><div><div class="k">取得額</div><div class="v">${yen(m.acq)}</div></div><div><div class="k">評価損益</div><div class="v ${cl(m.g)}">${ys(m.g)}</div></div><div><div class="k">損益率</div><div class="v ${cl(m.gp)}">${sg(m.gp,2,'%')}</div></div></div>
+<div class="grid"><div><div class="k">保有数</div><button class="lotbtn v" onclick="openLots('${esc(h.symbol)}')">${nf(h.shares,3)}株<small>取得額・口座内訳 ›</small></button></div><div><div class="k">取得単価</div><div class="v">${yen(h.cost,2)}</div></div><div><div class="k">評価額</div><div class="v">${yen(m.val)}</div></div><div><div class="k">取得額</div><div class="v acquisition">${yen(m.acq)}</div></div><div><div class="k">評価損益</div><div class="v ${cl(m.g)}">${ys(m.g)}</div></div><div><div class="k">損益率</div><div class="v ${cl(m.gp)}">${sg(m.gp,2,'%')}</div></div></div>
 <div style="text-align:right;margin-top:8px">${i>=0?`<button class="edit" onclick="openEdit(${i})">編集</button>`:''}</div></div>`}).join('');
   summary()
 };
@@ -222,12 +228,12 @@ doImport=function(){
   }catch(e){
     if($('#importJson').value.trim().startsWith('{'))return toast(`JSONを読み込めません: ${e.message||'形式を確認してください'}`)
   }
-  oldImport()
+  if(oldImport()===true){LOTS=[];saveLots();ownerFilter=brokerFilter=taxFilter='all';render()}
 };
 const baseSave=doSave;
-doSave=function(){const old=editing>=0?H[editing]?.symbol:null,sym=String($('#fSymbol').value||'').trim().toUpperCase();baseSave();if(old)invalidateLots(old);if(sym)invalidateLots(sym);filterState()};
+doSave=function(){const old=editing>=0?H[editing]?.symbol:null,sym=String($('#fSymbol').value||'').trim().toUpperCase();if(baseSave()===false)return;if(old)invalidateLots(old);if(sym)invalidateLots(sym);render()};
 const baseDel=doDel;
-doDel=function(){const sym=editing>=0?H[editing]?.symbol:null;baseDel();if(sym)invalidateLots(sym);filterState()};
+doDel=function(){const sym=editing>=0?H[editing]?.symbol:null;if(baseDel()===false)return;if(sym)invalidateLots(sym);render()};
 
 loadLots();inject();filterState();
 $('#importDo').onclick=doImport;$('#save').onclick=doSave;$('#del').onclick=doDel;$('#search').oninput=render;$('#sort').onchange=render;
