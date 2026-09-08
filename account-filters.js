@@ -1,6 +1,7 @@
 (()=>{
 const LOTS_KEY='kouheim_portfolio_lots_v1';
 let LOTS=[],ownerFilter='all',brokerFilter='all',taxFilter='all';
+const lotEdits=new Map();
 const OWNER_LABEL={OTS:'本人',OKS:'妻',MIK:'MIK',RIN:'RIN'};
 const TAX_LABEL={specific:'特定',nisa:'NISA',oldNisa:'旧NISA',juniorNisa:'ジュニアNISA',general:'一般',unknown:'区分未判定'};
 const ownerLabel=x=>OWNER_LABEL[x]||x||'—';
@@ -101,8 +102,9 @@ function inject(){
 .fchip.on{background:#202124;color:#fff;border-color:#202124}.lot-status{margin-left:auto;font-size:11px;color:var(--muted)}
 .ownerline,.taxline{font-size:11px;color:var(--muted);margin-top:3px}.taxline{font-weight:750}
 .cost-total{padding:12px;background:#eef4ff;border-radius:10px;font-size:16px}.cost-total b{display:block;font-size:24px;margin-top:4px}.apple-look .cost-total{background:#29292d}.lotbtn{border:0;background:transparent;color:inherit;font:inherit;font-weight:800;padding:0;text-align:right}.lotbtn small{display:block;font-size:10px;color:#174ea6;margin-top:2px}
-.lot-table{display:grid;gap:8px;margin-top:12px}.lot-row{display:grid;grid-template-columns:.9fr 1.05fr 1.05fr .65fr .85fr .95fr;gap:7px;align-items:center;border:1px solid var(--line);border-radius:11px;padding:10px}
+.lot-modal{width:min(780px,100%)}.lot-table{display:grid;gap:8px;margin-top:12px}.lot-row{display:grid;grid-template-columns:.7fr .8fr minmax(140px,1.4fr) .7fr .95fr 1.05fr;gap:7px;align-items:center;border:1px solid var(--line);border-radius:11px;padding:10px}
 .lot-row.head{border:0;padding:0 10px;color:var(--muted);font-size:10px}.lot-cell{font-size:12px;font-weight:750}.lot-cell.num{text-align:right;font-variant-numeric:tabular-nums}.lot-owner{font-weight:900}
+.lot-tax-select{width:100%;min-width:0;border-radius:8px;padding:10px 6px;font-size:12px}.lot-tax-select:focus-visible{outline:2px solid var(--b);outline-offset:2px}.lot-actions{position:sticky;bottom:0;padding-top:10px;background:#fff}.lot-actions button:disabled{opacity:.45;cursor:default}.apple-look .lot-actions{background:#1c1c1e}.apple-look .lot-tax-select{background:#29292d;border-color:#48484e;color:#f5f5f7}
 .taxbadge{display:inline-flex;align-items:center;border-radius:999px;padding:3px 7px;font-size:10px;font-weight:850;background:#eef4ff;color:#174ea6}
 .taxbadge.specific{background:#f0f1f2;color:#45484d}.taxbadge.unknown{background:#fff4e5;color:#8a4b00}.taxbadge.oldNisa,.taxbadge.juniorNisa{background:#eaf7ed;color:#137333}
 .lot-note{font-size:11px;color:var(--muted);line-height:1.5;margin-top:10px}.junior-account-note{font-size:11px;color:var(--muted);line-height:1.5;margin-top:9px;padding-top:8px;border-top:1px solid var(--line)}
@@ -124,7 +126,7 @@ function inject(){
   <button class="fchip" data-broker="all">全口座</button><button class="fchip" data-broker="SBI">SBI</button><button class="fchip" data-broker="eSmart">eスマート</button>
  </div>
  <div class="filter-row"><div class="filter-label">口座区分</div>
-  <button class="fchip" data-tax="all">すべて</button><button class="fchip" data-tax="nisa">NISA</button><button class="fchip" data-tax="oldNisa">旧NISA</button><button class="fchip" data-tax="juniorNisa">ジュニアNISA</button><button class="fchip" data-tax="specific">特定</button><button class="fchip" data-tax="unknown">区分未判定</button>
+  <button class="fchip" data-tax="all">すべて</button><button class="fchip" data-tax="nisa">NISA</button><button class="fchip" data-tax="oldNisa">旧NISA</button><button class="fchip" data-tax="juniorNisa">ジュニアNISA</button><button class="fchip" data-tax="specific">特定</button><button class="fchip" data-tax="general">一般</button><button class="fchip" data-tax="unknown">区分未判定</button>
   <div class="lot-status" id="lotStatus"></div>
  </div>
  <div class="junior-account-note"><b>ジュニアNISA口座：</b> MIK・RIN はSBI証券に口座あり。銘柄ごとの所属が資料で確認できないものは「区分未判定」と表示します。</div>
@@ -132,17 +134,38 @@ function inject(){
   }
   if(!document.getElementById('lotBack')){
     document.getElementById('toast')?.insertAdjacentHTML('beforebegin',`
-<div class="back" id="lotBack"><div class="modal">
+<div class="back" id="lotBack"><div class="modal lot-modal" role="dialog" aria-modal="true" aria-labelledby="lotTitle">
  <h2 id="lotTitle">保有内訳</h2><div class="desc" id="lotDesc"></div><div class="lot-table" id="lotTable"></div>
- <div class="lot-note">NISA・旧NISA・ジュニアNISA・特定を個別に絞り込めます。「区分未判定」は、保有名義や証券会社は分かるものの、銘柄単位の税区分を資料から確定できていない明細です。</div>
- <div class="actions"><button class="save" id="lotClose">閉じる</button></div>
+ <div class="lot-note" id="lotEditNote">各明細の口座区分を選び、「変更を保存」で確定します。保存した区分は一覧・絞り込みにも反映されます。</div>
+ <div class="actions lot-actions"><button id="lotClose">キャンセル</button><button class="save" id="lotSave" disabled>変更を保存</button></div>
 </div></div>`)
   }
   document.querySelectorAll('[data-owner]').forEach(b=>b.onclick=()=>{if(!LOTS.length&&b.dataset.owner!=='all')return toast('口座内訳入りのファイルを読み込んでください');ownerFilter=b.dataset.owner;render()});
   document.querySelectorAll('[data-broker]').forEach(b=>b.onclick=()=>{if(!LOTS.length&&b.dataset.broker!=='all')return toast('口座内訳入りのファイルを読み込んでください');brokerFilter=b.dataset.broker;render()});
   document.querySelectorAll('[data-tax]').forEach(b=>b.onclick=()=>{if(!LOTS.length&&b.dataset.tax!=='all')return toast('NISA/特定入りのファイルを読み込んでください');taxFilter=b.dataset.tax;render()});
-  $('#lotClose').onclick=()=>$('#lotBack').classList.remove('on');
-  $('#lotBack').onclick=e=>{if(e.target===$('#lotBack'))$('#lotBack').classList.remove('on')}
+  $('#lotClose').onclick=closeLots;
+  $('#lotSave').onclick=saveLotTaxes;
+  $('#lotTable').onchange=e=>{
+    if(e.target.dataset.lotIndex===undefined)return;
+    const row=lotEdits.get(Number(e.target.dataset.lotIndex)),tax=e.target.value;
+    if(!row||!Object.hasOwn(TAX_LABEL,tax))return;
+    row.tax=tax;
+    $('#lotSave').disabled=![...lotEdits.values()].some(x=>x.tax!==x.lot.tax)
+  };
+  $('#lotBack').onclick=e=>{if(e.target===$('#lotBack'))closeLots()};
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLots()})
+}
+function closeLots(){lotEdits.clear();$('#lotBack').classList.remove('on')}
+function saveLotTaxes(){
+  const changed=[...lotEdits].filter(([,row])=>row.tax!==row.lot.tax);
+  if(!changed.length)return false;
+  if([...lotEdits].some(([i,row])=>LOTS[i]!==row.lot)){
+    toast('内訳が更新されています。一度閉じて、開き直してください');return false
+  }
+  const next=LOTS.map((lot,i)=>lotEdits.has(i)?{...lot,tax:lotEdits.get(i).tax}:lot);
+  try{localStorage.setItem(LOTS_KEY,JSON.stringify(next))}
+  catch{toast('保存できませんでした。変更内容は残っています。もう一度保存してください');return false}
+  LOTS=next;closeLots();render();toast(`${changed.length}明細の口座区分を保存しました`);return true
 }
 function filterState(){
   document.querySelectorAll('[data-owner]').forEach(b=>b.classList.toggle('on',b.dataset.owner===ownerFilter));
@@ -158,8 +181,13 @@ function filterState(){
   }
 }
 function openLots(symbol){
+  lotEdits.clear();
+  $('#lotSave').disabled=true;
   let ls=LOTS.filter(x=>x.symbol===symbol&&lotMatches(x));
   if(!ls.length&&anyFilter())ls=LOTS.filter(x=>x.symbol===symbol);
+  $('#lotSave').hidden=!ls.length;
+  $('#lotEditNote').hidden=!ls.length;
+  $('#lotClose').textContent=ls.length?'キャンセル':'閉じる';
   if(!ls.length){
     const h=activeHoldings().find(x=>x.symbol===symbol);if(!h)return;
     $('#lotTitle').textContent=`${h.name||symbol} の取得額`;
@@ -171,7 +199,12 @@ function openLots(symbol){
   $('#lotTitle').textContent=`${h.name||symbol} の保有内訳`;
   $('#lotDesc').textContent=`${symbol} · ${anyFilter()?'表示条件内 ':'全体 '}合計 ${nf(shares,3)}株 · 取得額 ${yen(amount)}`;
   $('#lotTable').innerHTML=`<div class="lot-row head"><div>名義</div><div>証券会社</div><div>口座区分</div><div style="text-align:right">株数</div><div style="text-align:right">取得単価</div><div style="text-align:right">取得額</div></div>`+
-    ls.map(l=>`<div class="lot-row"><div class="lot-cell lot-owner">${esc(ownerLabel(l.owner))}</div><div class="lot-cell">${esc(brokerLabel(l.broker))}</div><div class="lot-cell"><span class="taxbadge ${esc(l.tax)}">${esc(taxLabel(l.tax))}</span></div><div class="lot-cell num">${nf(l.shares,3)}株</div><div class="lot-cell num">${yen(l.cost,2)}</div><div class="lot-cell num">${yen(l.amount)}</div></div>`).join('');
+    ls.map((l,row)=>{
+      const index=LOTS.indexOf(l);lotEdits.set(index,{lot:l,tax:l.tax});
+      const label=`明細${row+1} ${ownerLabel(l.owner)} ${brokerLabel(l.broker)} ${nf(l.shares,3)}株 取得単価${yen(l.cost,2)}の口座区分`;
+      const options=Object.entries(TAX_LABEL).map(([tax,name])=>`<option value="${tax}"${tax===l.tax?' selected':''}>${esc(name)}</option>`).join('');
+      return`<div class="lot-row"><div class="lot-cell lot-owner">${esc(ownerLabel(l.owner))}</div><div class="lot-cell">${esc(brokerLabel(l.broker))}</div><div class="lot-cell"><select class="lot-tax-select" data-lot-index="${index}" aria-label="${esc(label)}">${options}</select></div><div class="lot-cell num">${nf(l.shares,3)}株</div><div class="lot-cell num">${yen(l.cost,2)}</div><div class="lot-cell num">${yen(l.amount)}</div></div>`
+    }).join('');
   $('#lotBack').classList.add('on')
 }
 window.openLots=openLots;

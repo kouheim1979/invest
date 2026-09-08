@@ -74,6 +74,7 @@ test('desktop/mobile show acquisition amount without quotes; details open withou
   assert.match(a.nodes.get('mobile').innerHTML, /取得額<\/div><div class="v acquisition">￥100,001/);
   a.run("openLots('8306.T')");
   assert.match(a.nodes.get('lotTable').innerHTML, /￥100,001/);
+  assert.equal(a.nodes.get('lotSave').hidden, true);
   assert.match(a.nodes.get('status').textContent, /更新失敗/);
 });
 
@@ -99,6 +100,83 @@ test('null amount falls back to shares times cost in account detail', async () =
   const a = app({ lots: [{ symbol: '8306.T', owner: 'OTS', broker: 'SBI', tax: 'nisa', shares: 60, cost: 1000, amount: null }] });
   await a.ready(); a.nodes.get('owner:OTS').onclick();
   assert.equal(a.nodes.get('sCost').textContent, '￥60,000');
+});
+
+function selectTax(a, index, value) {
+  a.nodes.get('lotTable').onchange({ target: { dataset: { lotIndex: String(index) }, value } });
+}
+
+test('changing a filtered lot updates only that row and survives reload without changing acquisition amounts', async () => {
+  const lots = [
+    { symbol: '8306.T', owner: 'OTS', broker: 'SBI', tax: 'nisa', shares: 60, cost: 1000, amount: 60001 },
+    { symbol: '8306.T', owner: 'OTS', broker: 'SBI', tax: 'unknown', shares: 20, cost: 1000, amount: 20000 },
+    { symbol: '8306.T', owner: 'OKS', broker: 'SBI', tax: 'unknown', shares: 20, cost: 1000, amount: 20000 },
+  ];
+  const a = app({ lots }); await a.ready();
+  const originalHoldings = a.storage.get('kouheim_portfolio_v2');
+  a.nodes.get('owner:OTS').onclick(); a.nodes.get('tax:unknown').onclick();
+  a.run("openLots('8306.T')");
+  assert.match(a.nodes.get('lotTable').innerHTML, /data-lot-index="1"/);
+  assert.doesNotMatch(a.nodes.get('lotTable').innerHTML, /data-lot-index="[02]"/);
+  selectTax(a, 1, 'specific');
+  assert.equal(JSON.parse(a.storage.get('kouheim_portfolio_lots_v1'))[1].tax, 'unknown');
+  assert.equal(a.nodes.get('lotSave').disabled, false);
+  assert.equal(a.nodes.get('lotSave').onclick(), true);
+  const saved = JSON.parse(a.storage.get('kouheim_portfolio_lots_v1'));
+  assert.deepEqual(saved.map(x => x.tax), ['nisa', 'specific', 'unknown']);
+  for (let i = 0; i < lots.length; i++) assert.deepEqual({ ...saved[i], tax: lots[i].tax, name: undefined }, { ...lots[i], name: undefined });
+  assert.equal(a.storage.get('kouheim_portfolio_v2'), originalHoldings);
+  assert.equal(a.nodes.get('body').innerHTML, '');
+  a.nodes.get('tax:specific').onclick();
+  assert.equal(a.nodes.get('sCost').textContent, '￥20,000');
+  assert.match(a.nodes.get('lotStatus').textContent, /区分確認済み 2\/3/);
+  const reloaded = app({ lots: saved, holdings: JSON.parse(originalHoldings) }); await reloaded.ready();
+  assert.equal(reloaded.nodes.get('sCost').textContent, '￥100,001');
+  reloaded.nodes.get('tax:specific').onclick();
+  assert.equal(reloaded.nodes.get('sCost').textContent, '￥20,000');
+});
+
+test('cancelled account edits are discarded and unchanged selections cannot be saved', async () => {
+  const a = app({ lots: [{ symbol: '8306.T', owner: 'OTS', broker: 'SBI', tax: 'unknown', shares: 100, cost: 1000 }] });
+  await a.ready();
+  const original = a.storage.get('kouheim_portfolio_lots_v1');
+  a.run("openLots('8306.T')");
+  assert.equal(a.nodes.get('lotSave').disabled, true);
+  selectTax(a, 0, 'nisa'); selectTax(a, 0, 'unknown');
+  assert.equal(a.nodes.get('lotSave').disabled, true);
+  selectTax(a, 0, 'nisa'); a.nodes.get('lotClose').onclick();
+  assert.equal(a.storage.get('kouheim_portfolio_lots_v1'), original);
+  a.run("openLots('8306.T')");
+  assert.match(a.nodes.get('lotTable').innerHTML, /value="unknown" selected/);
+  assert.equal(a.nodes.get('lotSave').disabled, true);
+});
+
+test('multiple rows can be saved together and general accounts can be filtered', async () => {
+  const a = app({ lots: [
+    { symbol: '8306.T', owner: 'OTS', broker: 'SBI', tax: 'unknown', shares: 60, cost: 1000, amount: 60001 },
+    { symbol: '8306.T', owner: 'MIK', broker: 'SBI', tax: 'unknown', shares: 40, cost: 1000, amount: 40000 },
+  ] }); await a.ready(); a.run("openLots('8306.T')");
+  selectTax(a, 0, 'general'); selectTax(a, 1, 'juniorNisa');
+  assert.equal(a.nodes.get('lotSave').onclick(), true);
+  assert.deepEqual(JSON.parse(a.storage.get('kouheim_portfolio_lots_v1')).map(x => x.tax), ['general', 'juniorNisa']);
+  a.nodes.get('tax:general').onclick();
+  assert.equal(a.nodes.get('sCost').textContent, '￥60,001');
+  a.nodes.get('tax:juniorNisa').onclick();
+  assert.equal(a.nodes.get('sCost').textContent, '￥40,000');
+});
+
+test('failed storage keeps edits available for retry and leaves saved account data intact', async () => {
+  const a = app({ lots: [{ symbol: '8306.T', owner: 'OTS', broker: 'SBI', tax: 'unknown', shares: 100, cost: 1000 }] });
+  await a.ready(); a.run("openLots('8306.T')"); selectTax(a, 0, 'oldNisa');
+  const original = a.storage.get('kouheim_portfolio_lots_v1'), setItem = a.context.localStorage.setItem;
+  a.context.localStorage.setItem = () => { throw Error('storage full'); };
+  assert.equal(a.nodes.get('lotSave').onclick(), false);
+  assert.equal(a.storage.get('kouheim_portfolio_lots_v1'), original);
+  assert.match(a.nodes.get('toast').textContent, /保存できませんでした/);
+  assert.equal(a.nodes.get('lotSave').disabled, false);
+  a.context.localStorage.setItem = setItem;
+  assert.equal(a.nodes.get('lotSave').onclick(), true);
+  assert.equal(JSON.parse(a.storage.get('kouheim_portfolio_lots_v1'))[0].tax, 'oldNisa');
 });
 
 test('missing previous close stays missing; bad prices do not turn into zero', async () => {
@@ -162,6 +240,6 @@ test('API previous close uses the prior session, not the start of a five-day cha
 });
 
 test('legacy app and import links use current page and account-aware importer', () => {
-  assert.match(read('app.html'), /app-v3.html\?v=20260908-quotes-cost/);
-  assert.match(read('import.html'), /app-v3.html\?v=20260908-quotes-cost#import/);
+  assert.match(read('app.html'), /app-v3.html\?v=20260908-tax-edit/);
+  assert.match(read('import.html'), /app-v3.html\?v=20260908-tax-edit#import/);
 });
