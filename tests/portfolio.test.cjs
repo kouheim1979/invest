@@ -240,6 +240,6 @@ test('API previous close uses the prior session, not the start of a five-day cha
 });
 
 test('legacy app and import links use current page and account-aware importer', () => {
-  assert.match(read('app.html'), /app-v3.html\?v=20260908-tax-edit/);
-  assert.match(read('import.html'), /app-v3.html\?v=20260908-tax-edit#import/);
+  assert.match(read('app.html'), /app-v3.html\?v=20260909-chart-widget/);
+  assert.match(read('import.html'), /app-v3.html\?v=20260909-chart-widget#import/);
 });

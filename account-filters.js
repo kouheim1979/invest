@@ -235,11 +235,11 @@ render=function(){
 <td class="${cl(m.d)}">${sg(m.d,m.q?.price<100?2:0)}<div class="sub ${cl(m.dp)}">${sg(m.dp,2,'%')}</div></td>
 <td><button class="lotbtn" onclick="openLots('${esc(h.symbol)}')">${nf(h.shares,3)}株<small>取得額・口座内訳 ›</small></button></td>
 <td>${yen(h.cost,2)}</td><td class="acquisition">${yen(m.acq)}</td><td>${yen(m.val)}</td><td class="gain ${cl(m.g)}">${ys(m.g)}<div class="sub ${cl(m.gp)}">${sg(m.gp,2,'%')}</div></td>
-<td>${i>=0?`<button class="edit" onclick="openEdit(${i})">編集</button>`:''}</td></tr>`}).join('');
+<td>${i>=0?`<button class="edit chart-btn" onclick="openChart('${esc(h.symbol)}')">チャート</button><button class="edit" onclick="openEdit(${i})">編集</button>`:''}</td></tr>`}).join('');
   $('#mobile').innerHTML=r.map(({h,i,m})=>{let os=ownerSummary(h.symbol),ts=taxSummary(h.symbol);return`<div class="mc">
 <div class="mtop"><div class="mn"><a target="_blank" rel="noopener" href="https://finance.yahoo.co.jp/quote/${encodeURIComponent(h.symbol)}">${esc(h.name||h.symbol)}</a><div class="mcode">${esc(h.symbol)} · ${m.q?esc(m.q.time||'取得済'):'株価未取得'}</div>${os?`<div class="ownerline">${esc(os)}</div>`:''}${ts?`<div class="taxline">${esc(ts)}</div>`:''}</div><div><div class="mp">${m.q?yen(m.q.price,m.q.price<100?2:0):'—'}</div><div class="mchg ${cl(m.d)}">${sg(m.d,m.q?.price<100?2:0)} (${sg(m.dp,2,'%')})</div></div></div>
 <div class="grid"><div><div class="k">保有数</div><button class="lotbtn v" onclick="openLots('${esc(h.symbol)}')">${nf(h.shares,3)}株<small>取得額・口座内訳 ›</small></button></div><div><div class="k">取得単価</div><div class="v">${yen(h.cost,2)}</div></div><div><div class="k">評価額</div><div class="v">${yen(m.val)}</div></div><div><div class="k">取得額</div><div class="v acquisition">${yen(m.acq)}</div></div><div><div class="k">評価損益</div><div class="v ${cl(m.g)}">${ys(m.g)}</div></div><div><div class="k">損益率</div><div class="v ${cl(m.gp)}">${sg(m.gp,2,'%')}</div></div></div>
-<div style="text-align:right;margin-top:8px">${i>=0?`<button class="edit" onclick="openEdit(${i})">編集</button>`:''}</div></div>`}).join('');
+<div style="text-align:right;margin-top:8px">${i>=0?`<button class="edit chart-btn" onclick="openChart('${esc(h.symbol)}')">チャート</button><button class="edit" onclick="openEdit(${i})">編集</button>`:''}</div></div>`}).join('');
   summary()
 };
 
