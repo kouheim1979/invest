@@ -41,7 +41,13 @@ with server() as base, sync_playwright() as pw:
         assert series['years'][-1]['annual'] > 0
         for width in (320,390,768,1280):
             page.set_viewport_size({'width':width,'height':844})
-            assert page.evaluate('document.documentElement.scrollWidth<=innerWidth'), ('overflow',engine_name,width)
+            page.evaluate('()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))')
+            fits = page.evaluate('document.documentElement.scrollWidth<=innerWidth')
+            if not fits:
+                diagnostics = page.evaluate("""()=>({viewport:innerWidth,document:document.documentElement.scrollWidth,elements:[...document.querySelectorAll('body *')].filter(e=>{const r=e.getBoundingClientRect();return r.width&&r.right>innerWidth}).map(e=>({tag:e.tagName,id:e.id,cls:e.className,width:e.getBoundingClientRect().width,right:e.getBoundingClientRect().right,display:getComputedStyle(e).display,text:e.textContent.slice(0,80)}))})""")
+                print('LAYOUT',engine_name,width,json.dumps(diagnostics,ensure_ascii=False),flush=True)
+                page.screenshot(path=str(RESULTS/f'{engine_name}-overflow-{width}.png'),full_page=True)
+            assert fits, ('overflow',engine_name,width)
         page.set_viewport_size({'width':390,'height':844})
         page.screenshot(path=str(RESULTS/f'{engine_name}-dividends-iphone.png'),full_page=True)
         page.locator('#theme').click()
