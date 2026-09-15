@@ -1,0 +1,3311 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-09-15T23:40:21.213334+00:00",
+  "series": {
+    "1820.T": {
+      "symbol": "1820.T",
+      "name": "西松建設(株)",
+      "currency": "JPY",
+      "periodBasis": "fiscal",
+      "adjustment": "source-split-adjusted",
+      "source": "Yahoo!ファイナンス",
+      "sourceUrl": "https://finance.yahoo.co.jp/quote/1820.T/dividend",
+      "checkedAt": "2026-09-15T23:40:22.899213+00:00",
+      "years": [
+        {
+          "period": "2017-03",
+          "annual": 105.0,
+          "unadjustedAnnual": 21.0,
+          "quartersUnadjusted": [
+            null,
+            null,
+            null,
+            21.0
+          ]
+        },
+        {
+          "period": "2018-03",
+          "annual": 95.0,
+          "unadjustedAnnual": 95.0,
+          "quartersUnadjusted": [
+            null,
+            null,
+            null,
+            95.0
+          ]
+        },
+        {
+          "period": "2019-03",
+          "annual": 105.0,
+          "unadjustedAnnual": 105.0,
+          "quartersUnadjusted": [
+            null,
+            null,
+            null,
+            105.0
+          ]
+        },
+        {
+          "period": "2020-03",
+          "annual": 105.0,
+          "unadjustedAnnual": 105.0,
+          "quartersUnadjusted": [
+            null,
+            null,
+            null,
+            105.0
+          ]
+        },
+        {
+          "period": "2021-03",
+          "annual": 105.0,
+          "unadjustedAnnual": 105.0,
+          "quartersUnadjusted": [
+            null,
+            null,
+            null,
+            105.0
+          ]
+        },
+        {
+          "period": "2022-03",
+          "annual": 221.0,
+          "unadjustedAnnual": 221.0,
+          "quartersUnadjusted": [
+            null,
+            90.0,
+            null,
+            131.0
+          ]
+        },
+        {
+          "period": "2023-03",
+          "annual": 221.0,
+          "unadjustedAnnual": 221.0,
+          "quartersUnadjusted": [
+            null,
+            140.0,
+            null,
+            81.0
+          ]
+        },
+        {
+          "period": "2024-03",
+          "annual": 220.0,
+          "unadjustedAnnual": 220.0,
+          "quartersUnadjusted": [
+            null,
+            80.0,
+            null,
+            140.0
+          ]
+        },
+        {
+          "period": "2025-03",
+          "annual": 220.0,
+          "unadjustedAnnual": 220.0,
+          "quartersUnadjusted": [
+            null,
+            100.0,
+            null,
+            120.0
+          ]
+        },
+        {
+          "period": "2026-03",
+          "annual": 230.0,
+          "unadjustedAnnual": 230.0,
+          "quartersUnadjusted": [
+            null,
+            100.0,
+            null,
+            130.0
+          ]
+        }
+      ],
+      "forecast": {
+        "period": "2027-03",
+        "annual": 250.0,
+        "unadjustedAnnual": 250.0,
+        "quartersUnadjusted": [
+          null,
+          110.0,
+          null,
+          140.0
+        ]
+      }
+    },
+    "2193.T": {
+      "symbol": "2193.T",
+      "name": "クックパッド(株)",
+      "currency": "JPY",
+      "periodBasis": "fiscal",
+      "adjustment": "source-split-adjusted",
+      "source": "Yahoo!ファイナンス",
+      "sourceUrl": "https://finance.yahoo.co.jp/quote/2193.T/dividend",
+      "checkedAt": "2026-09-15T23:40:23.032827+00:00",
+      "years": [
+        {
+          "period": "2016-12",
+          "annual": 10.0,
+          "unadjustedAnnual": 10.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            10.0
+          ]
+        },
+        {
+          "period": "2017-12",
+          "annual": 8.0,
+          "unadjustedAnnual": 8.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            8.0
+          ]
+        },
+        {
+          "period": "2018-12",
+          "annual": 0.0,
+          "unadjustedAnnual": 0.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            0.0
+          ]
+        },
+        {
+          "period": "2019-12",
+          "annual": 0.0,
+          "unadjustedAnnual": 0.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            0.0
+          ]
+        },
+        {
+          "period": "2020-12",
+          "annual": 0.0,
+          "unadjustedAnnual": 0.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            0.0
+          ]
+        },
+        {
+          "period": "2021-12",
+          "annual": 0.0,
+          "unadjustedAnnual": 0.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            0.0
+          ]
+        },
+        {
+          "period": "2022-12",
+          "annual": 0.0,
+          "unadjustedAnnual": 0.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            0.0
+          ]
+        },
+        {
+          "period": "2023-12",
+          "annual": 0.0,
+          "unadjustedAnnual": 0.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            0.0
+          ]
+        },
+        {
+          "period": "2024-12",
+          "annual": 0.0,
+          "unadjustedAnnual": 0.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            0.0
+          ]
+        },
+        {
+          "period": "2025-12",
+          "annual": 0.0,
+          "unadjustedAnnual": 0.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            0.0
+          ]
+        }
+      ],
+      "forecast": {
+        "period": "2026-12",
+        "annual": 0.0,
+        "unadjustedAnnual": 0.0,
+        "quartersUnadjusted": [
+          null,
+          null,
+          null,
+          0.0
+        ]
+      }
+    },
+    "2685.T": {
+      "symbol": "2685.T",
+      "name": "(株)アンドエスティＨＤ",
+      "currency": "JPY",
+      "periodBasis": "fiscal",
+      "adjustment": "source-split-adjusted",
+      "source": "Yahoo!ファイナンス",
+      "sourceUrl": "https://finance.yahoo.co.jp/quote/2685.T/dividend",
+      "checkedAt": "2026-09-15T23:40:24.530885+00:00",
+      "years": [
+        {
+          "period": "2017-02",
+          "annual": 75.0,
+          "unadjustedAnnual": 75.0,
+          "quartersUnadjusted": [
+            null,
+            35.0,
+            null,
+            40.0
+          ]
+        },
+        {
+          "period": "2018-02",
+          "annual": 50.0,
+          "unadjustedAnnual": 50.0,
+          "quartersUnadjusted": [
+            null,
+            35.0,
+            null,
+            15.0
+          ]
+        },
+        {
+          "period": "2019-02",
+          "annual": 50.0,
+          "unadjustedAnnual": 50.0,
+          "quartersUnadjusted": [
+            null,
+            20.0,
+            null,
+            30.0
+          ]
+        },
+        {
+          "period": "2020-02",
+          "annual": 50.0,
+          "unadjustedAnnual": 50.0,
+          "quartersUnadjusted": [
+            null,
+            25.0,
+            null,
+            25.0
+          ]
+        },
+        {
+          "period": "2021-02",
+          "annual": 40.0,
+          "unadjustedAnnual": 40.0,
+          "quartersUnadjusted": [
+            null,
+            15.0,
+            null,
+            25.0
+          ]
+        },
+        {
+          "period": "2022-02",
+          "annual": 55.0,
+          "unadjustedAnnual": 55.0,
+          "quartersUnadjusted": [
+            null,
+            25.0,
+            null,
+            30.0
+          ]
+        },
+        {
+          "period": "2023-02",
+          "annual": 60.0,
+          "unadjustedAnnual": 60.0,
+          "quartersUnadjusted": [
+            null,
+            25.0,
+            null,
+            35.0
+          ]
+        },
+        {
+          "period": "2024-02",
+          "annual": 85.0,
+          "unadjustedAnnual": 85.0,
+          "quartersUnadjusted": [
+            null,
+            35.0,
+            null,
+            50.0
+          ]
+        },
+        {
+          "period": "2025-02",
+          "annual": 90.0,
+          "unadjustedAnnual": 90.0,
+          "quartersUnadjusted": [
+            null,
+            35.0,
+            null,
+            55.0
+          ]
+        },
+        {
+          "period": "2026-02",
+          "annual": 90.0,
+          "unadjustedAnnual": 90.0,
+          "quartersUnadjusted": [
+            null,
+            45.0,
+            null,
+            45.0
+          ]
+        }
+      ],
+      "forecast": {
+        "period": "2027-02",
+        "annual": 90.0,
+        "unadjustedAnnual": 90.0,
+        "quartersUnadjusted": [
+          null,
+          45.0,
+          null,
+          45.0
+        ]
+      }
+    },
+    "2811.T": {
+      "symbol": "2811.T",
+      "name": "カゴメ(株)",
+      "currency": "JPY",
+      "periodBasis": "fiscal",
+      "adjustment": "source-split-adjusted",
+      "source": "Yahoo!ファイナンス",
+      "sourceUrl": "https://finance.yahoo.co.jp/quote/2811.T/dividend",
+      "checkedAt": "2026-09-15T23:40:24.408883+00:00",
+      "years": [
+        {
+          "period": "2016-12",
+          "annual": 24.5,
+          "unadjustedAnnual": 24.5,
+          "quartersUnadjusted": [
+            null,
+            null,
+            null,
+            24.5
+          ]
+        },
+        {
+          "period": "2017-12",
+          "annual": 30.0,
+          "unadjustedAnnual": 30.0,
+          "quartersUnadjusted": [
+            null,
+            null,
+            null,
+            30.0
+          ]
+        },
+        {
+          "period": "2018-12",
+          "annual": 40.0,
+          "unadjustedAnnual": 40.0,
+          "quartersUnadjusted": [
+            null,
+            null,
+            null,
+            40.0
+          ]
+        },
+        {
+          "period": "2019-12",
+          "annual": 35.0,
+          "unadjustedAnnual": 35.0,
+          "quartersUnadjusted": [
+            null,
+            null,
+            null,
+            35.0
+          ]
+        },
+        {
+          "period": "2020-12",
+          "annual": 36.0,
+          "unadjustedAnnual": 36.0,
+          "quartersUnadjusted": [
+            null,
+            null,
+            null,
+            36.0
+          ]
+        },
+        {
+          "period": "2021-12",
+          "annual": 37.0,
+          "unadjustedAnnual": 37.0,
+          "quartersUnadjusted": [
+            null,
+            null,
+            null,
+            37.0
+          ]
+        },
+        {
+          "period": "2022-12",
+          "annual": 38.0,
+          "unadjustedAnnual": 38.0,
+          "quartersUnadjusted": [
+            null,
+            null,
+            null,
+            38.0
+          ]
+        },
+        {
+          "period": "2023-12",
+          "annual": 41.0,
+          "unadjustedAnnual": 41.0,
+          "quartersUnadjusted": [
+            null,
+            null,
+            null,
+            41.0
+          ]
+        },
+        {
+          "period": "2024-12",
+          "annual": 57.0,
+          "unadjustedAnnual": 57.0,
+          "quartersUnadjusted": [
+            null,
+            null,
+            null,
+            57.0
+          ]
+        },
+        {
+          "period": "2025-12",
+          "annual": 48.0,
+          "unadjustedAnnual": 48.0,
+          "quartersUnadjusted": [
+            null,
+            null,
+            null,
+            48.0
+          ]
+        }
+      ],
+      "forecast": {
+        "period": "2026-12",
+        "annual": 58.0,
+        "unadjustedAnnual": 58.0,
+        "quartersUnadjusted": [
+          null,
+          null,
+          null,
+          58.0
+        ]
+      }
+    },
+    "2928.S": {
+      "symbol": "2928.S",
+      "name": "ＲＩＺＡＰグループ(株)",
+      "currency": "JPY",
+      "periodBasis": "fiscal",
+      "adjustment": "source-split-adjusted",
+      "source": "Yahoo!ファイナンス",
+      "sourceUrl": "https://finance.yahoo.co.jp/quote/2928.S/dividend",
+      "checkedAt": "2026-09-15T23:40:26.067074+00:00",
+      "years": [
+        {
+          "period": "2017-03",
+          "annual": 3.02,
+          "unadjustedAnnual": 12.1,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            12.1
+          ]
+        },
+        {
+          "period": "2018-03",
+          "annual": 3.65,
+          "unadjustedAnnual": 7.3,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            7.3
+          ]
+        },
+        {
+          "period": "2019-03",
+          "annual": 0.0,
+          "unadjustedAnnual": 0.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            0.0
+          ]
+        },
+        {
+          "period": "2020-03",
+          "annual": 0.0,
+          "unadjustedAnnual": 0.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            0.0
+          ]
+        },
+        {
+          "period": "2021-03",
+          "annual": 0.0,
+          "unadjustedAnnual": 0.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            0.0
+          ]
+        },
+        {
+          "period": "2022-03",
+          "annual": 0.0,
+          "unadjustedAnnual": 0.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            0.0
+          ]
+        },
+        {
+          "period": "2023-03",
+          "annual": 0.0,
+          "unadjustedAnnual": 0.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            0.0
+          ]
+        },
+        {
+          "period": "2024-03",
+          "annual": 0.0,
+          "unadjustedAnnual": 0.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            0.0
+          ]
+        },
+        {
+          "period": "2025-03",
+          "annual": 0.0,
+          "unadjustedAnnual": 0.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            0.0
+          ]
+        },
+        {
+          "period": "2026-03",
+          "annual": 0.67,
+          "unadjustedAnnual": 0.67,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            0.67
+          ]
+        }
+      ],
+      "forecast": {
+        "period": "2027-03",
+        "annual": 1.34,
+        "unadjustedAnnual": 1.34,
+        "quartersUnadjusted": [
+          null,
+          null,
+          null,
+          1.34
+        ]
+      }
+    },
+    "3289.T": {
+      "symbol": "3289.T",
+      "name": "東急不動産ホールディングス(株)",
+      "currency": "JPY",
+      "periodBasis": "fiscal",
+      "adjustment": "source-split-adjusted",
+      "source": "Yahoo!ファイナンス",
+      "sourceUrl": "https://finance.yahoo.co.jp/quote/3289.T/dividend",
+      "checkedAt": "2026-09-15T23:40:25.944970+00:00",
+      "years": [
+        {
+          "period": "2017-03",
+          "annual": 13.0,
+          "unadjustedAnnual": 13.0,
+          "quartersUnadjusted": [
+            null,
+            6.5,
+            null,
+            6.5
+          ]
+        },
+        {
+          "period": "2018-03",
+          "annual": 14.5,
+          "unadjustedAnnual": 14.5,
+          "quartersUnadjusted": [
+            null,
+            7.0,
+            null,
+            7.5
+          ]
+        },
+        {
+          "period": "2019-03",
+          "annual": 15.5,
+          "unadjustedAnnual": 15.5,
+          "quartersUnadjusted": [
+            null,
+            7.5,
+            null,
+            8.0
+          ]
+        },
+        {
+          "period": "2020-03",
+          "annual": 16.0,
+          "unadjustedAnnual": 16.0,
+          "quartersUnadjusted": [
+            null,
+            8.0,
+            null,
+            8.0
+          ]
+        },
+        {
+          "period": "2021-03",
+          "annual": 16.0,
+          "unadjustedAnnual": 16.0,
+          "quartersUnadjusted": [
+            null,
+            8.0,
+            null,
+            8.0
+          ]
+        },
+        {
+          "period": "2022-03",
+          "annual": 17.0,
+          "unadjustedAnnual": 17.0,
+          "quartersUnadjusted": [
+            null,
+            8.0,
+            null,
+            9.0
+          ]
+        },
+        {
+          "period": "2023-03",
+          "annual": 23.5,
+          "unadjustedAnnual": 23.5,
+          "quartersUnadjusted": [
+            null,
+            9.0,
+            null,
+            14.5
+          ]
+        },
+        {
+          "period": "2024-03",
+          "annual": 31.0,
+          "unadjustedAnnual": 31.0,
+          "quartersUnadjusted": [
+            null,
+            14.0,
+            null,
+            17.0
+          ]
+        },
+        {
+          "period": "2025-03",
+          "annual": 36.5,
+          "unadjustedAnnual": 36.5,
+          "quartersUnadjusted": [
+            null,
+            17.0,
+            null,
+            19.5
+          ]
+        },
+        {
+          "period": "2026-03",
+          "annual": 48.0,
+          "unadjustedAnnual": 48.0,
+          "quartersUnadjusted": [
+            null,
+            22.0,
+            null,
+            26.0
+          ]
+        }
+      ],
+      "forecast": {
+        "period": "2027-03",
+        "annual": 50.0,
+        "unadjustedAnnual": 50.0,
+        "quartersUnadjusted": [
+          null,
+          25.0,
+          null,
+          25.0
+        ]
+      }
+    },
+    "3395.T": {
+      "symbol": "3395.T",
+      "name": "(株)サンマルクホールディングス",
+      "currency": "JPY",
+      "periodBasis": "fiscal",
+      "adjustment": "source-split-adjusted",
+      "source": "Yahoo!ファイナンス",
+      "sourceUrl": "https://finance.yahoo.co.jp/quote/3395.T/dividend",
+      "checkedAt": "2026-09-15T23:40:27.432310+00:00",
+      "years": [
+        {
+          "period": "2017-03",
+          "annual": 62.0,
+          "unadjustedAnnual": 62.0,
+          "quartersUnadjusted": [
+            null,
+            31.0,
+            null,
+            31.0
+          ]
+        },
+        {
+          "period": "2018-03",
+          "annual": 62.0,
+          "unadjustedAnnual": 62.0,
+          "quartersUnadjusted": [
+            null,
+            31.0,
+            null,
+            31.0
+          ]
+        },
+        {
+          "period": "2019-03",
+          "annual": 62.0,
+          "unadjustedAnnual": 62.0,
+          "quartersUnadjusted": [
+            null,
+            31.0,
+            null,
+            31.0
+          ]
+        },
+        {
+          "period": "2020-03",
+          "annual": 62.0,
+          "unadjustedAnnual": 62.0,
+          "quartersUnadjusted": [
+            null,
+            31.0,
+            null,
+            31.0
+          ]
+        },
+        {
+          "period": "2021-03",
+          "annual": 44.0,
+          "unadjustedAnnual": 44.0,
+          "quartersUnadjusted": [
+            null,
+            22.0,
+            null,
+            22.0
+          ]
+        },
+        {
+          "period": "2022-03",
+          "annual": 44.0,
+          "unadjustedAnnual": 44.0,
+          "quartersUnadjusted": [
+            null,
+            22.0,
+            null,
+            22.0
+          ]
+        },
+        {
+          "period": "2023-03",
+          "annual": 44.0,
+          "unadjustedAnnual": 44.0,
+          "quartersUnadjusted": [
+            null,
+            22.0,
+            null,
+            22.0
+          ]
+        },
+        {
+          "period": "2024-03",
+          "annual": 50.0,
+          "unadjustedAnnual": 50.0,
+          "quartersUnadjusted": [
+            null,
+            25.0,
+            null,
+            25.0
+          ]
+        },
+        {
+          "period": "2025-03",
+          "annual": 52.0,
+          "unadjustedAnnual": 52.0,
+          "quartersUnadjusted": [
+            null,
+            26.0,
+            null,
+            26.0
+          ]
+        },
+        {
+          "period": "2026-03",
+          "annual": 52.0,
+          "unadjustedAnnual": 52.0,
+          "quartersUnadjusted": [
+            null,
+            26.0,
+            null,
+            26.0
+          ]
+        }
+      ],
+      "forecast": {
+        "period": "2027-03",
+        "annual": 54.0,
+        "unadjustedAnnual": 54.0,
+        "quartersUnadjusted": [
+          null,
+          27.0,
+          null,
+          27.0
+        ]
+      }
+    },
+    "4755.T": {
+      "symbol": "4755.T",
+      "name": "楽天グループ(株)",
+      "currency": "JPY",
+      "periodBasis": "fiscal",
+      "adjustment": "source-split-adjusted",
+      "source": "Yahoo!ファイナンス",
+      "sourceUrl": "https://finance.yahoo.co.jp/quote/4755.T/dividend",
+      "checkedAt": "2026-09-15T23:40:27.448957+00:00",
+      "years": [
+        {
+          "period": "2016-12",
+          "annual": 4.5,
+          "unadjustedAnnual": 4.5,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            4.5
+          ]
+        },
+        {
+          "period": "2017-12",
+          "annual": 4.5,
+          "unadjustedAnnual": 4.5,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            4.5
+          ]
+        },
+        {
+          "period": "2018-12",
+          "annual": 4.5,
+          "unadjustedAnnual": 4.5,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            4.5
+          ]
+        },
+        {
+          "period": "2019-12",
+          "annual": 4.5,
+          "unadjustedAnnual": 4.5,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            4.5
+          ]
+        },
+        {
+          "period": "2020-12",
+          "annual": 4.5,
+          "unadjustedAnnual": 4.5,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            4.5
+          ]
+        },
+        {
+          "period": "2021-12",
+          "annual": 4.5,
+          "unadjustedAnnual": 4.5,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            4.5
+          ]
+        },
+        {
+          "period": "2022-12",
+          "annual": 4.5,
+          "unadjustedAnnual": 4.5,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            4.5
+          ]
+        },
+        {
+          "period": "2023-12",
+          "annual": 0.0,
+          "unadjustedAnnual": 0.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            0.0
+          ]
+        },
+        {
+          "period": "2024-12",
+          "annual": 0.0,
+          "unadjustedAnnual": 0.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            0.0
+          ]
+        },
+        {
+          "period": "2025-12",
+          "annual": 0.0,
+          "unadjustedAnnual": 0.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            0.0
+          ]
+        }
+      ],
+      "forecast": {
+        "period": "2026-12",
+        "annual": null,
+        "unadjustedAnnual": null,
+        "quartersUnadjusted": [
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    "4801.T": {
+      "symbol": "4801.T",
+      "name": "セントラルスポーツ(株)",
+      "currency": "JPY",
+      "periodBasis": "fiscal",
+      "adjustment": "source-split-adjusted",
+      "source": "Yahoo!ファイナンス",
+      "sourceUrl": "https://finance.yahoo.co.jp/quote/4801.T/dividend",
+      "checkedAt": "2026-09-15T23:40:29.001199+00:00",
+      "years": [
+        {
+          "period": "2017-03",
+          "annual": 72.5,
+          "unadjustedAnnual": 72.5,
+          "quartersUnadjusted": [
+            null,
+            29.5,
+            null,
+            43.0
+          ]
+        },
+        {
+          "period": "2018-03",
+          "annual": 78.0,
+          "unadjustedAnnual": 78.0,
+          "quartersUnadjusted": [
+            null,
+            37.0,
+            null,
+            41.0
+          ]
+        },
+        {
+          "period": "2019-03",
+          "annual": 78.0,
+          "unadjustedAnnual": 78.0,
+          "quartersUnadjusted": [
+            null,
+            39.0,
+            null,
+            39.0
+          ]
+        },
+        {
+          "period": "2020-03",
+          "annual": 57.0,
+          "unadjustedAnnual": 57.0,
+          "quartersUnadjusted": [
+            null,
+            39.0,
+            null,
+            18.0
+          ]
+        },
+        {
+          "period": "2021-03",
+          "annual": 5.0,
+          "unadjustedAnnual": 5.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            5.0
+          ]
+        },
+        {
+          "period": "2022-03",
+          "annual": 41.0,
+          "unadjustedAnnual": 41.0,
+          "quartersUnadjusted": [
+            null,
+            12.0,
+            null,
+            29.0
+          ]
+        },
+        {
+          "period": "2023-03",
+          "annual": 31.0,
+          "unadjustedAnnual": 31.0,
+          "quartersUnadjusted": [
+            null,
+            21.0,
+            null,
+            10.0
+          ]
+        },
+        {
+          "period": "2024-03",
+          "annual": 36.0,
+          "unadjustedAnnual": 36.0,
+          "quartersUnadjusted": [
+            null,
+            18.0,
+            null,
+            18.0
+          ]
+        },
+        {
+          "period": "2025-03",
+          "annual": 50.0,
+          "unadjustedAnnual": 50.0,
+          "quartersUnadjusted": [
+            null,
+            25.0,
+            null,
+            25.0
+          ]
+        },
+        {
+          "period": "2026-03",
+          "annual": 40.0,
+          "unadjustedAnnual": 40.0,
+          "quartersUnadjusted": [
+            null,
+            20.0,
+            null,
+            20.0
+          ]
+        }
+      ],
+      "forecast": {
+        "period": "2027-03",
+        "annual": 40.0,
+        "unadjustedAnnual": 40.0,
+        "quartersUnadjusted": [
+          null,
+          20.0,
+          null,
+          20.0
+        ]
+      }
+    },
+    "5726.T": {
+      "symbol": "5726.T",
+      "name": "(株)大阪チタニウムテクノロジーズ",
+      "currency": "JPY",
+      "periodBasis": "fiscal",
+      "adjustment": "source-split-adjusted",
+      "source": "Yahoo!ファイナンス",
+      "sourceUrl": "https://finance.yahoo.co.jp/quote/5726.T/dividend",
+      "checkedAt": "2026-09-15T23:40:28.951280+00:00",
+      "years": [
+        {
+          "period": "2017-03",
+          "annual": 5.0,
+          "unadjustedAnnual": 5.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            5.0
+          ]
+        },
+        {
+          "period": "2018-03",
+          "annual": 15.0,
+          "unadjustedAnnual": 15.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            15.0
+          ]
+        },
+        {
+          "period": "2019-03",
+          "annual": 5.0,
+          "unadjustedAnnual": 5.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            5.0
+          ]
+        },
+        {
+          "period": "2020-03",
+          "annual": 5.0,
+          "unadjustedAnnual": 5.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            5.0
+          ]
+        },
+        {
+          "period": "2021-03",
+          "annual": 0.0,
+          "unadjustedAnnual": 0.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            0.0
+          ]
+        },
+        {
+          "period": "2022-03",
+          "annual": 0.0,
+          "unadjustedAnnual": 0.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            0.0
+          ]
+        },
+        {
+          "period": "2023-03",
+          "annual": 35.0,
+          "unadjustedAnnual": 35.0,
+          "quartersUnadjusted": [
+            null,
+            10.0,
+            null,
+            25.0
+          ]
+        },
+        {
+          "period": "2024-03",
+          "annual": 70.0,
+          "unadjustedAnnual": 70.0,
+          "quartersUnadjusted": [
+            null,
+            20.0,
+            null,
+            50.0
+          ]
+        },
+        {
+          "period": "2025-03",
+          "annual": 50.0,
+          "unadjustedAnnual": 50.0,
+          "quartersUnadjusted": [
+            null,
+            25.0,
+            null,
+            25.0
+          ]
+        },
+        {
+          "period": "2026-03",
+          "annual": 18.0,
+          "unadjustedAnnual": 18.0,
+          "quartersUnadjusted": [
+            null,
+            5.0,
+            null,
+            13.0
+          ]
+        }
+      ],
+      "forecast": {
+        "period": "2027-03",
+        "annual": 13.0,
+        "unadjustedAnnual": 13.0,
+        "quartersUnadjusted": [
+          null,
+          0.0,
+          null,
+          13.0
+        ]
+      }
+    },
+    "6594.T": {
+      "symbol": "6594.T",
+      "name": "ニデック(株)",
+      "currency": "JPY",
+      "periodBasis": "fiscal",
+      "adjustment": "source-split-adjusted",
+      "source": "Yahoo!ファイナンス",
+      "sourceUrl": "https://finance.yahoo.co.jp/quote/6594.T/dividend",
+      "checkedAt": "2026-09-15T23:40:30.389815+00:00",
+      "years": [
+        {
+          "period": "2016-03",
+          "annual": 20.0,
+          "unadjustedAnnual": 80.0,
+          "quartersUnadjusted": [
+            null,
+            40.0,
+            null,
+            40.0
+          ]
+        },
+        {
+          "period": "2017-03",
+          "annual": 21.25,
+          "unadjustedAnnual": 85.0,
+          "quartersUnadjusted": [
+            null,
+            40.0,
+            null,
+            45.0
+          ]
+        },
+        {
+          "period": "2018-03",
+          "annual": 23.75,
+          "unadjustedAnnual": 95.0,
+          "quartersUnadjusted": [
+            null,
+            45.0,
+            null,
+            50.0
+          ]
+        },
+        {
+          "period": "2019-03",
+          "annual": 26.25,
+          "unadjustedAnnual": 105.0,
+          "quartersUnadjusted": [
+            null,
+            50.0,
+            null,
+            55.0
+          ]
+        },
+        {
+          "period": "2020-03",
+          "annual": 28.75,
+          "unadjustedAnnual": 115.0,
+          "quartersUnadjusted": [
+            null,
+            55.0,
+            null,
+            60.0
+          ]
+        },
+        {
+          "period": "2021-03",
+          "annual": 30.0,
+          "unadjustedAnnual": 60.0,
+          "quartersUnadjusted": [
+            null,
+            30.0,
+            null,
+            30.0
+          ]
+        },
+        {
+          "period": "2022-03",
+          "annual": 32.5,
+          "unadjustedAnnual": 65.0,
+          "quartersUnadjusted": [
+            null,
+            30.0,
+            null,
+            35.0
+          ]
+        },
+        {
+          "period": "2023-03",
+          "annual": 35.0,
+          "unadjustedAnnual": 70.0,
+          "quartersUnadjusted": [
+            null,
+            35.0,
+            null,
+            35.0
+          ]
+        },
+        {
+          "period": "2024-03",
+          "annual": 37.5,
+          "unadjustedAnnual": 75.0,
+          "quartersUnadjusted": [
+            null,
+            35.0,
+            null,
+            40.0
+          ]
+        },
+        {
+          "period": "2025-03",
+          "annual": 40.0,
+          "unadjustedAnnual": null,
+          "quartersUnadjusted": [
+            null,
+            40.0,
+            null,
+            20.0
+          ]
+        }
+      ],
+      "forecast": {
+        "period": "2026-03",
+        "annual": 0.0,
+        "unadjustedAnnual": 0.0,
+        "quartersUnadjusted": [
+          null,
+          null,
+          null,
+          0.0
+        ]
+      }
+    },
+    "6723.T": {
+      "symbol": "6723.T",
+      "name": "ルネサスエレクトロニクス(株)",
+      "currency": "JPY",
+      "periodBasis": "fiscal",
+      "adjustment": "source-split-adjusted",
+      "source": "Yahoo!ファイナンス",
+      "sourceUrl": "https://finance.yahoo.co.jp/quote/6723.T/dividend",
+      "checkedAt": "2026-09-15T23:40:30.509641+00:00",
+      "years": [
+        {
+          "period": "2016-12",
+          "annual": 0.0,
+          "unadjustedAnnual": 0.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            0.0
+          ]
+        },
+        {
+          "period": "2017-12",
+          "annual": 0.0,
+          "unadjustedAnnual": 0.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            0.0
+          ]
+        },
+        {
+          "period": "2018-12",
+          "annual": 0.0,
+          "unadjustedAnnual": 0.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            0.0
+          ]
+        },
+        {
+          "period": "2019-12",
+          "annual": 0.0,
+          "unadjustedAnnual": 0.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            0.0
+          ]
+        },
+        {
+          "period": "2020-12",
+          "annual": 0.0,
+          "unadjustedAnnual": 0.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            0.0
+          ]
+        },
+        {
+          "period": "2021-12",
+          "annual": 0.0,
+          "unadjustedAnnual": 0.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            0.0
+          ]
+        },
+        {
+          "period": "2022-12",
+          "annual": 0.0,
+          "unadjustedAnnual": 0.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            0.0
+          ]
+        },
+        {
+          "period": "2023-12",
+          "annual": 28.0,
+          "unadjustedAnnual": 28.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            28.0
+          ]
+        },
+        {
+          "period": "2024-12",
+          "annual": 28.0,
+          "unadjustedAnnual": 28.0,
+          "quartersUnadjusted": [
+            0.0,
+            0.0,
+            0.0,
+            28.0
+          ]
+        },
+        {
+          "period": "2025-12",
+          "annual": 28.0,
+          "unadjustedAnnual": 28.0,
+          "quartersUnadjusted": [
+            0.0,
+            0.0,
+            0.0,
+            28.0
+          ]
+        }
+      ],
+      "forecast": {
+        "period": "2026-12",
+        "annual": null,
+        "unadjustedAnnual": null,
+        "quartersUnadjusted": [
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    "6819.T": {
+      "symbol": "6819.T",
+      "name": "伊豆シャボテンリゾート(株)",
+      "currency": "JPY",
+      "periodBasis": "fiscal",
+      "adjustment": "source-split-adjusted",
+      "source": "Yahoo!ファイナンス",
+      "sourceUrl": "https://finance.yahoo.co.jp/quote/6819.T/dividend",
+      "checkedAt": "2026-09-15T23:40:31.732077+00:00",
+      "years": [
+        {
+          "period": "2017-03",
+          "annual": 0.0,
+          "unadjustedAnnual": 0.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            0.0
+          ]
+        },
+        {
+          "period": "2018-03",
+          "annual": 0.0,
+          "unadjustedAnnual": 0.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            0.0
+          ]
+        },
+        {
+          "period": "2019-03",
+          "annual": 0.0,
+          "unadjustedAnnual": 0.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            0.0
+          ]
+        },
+        {
+          "period": "2020-03",
+          "annual": 0.0,
+          "unadjustedAnnual": 0.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            0.0
+          ]
+        },
+        {
+          "period": "2021-03",
+          "annual": 0.0,
+          "unadjustedAnnual": 0.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            0.0
+          ]
+        },
+        {
+          "period": "2022-03",
+          "annual": 0.0,
+          "unadjustedAnnual": 0.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            0.0
+          ]
+        },
+        {
+          "period": "2023-03",
+          "annual": 0.0,
+          "unadjustedAnnual": 0.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            0.0
+          ]
+        },
+        {
+          "period": "2024-03",
+          "annual": 10.0,
+          "unadjustedAnnual": 10.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            10.0
+          ]
+        },
+        {
+          "period": "2025-03",
+          "annual": 15.0,
+          "unadjustedAnnual": 15.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            15.0
+          ]
+        },
+        {
+          "period": "2026-03",
+          "annual": 20.0,
+          "unadjustedAnnual": 20.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            20.0
+          ]
+        }
+      ],
+      "forecast": {
+        "period": "2027-03",
+        "annual": 20.0,
+        "unadjustedAnnual": 20.0,
+        "quartersUnadjusted": [
+          null,
+          0.0,
+          null,
+          20.0
+        ]
+      }
+    },
+    "6841.T": {
+      "symbol": "6841.T",
+      "name": "横河電機(株)",
+      "currency": "JPY",
+      "periodBasis": "fiscal",
+      "adjustment": "source-split-adjusted",
+      "source": "Yahoo!ファイナンス",
+      "sourceUrl": "https://finance.yahoo.co.jp/quote/6841.T/dividend",
+      "checkedAt": "2026-09-15T23:40:32.028615+00:00",
+      "years": [
+        {
+          "period": "2017-03",
+          "annual": 25.0,
+          "unadjustedAnnual": 25.0,
+          "quartersUnadjusted": [
+            null,
+            12.5,
+            null,
+            12.5
+          ]
+        },
+        {
+          "period": "2018-03",
+          "annual": 30.0,
+          "unadjustedAnnual": 30.0,
+          "quartersUnadjusted": [
+            null,
+            15.0,
+            null,
+            15.0
+          ]
+        },
+        {
+          "period": "2019-03",
+          "annual": 32.0,
+          "unadjustedAnnual": 32.0,
+          "quartersUnadjusted": [
+            null,
+            15.0,
+            null,
+            17.0
+          ]
+        },
+        {
+          "period": "2020-03",
+          "annual": 34.0,
+          "unadjustedAnnual": 34.0,
+          "quartersUnadjusted": [
+            null,
+            17.0,
+            null,
+            17.0
+          ]
+        },
+        {
+          "period": "2021-03",
+          "annual": 34.0,
+          "unadjustedAnnual": 34.0,
+          "quartersUnadjusted": [
+            null,
+            17.0,
+            null,
+            17.0
+          ]
+        },
+        {
+          "period": "2022-03",
+          "annual": 34.0,
+          "unadjustedAnnual": 34.0,
+          "quartersUnadjusted": [
+            null,
+            17.0,
+            null,
+            17.0
+          ]
+        },
+        {
+          "period": "2023-03",
+          "annual": 34.0,
+          "unadjustedAnnual": 34.0,
+          "quartersUnadjusted": [
+            null,
+            17.0,
+            null,
+            17.0
+          ]
+        },
+        {
+          "period": "2024-03",
+          "annual": 40.0,
+          "unadjustedAnnual": 40.0,
+          "quartersUnadjusted": [
+            null,
+            17.0,
+            null,
+            23.0
+          ]
+        },
+        {
+          "period": "2025-03",
+          "annual": 58.0,
+          "unadjustedAnnual": 58.0,
+          "quartersUnadjusted": [
+            null,
+            29.0,
+            null,
+            29.0
+          ]
+        },
+        {
+          "period": "2026-03",
+          "annual": 78.0,
+          "unadjustedAnnual": 78.0,
+          "quartersUnadjusted": [
+            null,
+            32.0,
+            null,
+            46.0
+          ]
+        }
+      ],
+      "forecast": {
+        "period": "2027-03",
+        "annual": 92.0,
+        "unadjustedAnnual": 92.0,
+        "quartersUnadjusted": [
+          null,
+          46.0,
+          null,
+          46.0
+        ]
+      }
+    },
+    "6902.T": {
+      "symbol": "6902.T",
+      "name": "(株)デンソー",
+      "currency": "JPY",
+      "periodBasis": "fiscal",
+      "adjustment": "source-split-adjusted",
+      "source": "Yahoo!ファイナンス",
+      "sourceUrl": "https://finance.yahoo.co.jp/quote/6902.T/dividend",
+      "checkedAt": "2026-09-15T23:40:33.389505+00:00",
+      "years": [
+        {
+          "period": "2017-03",
+          "annual": 30.0,
+          "unadjustedAnnual": 120.0,
+          "quartersUnadjusted": [
+            null,
+            60.0,
+            null,
+            60.0
+          ]
+        },
+        {
+          "period": "2018-03",
+          "annual": 32.5,
+          "unadjustedAnnual": 130.0,
+          "quartersUnadjusted": [
+            null,
+            65.0,
+            null,
+            65.0
+          ]
+        },
+        {
+          "period": "2019-03",
+          "annual": 35.0,
+          "unadjustedAnnual": 140.0,
+          "quartersUnadjusted": [
+            null,
+            70.0,
+            null,
+            70.0
+          ]
+        },
+        {
+          "period": "2020-03",
+          "annual": 35.0,
+          "unadjustedAnnual": 140.0,
+          "quartersUnadjusted": [
+            null,
+            70.0,
+            null,
+            70.0
+          ]
+        },
+        {
+          "period": "2021-03",
+          "annual": 35.0,
+          "unadjustedAnnual": 140.0,
+          "quartersUnadjusted": [
+            null,
+            70.0,
+            null,
+            70.0
+          ]
+        },
+        {
+          "period": "2022-03",
+          "annual": 41.25,
+          "unadjustedAnnual": 165.0,
+          "quartersUnadjusted": [
+            null,
+            80.0,
+            null,
+            85.0
+          ]
+        },
+        {
+          "period": "2023-03",
+          "annual": 46.25,
+          "unadjustedAnnual": 185.0,
+          "quartersUnadjusted": [
+            null,
+            90.0,
+            null,
+            95.0
+          ]
+        },
+        {
+          "period": "2024-03",
+          "annual": 55.0,
+          "unadjustedAnnual": null,
+          "quartersUnadjusted": [
+            null,
+            100.0,
+            null,
+            30.0
+          ]
+        },
+        {
+          "period": "2025-03",
+          "annual": 64.0,
+          "unadjustedAnnual": 64.0,
+          "quartersUnadjusted": [
+            null,
+            32.0,
+            null,
+            32.0
+          ]
+        },
+        {
+          "period": "2026-03",
+          "annual": 67.0,
+          "unadjustedAnnual": 67.0,
+          "quartersUnadjusted": [
+            null,
+            32.0,
+            null,
+            35.0
+          ]
+        }
+      ],
+      "forecast": {
+        "period": "2027-03",
+        "annual": 74.0,
+        "unadjustedAnnual": 74.0,
+        "quartersUnadjusted": [
+          null,
+          37.0,
+          null,
+          37.0
+        ]
+      }
+    },
+    "7545.T": {
+      "symbol": "7545.T",
+      "name": "(株)西松屋チェーン",
+      "currency": "JPY",
+      "periodBasis": "fiscal",
+      "adjustment": "source-split-adjusted",
+      "source": "Yahoo!ファイナンス",
+      "sourceUrl": "https://finance.yahoo.co.jp/quote/7545.T/dividend",
+      "checkedAt": "2026-09-15T23:40:33.809308+00:00",
+      "years": [
+        {
+          "period": "2017-02",
+          "annual": 21.0,
+          "unadjustedAnnual": 21.0,
+          "quartersUnadjusted": [
+            null,
+            10.0,
+            null,
+            11.0
+          ]
+        },
+        {
+          "period": "2018-02",
+          "annual": 21.0,
+          "unadjustedAnnual": 21.0,
+          "quartersUnadjusted": [
+            null,
+            10.0,
+            null,
+            11.0
+          ]
+        },
+        {
+          "period": "2019-02",
+          "annual": 21.0,
+          "unadjustedAnnual": 21.0,
+          "quartersUnadjusted": [
+            null,
+            10.0,
+            null,
+            11.0
+          ]
+        },
+        {
+          "period": "2020-02",
+          "annual": 21.0,
+          "unadjustedAnnual": 21.0,
+          "quartersUnadjusted": [
+            null,
+            10.0,
+            null,
+            11.0
+          ]
+        },
+        {
+          "period": "2021-02",
+          "annual": 23.0,
+          "unadjustedAnnual": 23.0,
+          "quartersUnadjusted": [
+            null,
+            11.0,
+            null,
+            12.0
+          ]
+        },
+        {
+          "period": "2022-02",
+          "annual": 25.0,
+          "unadjustedAnnual": 25.0,
+          "quartersUnadjusted": [
+            null,
+            12.0,
+            null,
+            13.0
+          ]
+        },
+        {
+          "period": "2023-02",
+          "annual": 26.0,
+          "unadjustedAnnual": 26.0,
+          "quartersUnadjusted": [
+            null,
+            13.0,
+            null,
+            13.0
+          ]
+        },
+        {
+          "period": "2024-02",
+          "annual": 29.0,
+          "unadjustedAnnual": 29.0,
+          "quartersUnadjusted": [
+            null,
+            14.0,
+            null,
+            15.0
+          ]
+        },
+        {
+          "period": "2025-02",
+          "annual": 31.0,
+          "unadjustedAnnual": 31.0,
+          "quartersUnadjusted": [
+            null,
+            15.0,
+            null,
+            16.0
+          ]
+        },
+        {
+          "period": "2026-02",
+          "annual": 32.0,
+          "unadjustedAnnual": 32.0,
+          "quartersUnadjusted": [
+            null,
+            16.0,
+            null,
+            16.0
+          ]
+        }
+      ],
+      "forecast": {
+        "period": "2027-02",
+        "annual": 32.0,
+        "unadjustedAnnual": 32.0,
+        "quartersUnadjusted": [
+          null,
+          16.0,
+          null,
+          16.0
+        ]
+      }
+    },
+    "7590.T": {
+      "symbol": "7590.T",
+      "name": "(株)タカショー",
+      "currency": "JPY",
+      "periodBasis": "fiscal",
+      "adjustment": "source-split-adjusted",
+      "source": "Yahoo!ファイナンス",
+      "sourceUrl": "https://finance.yahoo.co.jp/quote/7590.T/dividend",
+      "checkedAt": "2026-09-15T23:40:34.786072+00:00",
+      "years": [
+        {
+          "period": "2017-01",
+          "annual": 6.0,
+          "unadjustedAnnual": 6.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            6.0
+          ]
+        },
+        {
+          "period": "2018-01",
+          "annual": 10.0,
+          "unadjustedAnnual": 10.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            10.0
+          ]
+        },
+        {
+          "period": "2019-01",
+          "annual": 10.0,
+          "unadjustedAnnual": 10.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            10.0
+          ]
+        },
+        {
+          "period": "2020-01",
+          "annual": 10.0,
+          "unadjustedAnnual": 10.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            10.0
+          ]
+        },
+        {
+          "period": "2021-01",
+          "annual": 20.0,
+          "unadjustedAnnual": 20.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            20.0
+          ]
+        },
+        {
+          "period": "2022-01",
+          "annual": 23.0,
+          "unadjustedAnnual": 23.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            23.0
+          ]
+        },
+        {
+          "period": "2023-01",
+          "annual": 23.0,
+          "unadjustedAnnual": 23.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            23.0
+          ]
+        },
+        {
+          "period": "2024-01",
+          "annual": 5.0,
+          "unadjustedAnnual": 5.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            5.0
+          ]
+        },
+        {
+          "period": "2025-01",
+          "annual": 5.0,
+          "unadjustedAnnual": 5.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            5.0
+          ]
+        },
+        {
+          "period": "2026-01",
+          "annual": 5.0,
+          "unadjustedAnnual": 5.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            5.0
+          ]
+        }
+      ],
+      "forecast": {
+        "period": "2027-01",
+        "annual": 5.0,
+        "unadjustedAnnual": 5.0,
+        "quartersUnadjusted": [
+          null,
+          null,
+          null,
+          5.0
+        ]
+      }
+    },
+    "7606.T": {
+      "symbol": "7606.T",
+      "name": "(株)ユナイテッドアローズ",
+      "currency": "JPY",
+      "periodBasis": "fiscal",
+      "adjustment": "source-split-adjusted",
+      "source": "Yahoo!ファイナンス",
+      "sourceUrl": "https://finance.yahoo.co.jp/quote/7606.T/dividend",
+      "checkedAt": "2026-09-15T23:40:35.285019+00:00",
+      "years": [
+        {
+          "period": "2017-03",
+          "annual": 78.0,
+          "unadjustedAnnual": 78.0,
+          "quartersUnadjusted": [
+            null,
+            20.0,
+            null,
+            58.0
+          ]
+        },
+        {
+          "period": "2018-03",
+          "annual": 78.0,
+          "unadjustedAnnual": 78.0,
+          "quartersUnadjusted": [
+            null,
+            20.0,
+            null,
+            58.0
+          ]
+        },
+        {
+          "period": "2019-03",
+          "annual": 80.0,
+          "unadjustedAnnual": 80.0,
+          "quartersUnadjusted": [
+            null,
+            20.0,
+            null,
+            60.0
+          ]
+        },
+        {
+          "period": "2020-03",
+          "annual": 83.0,
+          "unadjustedAnnual": 83.0,
+          "quartersUnadjusted": [
+            null,
+            22.0,
+            null,
+            61.0
+          ]
+        },
+        {
+          "period": "2021-03",
+          "annual": 0.0,
+          "unadjustedAnnual": 0.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            0.0
+          ]
+        },
+        {
+          "period": "2022-03",
+          "annual": 19.0,
+          "unadjustedAnnual": 19.0,
+          "quartersUnadjusted": [
+            null,
+            7.0,
+            null,
+            12.0
+          ]
+        },
+        {
+          "period": "2023-03",
+          "annual": 47.0,
+          "unadjustedAnnual": 47.0,
+          "quartersUnadjusted": [
+            null,
+            12.0,
+            null,
+            35.0
+          ]
+        },
+        {
+          "period": "2024-03",
+          "annual": 55.0,
+          "unadjustedAnnual": 55.0,
+          "quartersUnadjusted": [
+            null,
+            17.0,
+            null,
+            38.0
+          ]
+        },
+        {
+          "period": "2025-03",
+          "annual": 63.0,
+          "unadjustedAnnual": 63.0,
+          "quartersUnadjusted": [
+            null,
+            17.0,
+            null,
+            46.0
+          ]
+        },
+        {
+          "period": "2026-03",
+          "annual": 89.0,
+          "unadjustedAnnual": 89.0,
+          "quartersUnadjusted": [
+            null,
+            20.0,
+            null,
+            69.0
+          ]
+        }
+      ],
+      "forecast": {
+        "period": "2027-03",
+        "annual": 112.0,
+        "unadjustedAnnual": 112.0,
+        "quartersUnadjusted": [
+          null,
+          32.0,
+          null,
+          80.0
+        ]
+      }
+    },
+    "7974.T": {
+      "symbol": "7974.T",
+      "name": "任天堂(株)",
+      "currency": "JPY",
+      "periodBasis": "fiscal",
+      "adjustment": "source-split-adjusted",
+      "source": "Yahoo!ファイナンス",
+      "sourceUrl": "https://finance.yahoo.co.jp/quote/7974.T/dividend",
+      "checkedAt": "2026-09-15T23:40:36.343220+00:00",
+      "years": [
+        {
+          "period": "2017-03",
+          "annual": 43.0,
+          "unadjustedAnnual": 430.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            430.0
+          ]
+        },
+        {
+          "period": "2018-03",
+          "annual": 59.0,
+          "unadjustedAnnual": 590.0,
+          "quartersUnadjusted": [
+            null,
+            110.0,
+            null,
+            480.0
+          ]
+        },
+        {
+          "period": "2019-03",
+          "annual": 81.0,
+          "unadjustedAnnual": 810.0,
+          "quartersUnadjusted": [
+            null,
+            170.0,
+            null,
+            640.0
+          ]
+        },
+        {
+          "period": "2020-03",
+          "annual": 109.0,
+          "unadjustedAnnual": 1090.0,
+          "quartersUnadjusted": [
+            null,
+            270.0,
+            null,
+            820.0
+          ]
+        },
+        {
+          "period": "2021-03",
+          "annual": 222.0,
+          "unadjustedAnnual": 2220.0,
+          "quartersUnadjusted": [
+            null,
+            810.0,
+            null,
+            1410.0
+          ]
+        },
+        {
+          "period": "2022-03",
+          "annual": 203.0,
+          "unadjustedAnnual": 2030.0,
+          "quartersUnadjusted": [
+            null,
+            620.0,
+            null,
+            1410.0
+          ]
+        },
+        {
+          "period": "2023-03",
+          "annual": 186.0,
+          "unadjustedAnnual": null,
+          "quartersUnadjusted": [
+            null,
+            630.0,
+            null,
+            123.0
+          ]
+        },
+        {
+          "period": "2024-03",
+          "annual": 211.0,
+          "unadjustedAnnual": 211.0,
+          "quartersUnadjusted": [
+            null,
+            80.0,
+            null,
+            131.0
+          ]
+        },
+        {
+          "period": "2025-03",
+          "annual": 120.0,
+          "unadjustedAnnual": 120.0,
+          "quartersUnadjusted": [
+            null,
+            35.0,
+            null,
+            85.0
+          ]
+        },
+        {
+          "period": "2026-03",
+          "annual": 219.0,
+          "unadjustedAnnual": 219.0,
+          "quartersUnadjusted": [
+            null,
+            42.0,
+            null,
+            177.0
+          ]
+        }
+      ],
+      "forecast": {
+        "period": "2027-03",
+        "annual": 162.0,
+        "unadjustedAnnual": 162.0,
+        "quartersUnadjusted": [
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    "8173.T": {
+      "symbol": "8173.T",
+      "name": "(株)Ｊｏｓｈｉｎ",
+      "currency": "JPY",
+      "periodBasis": "fiscal",
+      "adjustment": "source-split-adjusted",
+      "source": "Yahoo!ファイナンス",
+      "sourceUrl": "https://finance.yahoo.co.jp/quote/8173.T/dividend",
+      "checkedAt": "2026-09-15T23:40:36.994903+00:00",
+      "years": [
+        {
+          "period": "2017-03",
+          "annual": 32.0,
+          "unadjustedAnnual": 16.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            16.0
+          ]
+        },
+        {
+          "period": "2018-03",
+          "annual": 42.0,
+          "unadjustedAnnual": null,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            42.0
+          ]
+        },
+        {
+          "period": "2019-03",
+          "annual": 50.0,
+          "unadjustedAnnual": 50.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            50.0
+          ]
+        },
+        {
+          "period": "2020-03",
+          "annual": 50.0,
+          "unadjustedAnnual": 50.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            50.0
+          ]
+        },
+        {
+          "period": "2021-03",
+          "annual": 75.0,
+          "unadjustedAnnual": 75.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            75.0
+          ]
+        },
+        {
+          "period": "2022-03",
+          "annual": 75.0,
+          "unadjustedAnnual": 75.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            75.0
+          ]
+        },
+        {
+          "period": "2023-03",
+          "annual": 75.0,
+          "unadjustedAnnual": 75.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            75.0
+          ]
+        },
+        {
+          "period": "2024-03",
+          "annual": 90.0,
+          "unadjustedAnnual": 90.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            90.0
+          ]
+        },
+        {
+          "period": "2025-03",
+          "annual": 100.0,
+          "unadjustedAnnual": 100.0,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            100.0
+          ]
+        },
+        {
+          "period": "2026-03",
+          "annual": 100.0,
+          "unadjustedAnnual": 100.0,
+          "quartersUnadjusted": [
+            null,
+            50.0,
+            null,
+            50.0
+          ]
+        }
+      ],
+      "forecast": {
+        "period": "2027-03",
+        "annual": 100.0,
+        "unadjustedAnnual": 100.0,
+        "quartersUnadjusted": [
+          null,
+          50.0,
+          null,
+          50.0
+        ]
+      }
+    },
+    "8267.T": {
+      "symbol": "8267.T",
+      "name": "イオン(株)",
+      "currency": "JPY",
+      "periodBasis": "fiscal",
+      "adjustment": "source-split-adjusted",
+      "source": "Yahoo!ファイナンス",
+      "sourceUrl": "https://finance.yahoo.co.jp/quote/8267.T/dividend",
+      "checkedAt": "2026-09-15T23:40:37.642791+00:00",
+      "years": [
+        {
+          "period": "2017-02",
+          "annual": 10.0,
+          "unadjustedAnnual": 30.0,
+          "quartersUnadjusted": [
+            null,
+            15.0,
+            null,
+            15.0
+          ]
+        },
+        {
+          "period": "2018-02",
+          "annual": 10.0,
+          "unadjustedAnnual": 30.0,
+          "quartersUnadjusted": [
+            null,
+            15.0,
+            null,
+            15.0
+          ]
+        },
+        {
+          "period": "2019-02",
+          "annual": 11.33,
+          "unadjustedAnnual": 34.0,
+          "quartersUnadjusted": [
+            null,
+            17.0,
+            null,
+            17.0
+          ]
+        },
+        {
+          "period": "2020-02",
+          "annual": 12.0,
+          "unadjustedAnnual": 36.0,
+          "quartersUnadjusted": [
+            null,
+            18.0,
+            null,
+            18.0
+          ]
+        },
+        {
+          "period": "2021-02",
+          "annual": 12.0,
+          "unadjustedAnnual": 36.0,
+          "quartersUnadjusted": [
+            null,
+            18.0,
+            null,
+            18.0
+          ]
+        },
+        {
+          "period": "2022-02",
+          "annual": 12.0,
+          "unadjustedAnnual": 36.0,
+          "quartersUnadjusted": [
+            null,
+            18.0,
+            null,
+            18.0
+          ]
+        },
+        {
+          "period": "2023-02",
+          "annual": 12.0,
+          "unadjustedAnnual": 36.0,
+          "quartersUnadjusted": [
+            null,
+            18.0,
+            null,
+            18.0
+          ]
+        },
+        {
+          "period": "2024-02",
+          "annual": 12.0,
+          "unadjustedAnnual": 36.0,
+          "quartersUnadjusted": [
+            null,
+            18.0,
+            null,
+            18.0
+          ]
+        },
+        {
+          "period": "2025-02",
+          "annual": 13.33,
+          "unadjustedAnnual": 40.0,
+          "quartersUnadjusted": [
+            null,
+            20.0,
+            null,
+            20.0
+          ]
+        },
+        {
+          "period": "2026-02",
+          "annual": 13.67,
+          "unadjustedAnnual": null,
+          "quartersUnadjusted": [
+            null,
+            20.0,
+            null,
+            7.0
+          ]
+        }
+      ],
+      "forecast": {
+        "period": "2027-02",
+        "annual": 15.0,
+        "unadjustedAnnual": 15.0,
+        "quartersUnadjusted": [
+          null,
+          7.5,
+          null,
+          7.5
+        ]
+      }
+    },
+    "8306.T": {
+      "symbol": "8306.T",
+      "name": "(株)三菱ＵＦＪフィナンシャル・グループ",
+      "currency": "JPY",
+      "periodBasis": "fiscal",
+      "adjustment": "source-split-adjusted",
+      "source": "Yahoo!ファイナンス",
+      "sourceUrl": "https://finance.yahoo.co.jp/quote/8306.T/dividend",
+      "checkedAt": "2026-09-15T23:40:38.298674+00:00",
+      "years": [
+        {
+          "period": "2017-03",
+          "annual": 18.0,
+          "unadjustedAnnual": 18.0,
+          "quartersUnadjusted": [
+            null,
+            9.0,
+            null,
+            9.0
+          ]
+        },
+        {
+          "period": "2018-03",
+          "annual": 19.0,
+          "unadjustedAnnual": 19.0,
+          "quartersUnadjusted": [
+            null,
+            9.0,
+            null,
+            10.0
+          ]
+        },
+        {
+          "period": "2019-03",
+          "annual": 22.0,
+          "unadjustedAnnual": 22.0,
+          "quartersUnadjusted": [
+            null,
+            11.0,
+            null,
+            11.0
+          ]
+        },
+        {
+          "period": "2020-03",
+          "annual": 25.0,
+          "unadjustedAnnual": 25.0,
+          "quartersUnadjusted": [
+            null,
+            12.5,
+            null,
+            12.5
+          ]
+        },
+        {
+          "period": "2021-03",
+          "annual": 25.0,
+          "unadjustedAnnual": 25.0,
+          "quartersUnadjusted": [
+            null,
+            12.5,
+            null,
+            12.5
+          ]
+        },
+        {
+          "period": "2022-03",
+          "annual": 28.0,
+          "unadjustedAnnual": 28.0,
+          "quartersUnadjusted": [
+            null,
+            13.5,
+            null,
+            14.5
+          ]
+        },
+        {
+          "period": "2023-03",
+          "annual": 32.0,
+          "unadjustedAnnual": 32.0,
+          "quartersUnadjusted": [
+            null,
+            16.0,
+            null,
+            16.0
+          ]
+        },
+        {
+          "period": "2024-03",
+          "annual": 41.0,
+          "unadjustedAnnual": 41.0,
+          "quartersUnadjusted": [
+            null,
+            20.5,
+            null,
+            20.5
+          ]
+        },
+        {
+          "period": "2025-03",
+          "annual": 64.0,
+          "unadjustedAnnual": 64.0,
+          "quartersUnadjusted": [
+            null,
+            25.0,
+            null,
+            39.0
+          ]
+        },
+        {
+          "period": "2026-03",
+          "annual": 86.0,
+          "unadjustedAnnual": 86.0,
+          "quartersUnadjusted": [
+            null,
+            35.0,
+            null,
+            51.0
+          ]
+        }
+      ],
+      "forecast": {
+        "period": "2027-03",
+        "annual": 96.0,
+        "unadjustedAnnual": 96.0,
+        "quartersUnadjusted": [
+          null,
+          48.0,
+          null,
+          48.0
+        ]
+      }
+    },
+    "8316.T": {
+      "symbol": "8316.T",
+      "name": "(株)三井住友フィナンシャルグループ",
+      "currency": "JPY",
+      "periodBasis": "fiscal",
+      "adjustment": "source-split-adjusted",
+      "source": "Yahoo!ファイナンス",
+      "sourceUrl": "https://finance.yahoo.co.jp/quote/8316.T/dividend",
+      "checkedAt": "2026-09-15T23:40:39.148638+00:00",
+      "years": [
+        {
+          "period": "2017-03",
+          "annual": 50.0,
+          "unadjustedAnnual": 150.0,
+          "quartersUnadjusted": [
+            null,
+            75.0,
+            null,
+            75.0
+          ]
+        },
+        {
+          "period": "2018-03",
+          "annual": 56.67,
+          "unadjustedAnnual": 170.0,
+          "quartersUnadjusted": [
+            null,
+            80.0,
+            null,
+            90.0
+          ]
+        },
+        {
+          "period": "2019-03",
+          "annual": 60.0,
+          "unadjustedAnnual": 180.0,
+          "quartersUnadjusted": [
+            null,
+            85.0,
+            null,
+            95.0
+          ]
+        },
+        {
+          "period": "2020-03",
+          "annual": 63.33,
+          "unadjustedAnnual": 190.0,
+          "quartersUnadjusted": [
+            null,
+            90.0,
+            null,
+            100.0
+          ]
+        },
+        {
+          "period": "2021-03",
+          "annual": 63.33,
+          "unadjustedAnnual": 190.0,
+          "quartersUnadjusted": [
+            null,
+            95.0,
+            null,
+            95.0
+          ]
+        },
+        {
+          "period": "2022-03",
+          "annual": 70.0,
+          "unadjustedAnnual": 210.0,
+          "quartersUnadjusted": [
+            null,
+            105.0,
+            null,
+            105.0
+          ]
+        },
+        {
+          "period": "2023-03",
+          "annual": 80.0,
+          "unadjustedAnnual": 240.0,
+          "quartersUnadjusted": [
+            null,
+            115.0,
+            null,
+            125.0
+          ]
+        },
+        {
+          "period": "2024-03",
+          "annual": 90.0,
+          "unadjustedAnnual": 270.0,
+          "quartersUnadjusted": [
+            null,
+            135.0,
+            null,
+            135.0
+          ]
+        },
+        {
+          "period": "2025-03",
+          "annual": 122.0,
+          "unadjustedAnnual": null,
+          "quartersUnadjusted": [
+            null,
+            180.0,
+            null,
+            62.0
+          ]
+        },
+        {
+          "period": "2026-03",
+          "annual": 157.0,
+          "unadjustedAnnual": 157.0,
+          "quartersUnadjusted": [
+            null,
+            78.0,
+            null,
+            79.0
+          ]
+        }
+      ],
+      "forecast": {
+        "period": "2027-03",
+        "annual": 180.0,
+        "unadjustedAnnual": null,
+        "quartersUnadjusted": [
+          null,
+          90.0,
+          null,
+          45.0
+        ]
+      }
+    },
+    "8604.T": {
+      "symbol": "8604.T",
+      "name": "野村ホールディングス(株)",
+      "currency": "JPY",
+      "periodBasis": "fiscal",
+      "adjustment": "source-split-adjusted",
+      "source": "Yahoo!ファイナンス",
+      "sourceUrl": "https://finance.yahoo.co.jp/quote/8604.T/dividend",
+      "checkedAt": "2026-09-15T23:40:39.869303+00:00",
+      "years": [
+        {
+          "period": "2016-03",
+          "annual": 13.0,
+          "unadjustedAnnual": 13.0,
+          "quartersUnadjusted": [
+            null,
+            10.0,
+            null,
+            3.0
+          ]
+        },
+        {
+          "period": "2017-03",
+          "annual": 20.0,
+          "unadjustedAnnual": 20.0,
+          "quartersUnadjusted": [
+            null,
+            9.0,
+            null,
+            11.0
+          ]
+        },
+        {
+          "period": "2018-03",
+          "annual": 20.0,
+          "unadjustedAnnual": 20.0,
+          "quartersUnadjusted": [
+            null,
+            9.0,
+            null,
+            11.0
+          ]
+        },
+        {
+          "period": "2019-03",
+          "annual": 6.0,
+          "unadjustedAnnual": 6.0,
+          "quartersUnadjusted": [
+            null,
+            3.0,
+            null,
+            3.0
+          ]
+        },
+        {
+          "period": "2020-03",
+          "annual": 20.0,
+          "unadjustedAnnual": 20.0,
+          "quartersUnadjusted": [
+            null,
+            15.0,
+            null,
+            5.0
+          ]
+        },
+        {
+          "period": "2021-03",
+          "annual": 35.0,
+          "unadjustedAnnual": 35.0,
+          "quartersUnadjusted": [
+            null,
+            20.0,
+            null,
+            15.0
+          ]
+        },
+        {
+          "period": "2022-03",
+          "annual": 22.0,
+          "unadjustedAnnual": 22.0,
+          "quartersUnadjusted": [
+            null,
+            8.0,
+            null,
+            14.0
+          ]
+        },
+        {
+          "period": "2023-03",
+          "annual": 17.0,
+          "unadjustedAnnual": 17.0,
+          "quartersUnadjusted": [
+            null,
+            5.0,
+            null,
+            12.0
+          ]
+        },
+        {
+          "period": "2024-03",
+          "annual": 23.0,
+          "unadjustedAnnual": 23.0,
+          "quartersUnadjusted": [
+            null,
+            8.0,
+            null,
+            15.0
+          ]
+        },
+        {
+          "period": "2025-03",
+          "annual": 57.0,
+          "unadjustedAnnual": 57.0,
+          "quartersUnadjusted": [
+            null,
+            23.0,
+            null,
+            34.0
+          ]
+        }
+      ],
+      "forecast": {
+        "period": "2026-03",
+        "annual": null,
+        "unadjustedAnnual": null,
+        "quartersUnadjusted": [
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    "9434.T": {
+      "symbol": "9434.T",
+      "name": "ソフトバンク(株)",
+      "currency": "JPY",
+      "periodBasis": "fiscal",
+      "adjustment": "source-split-adjusted",
+      "source": "Yahoo!ファイナンス",
+      "sourceUrl": "https://finance.yahoo.co.jp/quote/9434.T/dividend",
+      "checkedAt": "2026-09-15T23:40:40.639486+00:00",
+      "years": [
+        {
+          "period": "2019-03",
+          "annual": 3.75,
+          "unadjustedAnnual": 37.5,
+          "quartersUnadjusted": [
+            null,
+            0.0,
+            null,
+            37.5
+          ]
+        },
+        {
+          "period": "2020-03",
+          "annual": 8.5,
+          "unadjustedAnnual": 85.0,
+          "quartersUnadjusted": [
+            null,
+            42.5,
+            null,
+            42.5
+          ]
+        },
+        {
+          "period": "2021-03",
+          "annual": 8.6,
+          "unadjustedAnnual": 86.0,
+          "quartersUnadjusted": [
+            null,
+            43.0,
+            null,
+            43.0
+          ]
+        },
+        {
+          "period": "2022-03",
+          "annual": 8.6,
+          "unadjustedAnnual": 86.0,
+          "quartersUnadjusted": [
+            null,
+            43.0,
+            null,
+            43.0
+          ]
+        },
+        {
+          "period": "2023-03",
+          "annual": 8.6,
+          "unadjustedAnnual": 86.0,
+          "quartersUnadjusted": [
+            null,
+            43.0,
+            null,
+            43.0
+          ]
+        },
+        {
+          "period": "2024-03",
+          "annual": 8.6,
+          "unadjustedAnnual": 86.0,
+          "quartersUnadjusted": [
+            null,
+            43.0,
+            null,
+            43.0
+          ]
+        },
+        {
+          "period": "2025-03",
+          "annual": 8.6,
+          "unadjustedAnnual": null,
+          "quartersUnadjusted": [
+            null,
+            43.0,
+            null,
+            4.3
+          ]
+        },
+        {
+          "period": "2026-03",
+          "annual": 8.6,
+          "unadjustedAnnual": 8.6,
+          "quartersUnadjusted": [
+            null,
+            4.3,
+            null,
+            4.3
+          ]
+        }
+      ],
+      "forecast": {
+        "period": "2027-03",
+        "annual": 8.8,
+        "unadjustedAnnual": 8.8,
+        "quartersUnadjusted": [
+          null,
+          4.4,
+          null,
+          4.4
+        ]
+      }
+    }
+  },
+  "failures": {},
+  "coverage": "Published annual history only. Not personal dividend receipts. Missing values are null."
+}
