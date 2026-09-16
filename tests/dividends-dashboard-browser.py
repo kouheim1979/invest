@@ -40,7 +40,8 @@ with server() as base, sync_playwright() as pw:
         assert page.locator('#sheetPeriodLabel').inner_text()=='直近5期'
         assert page.locator('#overallChart .sheet-bar').count()==5
         page.locator('[data-filter="owner"][data-value="OTS"]').click()
-        assert '10株' in page.locator('#sheetBody').inner_text()
+        bank_row=page.locator('.sheet-row-check[data-symbol="8306.T"]').locator('xpath=ancestor::tr')
+        assert '10' in bank_row.inner_text()
         page.locator('[data-filter="owner"][data-value="all"]').click()
         page.locator('.sheet-row-check[data-symbol="2811.T"]').uncheck()
         assert '1銘柄' in page.locator('#overallMetrics').inner_text()
