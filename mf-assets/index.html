@@ -2,35 +2,35 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#102c31"><meta name="description" content="Money ForwardのCSVを、家族のポートフォリオ・配当管理・ChatGPT相談データへ。金融データはブラウザ内で処理します。">
+<meta name="theme-color" content="#071521"><meta name="description" content="Money ForwardのCSVを、家族のポートフォリオ・配当管理・ChatGPT相談データへ。金融データはブラウザ内で処理します。">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; font-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="referrer" content="no-referrer">
-<title>Asset Compass | 家族の資産と配当</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23102c31'/%3E%3Cpath d='M32 10L45 45L32 37L19 45Z' fill='%238bddc1'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="polish.css"><script src="core.js?v=1.0.1" defer></script><script src="income-policy.js?v=1.0.1" defer></script><script src="app.js?v=1.0.1" defer></script><script src="income-diagnostics.js?v=1.0.1" defer></script>
+<title>資産コンパス | 家族の資産と配当</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23071521'/%3E%3Cpath d='M32 9L45 45L32 37L19 45Z' fill='%2327c9ff'/%3E%3Ccircle cx='32' cy='32' r='23' fill='none' stroke='%2351e1a6' stroke-width='2' opacity='.8'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="polish.css"><link rel="stylesheet" href="dark-theme.css?v=1.0.2"><script src="core.js?v=1.0.1" defer></script><script src="income-policy.js?v=1.0.1" defer></script><script src="app.js?v=1.0.1" defer></script><script src="income-diagnostics.js?v=1.0.1" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">本文へ移動</a>
 <div class="app-shell">
 <aside class="sidebar">
-<a class="brand" href="#dashboard" aria-label="Asset Compass ホーム"><span class="brand-icon">◈</span><span>Asset Compass<small>FAMILY WEALTH STUDIO</small></span></a>
-<div class="nav-label">WORKSPACE</div>
+<a class="brand" href="#dashboard" aria-label="資産コンパス ホーム"><span class="brand-icon">◈</span><span>資産コンパス<small>家族の資産を、未来につなぐ</small></span></a>
+<div class="nav-label">ASSET WORKSPACE</div>
 <nav aria-label="メインメニュー" id="nav">
 <button data-view="dashboard" class="active"><span>▦</span>ダッシュボード</button>
-<button data-view="holdings"><span>◉</span>ポートフォリオ</button>
-<button data-view="dividends"><span>▥</span>配当・入金</button>
-<button data-view="forecast"><span>↗</span>将来シミュレーション</button>
-<button data-view="import"><span>⇧</span>データを取り込む</button>
-<button data-view="consult"><span>✧</span>ChatGPTに相談</button>
+<button data-view="holdings"><span>◉</span>資産サマリー</button>
+<button data-view="dividends"><span>▥</span>配当トラッカー</button>
+<button data-view="forecast"><span>↗</span>配当予測</button>
+<button data-view="import"><span>⇧</span>CSVインポート</button>
+<button data-view="consult"><span>✧</span>ChatGPT出力</button>
 <button data-view="settings"><span>⚙</span>名義・保存設定</button>
 </nav>
-<div class="sidebar-bottom"><div class="secure-dot">端末内で計算</div><p>資産データをサーバーへ<br>送信しない設計です。</p><small>非公式補助アプリ · v1.0</small></div>
+<div class="sidebar-bottom"><div class="secure-dot">端末内で計算</div><p>資産データをサーバーへ<br>送信しない設計です。</p><small>非公式補助アプリ · v1.0.2</small></div>
 </aside>
 <div class="workspace">
-<header class="topbar"><div class="breadcrumb">MY ASSETS <span>/</span> <b id="breadcrumb">ダッシュボード</b></div><div class="top-actions"><span id="storage-status" class="pill">今回のみ</span><button class="icon-button" id="privacy-toggle" aria-label="金額を隠す" title="金額を隠す">◉</button><button class="button primary compact" data-go="import">＋ データ取込</button></div></header>
+<header class="topbar"><div class="breadcrumb">ASSET COMPASS <span>/</span> <b id="breadcrumb">ダッシュボード</b></div><div class="top-actions"><span id="storage-status" class="pill">今回のみ</span><button class="icon-button" id="privacy-toggle" aria-label="金額を隠す" title="金額を隠す">◉</button><button class="button primary compact" data-go="import">＋ CSV取込</button></div></header>
 <div id="demo-banner" class="demo-banner" hidden>デモモード · すべて架空のデータです。実データとは別に表示しています。<button id="exit-demo">デモを終了</button></div>
 <main id="main" tabindex="-1"><div class="loading">資産のワークスペースを準備しています…</div></main>
-<footer>Asset Compass <span>Money Forward ME 非公式補助ツール · 金額は円換算 · 予測は将来を保証しません</span></footer>
+<footer>資産コンパス <span>Money Forward ME 非公式補助ツール · 金額は円換算 · 予測は将来を保証しません</span></footer>
 </div>
 </div>
 <dialog id="modal"><div id="modal-content"></div></dialog>
