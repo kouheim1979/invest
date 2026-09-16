@@ -26,8 +26,10 @@ function date(v){
 function bool(v,def=false){if(text(v)==='')return def;return /^(1|true|yes|はい|対象|振替|○)$/i.test(text(v));}
 function parseCSV(input){
  const s=String(input).replace(/^\uFEFF/,''); if(s.length>20000000)throw Error('20MB以下のCSVに分割してください。');
- const first=s.split(/\r?\n/).slice(0,8).join('\n');
- const delimiter=['\t',',',';'].map(d=>[d,(first.match(new RegExp(d==='\t'?'\t':d,'g'))||[]).length]).sort((a,b)=>b[1]-a[1])[0][0];
+ // Delimiters inside quoted headers or thousands-formatted data are not separators.
+ const counts=new Map([[',',0],['\t',0],[';',0]]);let inQuote=false,started=false;
+ for(let i=0;i<s.length;i++){const c=s[i];if(c==='"'){if(inQuote&&s[i+1]==='"'){i++;continue;}inQuote=!inQuote;started=true;continue;}if(!inQuote&&(c==='\r'||c==='\n')){if(started)break;continue;}if(!inQuote&&counts.has(c))counts.set(c,counts.get(c)+1);if(c.trim())started=true;}
+ const delimiter=[...counts].sort((a,b)=>b[1]-a[1])[0][0];
  const rows=[];let row=[],cell='',quoted=false,afterQuote=false;
  for(let i=0;i<s.length;i++){
   const c=s[i];
@@ -63,7 +65,7 @@ function taxType(v){if(/nisa|非課税/i.test(text(v)))return 'NISA';if(/特定|
 function months(v){return [...new Set(text(v).split(/[^\d]+/).map(Number).filter(n=>n>=1&&n<=12))].sort((a,b)=>a-b);}
 function classify(t){const s=[t.description,t.category,t.subcategory,t.memo].join(' ').normalize('NFKC');if(/元本払戻|元本払戻し|特別分配/.test(s))return '元本払戻';if(/源泉|所得税|住民税|配当控除|税金|税還付|withholding/i.test(s))return '税金';if(/配当|分配金|dividend|distribution/i.test(s))return '配当・分配金';if(/利息|利子|interest/i.test(s))return '利息';return 'その他';}
 function empty(){return {schemaVersion:VERSION,settings:{members:['夫','妻','子ども1','子ども2'],accountOwners:{},taxRate:20.315,persist:false},holdings:[],transactions:[],history:[],imports:[],scenario:{years:10,monthly:30000,price:3,dividend:2,spread:3,reinvest:true}};}
-function ownerOf(row,state){return row.owner||state.settings.accountOwners[row.account]||UNKNOWN;}
+function ownerOf(row,state){if(typeof row.owner==='string'&&row.owner)return row.owner;const map=state.settings.accountOwners;return Object.hasOwn(map,row.account)&&typeof map[row.account]==='string'&&map[row.account]?map[row.account]:UNKNOWN;}
 function selected(rows,state,owner='all'){return owner==='all'?rows:rows.filter(r=>ownerOf(r,state)===owner);}
 function active(t,asOf=today()){return (t.includeOverride??(!t.transfer&&t.counted))&&t.date<=asOf;}
 function kindOf(t){return t.kindOverride||t.kind||classify(t);}
@@ -79,7 +81,7 @@ function normalize(parsed,type,map,defaults={}){
   const owner=get('owner')||defaults.owner||'';
   const account=get('account')||defaults.account||'口座未設定';
   if(type==='transactions'){
-   const dt=date(get('date')),a=num(get('amount'));if(!dt||a===null){issue(i,'日付または金額が不正・未入力のため除外');result.skipped++;return;}
+   const dt=date(get('date')),a=num(get('amount'));if(!dt||a===null||!Number.isFinite(a*fx)){issue(i,'日付または金額が不正・未入力のため除外');result.skipped++;return;}
    const item={id:uid(),date:dt,description:get('description'),amountJPY:a*fx,account,owner,category:get('category'),subcategory:get('subcategory'),memo:get('memo'),transfer:bool(get('transfer')),counted:bool(get('counted'),true),externalId:get('externalId'),currency,fx,source:defaults.source||'',sourceRow:i+2};
    item.kind=classify(item);
    const base=JSON.stringify(item.externalId?['id',owner,account,item.externalId]:['row',owner,account,dt,item.description,item.amountJPY]);
@@ -88,15 +90,19 @@ function normalize(parsed,type,map,defaults={}){
    item.key=base+(item.externalId?'':':'+n);result.records.push(item);
    if(item.kind==='配当・分配金'&&a<0)issue(i,'負の配当：訂正・取消か明細で確認してください');
   }else if(type==='holdings'){
-   const v=num(get('value'));if(v===null||v<0||(!get('name')&&!get('symbol'))){issue(i,'銘柄名／コードまたは0以上の評価額が必要なため除外');result.skipped++;return;}
+   const v=num(get('value'));if(v===null||v<0||!Number.isFinite(v*fx)||(!get('name')&&!get('symbol'))){issue(i,'銘柄名／コードまたは0以上の評価額が必要なため除外');result.skipped++;return;}
    const ac=assetClass(get('assetClass')||defaults.assetClass),rawDps=num(get('annualDps')),q=num(get('quantity'));
    const inputDate=get('asOf')||defaults.asOf||today(),asOf=date(inputDate);
    if(!asOf){issue(i,'残高の基準日が不正なため除外');result.skipped++;return;}
    const c=num(get('cost')),p=num(get('profit'));
    const cost=c!==null?c*fx:p!==null?v*fx-p*fx:null;
    const du=num(get('dividendUnit'))??(ac==='投資信託'?10000:1);
-   if((q!==null&&q<0)||(rawDps!==null&&rawDps<0)||du<=0||cost<0){issue(i,'数量・取得額・配当単価・基準口数の値が不正なため除外');result.skipped++;return;}
+   if((q!==null&&q<0)||(rawDps!==null&&(rawDps<0||!Number.isFinite(rawDps*fx)))||du<=0||(cost!==null&&(!Number.isFinite(cost)||cost<0))){issue(i,'数量・取得額・配当単価・基準口数の値が不正なため除外');result.skipped++;return;}
    const item={id:uid(),name:get('name')||get('symbol'),symbol:get('symbol'),valueJPY:v*fx,costJPY:cost,quantity:q,account,owner,assetClass:ac,annualDps:rawDps===null?null:rawDps*fx,dividendUnit:du,months:months(get('months')),taxType:taxType(get('taxType')||defaults.taxType),asOf,currency,fx,source:defaults.source||'',sourceRow:i+2};
+   item.providedFields=Object.keys(FIELDS.holdings).filter(k=>get(k)!=='');
+   if(owner)item.providedFields.push('owner');
+   if(defaults.assetClass&&defaults.assetClass!=='その他')item.providedFields.push('assetClass');
+   if(taxType(defaults.taxType)!==UNKNOWN)item.providedFields.push('taxType');
    item.key=JSON.stringify([owner,account,item.symbol||item.name,item.taxType]);
    const n=(occurrence.get(item.key)||0)+1;occurrence.set(item.key,n);item.key+=':'+n;result.records.push(item);
   }else{
@@ -109,18 +115,34 @@ function normalize(parsed,type,map,defaults={}){
 }
 function applyImport(state,result,mode='accounts',source='CSV'){
  const next=clone(state),type=result.type;let added=0,updated=0,duplicate=0;
+ const original=new Map(next[type].map(r=>[type==='history'?r.date:r.key,r]));
  if(type==='holdings'){
   if(mode==='all')next.holdings=[];
   else if(mode==='accounts'){const scopes=new Set(result.records.map(r=>JSON.stringify([ownerOf(r,next),r.account])));next.holdings=next.holdings.filter(r=>!scopes.has(JSON.stringify([ownerOf(r,next),r.account])));}
  }
- const key=type==='history'?'history':type;const map=new Map(next[key].map(r=>[type==='history'?r.date:r.key,r]));
- for(const r of result.records){const k=type==='history'?r.date:r.key,old=map.get(k);if(old){
-   const clean=x=>{const c={...x};for(const f of ['id','source','sourceRow','includeOverride','kindOverride'])delete c[f];return JSON.stringify(c);};
-   if(clean(old)===clean(r)){duplicate++;continue;}
-   map.set(k,{...r,id:old.id,...(old.includeOverride!==undefined?{includeOverride:old.includeOverride}:{}),...(old.kindOverride?{kindOverride:old.kindOverride}:{})});updated++;
-  }else{map.set(k,r);added++;}
+ const map=new Map(next[type].map(r=>[type==='history'?r.date:r.key,r]));
+ const clean=x=>{const c={...x};for(const f of ['id','source','sourceRow','includeOverride','kindOverride','providedFields','retainedFields'])delete c[f];return JSON.stringify(c);};
+ for(const input of result.records){const r=clone(input),k=type==='history'?r.date:r.key,old=original.get(k);
+  if(old){
+   r.id=old.id;
+   if(old.includeOverride!==undefined)r.includeOverride=old.includeOverride;
+   if(old.kindOverride)r.kindOverride=old.kindOverride;
+   // Missing columns in a fresh balance export must not erase user-entered forecasts.
+   if(type==='holdings'){
+    const fields=new Set(r.providedFields||[]),retained=[];
+    const carry=(dest,sourceField=dest)=>{if(!fields.has(sourceField)&&old[dest]!==undefined){r[dest]=clone(old[dest]);retained.push(dest);}};
+    for(const key of ['annualDps','quantity','months','owner','assetClass','taxType'])carry(key);
+    if(!fields.has('cost')&&!fields.has('profit'))carry('costJPY','cost');
+    // Keep the unit paired with a preserved annual dividend, not an inferred asset class.
+    if(!fields.has('dividendUnit')&&!fields.has('annualDps'))carry('dividendUnit');
+    r.retainedFields=retained;
+   }else if(type==='transactions'&&!r.owner&&old.owner)r.owner=old.owner;
+   if(clean(old)===clean(r)){map.set(k,r);duplicate++;continue;}
+   updated++;
+  }else added++;
+  map.set(k,r);
  }
- next[key]=[...map.values()];if(type==='history')next.history.sort((a,b)=>a.date.localeCompare(b.date));
+ next[type]=[...map.values()];if(type==='history')next.history.sort((a,b)=>a.date.localeCompare(b.date));
  next.imports.push({id:uid(),at:new Date().toISOString(),source,type,added,updated,duplicate,skipped:result.skipped,issues:result.issues.length});
  return {state:next,added,updated,duplicate};
 }
@@ -128,7 +150,7 @@ function forecast(h,state){
  if(h.annualDps===null||h.annualDps===undefined)return {gross:null,net:null,reason:'年間配当単価なし'};
  if(h.annualDps===0)return {gross:0,net:0,reason:'無配・分配なしとして設定'};
  if(h.quantity===null||h.quantity===undefined)return {gross:null,net:null,reason:'数量なし'};
- const gross=h.quantity/h.dividendUnit*h.annualDps;
+ const gross=h.quantity/h.dividendUnit*h.annualDps;if(!Number.isFinite(gross)||gross<0)return {gross:null,net:null,reason:'配当予測の計算範囲外'};
  const rate=h.taxType==='NISA'?0:h.taxType==='課税'?state.settings.taxRate:null;
  return {gross,net:rate===null?null:gross*(1-rate/100),reason:rate===null?'税区分なし':'設定単価 × 数量 ÷ 基準口数'};
 }
@@ -138,11 +160,11 @@ function summary(state,owner='all',year=Number(today().slice(0,4)),asOf=today())
  const latest=owner==='all'?[...state.history].filter(h=>h.date<=asOf).sort((a,b)=>b.date.localeCompare(a.date))[0]:null;
  const modeled=hs.map(h=>({h,...forecast(h,state)}));
  const dividendAssets=hs.filter(h=>!['預金・現金','ポイント','暗号資産','年金'].includes(h.assetClass));
- const knownCost=hs.filter(h=>h.costJPY!==null),valid=modeled.filter(x=>x.gross!==null),netKnown=modeled.filter(x=>x.net!==null);
+ const knownCost=hs.filter(h=>Number.isFinite(h.costJPY)),valid=modeled.filter(x=>x.gross!==null),netKnown=modeled.filter(x=>x.net!==null);
  const total=sum(hs,h=>h.valueJPY);const value=hs.length?total:latest?.total??null;
  const groups={};for(const h of hs)groups[h.assetClass]=(groups[h.assetClass]||0)+h.valueJPY;
  const owners=[...new Set([...state.settings.members,...hs.map(h=>ownerOf(h,state)),...ts.map(t=>ownerOf(t,state))])];
- const byOwner=owners.map(o=>({owner:o,value:sum(hs.filter(h=>ownerOf(h,state)===o),h=>h.valueJPY),actual:sum(dividends.filter(t=>ownerOf(t,state)===o),t=>t.amountJPY),forecastGross:sum(modeled.filter(x=>ownerOf(x.h,state)===o),x=>x.gross),forecastNet:sum(modeled.filter(x=>ownerOf(x.h,state)===o),x=>x.net)}));
+ const byOwner=owners.map(o=>{const own=modeled.filter(x=>ownerOf(x.h,state)===o),gross=own.filter(x=>x.gross!==null),net=own.filter(x=>x.net!==null);return {owner:o,value:sum(hs.filter(h=>ownerOf(h,state)===o),h=>h.valueJPY),actual:sum(dividends.filter(t=>ownerOf(t,state)===o),t=>t.amountJPY),forecastGross:gross.length?sum(gross,x=>x.gross):null,forecastNet:net.length?sum(net,x=>x.net):null,forecastMissing:own.filter(x=>x.gross===null).length};});
  const monthActual=Array(12).fill(0),monthForecast=Array(12).fill(0);for(const t of dividends)monthActual[Number(t.date.slice(5,7))-1]+=t.amountJPY;
  let unscheduled=0;for(const x of netKnown){if(!x.h.months.length){unscheduled+=x.net;continue;}for(const m of x.h.months)monthForecast[m-1]+=x.net/x.h.months.length;}
  const cutoff=new Date(asOf+'T00:00:00Z');cutoff.setUTCFullYear(cutoff.getUTCFullYear()-1);const trailing=ts.filter(t=>t.date>cutoff.toISOString().slice(0,10)&&t.date<=asOf&&kindOf(t)==='配当・分配金'&&active(t,asOf));
@@ -150,10 +172,10 @@ function summary(state,owner='all',year=Number(today().slice(0,4)),asOf=today())
 }
 function project(initial,annualNet,settings){
  const {years,monthly,price,dividend,reinvest}=settings;
- if(![initial,annualNet,years,monthly,price,dividend].every(Number.isFinite)||initial<=0||annualNet<0||years<1||years>50||monthly<0||price<=-100||dividend<=-100)throw Error('予測条件の値を確認してください。');
+ if(![initial,annualNet,years,monthly,price,dividend].every(Number.isFinite)||initial<=0||annualNet<0||!Number.isInteger(years)||years<1||years>50||monthly<0||price<=-100||dividend<=-100)throw Error('予測条件の値を確認してください。');
  const rate=Math.pow(1+price/100,1/12)-1,yield0=annualNet/initial;let capital=initial,runRate=annualNet,cumulativeDiv=0,contributed=0;
  const rows=[{year:0,capital,income:0,cumulativeDiv:0,contributed:0}];
- for(let y=1;y<=years;y++){if(y>1)runRate*=1+dividend/100;let income=0;for(let m=0;m<12;m++){const d=runRate/12,add=monthly+(reinvest?d:0);capital=capital*(1+rate)+add;runRate+=add*yield0;income+=d;contributed+=monthly;}cumulativeDiv+=income;rows.push({year:y,capital,income,cumulativeDiv,contributed});}
+ for(let y=1;y<=years;y++){if(y>1)runRate*=1+dividend/100;let income=0;for(let m=0;m<12;m++){const d=runRate/12,add=monthly+(reinvest?d:0);capital=capital*(1+rate)+add;runRate+=add*yield0;income+=d;contributed+=monthly;}cumulativeDiv+=income;if(![capital,income,cumulativeDiv,contributed].every(Number.isFinite))throw Error('予測額が計算範囲を超えました。条件を小さくしてください。');rows.push({year:y,capital,income,cumulativeDiv,contributed});}
  return rows;
 }
 function consultation(state,{owner='all',year=Number(today().slice(0,4)),anonymous=true,question='資産配分と配当収入を分析し、確認すべき点を教えてください。'}={}){
@@ -179,13 +201,31 @@ function markdown(p){
 }
 function csv(headers,rows){const escape=v=>{let s=v===null||v===undefined?'':String(v);if(typeof v==='string'&&/^[\s]*[=+\-@]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"';};return '\uFEFF'+[headers,...rows].map(r=>r.map(escape).join(',')).join('\r\n');}
 function validateBackup(obj){
- if(!obj||obj.schemaVersion!==VERSION||!obj.settings||!Array.isArray(obj.settings.members)||!obj.settings.accountOwners)throw Error('Asset Compassの復元用JSONではありません。相談用JSONは復元できません。');
- for(const k of ['holdings','transactions','history','imports'])if(!Array.isArray(obj[k])||obj[k].length>100000)throw Error('バックアップの形式または件数が不正です。');
- for(const h of obj.holdings)if(!Number.isFinite(h.valueJPY)||h.valueJPY<0||!date(h.asOf)||!h.id||!h.key||!Number.isFinite(h.dividendUnit)||h.dividendUnit<=0||(h.annualDps!==null&&(!Number.isFinite(h.annualDps)||h.annualDps<0))||!Array.isArray(h.months)||h.months.some(m=>!Number.isInteger(m)||m<1||m>12))throw Error('保有資産のバックアップ値が不正です。');
- for(const t of obj.transactions)if(!Number.isFinite(t.amountJPY)||!date(t.date)||!t.key||!t.id)throw Error('明細のバックアップ値が不正です。');
- for(const h of obj.history)if(!Number.isFinite(h.total)||h.total<0||!date(h.date))throw Error('資産推移のバックアップ値が不正です。');
- if(!Number.isFinite(obj.settings.taxRate)||obj.settings.taxRate<0||obj.settings.taxRate>100)throw Error('税率が不正です。');
- return {...empty(),...clone(obj),settings:{...empty().settings,...clone(obj.settings)},scenario:{...empty().scenario,...clone(obj.scenario||{})}};
+ const fail=message=>{throw Error(message);};
+ const string=v=>typeof v==='string'&&v.length<=20000;
+ const amount=v=>Number.isFinite(v)&&v>=0;
+ const optionalAmount=v=>v===null||amount(v);
+ if(!obj||obj.schemaVersion!==VERSION||!obj.settings||!Array.isArray(obj.settings.members)||!obj.settings.accountOwners)fail('Asset Compassの復元用JSONではありません。相談用JSONは復元できません。');
+ const settings=obj.settings;
+ if(settings.members.length>100||settings.members.some(m=>!string(m)||!m.trim()||m==='all'||m===UNKNOWN)||new Set(settings.members).size!==settings.members.length)fail('名義メンバーが不正です。');
+ if(typeof settings.accountOwners!=='object'||Array.isArray(settings.accountOwners)||Object.values(settings.accountOwners).some(o=>!string(o))||typeof settings.persist!=='boolean')fail('保存設定が不正です。');
+ for(const k of ['holdings','transactions','history','imports']){
+  if(!Array.isArray(obj[k])||obj[k].length>100000||obj[k].some(r=>!r||typeof r!=='object'))fail('バックアップの形式または件数が不正です。');
+  if(k!=='imports'&&new Set(obj[k].map(r=>r.id)).size!==obj[k].length)fail('重複するデータIDがあります。');
+ }
+ for(const h of obj.holdings){
+  if(!amount(h.valueJPY)||!optionalAmount(h.costJPY)||!optionalAmount(h.quantity)||!optionalAmount(h.annualDps)||!date(h.asOf)||!string(h.id)||!h.id||!string(h.key)||!h.key||!Number.isFinite(h.dividendUnit)||h.dividendUnit<=0||!Array.isArray(h.months)||h.months.some(m=>!Number.isInteger(m)||m<1||m>12)||new Set(h.months).size!==h.months.length)fail('保有資産のバックアップ値が不正です。');
+  if(['name','symbol','account','owner'].some(k=>!string(h[k]))||!CLASSES.includes(h.assetClass)||![UNKNOWN,'課税','NISA'].includes(h.taxType))fail('保有資産の名義・区分が不正です。');
+ }
+ for(const t of obj.transactions){
+  if(!Number.isFinite(t.amountJPY)||!date(t.date)||!string(t.key)||!t.key||!string(t.id)||!t.id||['description','account','owner'].some(k=>!string(t[k]))||typeof t.transfer!=='boolean'||typeof t.counted!=='boolean'||(t.includeOverride!==undefined&&typeof t.includeOverride!=='boolean')||!KINDS.includes(t.kind)||(t.kindOverride&&!KINDS.includes(t.kindOverride)))fail('明細のバックアップ値が不正です。');
+ }
+ for(const h of obj.history)if(!amount(h.total)||!date(h.date)||!string(h.id)||!h.id)fail('資産推移のバックアップ値が不正です。');
+ for(const i of obj.imports)if(!['holdings','transactions','history'].includes(i.type)||!string(i.at)||!Number.isFinite(Date.parse(i.at))||!string(i.source)||['added','updated','duplicate','skipped','issues'].some(k=>!Number.isInteger(i[k])||i[k]<0))fail('取込履歴が不正です。');
+ if(!Number.isFinite(settings.taxRate)||settings.taxRate<0||settings.taxRate>100)fail('税率が不正です。');
+ const scenario={...empty().scenario,...obj.scenario};
+ if(!Number.isInteger(scenario.years)||scenario.years<1||scenario.years>50||!amount(scenario.monthly)||!amount(scenario.spread)||scenario.spread>30||!Number.isFinite(scenario.price)||scenario.price-scenario.spread<=-100||scenario.price>100||!Number.isFinite(scenario.dividend)||scenario.dividend<=-100||scenario.dividend>100||typeof scenario.reinvest!=='boolean')fail('シミュレーション条件が不正です。');
+ return {...empty(),...clone(obj),settings:{...empty().settings,...clone(settings)},scenario:clone(scenario)};
 }
 function sample(){
  const s=empty(),yr=Number(today().slice(0,4));

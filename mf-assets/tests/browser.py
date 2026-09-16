@@ -1,7 +1,8 @@
 """Synthetic end-to-end checks. No personal data or external runtime services."""
 from pathlib import Path
 import json
-from playwright.sync_api import sync_playwright
+import os
+from playwright.sync_api import sync_playwright, expect
 
 OUT=Path('mf-assets/test-results')
 OUT.mkdir(parents=True, exist_ok=True)
@@ -14,7 +15,7 @@ def record(name):
     print('PASS:',name,flush=True)
 
 with sync_playwright() as p:
-    browser=p.chromium.launch()
+    browser=p.chromium.launch(executable_path=os.environ.get('CHROMIUM_PATH'))
     ctx=browser.new_context(viewport={'width':1440,'height':1040}, accept_downloads=True)
     page=ctx.new_page()
     page.on('pageerror',lambda error:errors.append(str(error)))
@@ -90,7 +91,7 @@ with sync_playwright() as p:
         record('manual holdings create expected NISA dividend forecast')
         page.locator('[data-view="settings"]').click()
         page.locator('#persist-toggle').check()
-        page.wait_for_function("document.querySelector('#storage-status').textContent==='端末に保存済み'")
+        expect(page.locator('#storage-status')).to_have_text('端末に保存済み')
         page.reload()
         page.get_by_role('heading',name='資産の全体像').wait_for()
         assert '100,000' in page.locator('main').inner_text()
@@ -114,7 +115,7 @@ with sync_playwright() as p:
         record('encrypted backup restores successfully')
         page.locator('[data-view="settings"]').click()
         page.locator('#persist-toggle').uncheck()
-        page.wait_for_function("document.querySelector('#storage-status').textContent==='今回のみ'")
+        expect(page.locator('#storage-status')).to_have_text('今回のみ')
         page.reload()
         page.get_by_role('button',name='サンプルで体験する →').wait_for()
         record('opting out deletes persisted workspace')
