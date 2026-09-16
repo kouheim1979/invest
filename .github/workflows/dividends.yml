@@ -1,7 +1,7 @@
 name: Dividend history
 on:
   push:
-    branches: [main, feat/dividend-history-10y]
+    branches: [main, feat/dividend-history-10y, feat/dividend-dashboard-design]
     paths:
       - 'dividends*'
       - 'scripts/fetch-dividends.py'
@@ -48,7 +48,7 @@ jobs:
         env:
           DIVIDEND_WEBKIT: '1'
         run: |
-          python3 tests/dividends-browser.py
+          python3 tests/dividends-dashboard-browser.py
           python3 tests/dividends-selection-browser.py
       - uses: actions/upload-artifact@v4
         if: always()
