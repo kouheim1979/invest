@@ -1,7 +1,7 @@
 name: Dividend history
 on:
   push:
-    branches: [main, feat/dividend-history-10y, feat/dividend-sheet-filters]
+    branches: [main, feat/dividend-history-10y]
     paths:
       - 'dividends*'
       - 'scripts/fetch-dividends.py'
