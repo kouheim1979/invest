@@ -1,7 +1,7 @@
 name: Dividend history
 on:
   push:
-    branches: [main, feat/dividend-history-10y]
+    branches: [main, feat/dividend-history-10y, feat/dividend-sheet-filters]
     paths:
       - 'dividends*'
       - 'scripts/fetch-dividends.py'
@@ -36,6 +36,7 @@ jobs:
           python3 scripts/install-dividends.py
           node --check dividends.js
           node --check dividends-entry.js
+          node --check dividends-sheet.js
       - name: Install browser regression dependencies
         if: github.event_name != 'schedule'
         run: |
