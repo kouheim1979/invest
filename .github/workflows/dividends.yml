@@ -36,6 +36,7 @@ jobs:
           python3 scripts/install-dividends.py
           node --check dividends.js
           node --check dividends-entry.js
+          node --check dividends-sheet.js
       - name: Install browser regression dependencies
         if: github.event_name != 'schedule'
         run: |

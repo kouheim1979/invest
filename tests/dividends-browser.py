@@ -21,7 +21,7 @@ def server():
 
 with server() as base, sync_playwright() as pw:
     engines = [('chromium', pw.chromium, {'executable_path':shutil.which('google-chrome') or shutil.which('chromium')})]
-    if os.environ.get('DIVIDEND_WEBKIT') == '1': engines.append(('webkit', pw.webkit, {}))
+    if os.environ.get('DIVIDEND_WEBKIT') == '1': engines.append(('webkit', pw.webkit, {}) )
     for engine_name, engine, launch in engines:
         launch = {k:v for k,v in launch.items() if v}
         browser = engine.launch(headless=True, **launch)
@@ -30,6 +30,7 @@ with server() as base, sync_playwright() as pw:
         page.on('pageerror', lambda error: errors.append(str(error)))
         ctx.route('**/*', lambda route: route.continue_() if route.request.url.startswith(base) else route.abort())
         page.on('dialog',lambda dialog:dialog.accept())
+        # Legacy/detail page remains valid for direct links and receipt handling.
         page.goto(base+'/dividends.html?symbol=8306.T')
         page.wait_for_function("!document.getElementById('reloadHistory').disabled")
         assert page.locator('#historyTable tr').count() == 10
@@ -98,14 +99,53 @@ with server() as base, sync_playwright() as pw:
         page.screenshot(path=str(RESULTS/f'{engine_name}-receipts-fictional.png'),full_page=True)
         with page.expect_download() as download: page.locator('#exportReceipts').click()
         assert download.value.suggested_filename.endswith('.json')
-        # Account reference filters and original stock-page entry are tested
-        # with small fictional counts, not the user's actual holdings.
-        page.evaluate("""()=>{localStorage.setItem('kouheim_portfolio_v2',JSON.stringify([{symbol:'8306.T',name:'検証銘柄',shares:30,cost:100}]));localStorage.setItem('kouheim_portfolio_lots_v1',JSON.stringify([{symbol:'8306.T',owner:'OTS',broker:'SBI',tax:'nisa',shares:10,cost:100,amount:1000},{symbol:'8306.T',owner:'OKS',broker:'SBI',tax:'specific',shares:20,cost:100,amount:2000}]))}""")
+        # Account-aware dividend sheet: use fictional shares only.
+        page.evaluate("""()=>{localStorage.setItem('kouheim_portfolio_v2',JSON.stringify([{symbol:'8306.T',name:'検証銘柄',shares:30,cost:100},{symbol:'2811.T',name:'検証食品',shares:20,cost:100}]));localStorage.setItem('kouheim_portfolio_lots_v1',JSON.stringify([{symbol:'8306.T',owner:'OTS',broker:'SBI',tax:'nisa',shares:10,cost:100,amount:1000},{symbol:'8306.T',owner:'OKS',broker:'SBI',tax:'specific',shares:20,cost:100,amount:2000},{symbol:'2811.T',owner:'OTS',broker:'SBI',tax:'specific',shares:20,cost:100,amount:2000}]))}""")
         page.goto(base+'/app-v3.html')
         page.wait_for_selector('#dividendNav')
         page.wait_for_selector('#mobile .dividend-link')
-        assert page.locator('#mobile .dividend-link').count()==1
-        page.locator('#mobile .dividend-link').click()
+        assert page.locator('#mobile .dividend-link').count()==2
+        # Per-stock link opens the new sheet focused on that stock.
+        page.locator('#mobile .dividend-link').first.click()
+        page.wait_for_selector('#sheetBody tr')
+        page.wait_for_function("!document.getElementById('sheetReload').disabled")
+        assert 'dividends-sheet.html' in page.url
+        assert page.locator('#viewIndividual').get_attribute('aria-selected')=='true'
+        assert page.locator('#focusStock').input_value()=='8306.T'
+        assert '30株' in page.locator('#sheetBody').inner_text()
+        assert page.locator('.sheet-row-check:checked').count()==1
+        # Owner/tax filters change current shares without changing source history.
+        page.locator('[data-filter="owner"][data-value="OTS"]').click()
+        assert '10株' in page.locator('#sheetBody').inner_text()
+        page.locator('[data-filter="tax"][data-value="nisa"]').click()
+        assert '10株' in page.locator('#sheetBody').inner_text()
+        page.locator('[data-filter="owner"][data-value="all"]').click()
+        page.locator('[data-filter="tax"][data-value="all"]').click()
+        # Any 1-10 year window is selectable; total and individual use the same period.
+        page.locator('#sheetYears').select_option('5')
+        assert page.locator('#sheetPeriodLabel').inner_text()=='直近5期'
+        assert page.locator('#individualBody tr').count()==5
+        page.locator('#viewOverall').click()
+        assert page.locator('#viewOverall').get_attribute('aria-selected')=='true'
+        assert '1銘柄' in page.locator('#overallMetrics').inner_text()
+        # Add second holding by checkbox; overall changes to two selected holdings.
+        page.locator('.sheet-row-check[data-symbol="2811.T"]').check()
+        assert '2銘柄' in page.locator('#overallMetrics').inner_text()
+        assert page.locator('#overallChart .sheet-bar').count()==5
+        # Search only narrows displayed sheet rows; selected totals remain explicit.
+        page.locator('#sheetSearch').fill('2811')
+        assert page.locator('#sheetBody tr').count()==1
+        assert '選択 2銘柄' in page.locator('#selectionCount').inner_text()
+        page.locator('#sheetSearch').fill('')
+        # Whole page must not horizontally overflow; tables/charts scroll inside cards.
+        for width in (320,390,768,1280):
+            page.set_viewport_size({'width':width,'height':844})
+            page.evaluate('()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))')
+            assert page.evaluate('document.documentElement.scrollWidth<=innerWidth'), ('sheet overflow',engine_name,width)
+        page.set_viewport_size({'width':390,'height':844})
+        page.screenshot(path=str(RESULTS/f'{engine_name}-dividend-sheet.png'),full_page=True)
+        # Legacy detailed conversion remains available directly for compatibility.
+        page.goto(base+'/dividends.html?symbol=8306.T')
         page.wait_for_function("!document.getElementById('reloadHistory').disabled")
         page.locator('#referencePanel summary').click()
         page.locator('#refOwner').select_option('OTS')
@@ -116,5 +156,5 @@ with server() as base, sync_playwright() as pw:
         assert page.locator('#receiptsPanel').is_visible()
         assert len(page.evaluate("JSON.parse(localStorage.getItem('kouheim_portfolio_dividends_v1')).receipts"))==4
         assert not errors, errors
-        print(engine_name, 'dividend history / empty records / import / deduplication / privacy / filters / mobile: PASS')
+        print(engine_name, 'dividend history / sheet filters / year windows / total-individual / receipts / privacy / mobile: PASS')
         ctx.close();browser.close()
