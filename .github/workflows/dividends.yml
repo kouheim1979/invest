@@ -1,0 +1,95 @@
+name: Dividend history
+on:
+  push:
+    branches: [main, feat/dividend-history-10y]
+    paths:
+      - 'dividends*'
+      - 'scripts/fetch-dividends.py'
+      - 'scripts/install-dividends.py'
+      - 'tests/dividends*'
+      - '.github/workflows/dividends.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '23 21 * * *'
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: portfolio-publish
+  cancel-in-progress: false
+jobs:
+  history:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref_name }}
+      - name: Validate existing and new features
+        run: node --test tests/*.test.cjs
+      - name: Refresh public annual dividend data
+        run: python3 scripts/fetch-dividends.py
+      - name: Install dividend navigation
+        run: |
+          python3 scripts/install-dividends.py
+          node --check dividends.js
+          node --check dividends-entry.js
+      - name: Install browser regression dependencies
+        if: github.event_name != 'schedule'
+        run: |
+          python3 -m pip install playwright==1.58.0
+          python3 -m playwright install --with-deps webkit
+          sudo apt-get install -y fonts-noto-cjk
+      - name: Verify Chromium and Safari engine
+        if: github.event_name != 'schedule'
+        env:
+          DIVIDEND_WEBKIT: '1'
+        run: python3 tests/dividends-browser.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: dividend-validation
+          retention-days: 1
+          path: |
+            *.html
+            dividends*
+            account-filters.js
+            quotes-client.js
+            charts.js
+            scripts/fetch-dividends.py
+            scripts/install-dividends.py
+            tests/
+            test-results/
+            quotes.json
+            history.json
+      - name: Persist public data only
+        env:
+          TARGET_BRANCH: ${{ github.ref_name }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add dividends-data.json app-v3.html
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: update dividend history [skip ci]"
+            git pull --rebase origin "$TARGET_BRANCH"
+            git push origin "HEAD:$TARGET_BRANCH"
+          fi
+  deploy:
+    needs: history
+    if: github.ref_name == 'main'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - uses: actions/deploy-pages@v4
+        id: deployment
