@@ -105,11 +105,12 @@ with server() as base, sync_playwright() as pw:
         page.wait_for_selector('#dividendNav')
         page.wait_for_selector('#mobile .dividend-link')
         assert page.locator('#mobile .dividend-link').count()==2
-        # Per-stock link opens the new sheet focused on that stock.
+        # Per-stock links now open the merged dashboard, focused on that stock.
         page.locator('#mobile .dividend-link').first.click()
         page.wait_for_selector('#sheetBody tr')
         page.wait_for_function("!document.getElementById('sheetReload').disabled")
-        assert 'dividends-sheet.html' in page.url
+        assert 'dividends-dashboard.html' in page.url
+        assert page.locator('h1').inner_text() == '配当ダッシュボード'
         assert page.locator('#viewIndividual').get_attribute('aria-selected')=='true'
         assert page.locator('#focusStock').input_value()=='8306.T'
         assert '30株' in page.locator('#sheetBody').inner_text()
