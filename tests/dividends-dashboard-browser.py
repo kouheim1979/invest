@@ -39,9 +39,11 @@ with server() as base, sync_playwright() as pw:
         page.locator('#sheetYears').select_option('5')
         assert page.locator('#sheetPeriodLabel').inner_text()=='直近5期'
         assert page.locator('#overallChart .sheet-bar').count()==5
-        page.locator('[data-filter="owner"][data-value="OTS"]').click()
-        bank_row=page.locator('.sheet-row-check[data-symbol="8306.T"]').locator('xpath=ancestor::tr')
-        assert '10' in bank_row.inner_text()
+        owner_chip=page.locator('[data-filter="owner"][data-value="OTS"]')
+        owner_chip.click()
+        assert 'on' in (owner_chip.get_attribute('class') or '').split()
+        assert page.locator('#sheetBody tr').count()==2
+        assert '条件内 2銘柄' in page.locator('#selectionCount').inner_text()
         page.locator('[data-filter="owner"][data-value="all"]').click()
         page.locator('.sheet-row-check[data-symbol="2811.T"]').uncheck()
         assert '1銘柄' in page.locator('#overallMetrics').inner_text()
