@@ -1,7 +1,7 @@
 name: Asset Compass verification
 on:
   push:
-    branches: [main, feature/asset-compass-20260916, 'fix/asset-income-*']
+    branches: [main, feature/asset-compass-20260916, 'fix/asset-income-*', 'design/*']
     paths: ['mf-assets/**', 'tests/mf-assets*.test.cjs', '.github/workflows/mf-assets-ci.yml']
   pull_request:
     paths: ['mf-assets/**', 'tests/mf-assets*.test.cjs', '.github/workflows/mf-assets-ci.yml']
@@ -28,6 +28,7 @@ jobs:
           node --check mf-assets/app.js
           node --check mf-assets/income-policy.js
           node --check mf-assets/income-diagnostics.js
+          node --check mf-assets/dashboard-layout.js
           set -o pipefail
           node --test tests/mf-assets*.test.cjs 2>&1 | tee mf-assets/test-results/unit-tests.txt
       - name: Install browser test tools
@@ -42,6 +43,7 @@ jobs:
           for n in $(seq 1 20); do curl -fsS http://127.0.0.1:8080/mf-assets/ > /dev/null && break || sleep 1; done
           python mf-assets/tests/browser.py
           python mf-assets/tests/income-browser.py
+          python mf-assets/tests/layout-browser.py
       - name: Upload source and verification evidence
         if: always()
         uses: actions/upload-artifact@v4
