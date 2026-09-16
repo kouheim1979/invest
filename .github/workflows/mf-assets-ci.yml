@@ -29,6 +29,7 @@ jobs:
           node --check mf-assets/income-policy.js
           node --check mf-assets/income-diagnostics.js
           node --check mf-assets/dashboard-layout.js
+          node --check mf-assets/dashboard-layout-sync.js
           set -o pipefail
           node --test tests/mf-assets*.test.cjs 2>&1 | tee mf-assets/test-results/unit-tests.txt
       - name: Install browser test tools
