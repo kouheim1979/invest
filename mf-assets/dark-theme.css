@@ -1,0 +1,225 @@
+/* Asset Compass dark dashboard theme — v1.0.2 */
+:root{
+  --ink:#e8f1f7;
+  --muted:#7f94a7;
+  --bg:#071521;
+  --paper:#0d2130;
+  --panel:#0d2130;
+  --panel-2:#102838;
+  --line:#1f4054;
+  --accent:#1fc7ff;
+  --accent-2:#51e1a6;
+  --mint:#0f3b38;
+  --orange:#f5bd4f;
+  --nav:#081a26;
+  --red:#ff7881;
+  --shadow:0 14px 34px rgba(0,0,0,.22);
+  color-scheme:dark;
+  color:var(--ink);
+  background:var(--bg);
+}
+html{background:#071521}
+body{
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 72% -10%,rgba(16,96,140,.18),transparent 34%),
+    linear-gradient(135deg,#081824 0%,#07131e 55%,#06111a 100%);
+}
+a{color:#34c8ff}
+h1,h2,h3,strong{color:#f4f8fb}
+.muted,.small{color:var(--muted)}
+
+.sidebar{
+  background:linear-gradient(180deg,#0b2232 0%,#071823 56%,#081a27 100%);
+  border-right:1px solid #163549;
+  box-shadow:12px 0 28px rgba(0,0,0,.14);
+}
+.brand{color:#fff;font-size:19px;letter-spacing:-.2px}
+.brand-icon{color:#35ccff;text-shadow:0 0 22px rgba(31,199,255,.34)}
+.brand small{color:#718fa3;letter-spacing:1.5px}
+.nav-label{color:#55798f}
+nav button{color:#9eb2c1;border:1px solid transparent}
+nav button:hover{background:#102c3f;color:#e9f8ff;border-color:#1a4056}
+nav button.active{
+  background:linear-gradient(90deg,#123a54,#13415a 72%,#10364c);
+  color:#3bd1ff;
+  border-color:#1a4d67;
+  box-shadow:inset 3px 0 0 #1ec8ff,0 8px 22px rgba(0,0,0,.13);
+}
+nav button.active:before{display:none}
+.sidebar-bottom{
+  border:1px solid #21475f;
+  background:linear-gradient(180deg,rgba(31,87,120,.30),rgba(11,33,46,.35));
+  color:#92aaba;
+}
+.secure-dot{color:#a2bed0}.secure-dot:before{color:#51e1a6}
+
+.workspace{background:transparent}
+.topbar{
+  background:rgba(7,20,31,.82);
+  border-bottom:1px solid #17364a;
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+}
+.breadcrumb{color:#54788e}.breadcrumb span{color:#36566a}.breadcrumb b{color:#b9cbd8}
+.pill,.badge{background:#102b3c;color:#9cc4d8;border:1px solid #1c4359}
+.badge.warning{background:#3d3219;color:#ffd36f;border-color:#665225}
+.badge.red{background:#3c2028;color:#ff9aa1;border-color:#63313c}
+.icon-button{background:#0f2636;color:#8facbd;border-color:#21475c}
+.icon-button:hover{color:#fff;border-color:#2b6581}
+
+.button{
+  background:#10283a;
+  color:#dbe7ef;
+  border-color:#24465a;
+  box-shadow:0 6px 18px rgba(0,0,0,.08);
+}
+.button:hover{background:#153349;border-color:#2e6480;filter:none}
+.button.primary{
+  background:linear-gradient(135deg,#0e8fc5,#0cb9df);
+  color:#f5fbff;
+  border-color:#20b8ea;
+  box-shadow:0 8px 22px rgba(11,174,222,.18);
+}
+.button.dark{background:#081824;color:#e8f3f8;border-color:#204359}
+.button.ghost{color:#34c8ff;background:transparent;border-color:transparent;box-shadow:none}
+.button.danger{color:#ff949b;border-color:#6f3440;background:#351b22}
+
+main{background:transparent}
+.page-head{align-items:flex-end;margin-bottom:24px}
+.eyebrow{color:#36c9ff;letter-spacing:1.8px}
+.page-head h1{color:#f6fbff;font-weight:720;letter-spacing:-1.2px}
+.page-head p{color:#7f96a8}
+
+.metrics{gap:14px}
+.metric{
+  background:linear-gradient(145deg,rgba(15,39,55,.96),rgba(10,31,44,.96));
+  border:1px solid #1d4258;
+  border-radius:9px;
+  box-shadow:var(--shadow);
+  min-height:132px;
+  position:relative;
+  overflow:hidden;
+}
+.metric:before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(110deg,rgba(44,201,255,.025),transparent 42%);
+  pointer-events:none;
+}
+.metric.primary{
+  background:linear-gradient(145deg,#0f2b3d,#0b2332);
+  border-color:#1e526c;
+}
+.metric.primary:after{display:none}
+.metric-label,.metric.primary .metric-label{color:#91a7b7}
+.metric-number{color:#f5f8fb;font-weight:700;font-size:30px}
+.metric-note,.metric.primary .metric-note{color:#54e0a5}
+.positive{color:#54e0a5}.negative{color:#ff7c86}
+
+.panel{
+  background:linear-gradient(145deg,rgba(13,34,48,.98),rgba(9,27,39,.98));
+  border:1px solid #1b4055;
+  border-radius:9px;
+  box-shadow:var(--shadow);
+}
+.panel-head h2{color:#f0f6fa}
+.panel-head p{color:#7d94a5}
+.chart text{fill:#7891a4!important}
+.chart-grid{stroke:#1c3d51!important;stroke-dasharray:0}
+.donut text{fill:#dfeaf1!important}
+.legend-row{color:#b6c7d3}
+.legend-row b{color:#eef5f8}
+.dot{box-shadow:0 0 10px rgba(55,196,255,.10)}
+.section-note{color:#7e94a5}
+
+.table-wrap{border:1px solid #18394c;background:#0a1d2a}
+table{color:#bfcfd9}
+th{color:#7891a3;background:#102838;border-bottom-color:#1e4054}
+td{border-bottom-color:#173447}
+tbody tr:hover{background:#102737}
+td .sub{color:#6e8799}
+
+.progress-track{background:#1a3445}.progress-track span{background:linear-gradient(90deg,#1bc5ff,#53e0a4)}
+.avatar{background:#15384c;color:#57d2ff;border:1px solid #22536b}
+
+.callout{background:#0e2c30;border-color:#1f5452;color:#9fc9c0}
+.callout.warning{background:#332b18;border-color:#66552b;color:#e7c879}
+.callout.error{background:#351d26;border-color:#66303e;color:#f0a0a6}
+
+.welcome{background:linear-gradient(135deg,#102b3e,#0a1f2e);border:1px solid #1e4a62;box-shadow:var(--shadow)}
+.welcome p{color:#8fa7b7}.welcome .eyebrow{color:#37c9ff}.welcome .button{background:#16acd9;border-color:#2cc7ef;color:white}.welcome .ghost{color:#9fdfff;background:transparent;border-color:#2b5c74}
+.step{background:#0d2231;border-color:#1e4054}.step .number{color:#2fc8ff}.step p{color:#8197a8}
+.empty{color:#718b9d}.empty h3{color:#e7f0f6}.empty-symbol{color:#3cbfe7}
+
+input,select,textarea{
+  background:#0a1e2c;
+  color:#d9e6ee;
+  border-color:#24475b;
+}
+input::placeholder,textarea::placeholder{color:#5f788a}
+input:focus,select:focus,textarea:focus{border-color:#28b9ec;box-shadow:0 0 0 3px rgba(31,199,255,.10)}
+input[type=file]{background:#0a1e2c}
+.field{color:#8299aa}.field small{color:#657f91}
+
+.drop-zone{
+  background:linear-gradient(145deg,#0c2231,#091b27);
+  border-color:#315b70;
+  color:#b8c9d3;
+}
+.drop-zone.drag{background:#0d3041;border-color:#21c6f6}
+.drop-zone .upload-icon{color:#35c9ff}
+.drop-zone p{color:#748d9e}
+details{border-top-color:#1e4054}summary{color:#d7e4eb}
+.issues{color:#d1a269}
+
+.tab-strip button{background:#0c2231;border-color:#21475b;color:#839aaa}
+.tab-strip button.active{color:#5ad4ff;background:#12344a;border-color:#26617e}
+.bar{background:#25bdf3}.bar.forecast{background:#53dea5}.bar-label{color:#7f94a6}
+.divider{border-top-color:#1b3d50}
+.scenario-legend{color:#9bb0bf}
+
+.consult-banner{background:linear-gradient(120deg,#102e3b,#112b2b);border-color:#21505c;color:#dce9ef}
+.consult-banner p{color:#86a0b1}.consult-banner .spark{color:#45d3ff}
+.code-output{background:#071a27;color:#bfd8e6;border-color:#21465a}
+
+.demo-banner{background:#352d18;color:#e6c46a;border-bottom:1px solid #5f5127}
+.demo-banner button{border-color:#705f2d;color:#f3d375}
+
+footer{border-top-color:#173649;color:#607d90}footer span{color:#557286}
+
+dialog{background:#0c2130;color:#dce8ef;border:1px solid #24485d;box-shadow:0 28px 90px rgba(0,0,0,.58)}
+dialog::backdrop{background:rgba(2,9,14,.76);backdrop-filter:blur(5px)}
+dialog h2{color:#f0f6fa}
+
+#toast{background:#123a4c;color:#eaf8ff;border:1px solid #25617d;box-shadow:0 12px 34px rgba(0,0,0,.35)}
+.loading{color:#718c9e}
+
+/* Make the dashboard feel denser, closer to the selected reference design. */
+@media(min-width:1100px){
+  main{padding-top:27px}
+  .metrics{margin-bottom:14px}
+  .grid-two,.grid-equal{gap:14px;margin-bottom:14px}
+  .panel{margin-bottom:14px;padding:19px}
+  .panel-head{margin-bottom:15px}
+}
+
+@media(max-width:850px){
+  .sidebar{background:#081b28;border-right:0;border-bottom:1px solid #173a4e}
+  nav button.active{box-shadow:none}
+  .topbar{background:rgba(7,20,31,.94)}
+}
+
+@media(max-width:600px){
+  .metric{min-height:126px}
+  .metric-number{font-size:23px}
+  .donut-layout{background:transparent}
+  .panel,.metric{box-shadow:0 9px 25px rgba(0,0,0,.18)}
+}
+
+@media print{
+  body,.workspace{background:#fff!important;color:#111!important}
+  .panel,.metric{background:#fff!important;color:#111!important;border-color:#ccc!important}
+  h1,h2,h3,strong,.metric-number{color:#111!important}
+}
