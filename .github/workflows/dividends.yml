@@ -47,7 +47,9 @@ jobs:
         if: github.event_name != 'schedule'
         env:
           DIVIDEND_WEBKIT: '1'
-        run: python3 tests/dividends-browser.py
+        run: |
+          python3 tests/dividends-browser.py
+          python3 tests/dividends-selection-browser.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
