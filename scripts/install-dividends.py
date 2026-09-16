@@ -1,14 +1,21 @@
-"""Idempotent additive integration; leaves all existing holdings code untouched."""
+"""Idempotent additive integration; leaves existing holdings data and logic untouched."""
 from pathlib import Path
 
-required = ['dividends.html', 'dividends.css', 'dividends-core.js', 'dividends.js', 'dividends-entry.js']
+required = ['dividends.html', 'dividends.css', 'dividends-core.js', 'dividends.js', 'dividends-entry.js',
+            'dividends-sheet.html', 'dividends-sheet.css', 'dividends-sheet.js']
 for name in required:
     if not Path(name).exists(): raise SystemExit(f'Missing dividend component: {name}')
 p = Path('app-v3.html')
 s = p.read_text(encoding='utf-8')
-marker = '<script src="./dividends-entry.js?v=20260916-1"></script>'
-if marker not in s:
+old_markers = [
+    '<script src="./dividends-entry.js?v=20260916-1"></script>',
+    '<script src="./dividends-entry.js?v=20260916-sheet1"></script>'
+]
+marker = '<script src="./dividends-entry.js?v=20260916-sheet1"></script>'
+if old_markers[0] in s:
+    s = s.replace(old_markers[0], marker)
+elif marker not in s:
     if s.count('</body>') != 1: raise SystemExit('Portfolio body marker is not unique')
     s = s.replace('</body>', marker+'</body>')
-    p.write_text(s, encoding='utf-8')
-print('Dividend navigation installed; existing portfolio data and code unchanged')
+p.write_text(s, encoding='utf-8')
+print('Dividend sheet navigation installed; existing portfolio data and code unchanged')
