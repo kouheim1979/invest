@@ -7,7 +7,8 @@
 <meta name="referrer" content="no-referrer">
 <title>資産コンパス | 家族の資産と配当</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23071521'/%3E%3Cpath d='M32 9L45 45L32 37L19 45Z' fill='%2327c9ff'/%3E%3Ccircle cx='32' cy='32' r='23' fill='none' stroke='%2351e1a6' stroke-width='2' opacity='.8'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="polish.css"><link rel="stylesheet" href="dark-theme.css?v=1.0.2"><script src="core.js?v=1.0.1" defer></script><script src="income-policy.js?v=1.0.1" defer></script><script src="app.js?v=1.0.1" defer></script><script src="income-diagnostics.js?v=1.0.1" defer></script>
+<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="polish.css"><link rel="stylesheet" href="dark-theme.css?v=1.0.2"><link rel="stylesheet" href="layout-v3.css?v=1.1.0">
+<script src="core.js?v=1.0.1" defer></script><script src="income-policy.js?v=1.0.1" defer></script><script src="app.js?v=1.0.1" defer></script><script src="income-diagnostics.js?v=1.0.1" defer></script><script src="dashboard-layout.js?v=1.1.0" defer></script><script src="dashboard-layout-sync.js?v=1.1.0" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">本文へ移動</a>
@@ -19,15 +20,15 @@
 <button data-view="dashboard" class="active"><span>▦</span>ダッシュボード</button>
 <button data-view="holdings"><span>◉</span>資産サマリー</button>
 <button data-view="dividends"><span>▥</span>配当トラッカー</button>
+<button data-view="settings"><span>◎</span>名義別内訳</button>
 <button data-view="forecast"><span>↗</span>配当予測</button>
 <button data-view="import"><span>⇧</span>CSVインポート</button>
 <button data-view="consult"><span>✧</span>ChatGPT出力</button>
-<button data-view="settings"><span>⚙</span>名義・保存設定</button>
 </nav>
-<div class="sidebar-bottom"><div class="secure-dot">端末内で計算</div><p>資産データをサーバーへ<br>送信しない設計です。</p><small>非公式補助アプリ · v1.0.2</small></div>
+<div class="sidebar-bottom"><div class="secure-dot">家族の資産を端末内で管理</div><p>金融データは外部サーバーへ送信せず、このブラウザ内で処理します。</p><small>非公式補助アプリ · v1.1.0</small></div>
 </aside>
 <div class="workspace">
-<header class="topbar"><div class="breadcrumb">ASSET COMPASS <span>/</span> <b id="breadcrumb">ダッシュボード</b></div><div class="top-actions"><span id="storage-status" class="pill">今回のみ</span><button class="icon-button" id="privacy-toggle" aria-label="金額を隠す" title="金額を隠す">◉</button><button class="button primary compact" data-go="import">＋ CSV取込</button></div></header>
+<header class="topbar"><b id="breadcrumb" class="sr-only">ダッシュボード</b><button class="topbar-search" data-go="holdings" type="button" title="資産を検索"><span class="search-glyph">⌕</span><strong>銘柄・口座・メモを検索…</strong><span>（資産サマリーへ）</span></button><div class="top-actions"><span id="storage-status" class="pill">今回のみ</span><button class="icon-button" id="privacy-toggle" aria-label="金額を隠す" title="金額を隠す">◉</button><button class="button primary compact" data-go="import">＋ CSV取込</button></div></header>
 <div id="demo-banner" class="demo-banner" hidden>デモモード · すべて架空のデータです。実データとは別に表示しています。<button id="exit-demo">デモを終了</button></div>
 <main id="main" tabindex="-1"><div class="loading">資産のワークスペースを準備しています…</div></main>
 <footer>資産コンパス <span>Money Forward ME 非公式補助ツール · 金額は円換算 · 予測は将来を保証しません</span></footer>
