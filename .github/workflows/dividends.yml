@@ -1,4 +1,5 @@
 name: Dividend history
+# Dashboard design validation uses the same dividend calculations as the sheet view.
 on:
   push:
     branches: [main, feat/dividend-history-10y, feat/dividend-dashboard-design]
