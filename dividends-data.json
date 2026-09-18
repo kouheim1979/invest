@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-17T23:34:32.918253+00:00",
+  "updatedAt": "2026-09-18T23:22:01.750891+00:00",
   "series": {
     "1820.T": {
       "symbol": "1820.T",
@@ -10,7 +10,7 @@
       "adjustment": "source-split-adjusted",
       "source": "Yahoo!ファイナンス",
       "sourceUrl": "https://finance.yahoo.co.jp/quote/1820.T/dividend",
-      "checkedAt": "2026-09-16T23:40:25.468886+00:00",
+      "checkedAt": "2026-09-18T23:22:03.408252+00:00",
       "years": [
         {
           "period": "2017-03",
@@ -143,7 +143,7 @@
       "adjustment": "source-split-adjusted",
       "source": "Yahoo!ファイナンス",
       "sourceUrl": "https://finance.yahoo.co.jp/quote/2193.T/dividend",
-      "checkedAt": "2026-09-16T23:40:25.420870+00:00",
+      "checkedAt": "2026-09-18T23:22:03.435567+00:00",
       "years": [
         {
           "period": "2016-12",
