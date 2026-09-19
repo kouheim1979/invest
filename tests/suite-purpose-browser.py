@@ -118,6 +118,8 @@ with server() as base, sync_playwright() as pw:
         check('no JavaScript exceptions',not errors)
         print(json.dumps({'checks':checks,'errors':errors},ensure_ascii=False,indent=2))
     except Exception:
+        print(json.dumps({'completed_checks':checks,'errors':errors},ensure_ascii=False,indent=2))
+        print(assets().locator('#main').inner_text())
         page.screenshot(path=str(OUT/'purpose-failure.png'))
         (OUT/'purpose-failure.txt').write_text(page.locator('body').inner_text(),encoding='utf-8')
         raise
