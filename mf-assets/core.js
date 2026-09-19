@@ -3,6 +3,7 @@
 'use strict';
 const VERSION=1, UNKNOWN='未設定';
 const P=typeof module==='object'&&module.exports?require('./purpose-core.js'):root.PurposeCore;
+const ME=typeof module==='object'&&module.exports?require('./me-core.js'):root.MoneyForwardBridge;
 const CLASSES=['預金・現金','国内株式','外国株式','投資信託','債券','年金','暗号資産','ポイント','その他'];
 const KINDS=['配当・分配金','利息','元本払戻','税金','その他'];
 const norm=v=>String(v??'').normalize('NFKC').replace(/[\s（）()［\]【】]/g,'').toLowerCase();
@@ -91,7 +92,7 @@ function normalize(parsed,type,map,defaults={}){
    item.key=base+(item.externalId?'':':'+n);result.records.push(item);
    if(item.kind==='配当・分配金'&&a<0)issue(i,'負の配当：訂正・取消か明細で確認してください');
   }else if(type==='holdings'){
-   const v=num(get('value'));if(v===null||v<0||!Number.isFinite(v*fx)||(!get('name')&&!get('symbol'))){issue(i,'銘柄名／コードまたは0以上の評価額が必要なため除外');result.skipped++;return;}
+   const v=num(get('value'));if(v===null||(v<0&&assetClass(get('assetClass')||defaults.assetClass)!=='ポイント')||!Number.isFinite(v*fx)||(!get('name')&&!get('symbol'))){issue(i,'銘柄名／コードまたは0以上の評価額が必要なため除外');result.skipped++;return;}
    const ac=assetClass(get('assetClass')||defaults.assetClass),rawDps=num(get('annualDps')),q=num(get('quantity'));
    const inputDate=get('asOf')||defaults.asOf||today(),asOf=date(inputDate);
    if(!asOf){issue(i,'残高の基準日が不正なため除外');result.skipped++;return;}
@@ -215,7 +216,7 @@ function validateBackup(obj){
   if(k!=='imports'&&new Set(obj[k].map(r=>r.id)).size!==obj[k].length)fail('重複するデータIDがあります。');
  }
  for(const h of obj.holdings){
-  if(!amount(h.valueJPY)||!optionalAmount(h.costJPY)||!optionalAmount(h.quantity)||!optionalAmount(h.annualDps)||!date(h.asOf)||!string(h.id)||!h.id||!string(h.key)||!h.key||!Number.isFinite(h.dividendUnit)||h.dividendUnit<=0||!Array.isArray(h.months)||h.months.some(m=>!Number.isInteger(m)||m<1||m>12)||new Set(h.months).size!==h.months.length)fail('保有資産のバックアップ値が不正です。');
+  if(!(amount(h.valueJPY)||(h.assetClass==='ポイント'&&Number.isFinite(h.valueJPY)))||!optionalAmount(h.costJPY)||!optionalAmount(h.quantity)||!optionalAmount(h.annualDps)||!date(h.asOf)||!string(h.id)||!h.id||!string(h.key)||!h.key||!Number.isFinite(h.dividendUnit)||h.dividendUnit<=0||!Array.isArray(h.months)||h.months.some(m=>!Number.isInteger(m)||m<1||m>12)||new Set(h.months).size!==h.months.length)fail('保有資産のバックアップ値が不正です。');
   if(['name','symbol','account','owner'].some(k=>!string(h[k]))||!CLASSES.includes(h.assetClass)||![UNKNOWN,'課税','NISA'].includes(h.taxType))fail('保有資産の名義・区分が不正です。');
  }
  for(const t of obj.transactions){
@@ -224,6 +225,7 @@ function validateBackup(obj){
  for(const h of obj.history)if(!amount(h.total)||!date(h.date)||!string(h.id)||!h.id)fail('資産推移のバックアップ値が不正です。');
  for(const i of obj.imports)if(!['holdings','transactions','history'].includes(i.type)||!string(i.at)||!Number.isFinite(Date.parse(i.at))||!string(i.source)||['added','updated','duplicate','skipped','issues'].some(k=>!Number.isInteger(i[k])||i[k]<0))fail('取込履歴が不正です。');
  if(!Number.isFinite(settings.taxRate)||settings.taxRate<0||settings.taxRate>100)fail('税率が不正です。');
+ if(obj.moneyForwardME!==undefined){if(!ME)fail('ME連携の読込に失敗しました。再読み込みしてください。');ME.validateMetadata(obj.moneyForwardME);}
  const scenario={...empty().scenario,...obj.scenario};
  if(!Number.isInteger(scenario.years)||scenario.years<1||scenario.years>50||!amount(scenario.monthly)||!amount(scenario.spread)||scenario.spread>30||!Number.isFinite(scenario.price)||scenario.price-scenario.spread<=-100||scenario.price>100||!Number.isFinite(scenario.dividend)||scenario.dividend<=-100||scenario.dividend>100||typeof scenario.reinvest!=='boolean')fail('シミュレーション条件が不正です。');
  return {...empty(),...clone(obj),purposePortfolio:P.validate(obj.purposePortfolio),settings:{...empty().settings,...clone(settings)},scenario:clone(scenario)};

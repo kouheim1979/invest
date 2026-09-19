@@ -15,7 +15,8 @@
     function ring(summary,focus){
       let offset=0;
       const arcs=summary.groups.filter(g=>g.value>0).map(g=>{
-        const length=g.percent;
+        const positiveTotal=summary.groups.reduce((total,item)=>total+Math.max(0,item.value),0);
+        const length=g.value/positiveTotal*100;
         const arc='<circle cx="160" cy="160" r="124" fill="none" stroke="'+g.color+'" stroke-width="44" pathLength="100" stroke-dasharray="'+length+' '+(100-length)+'" stroke-dashoffset="'+(-offset)+'" transform="rotate(-90 160 160)"'+(selected!=='all'&&selected!==g.id?' opacity=".23"':'')+'/>';
         offset+=length;return arc;
       }).join('');
