@@ -2,9 +2,9 @@ name: Unified app verification
 on:
   push:
     branches: [main, 'feat/unified-app-*']
-    paths: ['suite*', 'unified.html', 'index.html', 'mf-assets/**', 'tests/suite*', 'tests/mf-assets*', '.github/workflows/suite-ci.yml']
+    paths: ['suite*', 'broker-receipts*', 'unified.html', 'index.html', 'mf-assets/**', 'tests/broker-receipts*', 'tests/suite*', 'tests/mf-assets*', '.github/workflows/suite-ci.yml']
   pull_request:
-    paths: ['suite*', 'unified.html', 'index.html', 'mf-assets/**', 'tests/suite*', 'tests/mf-assets*', '.github/workflows/suite-ci.yml']
+    paths: ['suite*', 'broker-receipts*', 'unified.html', 'index.html', 'mf-assets/**', 'tests/broker-receipts*', 'tests/suite*', 'tests/mf-assets*', '.github/workflows/suite-ci.yml']
 permissions:
   contents: read
 concurrency:
@@ -27,6 +27,8 @@ jobs:
           node --check suite.js
           node --check suite-core.js
           node --check suite-asset-adapter.js
+          node --check broker-receipts.js
+          node --check broker-receipts-core.js
           node --test tests/*.test.cjs
       - name: Install browser
         run: |
@@ -36,6 +38,7 @@ jobs:
         run: |
           python tests/suite-browser.py
           python tests/suite-purpose-browser.py
+          python tests/broker-receipts-browser.py
       - name: Existing 10-year dividend views
         run: |
           python tests/dividends-dashboard-browser.py
