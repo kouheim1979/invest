@@ -6,7 +6,7 @@ const icons={home:'<path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1
 const svg=name=>'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(icons[name]||icons.home)+'</svg>';
 const tabs={home:'ホーム',assets:'資産',holdings:'持ち株',dividends:'配当',settings:'設定'};
 const subtabs={assets:{overview:'全体像',purposes:'目的別',holdings:'資産一覧',owners:'名義・口座'},dividends:{history:'10年推移',receipts:'受取記録',csv:'CSV入金',forecast:'配当予測'},settings:{menu:'設定',import:'CSV取込',storage:'保存・バックアップ',consult:'ChatGPT相談'}};
-const sources={assets:'mf-assets/index.html?suite=1&v=20260920-2',holdings:'app-v3.html?suite=1',dividends:'dividends-dashboard.html?suite=1',receipts:'dividends.html?mode=receipts&suite=1'};
+const sources={assets:'mf-assets/index.html?suite=1&v=20260920-3',holdings:'app-v3.html?suite=1',dividends:'dividends-dashboard.html?suite=1',receipts:'dividends.html?mode=receipts&suite=1'};
 const states={};let assets=null,stock={value:'—',note:'持ち株未登録'},current=S.route(location.hash),sequence=0,activeKey='',commandDepth=0;
 const storage={read(key,fallback){try{return localStorage.getItem(key)??fallback;}catch{return fallback;}},write(key,value){try{localStorage.setItem(key,value);return true;}catch{$('suite-status').textContent='設定を保存できません。この画面を開いている間だけ適用します。';return false;}}};
 let privateMode=storage.read('kouheim_suite_privacy_v1','0')==='1',preference=storage.read('kouheim_suite_receipt_source_v1','auto');

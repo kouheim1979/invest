@@ -4,6 +4,7 @@
 const VERSION=1, UNKNOWN='未設定';
 const P=typeof module==='object'&&module.exports?require('./purpose-core.js'):root.PurposeCore;
 const ME=typeof module==='object'&&module.exports?require('./me-core.js'):root.MoneyForwardBridge;
+const MC=typeof module==='object'&&module.exports?require('./me-classification.js'):root.MeClassification;
 const CLASSES=['預金・現金','国内株式','外国株式','投資信託','債券','年金','暗号資産','ポイント','その他'];
 const KINDS=['配当・分配金','利息','元本払戻','税金','その他'];
 const norm=v=>String(v??'').normalize('NFKC').replace(/[\s（）()［\]【】]/g,'').toLowerCase();
@@ -225,6 +226,7 @@ function validateBackup(obj){
  for(const h of obj.history)if(!amount(h.total)||!date(h.date)||!string(h.id)||!h.id)fail('資産推移のバックアップ値が不正です。');
  for(const i of obj.imports)if(!['holdings','transactions','history'].includes(i.type)||!string(i.at)||!Number.isFinite(Date.parse(i.at))||!string(i.source)||['added','updated','duplicate','skipped','issues'].some(k=>!Number.isInteger(i[k])||i[k]<0))fail('取込履歴が不正です。');
  if(!Number.isFinite(settings.taxRate)||settings.taxRate<0||settings.taxRate>100)fail('税率が不正です。');
+ if(obj.meClassification!==undefined)MC.validate(obj.meClassification);
  if(obj.moneyForwardME!==undefined){if(!ME)fail('ME連携の読込に失敗しました。再読み込みしてください。');ME.validateMetadata(obj.moneyForwardME);}
  const scenario={...empty().scenario,...obj.scenario};
  if(!Number.isInteger(scenario.years)||scenario.years<1||scenario.years>50||!amount(scenario.monthly)||!amount(scenario.spread)||scenario.spread>30||!Number.isFinite(scenario.price)||scenario.price-scenario.spread<=-100||scenario.price>100||!Number.isFinite(scenario.dividend)||scenario.dividend<=-100||scenario.dividend>100||typeof scenario.reinvest!=='boolean')fail('シミュレーション条件が不正です。');
@@ -244,6 +246,6 @@ function sample(){
  s.purposePortfolio.assignments=s.holdings.map((h,i)=>({key:h.key,purposeId:['retirement','retirement','retirement','travel','emergency','education','education'][i]}));
  s.imports=[{id:'demo',at:new Date().toISOString(),source:'架空のサンプルデータ',type:'holdings',added:7,updated:0,duplicate:0,skipped:0,issues:0}];return s;
 }
-const api={VERSION,UNKNOWN,CLASSES,KINDS,FIELDS,LABELS,norm,text,num,date,bool,sum,today,clone,uid,parseCSV,decode,mapping,detect,assetClass,taxType,months,classify,empty,ownerOf,selected,active,kindOf,normalize,applyImport,forecast,summary,project,consultation,markdown,csv,validateBackup,sample};
+const api={VERSION,UNKNOWN,CLASSES,KINDS,FIELDS,LABELS,norm,text,num,date,bool,sum,today,clone,uid,parseCSV,decode,mapping,detect,assetClass,taxType,months,classify,empty,ownerOf,selected,active,kindOf,normalize,applyImport,forecast,summary,project,consultation,markdown,csv,validateBackup,sample,applyMeClassification:state=>MC.apply(state,P)};
 if(typeof module!=='undefined'&&module.exports)module.exports=api;root.AssetCore=api;
 })(globalThis);

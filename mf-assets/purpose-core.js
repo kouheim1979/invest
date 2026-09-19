@@ -1,4 +1,4 @@
-/* Purpose labels refer to imported holdings. No separate balances or inferred goals. */
+/* Purpose labels refer to imported holdings. Suggestions stay separate from manual choices. */
 (function(root,factory){
   const api=factory();
   if(typeof module==='object'&&module.exports)module.exports=api;
@@ -58,11 +58,13 @@
     }
     settings.assignments=[...map].map(([key,id])=>({key,purposeId:id}));
     next.purposePortfolio=validate(settings);
+    if(next.meClassification){const chosen=new Set(keys);next.meClassification.suggestedKeys=next.meClassification.suggestedKeys.filter(key=>!chosen.has(key));}
     return next;
   }
   function saveGroups(state,groups){
     const next=clone(state),settings=config(state),ids=new Set(groups.map(g=>g.id));
     next.purposePortfolio=validate({...settings,groups,assignments:settings.assignments.filter(a=>ids.has(a.purposeId))});
+    if(next.meClassification){const kept=new Set(next.purposePortfolio.assignments.map(a=>a.key));next.meClassification.suggestedKeys=next.meClassification.suggestedKeys.filter(key=>kept.has(key));}
     return next;
   }
   return {UNASSIGNED,defaults,validate,config,summarize,profit,assign,saveGroups};

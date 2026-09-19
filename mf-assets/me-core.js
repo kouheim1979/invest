@@ -51,7 +51,7 @@
     if(p.asOf>C.today())fail('未来日の残高は取り込めません。');
     const oldMeta=state.moneyForwardME;
     if(oldMeta&&Date.parse(p.retrievedAt)<Date.parse(oldMeta.packet.retrievedAt))fail('この端末には、より新しいMEデータが反映済みです。');
-    if(oldMeta?.id===id)return {state,unchanged:true,retained:0,...totals(p)};
+    if(oldMeta?.id===id){const migrated=C.applyMeClassification(state);return {state:migrated.changed?C.validateBackup(migrated.state):state,unchanged:!migrated.changed,retained:0,...totals(p)};}
     const next=clone(state),old=state.holdings,used=new Set(),assignments=new Map((state.purposePortfolio?.assignments||[]).map(a=>[a.key,a.purposeId]));
     let retained=0;
     next.holdings=grouped(p).filter(h=>!debts.has(h.asset_category)).map(h=>{
@@ -77,7 +77,7 @@
     next.moneyForwardME={id,packet:clone(p),importedAt:new Date().toISOString()};
     next.imports.push({id:C.uid(),at:next.moneyForwardME.importedAt,source:'Money Forward ME / ChatGPT',type:'holdings',added:next.holdings.length-retained,updated:retained,duplicate:0,skipped:0,issues:0});
     next.settings.persist=true;
-    return {state:C.validateBackup(next),unchanged:false,retained,...t};
+    return {state:C.validateBackup(C.applyMeClassification(next).state),unchanged:false,retained,...t};
   }
   function validateMetadata(m){
     if(!m||typeof m.id!=='string'||!/^[a-f0-9]{64}$/.test(m.id)||typeof m.importedAt!=='string'||!Number.isFinite(Date.parse(m.importedAt)))fail('ME連携の保存情報が不正です。');
