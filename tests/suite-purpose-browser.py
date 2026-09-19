@@ -5,7 +5,7 @@ from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
 from threading import Thread
 import json, os
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright, expect
 
 ROOT=Path(__file__).resolve().parent.parent
 OUT=ROOT/'suite-test-results'; OUT.mkdir(exist_ok=True)
@@ -110,7 +110,7 @@ with server() as base, sync_playwright() as pw:
         a.locator('#exit-demo').click();a=purposes()
         check('demo preserves real assignments','将来の生活費' in legend(a,'retirement').inner_text() and a.locator('#purpose-total').inner_text()=='¥260,000')
         a=go('settings/storage');a.locator('#persist-toggle').check()
-        a.wait_for_function("document.getElementById('storage-status').textContent==='端末に保存済み'")
+        expect(a.locator('#storage-status')).to_have_text('端末に保存済み')
         purposes();page.reload();a=assets();a.wait_for_selector('#purpose-page')
         check('classification survives persistent reload','将来の生活費' in legend(a,'retirement').inner_text() and '¥120,000' in legend(a,'retirement').inner_text())
         a=import_csv(CSV.replace('120000','145000'))
