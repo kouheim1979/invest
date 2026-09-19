@@ -2,9 +2,9 @@ name: Unified app verification
 on:
   push:
     branches: [main, 'feat/unified-app-*']
-    paths: ['suite*', 'unified.html', 'index.html', 'mf-assets/index.html', 'tests/suite*', '.github/workflows/suite-ci.yml']
+    paths: ['suite*', 'unified.html', 'index.html', 'mf-assets/**', 'tests/suite*', 'tests/mf-assets*', '.github/workflows/suite-ci.yml']
   pull_request:
-    paths: ['suite*', 'unified.html', 'index.html', 'mf-assets/index.html', 'tests/suite*', '.github/workflows/suite-ci.yml']
+    paths: ['suite*', 'unified.html', 'index.html', 'mf-assets/**', 'tests/suite*', 'tests/mf-assets*', '.github/workflows/suite-ci.yml']
 permissions:
   contents: read
 concurrency:
@@ -33,7 +33,9 @@ jobs:
           python -m pip install playwright==1.55.0
           python -m playwright install --with-deps chromium
       - name: Unified navigation, data compatibility, privacy and responsive checks
-        run: python tests/suite-browser.py
+        run: |
+          python tests/suite-browser.py
+          python tests/suite-purpose-browser.py
       - name: Existing 10-year dividend views
         run: |
           python tests/dividends-dashboard-browser.py

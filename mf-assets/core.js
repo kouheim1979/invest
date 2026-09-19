@@ -2,6 +2,7 @@
 (function(root){
 'use strict';
 const VERSION=1, UNKNOWN='未設定';
+const P=typeof module==='object'&&module.exports?require('./purpose-core.js'):root.PurposeCore;
 const CLASSES=['預金・現金','国内株式','外国株式','投資信託','債券','年金','暗号資産','ポイント','その他'];
 const KINDS=['配当・分配金','利息','元本払戻','税金','その他'];
 const norm=v=>String(v??'').normalize('NFKC').replace(/[\s（）()［\]【】]/g,'').toLowerCase();
@@ -54,7 +55,7 @@ function decode(buffer,encoding='auto'){
 }
 const FIELDS={
  transactions:{date:['日付','取引日','受渡日','入金日','date'],description:['内容','摘要','取引内容','銘柄名','description'],amount:['金額（円）','金額','入金額','受取金額','受取額','amount','amountJPY'],account:['保有金融機関','金融機関','口座','口座名','account'],owner:['名義','名義人','所有者','owner'],category:['大項目','種別','category'],subcategory:['中項目','subcategory'],memo:['メモ','備考','memo'],transfer:['振替','transfer'],counted:['計算対象','counted'],externalId:['ID','取引ID','externalId'],currency:['通貨','currency'],fx:['円換算レート','為替レート','fx']},
- holdings:{name:['銘柄名','資産名','名称','name'],symbol:['銘柄コード','コード','ティッカー','symbol'],value:['評価額（円）','評価額','時価評価額','残高','現在の価値','valueJPY'],cost:['取得金額（円）','取得金額','取得額','簿価','costJPY'],profit:['評価損益','含み損益','profit'],quantity:['保有数','保有数量','数量','株数','口数','quantity'],account:['保有金融機関','金融機関','口座','口座名','account'],owner:['名義','名義人','所有者','owner'],assetClass:['資産区分','資産種類','種類','assetClass'],annualDps:['年間配当単価','年間配当単価（円）','年間配当金（1株）','1株配当','年間分配金','annualDps'],dividendUnit:['配当基準口数','基準口数','dividendUnit'],months:['入金予定月','配当月','months'],taxType:['税区分','口座区分','預り区分','taxType'],asOf:['基準日','日付','asOf'],currency:['通貨','currency'],fx:['円換算レート','為替レート','fx']},
+ holdings:{name:['銘柄名','資産名','種類・名称','銘柄名称','名称','name'],symbol:['銘柄コード','コード','ティッカー','symbol'],value:['評価額（円）','評価額','時価評価額','残高','現在の価値','valueJPY'],cost:['取得金額（円）','取得金額','取得額','簿価','costJPY'],profit:['評価損益','含み損益','profit'],quantity:['保有数','保有数量','数量','株数','口数','quantity'],account:['保有金融機関','金融機関','口座','口座名','account'],owner:['名義','名義人','所有者','owner'],assetClass:['資産区分','資産種類','種類','assetClass'],annualDps:['年間配当単価','年間配当単価（円）','年間配当金（1株）','1株配当','年間分配金','annualDps'],dividendUnit:['配当基準口数','基準口数','dividendUnit'],months:['入金予定月','配当月','months'],taxType:['税区分','口座区分','預り区分','taxType'],asOf:['基準日','日付','asOf'],currency:['通貨','currency'],fx:['円換算レート','為替レート','fx']},
  history:{date:['日付','年月日','基準日','date'],total:['合計','資産総額','総資産','合計（円）','total']}
 };
 const LABELS={date:'日付',description:'内容',amount:'金額（受取額）',account:'金融機関・口座',owner:'名義',category:'大項目',subcategory:'中項目',memo:'メモ',transfer:'振替',counted:'計算対象',externalId:'明細ID',name:'銘柄名・資産名',symbol:'銘柄コード',value:'評価額・残高',cost:'取得金額（総額）',profit:'評価損益',quantity:'数量',assetClass:'資産区分',annualDps:'年間配当単価（税引前）',dividendUnit:'配当基準口数',months:'入金予定月',taxType:'税区分',asOf:'残高の基準日',currency:'通貨',fx:'円換算レート',total:'資産合計'};
@@ -64,7 +65,7 @@ function assetClass(v){const s=text(v);if(CLASSES.includes(s))return s;if(/預�
 function taxType(v){if(/nisa|非課税/i.test(text(v)))return 'NISA';if(/特定|一般|課税|taxable/i.test(text(v)))return '課税';return UNKNOWN;}
 function months(v){return [...new Set(text(v).split(/[^\d]+/).map(Number).filter(n=>n>=1&&n<=12))].sort((a,b)=>a-b);}
 function classify(t){const s=[t.description,t.category,t.subcategory,t.memo].join(' ').normalize('NFKC');if(/元本払戻|元本払戻し|特別分配/.test(s))return '元本払戻';if(/源泉|所得税|住民税|配当控除|税金|税還付|withholding/i.test(s))return '税金';if(/配当|分配金|dividend|distribution/i.test(s))return '配当・分配金';if(/利息|利子|interest/i.test(s))return '利息';return 'その他';}
-function empty(){return {schemaVersion:VERSION,settings:{members:['夫','妻','子ども1','子ども2'],accountOwners:{},taxRate:20.315,persist:false},holdings:[],transactions:[],history:[],imports:[],scenario:{years:10,monthly:30000,price:3,dividend:2,spread:3,reinvest:true}};}
+function empty(){return {schemaVersion:VERSION,settings:{members:['夫','妻','子ども1','子ども2'],accountOwners:{},taxRate:20.315,persist:false},holdings:[],transactions:[],history:[],imports:[],purposePortfolio:P.defaults(),scenario:{years:10,monthly:30000,price:3,dividend:2,spread:3,reinvest:true}};}
 function ownerOf(row,state){if(typeof row.owner==='string'&&row.owner)return row.owner;const map=state.settings.accountOwners;return Object.hasOwn(map,row.account)&&typeof map[row.account]==='string'&&map[row.account]?map[row.account]:UNKNOWN;}
 function selected(rows,state,owner='all'){return owner==='all'?rows:rows.filter(r=>ownerOf(r,state)===owner);}
 function active(t,asOf=today()){return (t.includeOverride??(!t.transfer&&t.counted))&&t.date<=asOf;}
@@ -225,7 +226,7 @@ function validateBackup(obj){
  if(!Number.isFinite(settings.taxRate)||settings.taxRate<0||settings.taxRate>100)fail('税率が不正です。');
  const scenario={...empty().scenario,...obj.scenario};
  if(!Number.isInteger(scenario.years)||scenario.years<1||scenario.years>50||!amount(scenario.monthly)||!amount(scenario.spread)||scenario.spread>30||!Number.isFinite(scenario.price)||scenario.price-scenario.spread<=-100||scenario.price>100||!Number.isFinite(scenario.dividend)||scenario.dividend<=-100||scenario.dividend>100||typeof scenario.reinvest!=='boolean')fail('シミュレーション条件が不正です。');
- return {...empty(),...clone(obj),settings:{...empty().settings,...clone(settings)},scenario:clone(scenario)};
+ return {...empty(),...clone(obj),purposePortfolio:P.validate(obj.purposePortfolio),settings:{...empty().settings,...clone(settings)},scenario:clone(scenario)};
 }
 function sample(){
  const s=empty(),yr=Number(today().slice(0,4));
@@ -238,6 +239,7 @@ function sample(){
   s.transactions.push({id:'demo-t'+y+'-'+m+'-'+n,key:'demo-t'+y+'-'+m+'-'+n,date:dt,description:'サンプル配当',amountJPY:amount,owner:'',account,category:'収入',subcategory:'配当金',memo:'',transfer:false,counted:true,kind:'配当・分配金'});
  }
  for(let i=0;i<18;i++){const d=new Date(Date.UTC(yr-1,3+i,1));if(d.toISOString().slice(0,10)>today())break;s.history.push({id:'demo-s'+i,date:d.toISOString().slice(0,10),total:9500000+i*220000+Math.sin(i*1.7)*280000});}
+ s.purposePortfolio.assignments=s.holdings.map((h,i)=>({key:h.key,purposeId:['retirement','retirement','retirement','travel','emergency','education','education'][i]}));
  s.imports=[{id:'demo',at:new Date().toISOString(),source:'架空のサンプルデータ',type:'holdings',added:7,updated:0,duplicate:0,skipped:0,issues:0}];return s;
 }
 const api={VERSION,UNKNOWN,CLASSES,KINDS,FIELDS,LABELS,norm,text,num,date,bool,sum,today,clone,uid,parseCSV,decode,mapping,detect,assetClass,taxType,months,classify,empty,ownerOf,selected,active,kindOf,normalize,applyImport,forecast,summary,project,consultation,markdown,csv,validateBackup,sample};

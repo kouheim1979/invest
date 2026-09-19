@@ -5,8 +5,8 @@ const S=window.SuiteCore,C=window.DividendCore,$=id=>document.getElementById(id)
 const icons={home:'<path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/>',assets:'<path d="M12 3v9h9A9 9 0 1 1 12 3Z"/><path d="M16 3.8A9 9 0 0 1 20.2 8H16Z"/>',holdings:'<path d="M4 20V10h4v10m4 0V4h4v16m4 0v-7h2v7M2 20h20"/>',dividends:'<rect x="3" y="5" width="18" height="15" rx="3"/><path d="M3 9h18m-5-6v4M8 3v4m1 7 3 3 3-3m-3-3v6"/>',settings:'<path d="M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1M5.6 18.4l2.1-2.1m8.6-8.6 2.1-2.1"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>',eye:'<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/>',hidden:'<path d="m3 3 18 18M9 5.5c1-.3 2-.5 3-.5 6 0 10 7 10 7a20 20 0 0 1-3.3 3.9M6 6.5A23 23 0 0 0 2 12s4 7 10 7a13 13 0 0 0 5-1.1"/>',chart:'<path d="M3 3v18h18M6 15l4-5 4 3 7-9"/>',import:'<path d="M12 3v12m-4-4 4 4 4-4M4 15v5a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-5"/>',people:'<circle cx="9" cy="8" r="3"/><path d="M3 21v-2a6 6 0 0 1 12 0v2m1-16a3 3 0 0 1 0 6m2 3a5 5 0 0 1 3 5v2"/>',chat:'<path d="M21 11a8 8 0 0 1-8 8H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4zM7 8h10M7 12h7"/>',lock:'<rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 4v3"/>'};
 const svg=name=>'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(icons[name]||icons.home)+'</svg>';
 const tabs={home:'ホーム',assets:'資産',holdings:'持ち株',dividends:'配当',settings:'設定'};
-const subtabs={assets:{overview:'全体像',holdings:'資産一覧',owners:'名義・口座'},dividends:{history:'10年推移',receipts:'受取記録',csv:'CSV入金',forecast:'配当予測'},settings:{menu:'設定',import:'CSV取込',storage:'保存・バックアップ',consult:'ChatGPT相談'}};
-const sources={assets:'mf-assets/index.html?suite=1',holdings:'app-v3.html?suite=1',dividends:'dividends-dashboard.html?suite=1',receipts:'dividends.html?mode=receipts&suite=1'};
+const subtabs={assets:{overview:'全体像',purposes:'目的別',holdings:'資産一覧',owners:'名義・口座'},dividends:{history:'10年推移',receipts:'受取記録',csv:'CSV入金',forecast:'配当予測'},settings:{menu:'設定',import:'CSV取込',storage:'保存・バックアップ',consult:'ChatGPT相談'}};
+const sources={assets:'mf-assets/index.html?suite=1&v=20260919-1',holdings:'app-v3.html?suite=1',dividends:'dividends-dashboard.html?suite=1',receipts:'dividends.html?mode=receipts&suite=1'};
 const states={};let assets=null,stock={value:'—',note:'持ち株未登録'},current=S.route(location.hash),sequence=0,activeKey='',commandDepth=0;
 const storage={read(key,fallback){try{return localStorage.getItem(key)??fallback;}catch{return fallback;}},write(key,value){try{localStorage.setItem(key,value);return true;}catch{$('suite-status').textContent='設定を保存できません。この画面を開いている間だけ適用します。';return false;}}};
 let privateMode=storage.read('kouheim_suite_privacy_v1','0')==='1',preference=storage.read('kouheim_suite_receipt_source_v1','auto');
@@ -50,7 +50,7 @@ function intercept(key,doc){
  doc.addEventListener('click',e=>{
  if(commandDepth)return;const b=e.target.closest('button,a');if(!b)return;
  if(key==='assets'&&(b.dataset.go||b.dataset.view)){
- const view=b.dataset.go||b.dataset.view,map={dashboard:'assets/overview',holdings:'assets/holdings',settings:'assets/owners',dividends:'dividends/csv',forecast:'dividends/forecast',import:'settings/import',consult:'settings/consult'};
+ const view=b.dataset.go||b.dataset.view,map={dashboard:'assets/overview',purposes:'assets/purposes',holdings:'assets/holdings',settings:'assets/owners',dividends:'dividends/csv',forecast:'dividends/forecast',import:'settings/import',consult:'settings/consult'};
  if(map[view]){e.preventDefault();e.stopImmediatePropagation();navigate(map[view]);return;}
  }
  if(b.tagName!=='A'||b.hasAttribute('download')||!b.getAttribute('href')||b.getAttribute('href').startsWith('#'))return;
@@ -88,7 +88,7 @@ async function showRoute(){
  for(const b of $('bottom-nav').querySelectorAll('button')){if(b.dataset.tab===tab)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');}
  const subs=subtabs[tab];$('subnav').hidden=!subs;$('subnav').innerHTML=subs?Object.entries(subs).map(([s,l])=>'<button type="button" data-route="'+tab+'/'+s+'"'+(sub===s?' aria-current="page"':'')+'>'+l+'</button>').join(''):'';
  const native=tab==='home'||tab==='settings'&&sub==='menu';$('native-scroll').hidden=!native;$('home-screen').hidden=tab!=='home';$('settings-screen').hidden=tab!=='settings';$('engine-area').hidden=native;
- let key='',view='';if(!native){if(tab==='holdings')key='holdings';else if(tab==='dividends'&&sub==='history')key='dividends';else if(tab==='dividends'&&sub==='receipts')key='receipts';else{key='assets';view=({assets:{overview:'dashboard',holdings:'holdings',owners:'settings'},dividends:{csv:'dividends',forecast:'forecast'},settings:{import:'import',storage:'settings',consult:'consult'}})[tab]?.[sub]||'dashboard';}}
+ let key='',view='';if(!native){if(tab==='holdings')key='holdings';else if(tab==='dividends'&&sub==='history')key='dividends';else if(tab==='dividends'&&sub==='receipts')key='receipts';else{key='assets';view=({assets:{overview:'dashboard',purposes:'purposes',holdings:'holdings',owners:'settings'},dividends:{csv:'dividends',forecast:'forecast'},settings:{import:'import',storage:'settings',consult:'consult'}})[tab]?.[sub]||'dashboard';}}
  activeKey=key;for(const [k,s]of Object.entries(states))s.frame.hidden=k!==key;
  $('engine-error').hidden=true;$('engine-loading').hidden=native;privacy();
  if(native){drawHome();return;}

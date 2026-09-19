@@ -3,6 +3,7 @@ const test=require('node:test'),assert=require('node:assert/strict'),fs=require(
 const S=require('../suite-core.js'),C=require('../dividends-core.js');
 const base={symbol:'8306.T',date:'2026-06-01',owner:'OTS',currency:'JPY',net:100};
 test('suite routes are allowlisted and direct links preserve subviews',()=>{
+ assert.deepEqual(S.route('#assets/purposes'),{tab:'assets',sub:'purposes'});
  assert.deepEqual(S.route('#assets/holdings'),{tab:'assets',sub:'holdings'});
  assert.deepEqual(S.route('#dividends/receipts'),{tab:'dividends',sub:'receipts'});
  assert.deepEqual(S.route('#settings'),{tab:'settings',sub:'menu'});

@@ -1,7 +1,7 @@
 /* Read-only adapters for the unified app. Never merge balances or receipt sources. */
 (function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;else root.SuiteCore=api;})(globalThis,()=>{
 'use strict';
-const routes={home:[],assets:['overview','holdings','owners'],holdings:[],dividends:['history','receipts','csv','forecast'],settings:['menu','import','storage','consult']};
+const routes={home:[],assets:['overview','purposes','holdings','owners'],holdings:[],dividends:['history','receipts','csv','forecast'],settings:['menu','import','storage','consult']};
 function route(hash){const [tab,sub]=String(hash||'').replace(/^#/,'').split('/');if(!Object.hasOwn(routes,tab))return{tab:'home',sub:''};return{tab,sub:routes[tab].includes(sub)?sub:(routes[tab][0]||'')};}
 const day=()=>new Date(Date.now()+9*3600000).toISOString().slice(0,10);
 function receipts(raw,C,asOf=day()){
