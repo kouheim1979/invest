@@ -48,7 +48,12 @@ async function decodeFragment(fragment){
  while(true){const r=await reader.read();if(r.done)break;length+=r.value.length;if(length>2000000){await reader.cancel();throw Error('反映データが大きすぎます。');}chunks.push(r.value);}
  const output=new Uint8Array(length);let offset=0;for(const chunk of chunks){output.set(chunk,offset);offset+=chunk.length;}return JSON.parse(new TextDecoder().decode(output));
 }
-const fragment=location.hash;if(fragment.startsWith('#br1='))history.replaceState(null,'',location.pathname+location.search);
+let fragmentSequence=0;
+function consumeFragment(){
+ const fragment=location.hash;if(!fragment.startsWith('#br1='))return;
+ const sequence=++fragmentSequence;history.replaceState(null,'',location.pathname+location.search);
+ decodeFragment(fragment).then(value=>{if(sequence===fragmentSequence)preview(value);}).catch(error=>{if(sequence===fragmentSequence)status(error.message,true);});
+}
 try{envelope=C.read(localStorage);}catch{storageError=true;status('保存済みの証券実績を読み込めません。元データは変更していません。',true);}
 render();
 $('account').onchange=render;$('year').onchange=$('category').onchange=renderYear;
@@ -60,5 +65,5 @@ $('file').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{if
 $('export').onclick=()=>{if(!envelope.current)return;const blob=new Blob([JSON.stringify(envelope.current,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='資産コンパス_証券実績_'+envelope.current.preparedAt+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);status('証券実績のバックアップを書き出しました。');};
 $('undo').onclick=()=>{try{envelope=C.undo(localStorage);render();status('前の取り込みへ戻しました。');}catch(error){status(error.message,true);}};
 window.addEventListener('storage',e=>{if(e.key===C.KEY){try{envelope=C.read(localStorage);render();}catch{storageError=true;status('別の画面で変更されたデータを読み込めません。',true);}}});
-if(fragment.startsWith('#br1='))decodeFragment(fragment).then(preview).catch(e=>status(e.message,true));
+window.addEventListener('hashchange',consumeFragment);consumeFragment();
 })();
