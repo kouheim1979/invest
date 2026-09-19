@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ja"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer"><meta name="theme-color" content="#071521">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'none'; img-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<title>マネーフォワード MEを反映 | 資産コンパス</title>
+<link rel="stylesheet" href="me-import.css?v=20260920-1">
+<script src="mf-assets/purpose-core.js" defer></script><script src="mf-assets/me-core.js?v=20260920-1" defer></script><script src="mf-assets/core.js?v=20260920-1" defer></script><script src="me-import.js?v=20260920-1" defer></script>
+</head><body><main>
+<a class="brand" href="unified.html">資産コンパス</a>
+<p class="eyebrow">MONEY FORWARD ME</p><h1>取得した資産を反映</h1>
+<p id="status" role="status">連携データを確認しています…</p>
+<section id="preview" hidden>
+<div class="metrics"><div><span>資産総額</span><strong id="assets"></strong></div><div><span>負債残高</span><strong id="liabilities"></strong></div><div><span>純資産</span><strong id="net"></strong></div></div>
+<p id="scope"></p><p id="existing"></p>
+<details><summary>反映される内容</summary><ul>
+<li>現在の保有資産一覧を、今回取得したMEの残高一覧へ更新します。売却済みの資産やMEにない資産も一覧から外れます。</li>
+<li>入出金・配当受取記録・名義設定は保持します。目的の分類と明細の名義は、同じ資産と確認できる分だけ引き継ぎます。</li>
+<li>同じ金融機関・口座名・資産名・資産区分の明細は合算します。口座名が同じ別口座も区別できません。</li>
+<li>株数・取得額・税区分・配当単価は今回の連携では取得できません。更新後の資産一覧では未設定とし、持ち株画面の登録内容はそのままです。</li>
+<li>端末へ保存する前に、直前のワークスペースをこのブラウザ内へ退避します。</li>
+</ul></details>
+<p class="note">MEに保存されているデータです。金融機関のリアルタイム残高ではありません。今回は取得時点の反映で、常時自動同期ではありません。</p>
+<button id="apply" type="button">この端末へ反映する</button>
+</section>
+<section id="done" hidden><h2>このブラウザへ反映しました</h2><p id="result"></p><a class="primary" href="unified.html#assets/purposes">目的別ポートフォリオを開く</a><a class="secondary" href="unified.html#assets/overview">資産の全体像を開く</a></section>
+<section id="empty" hidden><p>ChatGPTでマネーフォワード MEを選び、「資産コンパスへ反映して」と依頼してください。取得後に作成された反映用ページを、普段使うブラウザで開きます。</p><p>MEのCSV書き出しは不要です。</p></section>
+<section id="recovery" hidden><p>直前の反映前データを、このブラウザ内に退避しています。取り消すと、反映後に行った編集も反映前に戻ります。</p><button id="undo" class="secondary" type="button">直前のME反映を取り消す</button></section>
+<p class="note">データはこのブラウザ内に保存します。Safari・アプリ内ブラウザ・ホーム画面のアプリでは保存領域が異なる場合があります。普段の資産コンパスと同じブラウザで開いてください。</p>
+</main></body></html>
