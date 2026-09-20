@@ -1,4 +1,4 @@
-/* No network requests. Imported financial data stays in this browser's storage. */
+/* Plaintext financial data and handoff decryption keys stay in this browser. */
 (()=>{
 'use strict';
 const C=window.BrokerReceipts,$=id=>document.getElementById(id),yen=v=>'¥'+v.toLocaleString('ja-JP');
@@ -38,28 +38,21 @@ function preview(raw){
  if(storageError)throw Error('保存済みデータを読み込めないため、上書きを停止しています。');
  pending=C.validate(raw);const merged=C.merge(envelope.current,pending),added=merged.receipts.length-(envelope.current?.receipts.length||0),total=C.total(pending.receipts);
  $('pending-summary').textContent=pending.documents.length+'資料・'+pending.receipts.length+'件 / 受取合計 '+yen(total.total)+'（貸株関連を含む）。新規 '+added+'件。'+pending.scopeNote;
- $('pending').hidden=false;$('apply').disabled=false;status('取込内容を確認してください。');$('pending').scrollIntoView({block:'start'});
-}
-async function decodeFragment(fragment){
- const token=fragment.slice(5);if(!/^[A-Za-z0-9_-]+$/.test(token)||token.length>300000)throw Error('反映リンクが不正です。');
- if(typeof DecompressionStream==='undefined')throw Error('このブラウザでは反映リンクを開けません。反映ファイル内のバックアップJSONをご利用ください。');
- const bytes=Uint8Array.from(atob(token.replace(/-/g,'+').replace(/_/g,'/')),c=>c.charCodeAt(0));
- const reader=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip')).getReader();const chunks=[];let length=0;
- while(true){const r=await reader.read();if(r.done)break;length+=r.value.length;if(length>2000000){await reader.cancel();throw Error('反映データが大きすぎます。');}chunks.push(r.value);}
- const output=new Uint8Array(length);let offset=0;for(const chunk of chunks){output.set(chunk,offset);offset+=chunk.length;}return JSON.parse(new TextDecoder().decode(output));
+ $('pending').hidden=false;$('empty').hidden=true;$('apply').disabled=false;status('取込内容を確認してください。');$('pending').scrollIntoView({block:'start'});
 }
 let fragmentSequence=0;
 function consumeFragment(){
- const fragment=location.hash;if(!fragment.startsWith('#br1='))return;
+ const fragment=location.hash;if(!/^#br[12]=/.test(fragment))return;
  const sequence=++fragmentSequence;history.replaceState(null,'',location.pathname+location.search);
- decodeFragment(fragment).then(value=>{if(sequence===fragmentSequence)preview(value);}).catch(error=>{if(sequence===fragmentSequence)status(error.message,true);});
+ pending=null;$('pending').hidden=true;status('明細を読み込んでいます…');
+ window.BrokerReceiptLink.decode(fragment).then(value=>{if(sequence===fragmentSequence)preview(value);}).catch(error=>{if(sequence===fragmentSequence){render();status(error.message,true);}});
 }
 try{envelope=C.read(localStorage);}catch{storageError=true;status('保存済みの証券実績を読み込めません。元データは変更していません。',true);}
 render();
 $('account').onchange=render;$('year').onchange=$('category').onchange=renderYear;
 $('annual').onclick=e=>{const b=e.target.closest('[data-year]');if(b){$('year').value=b.dataset.year;renderYear();$('monthly-title').scrollIntoView({block:'start'});}};
 $('apply').onclick=()=>{try{const r=C.save(localStorage,pending);envelope=r;pending=null;$('pending').hidden=true;$('json-input').value='';render();status(r.changed?'証券実績をこの端末へ反映しました。貸株関連を含む受取合計を表示しています。':'同じデータは反映済みです。重複は追加していません。');}catch(error){status('反映できませんでした。'+error.message,true);}};
-$('cancel').onclick=()=>{pending=null;$('pending').hidden=true;status('取り込みを取り消しました。');};
+$('cancel').onclick=()=>{++fragmentSequence;pending=null;$('pending').hidden=true;render();status('取り込みを取り消しました。');};
 $('preview').onclick=()=>{try{const value=$('json-input').value;if(value.length>2000000)throw Error('データが大きすぎます。');preview(JSON.parse(value));}catch(error){pending=null;$('pending').hidden=true;status(error.message,true);}};
 $('file').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>2000000)throw Error('ファイルが大きすぎます。');preview(JSON.parse(await file.text()));}catch(error){pending=null;$('pending').hidden=true;status(error.message,true);}finally{e.target.value='';}};
 $('export').onclick=()=>{if(!envelope.current)return;const blob=new Blob([JSON.stringify(envelope.current,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='資産コンパス_証券実績_'+envelope.current.preparedAt+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);status('証券実績のバックアップを書き出しました。');};

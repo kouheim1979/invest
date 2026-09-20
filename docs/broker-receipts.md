@@ -21,11 +21,19 @@
 画面からJSONの取込・書出し・直前状態への復元が可能。普段の端末へ渡すファイルは、
 `scripts/create-broker-handoff.cjs` でJSONを標準入力から受け、**公開リポジトリ外**に作成する。
 ハンドオフのHTMLは年別・全明細のオフライン確認とJSONの保存にも使える。
-gzipのURL fragmentはページ到着直後に削除し、展開サイズを制限する。
-個人データをサーバーに送信するAPIはない。CSPのconnect-srcもnone。
-**個人の明細・金額・口座・反映ファイルを公開リポジトリへ追加しない。**
+短い専用リンクは `scripts/create-broker-private-link.cjs` に検証済みJSONを標準入力で渡し、
+出力先を**公開リポジトリ外**に指定して作成する。gzip化した明細をランダムな256ビット鍵で
+AES-GCM暗号化する。公開できるのは暗号文の `<id>.json` だけで、`broker-handoffs/` に置く。
+**鍵を含む `link.json`、明細・金額・口座の平文、反映用HTMLを公開しない。**
+鍵は専用リンクのfragmentだけに含め、ページ到着直後にURLから取り除く。
+ブラウザは同一サイトの暗号文を取得し、ブラウザ内で復号・展開・検証する。
+CSPのconnect-srcはselfのみ。取得には認証情報とRefererを付けず、鍵を送信しない。
+暗号文・展開後のサイズと取得時間を制限する。従来のgzip fragmentも読み込み可能。
 
 ## 検証
 
 `node --test tests/broker-receipts.test.cjs` で区分別合計・確認範囲・重複・競合・書込失敗を確認。
 `tests/broker-receipts-browser.py` は架空データのみで取込、再読込、別枠表示、プライバシーを確認する。
+`tests/broker-receipts-link.test.cjs` は暗号化往復・改ざん検出・鍵の非送信・破損リンクを確認する。
+`tests/broker-receipts-link-browser.py` はChromiumとWebKitの空のブラウザへ架空139件を取り込み、
+再読込・再取り込み・破損リンク後も金額と件数が保持されることを確認する。

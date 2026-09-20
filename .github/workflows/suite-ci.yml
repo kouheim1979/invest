@@ -29,16 +29,18 @@ jobs:
           node --check suite-asset-adapter.js
           node --check broker-receipts.js
           node --check broker-receipts-core.js
+          node --check broker-receipts-link.js
           node --test tests/*.test.cjs
       - name: Install browser
         run: |
           python -m pip install playwright==1.55.0
-          python -m playwright install --with-deps chromium
+          python -m playwright install --with-deps chromium webkit
       - name: Unified navigation, data compatibility, privacy and responsive checks
         run: |
           python tests/suite-browser.py
           python tests/suite-purpose-browser.py
           python tests/broker-receipts-browser.py
+          python tests/broker-receipts-link-browser.py
       - name: Existing 10-year dividend views
         run: |
           python tests/dividends-dashboard-browser.py
