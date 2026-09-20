@@ -36,3 +36,17 @@ test('account filtering keeps unconfirmed accounts from appearing fully covered'
  const p=packet();p.documents.push({...document,id:'other',account:'別口座',coverageFrom:'2024-02-01',from:'2024-02-01'});
  assert.equal(C.months(p,2024)[0].coverage,'partial');assert.equal(C.months(p,2024,'検証用口座')[0].coverage,'full');assert.equal(C.months(p,2024,'別口座')[0].coverage,'unknown');
 });
+test('family accounts without evidence remain unknown and survive import, merge and undo',()=>{
+ const p=packet();p.accounts=['検証用口座','子A','子B'];const v=C.validate(p);
+ assert.deepEqual(C.accounts(v),p.accounts);
+ assert.equal(C.years(v,'子A')[0].coverage,'unknown');assert.equal(C.months(v,2024,'子B')[0].coverage,'unknown');assert.equal(C.months(v,2024)[0].coverage,'partial');
+ const s=storage();C.save(s,packet());C.save(s,p);assert.deepEqual(C.read(s).current.accounts,p.accounts);assert.equal(C.save(s,p).changed,false);C.undo(s);assert.equal(C.read(s).current.accounts,undefined);
+});
+test('dividend-only evidence never claims lending coverage or accepts lending receipts',()=>{
+ const p=packet();p.receipts=p.receipts.filter(r=>r.category==='dividend');p.documents[0].categories=['dividend'];
+ const v=C.validate(p),m=C.months(v,2024)[0];assert.equal(m.coverage,'partial');assert.equal(m.coverageByCategory.dividend,'full');assert.equal(m.coverageByCategory.interest,'unknown');
+ p.receipts.push(receipt('invalid','interest',7,4));assert.throws(()=>C.validate(p),/出典/);
+});
+test('merging distinct scope notes repeatedly does not grow or change saved data',()=>{
+ const a=packet(),b=packet();b.scopeNote='追加の確認範囲';const s=storage();C.save(s,a);C.save(s,b);assert.equal(C.save(s,b).changed,false);assert.equal(C.read(s).current.scopeNote,'架空データ\n追加の確認範囲');
+});
