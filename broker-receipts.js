@@ -16,7 +16,7 @@ function render(){
  $('year').innerHTML=years.slice().reverse().map(r=>'<option>'+r.year+'</option>').join('');if(years.some(r=>String(r.year)===oldYear))$('year').value=oldYear;
  const rows=p.receipts.filter(r=>!account||r.account===account),totals=C.total(rows),docs=p.documents.filter(d=>!account||d.account===account),spans=C.ranges(p,account);
  $('scope-title').textContent=(spans.length?spans.map(s=>s.from+' 〜 '+s.to).join(' / '):'受取明細は未確認')+' · '+rows.length+'件・'+docs.length+'資料';$('scope-note').textContent=p.scopeNote;
- const metric=(key)=>{const known=key==='total'?docs.length:docs.some(d=>!d.categories||d.categories.includes(key));return known?yen(totals[key]):'—';};
+ const metric=(key)=>{const known=docs.some(d=>!d.categories||(key==='total'?d.categories.length>0:d.categories.includes(key)));return known?yen(totals[key]):'—';};
  $('received-total').textContent=metric('total');$('dividend-total').textContent=metric('dividend');$('substitute-total').textContent=metric('substitute');$('interest-total').textContent=metric('interest');
  $('account-status').innerHTML=accounts.map(a=>{const ds=p.documents.filter(d=>d.account===a),missing=Object.keys(C.labels).filter(c=>!ds.some(d=>!d.categories||d.categories.includes(c)));return '<p><strong>'+esc(a)+'</strong> · '+(!ds.length?'未確認：配当・貸株の受取明細が必要です。':missing.length?'受取明細あり。'+missing.map(c=>C.labels[c]).join('・')+'は未確認。':'受取明細あり（期間は下表参照）')+'</p>';}).join('');
  $('annual').innerHTML=years.map(r=>'<tr><td><button class="year-select" data-year="'+r.year+'">'+r.year+'年</button></td><td class="'+r.coverage+'">'+coverageLabel[r.coverage]+'</td>'+['total','dividend','substitute','interest'].map(k=>'<td class="money">'+value(r,k)+'</td>').join('')+'<td>'+r.count+'</td></tr>').join('');
