@@ -50,3 +50,39 @@ test('dividend-only evidence never claims lending coverage or accepts lending re
 test('merging distinct scope notes repeatedly does not grow or change saved data',()=>{
  const a=packet(),b=packet();b.scopeNote='追加の確認範囲';const s=storage();C.save(s,a);C.save(s,b);assert.equal(C.save(s,b).changed,false);assert.equal(C.read(s).current.scopeNote,'架空データ\n追加の確認範囲');
 });
+
+test('explicit unconfirmed-only accounts reimport without writes or loss of undo history',()=>{
+ for(const accounts of [['子A'],[]]){
+  const s=storage(),p=packet();p.accounts=accounts;
+  C.save(s,packet());const previous=C.read(s).current;
+  C.save(s,p);const before=s.getItem(C.KEY);
+  s.setItem=()=>{throw Error('identical import must not write');};
+  for(let i=0;i<3;i++){
+   const result=C.save(s,p);assert.equal(result.changed,false);
+   assert.deepEqual(result.current.accounts,accounts);
+   assert.deepEqual(result.previous,previous);
+   assert.equal(s.getItem(C.KEY),before);
+   assert.deepEqual(C.accounts(result.current),[...accounts,'検証用口座']);
+  }
+ }
+});
+test('first import with an explicit roster remains identical on the second import',()=>{
+ const s=storage(),p=packet();p.accounts=['子A'];C.save(s,p);
+ const before=s.getItem(C.KEY);assert.equal(C.save(s,p).changed,false);
+ assert.equal(s.getItem(C.KEY),before);assert.equal(C.read(s).previous,null);
+});
+test('distinct explicit rosters merge while document accounts remain discoverable',()=>{
+ const a=packet(),b=packet();a.accounts=['子A'];b.accounts=['子B'];
+ const merged=C.merge(a,b);assert.deepEqual(merged.accounts,['子A','子B']);
+ assert.deepEqual(C.accounts(merged),['子A','子B','検証用口座']);
+ assert.deepEqual(C.merge(merged,b),merged);
+ assert.deepEqual(C.merge(merged,packet()),merged);
+});
+test('empty category evidence remains unknown in annual and monthly coverage',()=>{
+ const p=packet();p.documents[0].categories=[];p.receipts=[];
+ const v=C.validate(p);assert.equal(C.years(v)[0].coverage,'unknown');
+ for(const m of C.months(v,2024)){
+  assert.equal(m.coverage,'unknown');
+  assert.deepEqual(m.coverageByCategory,{dividend:'unknown',substitute:'unknown',interest:'unknown'});
+ }
+});
