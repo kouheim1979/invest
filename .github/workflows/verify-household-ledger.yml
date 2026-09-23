@@ -1,0 +1,28 @@
+name: Verify Household Ledger
+on:
+  push:
+    paths: ['household-ledger/**', 'tests/household-ledger/**', '.github/workflows/verify-household-ledger.yml']
+  pull_request:
+    paths: ['household-ledger/**', 'tests/household-ledger/**', '.github/workflows/verify-household-ledger.yml']
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Unit tests
+        run: node --test tests/household-ledger/core.test.cjs
+      - name: Browser dependencies
+        run: |
+          python -m pip install playwright==1.58.0
+          python -m playwright install --with-deps chromium
+      - name: Browser and persistence tests
+        run: python tests/household-ledger/browser.py
