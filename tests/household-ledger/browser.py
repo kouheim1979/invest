@@ -50,6 +50,8 @@ with sync_playwright() as p:
  page.locator('#firstFile').set_input_files({'name':'synthetic.csv','mimeType':'text/csv','buffer':fixture});page.wait_for_timeout(400)
  check('Imported synthetic CSV', '16件' in page.locator('#status').inner_text())
  check('Latest month selected','2026-08'==page.locator('#dateJump').input_value())
+ if not args.offline:
+  check('CSV import automatically saves', '自動保存済み' in page.locator('#status').inner_text())
  check('Phone has no horizontal page overflow',page.evaluate('document.documentElement.scrollWidth<=innerWidth'))
  check('Only three period panels',page.locator('.period-page').count()==3)
  check('Summary and detail record count agree', '11件' in page.locator('#detailCount').inner_text())
@@ -133,7 +135,7 @@ with sync_playwright() as p:
  page.locator('#dateJump').fill('2026-06');page.locator('#dateJump').dispatch_event('change');page.wait_for_timeout(250)
  loops=0
  while page.locator('#more').is_visible() and loops<20:
-  page.locator('#more').click(force=True);page.wait_for_timeout(50);loops+=1
+  page.locator('#more').evaluate('(button) => button.click()');page.wait_for_timeout(50);loops+=1
  check('More than 1,000 details can all be viewed',page.locator('.transaction').count()==1205)
  check('No runtime JavaScript errors',not errors)
  check('No external data requests',not any(not u.startswith('http://127.0.0.1:') for u in requests))
