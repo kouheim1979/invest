@@ -28,3 +28,4 @@ jobs:
         run: |
           python tests/household-ledger/browser.py
           python tests/household-ledger/legacy-browser.py
+          python tests/household-ledger/theme-browser.py
