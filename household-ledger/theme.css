@@ -1,0 +1,64 @@
+
+/* Theme layer. Keeps the finance UI readable in light, dark, and system modes. */
+.header-actions{display:flex;align-items:center;gap:8px}
+.theme-button{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.theme-button .theme-icon{font-size:17px;line-height:1}
+.theme-setting select{display:block;width:100%;margin-top:6px}
+html[data-theme="dark"]{
+  color-scheme:dark;
+  --orange:#ff8b36;
+  --orange-soft:#312319;
+  --ink:#eef1f3;
+  --muted:#a8b0b7;
+  --line:#30373d;
+  --bg:#0e1114;
+  --income:#69b9e9;
+  --expense:#ff8177;
+  --green:#70d0ab;
+}
+html[data-theme="dark"] body{background:var(--bg);color:var(--ink)}
+html[data-theme="dark"] button,
+html[data-theme="dark"] .file-label,
+html[data-theme="dark"] input,
+html[data-theme="dark"] select,
+html[data-theme="dark"] .app-header,
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .period-pager,
+html[data-theme="dark"] .period-page,
+html[data-theme="dark"] .transaction,
+html[data-theme="dark"] dialog{background:#171b1f;color:var(--ink);border-color:var(--line)}
+html[data-theme="dark"] button:hover{background:var(--orange-soft)}
+html[data-theme="dark"] .primary{background:var(--orange);color:#1a0d03}
+html[data-theme="dark"] .primary:hover{background:#ff9b50}
+html[data-theme="dark"] .welcome{background:linear-gradient(110deg,#171b1f,#241b14)}
+html[data-theme="dark"] .local{background:#173429;color:#8fe0be}
+html[data-theme="dark"] .segmented{background:#252b30}
+html[data-theme="dark"] .segmented button{background:transparent}
+html[data-theme="dark"] .segmented button.selected{background:#343b41;box-shadow:0 1px 3px #0008}
+html[data-theme="dark"] .donut{background:#2a3035}
+html[data-theme="dark"] .donut-hole{background:#171b1f;box-shadow:0 0 0 4px #171b1f}
+html[data-theme="dark"] .cat-row,
+html[data-theme="dark"] .bars .bar-row,
+html[data-theme="dark"] .budget-row,
+html[data-theme="dark"] .link-row{border-color:var(--line)}
+html[data-theme="dark"] .coverage{background:#2a231a;color:#e4c394;border-left-color:#b97834}
+html[data-theme="dark"] .mini{border-color:var(--line);background:#171b1f}
+html[data-theme="dark"] .track{background:#2a3035}
+html[data-theme="dark"] .chart-col.missing span{background:#4a5258}
+html[data-theme="dark"] .table-scroll th{background:#20262b;color:var(--muted)}
+html[data-theme="dark"] .table-scroll tbody tr:hover{background:#2c2119}
+html[data-theme="dark"] .day-heading{background:#20262b;color:#bbc2c8}
+html[data-theme="dark"] .transaction .category-icon{background:#38261a}
+html[data-theme="dark"] .cal-day{background:#171b1f;border-color:var(--line)}
+html[data-theme="dark"] .cal-day.holiday{background:#2c1b1b}
+html[data-theme="dark"] .bottom-nav{background:#12161af2;border-color:var(--line)}
+html[data-theme="dark"] .bottom-nav button{background:transparent;color:#8e989f}
+html[data-theme="dark"] .bottom-nav button.active{color:var(--orange)}
+html[data-theme="dark"] #editInfo pre{background:#20262b;color:var(--ink)}
+html[data-theme="dark"] .swipe-hint{color:#8d969d}
+html[data-theme="dark"] .balance{color:var(--ink)}
+@media(max-width:600px){
+  .header-actions{gap:5px}
+  .theme-button{padding:6px 9px;min-height:34px}
+  .theme-button .theme-text{display:none}
+}
