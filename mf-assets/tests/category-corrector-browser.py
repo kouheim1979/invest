@@ -16,7 +16,7 @@ with sync_playwright() as p:
     page.get_by_role('heading',name='ME分類なおし').wait_for()
     page.get_by_role('button',name='サンプルで試す').click()
     assert '横浜市営地下鉄' in page.locator('#records').inner_text()
-    page.get_by_role('button',name='確度高をまとめて適用').click()
+    assert 'シミュレーション' in page.locator('#simulation').inner_text()\n    page.get_by_role('button',name='ワンクリックで最適化').click()
     page.locator('[data-filter="changed"]').click()
     assert page.locator('#records tbody tr').count()==5
     page.locator('[data-filter="all"]').click()
