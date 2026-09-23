@@ -69,12 +69,12 @@ function builtIns(){return [
   {id:'qqe-english',name:'QQEを英会話へ',confidence:'high',auto:true,match:{descriptionIncludes:'PAYPAL *QQE',direction:'expense'},set:{major:'教養・教育',minor:'英会話'},reason:'QQE名義の英会話関連支払い'},
   {id:'orix-insurance',name:'オリックス生命の入金を保険金へ',confidence:'high',auto:true,match:{descriptionIncludes:'オリツクスセイメイホケン',direction:'income'},set:{major:'収入',minor:'保険金'},reason:'保険会社からの入金'},
   {id:'benesse-education',name:'ベネッセ教材を教育費へ',confidence:'high',auto:true,match:{descriptionIncludes:'ベネツセコ-ポレ-シヨン',direction:'expense',currentMajor:'日用品'},set:{major:'教養・教育',minor:'通信教育'},reason:'教材費が日用品に分類'},
-  {id:'sbi-settlement',name:'SBI証券精算を資金移動へ',confidence:'high',auto:true,match:{descriptionEquals:'SBI証券精算'},set:{major:'現金・カード',minor:'資金移動',counted:false,transfer:true},reason:'証券口座との資金移動'},
-  {id:'family-wallet-in',name:'かぞくのおさいふ入金を振替へ',confidence:'high',auto:true,match:{descriptionEquals:'入金(残高おまとめ入金)'},set:{major:'現金・カード',minor:'資金移動',counted:false,transfer:true},reason:'家族ウォレット内の残高移動'},
-  {id:'crypto-charge',name:'暗号資産チャージを資金移動へ',confidence:'high',auto:true,match:{descriptionIncludes:'メルペイからビットコイン',direction:'expense'},set:{major:'現金・カード',minor:'資金移動',counted:false,transfer:true},reason:'購入前のチャージで消費ではない'},
+  {id:'sbi-settlement',name:'SBI証券精算を資金移動へ',confidence:'high',auto:true,match:{descriptionEquals:'SBI証券精算'},set:{major:'現金・カード',minor:'資金移動'},reason:'証券口座との資金移動'},
+  {id:'family-wallet-in',name:'かぞくのおさいふ入金を振替へ',confidence:'high',auto:true,match:{descriptionEquals:'入金(残高おまとめ入金)'},set:{major:'現金・カード',minor:'資金移動'},reason:'家族ウォレット内の残高移動'},
+  {id:'crypto-charge',name:'暗号資産チャージを資金移動へ',confidence:'high',auto:true,match:{descriptionIncludes:'メルペイからビットコイン',direction:'expense'},set:{major:'現金・カード',minor:'資金移動'},reason:'購入前のチャージで消費ではない'},
   {id:'generic-touch-taxi',name:'タッチ決済のタクシー分類を確認',confidence:'medium',auto:false,match:{descriptionIncludes:'タッチ決済交通利用',currentMajor:'交通費',currentMinor:'タクシー'},set:{major:'交通費',minor:'その他交通費'},reason:'鉄道・バス等の可能性があり交通手段の確認が必要'},
-  {id:'card-payment-review',name:'カード引落の二重計上を確認',confidence:'medium',auto:false,match:{descriptionIncludes:'口座振替',direction:'expense',currentMinor:'カード引き落とし',counted:true},set:{major:'現金・カード',minor:'カード引き落とし',counted:false,transfer:true},reason:'カード利用明細が別にある場合は二重計上候補'},
-  {id:'merpay-settlement-review',name:'メルペイ清算・返済を確認',confidence:'medium',auto:false,match:{descriptionIncludes:'メルペイ(清算・返済)',direction:'expense',counted:true},set:{major:'現金・カード',minor:'カード引き落とし',counted:false,transfer:true},reason:'決済本体が別明細なら二重計上候補'}
+  {id:'card-payment-review',name:'カード引落の二重計上を確認',confidence:'medium',auto:false,match:{descriptionIncludes:'口座振替',direction:'expense',currentMinor:'カード引き落とし',counted:true},set:{major:'現金・カード',minor:'カード引き落とし'},reason:'カード利用明細が別にある場合は二重計上候補'},
+  {id:'merpay-settlement-review',name:'メルペイ清算・返済を確認',confidence:'medium',auto:false,match:{descriptionIncludes:'メルペイ(清算・返済)',direction:'expense',counted:true},set:{major:'現金・カード',minor:'カード引き落とし'},reason:'決済本体が別明細なら二重計上候補'}
 ];}
 function validRule(rule){
   if(!rule||typeof rule!=='object')return false;
@@ -116,6 +116,14 @@ function changeLog(records){return records.filter(r=>r.change).map(r=>({source:r
 function changeLogCSV(records){const h=['元ファイル','行','日付','内容','金額（円）','金融機関','変更前大項目','変更前中項目','変更後大項目','変更後中項目','変更前計算対象','変更後計算対象','変更前振替','変更後振替','理由','確度','ID'];const rows=changeLog(records).map(x=>[x.source,x.row,x.date,x.description,x.amount,x.account,x.oldMajor,x.oldMinor,x.newMajor,x.newMinor,x.oldCounted,x.newCounted,x.oldTransfer,x.newTransfer,x.reason,x.confidence,x.id]);return '\uFEFF'+[h,...rows].map(r=>r.map(csvCell).join(',')).join('\r\n');}
 function checklist(records){const changed=changeLog(records),groups=new Map();for(const x of changed){const k=monthKey(x.date);if(!groups.has(k))groups.set(k,[]);groups.get(k).push(x);}let out='# Money Forward ME 修正チェックリスト\n\n';out+='※ この一覧はME本体を自動変更しません。アプリで同じ月・内容の明細を開き、分類や振替を確認してください。\n\n';for(const [month,items]of [...groups].sort(([a],[b])=>a.localeCompare(b))){out+='## '+month+'（'+items.length+'件）\n\n';for(const x of items){out+='- [ ] '+x.date+' '+x.description+' '+Math.abs(x.amount).toLocaleString('ja-JP')+'円：'+x.oldMajor+' / '+x.oldMinor+' → '+x.newMajor+' / '+x.newMinor;if(x.oldCounted!==x.newCounted)out+='、計算対象 '+x.oldCounted+'→'+x.newCounted;if(x.oldTransfer!==x.newTransfer)out+='、振替 '+x.oldTransfer+'→'+x.newTransfer;out+='（'+x.reason+'）\n';}out+='\n';}return out;}
 function stats(records){return {total:records.length,suggested:records.filter(r=>r.suggestion).length,high:records.filter(r=>r.suggestion?.confidence==='high').length,medium:records.filter(r=>r.suggestion?.confidence==='medium').length,changed:records.filter(r=>r.change).length,uncategorized:records.filter(r=>r.major==='未分類'||r.minor==='未分類').length};}
+function simulate(records,userRules=[]){
+  const copy=clone(records);suggest(copy,userRules);
+  const before={};for(const r of copy){const k=r.major+' / '+r.minor;before[k]=(before[k]||0)+Math.abs(r.amount);}
+  const changed=applyHigh(copy),after={};for(const r of copy){const k=r.major+' / '+r.minor;after[k]=(after[k]||0)+Math.abs(r.amount);}
+  const moves=[];for(const k of new Set([...Object.keys(before),...Object.keys(after)])){const delta=(after[k]||0)-(before[k]||0);if(delta)moves.push({category:k,before:before[k]||0,after:after[k]||0,delta});}
+  moves.sort((a,b)=>Math.abs(b.delta)-Math.abs(a.delta));
+  return {changed,before,after,moves,records:copy};
+}
 function mergeTables(items){if(!items.length)throw Error('CSVを選択してください。');const first=items[0].table;const signature=JSON.stringify(first.headers);const records=[];for(const item of items){if(JSON.stringify(item.table.headers)!==signature)throw Error('CSVの列構成が異なります。年ごとに同じ形式で書き出してください。');for(const r of item.table.records){r.source=item.name;records.push(r);}}return {...first,records};}
-return {REQUIRED,parseCSV,serializeCSV,builtIns,validRule,matchRule,suggest,applySuggestion,applyHigh,applyManual,reset,changeLog,changeLogCSV,checklist,stats,mergeTables,clone};
+return {REQUIRED,parseCSV,serializeCSV,builtIns,validRule,matchRule,suggest,applySuggestion,applyHigh,applyManual,reset,changeLog,changeLogCSV,checklist,stats,simulate,mergeTables,clone};
 });

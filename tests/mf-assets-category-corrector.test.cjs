@@ -30,8 +30,8 @@ test('確度高だけ一括適用し、金額とIDを保持する',()=>{
   const t=C.parseCSV(csv); C.suggest(t.records);
   assert.equal(C.applyHigh(t.records),6);
   assert.equal(t.records[0].minor,'電車');
-  assert.equal(t.records[4].counted,false);
-  assert.equal(t.records[4].transfer,true);
+  assert.equal(t.records[4].counted,true);
+  assert.equal(t.records[4].transfer,false);
   assert.equal(t.records[4].amount,463114);
   assert.equal(t.records[4].id,'A5');
 });
@@ -48,8 +48,8 @@ test('補正CSVを再読込しても列・ID・引用符を保持する',()=>{
   const round=C.parseCSV(C.serializeCSV(t));
   assert.equal(round.headers[3],'金額（円）');
   assert.equal(round.records[0].minor,'電車');
-  assert.equal(round.records[4].counted,false);
-  assert.equal(round.records[4].transfer,true);
+  assert.equal(round.records[4].counted,true);
+  assert.equal(round.records[4].transfer,false);
   assert.equal(round.records[6].description,'商品, 返品');
 });
 
@@ -59,4 +59,13 @@ test('月別ME修正リストを作る',()=>{
   assert.match(md,/2026-08/);
   assert.match(md,/横浜市営地下鉄/);
   assert.match(md,/2026-09/);
+});
+
+test('シミュレーションは分類だけを動かし金額・計算対象・振替を保持する',()=>{
+  const t=C.parseCSV(csv),before=t.records.map(r=>({amount:r.amount,counted:r.counted,transfer:r.transfer}));
+  const sim=C.simulate(t.records);
+  assert.equal(sim.changed,6);
+  assert.ok(sim.moves.some(x=>x.category==='交通費 / 電車'&&x.delta===484));
+  assert.deepEqual(t.records.map(r=>({amount:r.amount,counted:r.counted,transfer:r.transfer})),before);
+  assert.deepEqual(sim.records.map(r=>({amount:r.amount,counted:r.counted,transfer:r.transfer})),before);
 });
