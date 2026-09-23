@@ -30,6 +30,8 @@ jobs:
           node --check mf-assets/income-diagnostics.js
           node --check mf-assets/dashboard-layout.js
           node --check mf-assets/dashboard-layout-sync.js
+          node --check mf-assets/category-corrector-core.js
+          node --check mf-assets/category-corrector.js
           set -o pipefail
           node --test tests/mf-assets*.test.cjs 2>&1 | tee mf-assets/test-results/unit-tests.txt
       - name: Install browser test tools
@@ -45,6 +47,7 @@ jobs:
           python mf-assets/tests/browser.py
           python mf-assets/tests/income-browser.py
           python mf-assets/tests/layout-browser.py
+          python mf-assets/tests/category-corrector-browser.py
       - name: Upload source and verification evidence
         if: always()
         uses: actions/upload-artifact@v4
