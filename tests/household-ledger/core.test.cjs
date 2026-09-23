@@ -1,7 +1,7 @@
 'use strict';
 const assert=require('node:assert/strict'),test=require('node:test'),C=require('../../household-ledger/core.js');
 const h='計算対象,日付,内容,金額（円）,保有金融機関,大項目,中項目,メモ,振替,ID';
-const tx=(x={})=>C.restore({date:'2026-08-25',amt:-1000,desc:'お店',acc:'A',maj:'食費',sub:'外食',include:1,xfer:0,id:'one',src:'Money Forward',...x});
+const tx=(x={})=>C.restore({date:'2026-08-25',amt:-1000,desc:'お店',acc:'A',maj:'食費',sub:'外食',include:1,xfer:0,id:'one',src:'Money Forward',...x,kind:x.kind||((x.maj||'食費')==='収入'?'income':'expense')});
 test('CSV quoted newline, comma, quote and BOM',()=>{let a=C.csv('\uFEFFa,b\r\n"multi\nline","x,""y"""');assert.deepEqual(a,[['a','b'],['multi\nline','x,"y"']]);});
 test('Malformed quote rejected',()=>assert.throws(()=>C.csv('a,b\n"open,3')));
 test('Invalid dates rejected',()=>{assert.equal(C.date('2026/02/30'),'');assert.equal(C.date('2024/2/29'),'2024-02-29');assert.equal(C.date('2026/13/01'),'');});
@@ -29,3 +29,7 @@ test('Merchant alias and usage-days count not yen or visits',()=>{let a=[tx({dat
 test('Education breakdown',()=>{assert.equal(C.education(tx({maj:'教養・教育',sub:'塾'})),'塾');assert.equal(C.education(tx({maj:'教養・教育',desc:'PAYPAL *QQE'})),'英語学習');});
 test('CSV round trip protected text, overrides, source and amounts',()=>{let rows=C.dedup([tx({desc:'=1+1',memo:'@x',amt:-999,merchantOverride:'店舗X'}),tx({id:'income',maj:'収入',amt:-3,desc:'+危険'})]),r=C.parse(C.exportCSV(rows),'export');for(let i=0;i<rows.length;i++)for(let k of ['desc','memo','amt','include','xfer','id','src','kind','merchantOverride'])assert.equal(r[i][k],rows[i][k]);});
 test('Strict import atomic validation catches invalid date',()=>assert.throws(()=>C.parse(h+'\n1,2026/02/30,X,-2,A,食費,外食,,0,1','bad')));
+
+test('Legacy records keep positive-income direction with old category names',()=>{for(let maj of ['給与','臨時収入','その他']){let r=C.restore({date:'2019-01-18',amt:300000,desc:'振込',maj,sub:'未分類',acc:'A'});assert.equal(r.kind,'income');assert.equal(C.total([r]).income,300000);if(maj==='給与')assert.equal(C.salary(r).key,'通常給与');}});
+test('Legacy v0.3 export salary and bonus categories stay income',()=>{let a=C.parse(h+',移行元\n1,2019/01/18,振込,300000,A,給与,未分類,,0,1,Kakeibon\n1,2019/12/05,振込,500000,A,賞与,未分類,,0,2,Kakeibon','v03');assert.equal(C.total(a).income,800000);assert.equal(C.salary(a[0]).key,'通常給与');assert.equal(C.salary(a[1]).key,'賞与（指定・記録）');});
+test('Every conflicting signature is recognized on replay',()=>{let a=tx(),b=tx({maj:'日用品'}),r=C.dedup([a,b,b,a,b]);assert.deepEqual(r.map(x=>x.dup),['','conflict','exact','exact','exact']);assert.equal(r.filter(C.active).length,2);});

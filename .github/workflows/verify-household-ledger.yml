@@ -25,4 +25,6 @@ jobs:
           python -m pip install playwright==1.58.0
           python -m playwright install --with-deps chromium
       - name: Browser and persistence tests
-        run: python tests/household-ledger/browser.py
+        run: |
+          python tests/household-ledger/browser.py
+          python tests/household-ledger/legacy-browser.py
