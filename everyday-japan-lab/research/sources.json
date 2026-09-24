@@ -1,0 +1,626 @@
+{
+  "TOTO_HISTORY": {
+    "id": "TOTO_HISTORY",
+    "publisher": "TOTO",
+    "type": "Manufacturer history / sales report",
+    "url": "https://jp.toto.com/company/press/2025_12_09/",
+    "scope": "Long-running WASHLET business and reported overseas sales; not independent market penetration.",
+    "checked": "2026-09-24"
+  },
+  "TOTO_FIT": {
+    "id": "TOTO_FIT",
+    "publisher": "TOTO USA",
+    "type": "Model-specific technical drawing",
+    "url": "https://www.totousa.com/filemanager_uploads/product_assets/OwnersManual/Washlet-Fit-Chart.pdf",
+    "scope": "Dimensions vary by model, bowl and tank contour; no universal fit threshold.",
+    "checked": "2026-09-24"
+  },
+  "BRONDELL_FIT": {
+    "id": "BRONDELL_FIT",
+    "publisher": "Brondell",
+    "type": "Manufacturer fit guide",
+    "url": "https://help.brondell.com/hc/en-us/articles/34579633981709-Fit-Measurement-Guide-Toilet-Compatibility",
+    "scope": "Overseas fit guidance exists; does not establish search volume.",
+    "checked": "2026-09-24"
+  },
+  "BRONDELL_MANUAL": {
+    "id": "BRONDELL_MANUAL",
+    "publisher": "Brondell",
+    "type": "Product manual",
+    "url": "https://www.brondell.com/content/T66_BidetSeat_owners_manual_Web_041923.pdf",
+    "scope": "Electrical and plumbing rules for the named model, not all bidets.",
+    "checked": "2026-09-24"
+  },
+  "TOTO_PRODUCTS": {
+    "id": "TOTO_PRODUCTS",
+    "publisher": "TOTO Japan",
+    "type": "Product catalogue",
+    "url": "https://jp.toto.com/products/",
+    "scope": "Product availability only; household uptake and export suitability not established.",
+    "checked": "2026-09-24"
+  },
+  "TOTO_PUBLIC": {
+    "id": "TOTO_PUBLIC",
+    "publisher": "TOTO Japan",
+    "type": "Public restroom catalogue",
+    "url": "https://jp.toto.com/products/public/publicrestroomitems/",
+    "scope": "Commercial restroom products and controls; not an accessibility certification abroad.",
+    "checked": "2026-09-24"
+  },
+  "TOTO_SOUND": {
+    "id": "TOTO_SOUND",
+    "publisher": "TOTO Japan",
+    "type": "Product announcement",
+    "url": "https://jp.toto.com/company/press/2026_06_16_02/",
+    "scope": "Privacy sound and remote-control products; performance claims are manufacturer claims.",
+    "checked": "2026-09-24"
+  },
+  "ESRI": {
+    "id": "ESRI",
+    "publisher": "Cabinet Office Japan",
+    "type": "Government statistics index",
+    "url": "https://www.esri.cao.go.jp/jp/stat/shouhi/shouhi",
+    "scope": "Durable-goods survey available; this inventory does not invent or transcribe unverified rates.",
+    "checked": "2026-09-24"
+  },
+  "BATH": {
+    "id": "BATH",
+    "publisher": "Panasonic",
+    "type": "Bathroom catalogue",
+    "url": "https://sumai.panasonic.jp/bathroom/bevas/base_plan/",
+    "scope": "Japanese system-bath product configurations; no national adoption rate.",
+    "checked": "2026-09-24"
+  },
+  "BATH_HEAT": {
+    "id": "BATH_HEAT",
+    "publisher": "Mitsubishi Electric",
+    "type": "Product catalogue",
+    "url": "https://www.mitsubishielectric.co.jp/ldm/ventilationfan/bath/",
+    "scope": "Bathroom ventilation, heating and drying equipment exists; installation-specific.",
+    "checked": "2026-09-24"
+  },
+  "IEA_HP": {
+    "id": "IEA_HP",
+    "publisher": "IEA",
+    "type": "International market analysis",
+    "url": "https://www.iea.org/reports/heat-pump-monitor-2026/key-findings",
+    "scope": "Mature Japanese heat-pump market and CO2 water heating; regional growth differs.",
+    "checked": "2026-09-24"
+  },
+  "JRAIA": {
+    "id": "JRAIA",
+    "publisher": "Japan Refrigeration and Air Conditioning Industry Association",
+    "type": "Industry shipment history",
+    "url": "https://www.jraia.or.jp/product/heatpump/i_broke.html",
+    "scope": "EcoCute cumulative shipments exceeded ten million in March 2025; shipments are not installed households.",
+    "checked": "2026-09-24"
+  },
+  "HP_DESIGN": {
+    "id": "HP_DESIGN",
+    "publisher": "ENERGY STAR",
+    "type": "Government programme technical guidance",
+    "url": "https://www.energystar.gov/partner-resources/residential_new/educational_resources/sup_program_guidance/heat_pump_water_heater_guide/design_considerations",
+    "scope": "US integrated HPWH design constraints; do not transfer these unchanged to split CO2 systems.",
+    "checked": "2026-09-24"
+  },
+  "HP_INSTALL": {
+    "id": "HP_INSTALL",
+    "publisher": "ENERGY STAR",
+    "type": "Government programme installation guidance",
+    "url": "https://www.energystar.gov/partner-resources/residential_new/educational_resources/sup_program_guidance/heat_pump_water_heater_guide/installation_best_practices",
+    "scope": "Airflow, installation and operating conditions matter.",
+    "checked": "2026-09-24"
+  },
+  "DOE_HP": {
+    "id": "DOE_HP",
+    "publisher": "US Department of Energy",
+    "type": "Technical explanation",
+    "url": "https://bsesc.energy.gov/energy-basics/hvac-heat-pump-water-heaters",
+    "scope": "Heat transfer principle, not a guaranteed seasonal COP.",
+    "checked": "2026-09-24"
+  },
+  "HEMS": {
+    "id": "HEMS",
+    "publisher": "Agency for Natural Resources and Energy",
+    "type": "Public energy guidance",
+    "url": "https://www.enecho.meti.go.jp/category/saving_and_new/saving/general/what/index.html",
+    "scope": "HEMS definition and energy management; household saturation not established here.",
+    "checked": "2026-09-24"
+  },
+  "SMART_METER": {
+    "id": "SMART_METER",
+    "publisher": "Agency for Natural Resources and Energy",
+    "type": "Public programme information",
+    "url": "https://www.enecho.meti.go.jp/category/electricity_and_gas/electric/fee/stracture/smartmeter.html",
+    "scope": "Japanese smart-meter programme; data access is country- and utility-specific.",
+    "checked": "2026-09-24"
+  },
+  "ENERGY_WHITE": {
+    "id": "ENERGY_WHITE",
+    "publisher": "Agency for Natural Resources and Energy",
+    "type": "Energy white paper",
+    "url": "https://www.enecho.meti.go.jp/about/whitepaper/2024/html/3-2-3.html",
+    "scope": "Programme context for demand response and distributed energy; not proof of universal deployment.",
+    "checked": "2026-09-24"
+  },
+  "CHADEMO": {
+    "id": "CHADEMO",
+    "publisher": "CHAdeMO Association",
+    "type": "Industry technical overview",
+    "url": "https://www.chademo.com/technology/v2g",
+    "scope": "Bidirectional technology exists; vehicle, charger, grid and islanding approval must all match.",
+    "checked": "2026-09-24"
+  },
+  "ROOM_HEAT": {
+    "id": "ROOM_HEAT",
+    "publisher": "Agency for Natural Resources and Energy",
+    "type": "Public household energy guidance",
+    "url": "https://www.enecho.meti.go.jp/category/saving_and_new/saving/general/howto/airconditioning/index.html",
+    "scope": "Room heating and local heating practices; no universal cost advantage.",
+    "checked": "2026-09-24"
+  },
+  "KITCHEN_ENERGY": {
+    "id": "KITCHEN_ENERGY",
+    "publisher": "Agency for Natural Resources and Energy",
+    "type": "Public household energy guidance",
+    "url": "https://www.enecho.meti.go.jp/category/saving_and_new/saving/general/howto/kitchen/index.html",
+    "scope": "Kitchen energy use; actual savings depend on usage and equipment.",
+    "checked": "2026-09-24"
+  },
+  "INPLUS": {
+    "id": "INPLUS",
+    "publisher": "LIXIL",
+    "type": "Manufacturer retrofit product",
+    "url": "https://www.lixil.co.jp/lineup/window/inplus/",
+    "scope": "Secondary-window product availability; claimed performance requires project-specific evidence.",
+    "checked": "2026-09-24"
+  },
+  "EST_WINDOWS": {
+    "id": "EST_WINDOWS",
+    "publisher": "Energy Saving Trust",
+    "type": "Public-interest technical guidance",
+    "url": "https://energysavingtrust.org.uk/advice/windows-and-doors/",
+    "scope": "Secondary glazing already exists in the UK; overseas novelty must not be claimed.",
+    "checked": "2026-09-24"
+  },
+  "STOCK": {
+    "id": "STOCK",
+    "publisher": "Cabinet Office Japan",
+    "type": "Public preparedness guidance",
+    "url": "https://www.bousai.go.jp/kyoiku/hokenkyousai/check.html",
+    "scope": "Three days minimum and preferably a week; roughly 3 L drinking water per person per day. Guidance is not observed adoption.",
+    "checked": "2026-09-24"
+  },
+  "MAFF": {
+    "id": "MAFF",
+    "publisher": "MAFF Japan",
+    "type": "Household food-stock guidance",
+    "url": "https://www.maff.go.jp/j/zyukyu/foodstock/chapter02.html",
+    "scope": "Rotate familiar foods; recommendation does not establish household compliance.",
+    "checked": "2026-09-24"
+  },
+  "CDC_WATER": {
+    "id": "CDC_WATER",
+    "publisher": "CDC",
+    "type": "Public emergency-water guidance",
+    "url": "https://www.cdc.gov/water-emergency/about/how-to-create-and-store-an-emergency-water-supply.html",
+    "scope": "At least one US gallon per person per day for three days; aim for two weeks if possible. Scope differs from Japan's drinking-water figure.",
+    "checked": "2026-09-24"
+  },
+  "TOILET_STOCK": {
+    "id": "TOILET_STOCK",
+    "publisher": "METI Japan",
+    "type": "Disaster toilet working-group material",
+    "url": "https://www.meti.go.jp/shingikai/mono_info_service/disaster_toilet_popularization/pdf/001_04_00.pdf",
+    "scope": "Five uses per person per day is a planning assumption; individual and product needs vary.",
+    "checked": "2026-09-24"
+  },
+  "ANCHOR": {
+    "id": "ANCHOR",
+    "publisher": "Tokyo Fire Department",
+    "type": "Public safety guidance",
+    "url": "https://www.tfd.metro.tokyo.lg.jp/lfe/bou_topic/kaguten/measures_house.html",
+    "scope": "Furniture restraint guidance; fixing substrate and installation require verification.",
+    "checked": "2026-09-24"
+  },
+  "BREAKER": {
+    "id": "BREAKER",
+    "publisher": "Cabinet Office Japan",
+    "type": "Public safety programme",
+    "url": "https://www.bousai.go.jp/jishin/kanshin_breaker.html",
+    "scope": "Earthquake breaker promotion; not a DIY wiring guide or international approval.",
+    "checked": "2026-09-24"
+  },
+  "GO_BAG": {
+    "id": "GO_BAG",
+    "publisher": "Cabinet Office Japan",
+    "type": "Public preparedness checklist",
+    "url": "https://www.bousai.go.jp/taisaku/hisaisyagyousei/youengosya/h20/pdf/bizen01.pdf",
+    "scope": "Historical checklist examples only; not a current complete or individualized plan.",
+    "checked": "2026-09-24"
+  },
+  "MLIT_DELIVERY": {
+    "id": "MLIT_DELIVERY",
+    "publisher": "MLIT Japan",
+    "type": "Public logistics policy",
+    "url": "https://www.mlit.go.jp/seisakutokatsu/freight/re_delivery_reduce.html",
+    "scope": "Lockers and delivery practices promoted; no measured saving is assumed in this inventory.",
+    "checked": "2026-09-24"
+  },
+  "LOCKER_HOME": {
+    "id": "LOCKER_HOME",
+    "publisher": "Panasonic",
+    "type": "Manufacturer product catalogue",
+    "url": "https://sumai.panasonic.jp/exterior/takuhai/combo/combo.html",
+    "scope": "Home parcel boxes exist; courier acceptance and parcel dimensions vary.",
+    "checked": "2026-09-24"
+  },
+  "LOCKER_APT": {
+    "id": "LOCKER_APT",
+    "publisher": "Panasonic",
+    "type": "Manufacturer product catalogue",
+    "url": "https://sumai.panasonic.jp/exterior/takuhai/combo_maison.html",
+    "scope": "Apartment parcel lockers exist; service capacity requires site data.",
+    "checked": "2026-09-24"
+  },
+  "LOCKER_RANGE": {
+    "id": "LOCKER_RANGE",
+    "publisher": "Panasonic",
+    "type": "Manufacturer comparison catalogue",
+    "url": "https://sumai.panasonic.jp/exterior/takuhai/choose/",
+    "scope": "Different box layouts and functions; not proof of compatibility with every courier.",
+    "checked": "2026-09-24"
+  },
+  "JP_POST": {
+    "id": "JP_POST",
+    "publisher": "Japan Post",
+    "type": "Operator service catalogue",
+    "url": "https://www.post.japanpost.jp/service/",
+    "scope": "Postal service examples, not evidence equivalent services are absent overseas.",
+    "checked": "2026-09-24"
+  },
+  "JP_RECEIVE": {
+    "id": "JP_RECEIVE",
+    "publisher": "Japan Post",
+    "type": "Operator service guidance",
+    "url": "https://www.post.japanpost.jp/service/ec_uketori-biz/",
+    "scope": "Alternative delivery receipt arrangements; eligibility varies by service.",
+    "checked": "2026-09-24"
+  },
+  "YAMATO": {
+    "id": "YAMATO",
+    "publisher": "Yamato Transport",
+    "type": "Operator service catalogue",
+    "url": "https://www.kuronekoyamato.co.jp/ytc/customer/send/services/",
+    "scope": "Parcel, airport, sports and round-trip delivery; destination and deadline restrictions apply.",
+    "checked": "2026-09-24"
+  },
+  "YAMATO_COOL": {
+    "id": "YAMATO_COOL",
+    "publisher": "Yamato Transport",
+    "type": "Operator service guidance",
+    "url": "https://www.kuronekoyamato.co.jp/ytc/customer/send/services/cool/",
+    "scope": "Temperature-controlled delivery availability; not a food safety guarantee.",
+    "checked": "2026-09-24"
+  },
+  "YAMATO_COMPACT": {
+    "id": "YAMATO_COMPACT",
+    "publisher": "Yamato Transport",
+    "type": "Operator service guidance",
+    "url": "https://www.kuronekoyamato.co.jp/ytc/customer/send/services/compact/",
+    "scope": "Specified parcel packaging and service; local equivalents differ.",
+    "checked": "2026-09-24"
+  },
+  "LAUNDRY": {
+    "id": "LAUNDRY",
+    "publisher": "Panasonic",
+    "type": "Manufacturer selection guide",
+    "url": "https://panasonic.jp/joshitsu/select.html",
+    "scope": "Laundry dehumidifier product types; no generic energy-saving percentage.",
+    "checked": "2026-09-24"
+  },
+  "ES_DEHUMID": {
+    "id": "ES_DEHUMID",
+    "publisher": "ENERGY STAR",
+    "type": "Government programme product guidance",
+    "url": "https://www.energystar.gov/products/dehumidifiers",
+    "scope": "Dehumidifiers already sold abroad; efficiency and application differ.",
+    "checked": "2026-09-24"
+  },
+  "MEACO": {
+    "id": "MEACO",
+    "publisher": "Meaco UK",
+    "type": "Manufacturer product page",
+    "url": "https://www.meaco.com/products/meacodry-arete-two-25l-dual-dehumidifier-hepa-air-purifier",
+    "scope": "Overseas laundry-mode product exists; not independent demand data.",
+    "checked": "2026-09-24"
+  },
+  "DRY_HARDWARE": {
+    "id": "DRY_HARDWARE",
+    "publisher": "Kawaguchi Giken",
+    "type": "Manufacturer product catalogue",
+    "url": "https://www.kawaguchigiken.co.jp/products/monohoshi/",
+    "scope": "Indoor rods, lifts and lines; load and fastening must match the exact item.",
+    "checked": "2026-09-24"
+  },
+  "FUTON": {
+    "id": "FUTON",
+    "publisher": "Iris Ohyama",
+    "type": "Manufacturer product catalogue",
+    "url": "https://www.irisohyama.co.jp/kararie/futon/",
+    "scope": "Futon and shoe-drying products exist; no clinical or allergen benefit inferred.",
+    "checked": "2026-09-24"
+  },
+  "FUTON_VAC": {
+    "id": "FUTON_VAC",
+    "publisher": "Iris Ohyama",
+    "type": "Manufacturer product page",
+    "url": "https://www.irisohyama.co.jp/products/electrical-appliances/home-appliances/vacuum-cleaner/cleaner-futon/cleaner-bed-with-cord-fca13",
+    "scope": "Bedding vacuum exists; no health outcome inferred.",
+    "checked": "2026-09-24"
+  },
+  "WASHER": {
+    "id": "WASHER",
+    "publisher": "Panasonic",
+    "type": "Manufacturer comparison table",
+    "url": "https://panasonic.jp/wash/comparison.html",
+    "scope": "Heat-pump washer-dryers and automatic dosing available; model features differ.",
+    "checked": "2026-09-24"
+  },
+  "RICE": {
+    "id": "RICE",
+    "publisher": "Zojirushi USA",
+    "type": "Manufacturer overseas product page",
+    "url": "https://www.zojirushi.com/app/product/nslgc",
+    "scope": "Small rice cooker sold in US; specified rice cup is not a US measuring cup.",
+    "checked": "2026-09-24"
+  },
+  "JEMA": {
+    "id": "JEMA",
+    "publisher": "Japan Electrical Manufacturers' Association",
+    "type": "Domestic shipment report",
+    "url": "https://www.jema-net.or.jp/stat/evefa20000004jb4-att/2512ds-comment.pdf",
+    "scope": "Domestic appliance shipments; not household penetration or overseas search demand.",
+    "checked": "2026-09-24"
+  },
+  "THERMAL_COOK": {
+    "id": "THERMAL_COOK",
+    "publisher": "Thermos Japan",
+    "type": "Manufacturer product page",
+    "url": "https://www.thermos.jp/product/series/kbg-00.html",
+    "scope": "Vacuum-insulated cooker; follow food-safety and appliance instructions.",
+    "checked": "2026-09-24"
+  },
+  "RICE_FREEZE": {
+    "id": "RICE_FREEZE",
+    "publisher": "Asahi Kasei",
+    "type": "Manufacturer product page",
+    "url": "https://www.asahi-kasei.co.jp/saran/products/ziploc/container_gohan.html",
+    "scope": "Rice freezing containers; temperature and food safety need separate guidance.",
+    "checked": "2026-09-24"
+  },
+  "MARNA": {
+    "id": "MARNA",
+    "publisher": "Marna",
+    "type": "Manufacturer container catalogue",
+    "url": "https://marna.jp/shop/c/ccontainer/",
+    "scope": "Food-storage product formats; catalogue alone does not show national uptake.",
+    "checked": "2026-09-24"
+  },
+  "ZO_PRODUCTS": {
+    "id": "ZO_PRODUCTS",
+    "publisher": "Zojirushi Japan",
+    "type": "Manufacturer product catalogue",
+    "url": "https://www.zojirushi.co.jp/syohin/",
+    "scope": "Kitchen appliance and insulated-container availability only.",
+    "checked": "2026-09-24"
+  },
+  "ZO_POT": {
+    "id": "ZO_POT",
+    "publisher": "Zojirushi Japan",
+    "type": "Manufacturer product specification",
+    "url": "https://www.zojirushi.co.jp/syohin/pot_kettle/ve_electric_thermos/cv-gv/",
+    "scope": "Electric vacuum-insulated water pot; running cost depends on measured use.",
+    "checked": "2026-09-24"
+  },
+  "ZO_BENTO": {
+    "id": "ZO_BENTO",
+    "publisher": "Zojirushi Japan",
+    "type": "Manufacturer product catalogue",
+    "url": "https://www.zojirushi.co.jp/syohin/bento/",
+    "scope": "Insulated lunch systems; holding time is product- and food-specific.",
+    "checked": "2026-09-24"
+  },
+  "DISHWASHER": {
+    "id": "DISHWASHER",
+    "publisher": "Panasonic",
+    "type": "Manufacturer product page",
+    "url": "https://sumai.panasonic.jp/dishwasher/m9series/",
+    "scope": "Built-in drawer dishwasher exists; plumbing and cabinet requirements vary.",
+    "checked": "2026-09-24"
+  },
+  "DISH45": {
+    "id": "DISH45",
+    "publisher": "Panasonic",
+    "type": "Manufacturer product page",
+    "url": "https://sumai.panasonic.jp/dishwasher/products/front-open-45ef1w/",
+    "scope": "45 cm dishwasher format; overseas alternatives are established.",
+    "checked": "2026-09-24"
+  },
+  "MUJI": {
+    "id": "MUJI",
+    "publisher": "MUJI",
+    "type": "Manufacturer design explanation",
+    "url": "https://www.muji.com/hk-en/campaign/20SS_storage/size.html",
+    "scope": "Modular sizing design in a 2020 campaign; not a current sales or adoption statistic.",
+    "checked": "2026-09-24"
+  },
+  "MUJI_GLOBAL": {
+    "id": "MUJI_GLOBAL",
+    "publisher": "MUJI",
+    "type": "Overseas product guidance",
+    "url": "https://www.muji.com/sg/feature/organise/",
+    "scope": "Overseas storage availability; no untapped-market claim.",
+    "checked": "2026-09-24"
+  },
+  "INTERIOR": {
+    "id": "INTERIOR",
+    "publisher": "Panasonic",
+    "type": "Manufacturer interior catalogue",
+    "url": "https://sumai.panasonic.jp/housing-biz/interior/",
+    "scope": "Storage, partitions, counters and fittings exist; no national adoption proof.",
+    "checked": "2026-09-24"
+  },
+  "TATAMI": {
+    "id": "TATAMI",
+    "publisher": "Panasonic",
+    "type": "Manufacturer product concept",
+    "url": "https://sumai.panasonic.jp/interior/miriyo/tatamigaoka/concept/",
+    "scope": "Raised tatami storage product; load, fall and moisture checks remain project-specific.",
+    "checked": "2026-09-24"
+  },
+  "BIKE_STATS": {
+    "id": "BIKE_STATS",
+    "publisher": "Japan Bicycle Promotion Institute",
+    "type": "Industry production statistics",
+    "url": "https://jbpi.or.jp/business/statistics/production/electric/",
+    "scope": "Domestic electric-assist production statistics; not household adoption abroad.",
+    "checked": "2026-09-24"
+  },
+  "YAMAHA": {
+    "id": "YAMAHA",
+    "publisher": "Yamaha Motor",
+    "type": "Manufacturer product catalogue",
+    "url": "https://www.yamaha-motor.co.jp/pas/lineup/",
+    "scope": "Electric-assist bicycle uses and products; local class rules differ.",
+    "checked": "2026-09-24"
+  },
+  "BIKE_CHILD": {
+    "id": "BIKE_CHILD",
+    "publisher": "Yamaha Motor",
+    "type": "Manufacturer safety guidance",
+    "url": "https://www.yamaha-motor.co.jp/pas/children/safe-usage/",
+    "scope": "Child transport needs approved compatible equipment and local rules.",
+    "checked": "2026-09-24"
+  },
+  "BIKE_PARK": {
+    "id": "BIKE_PARK",
+    "publisher": "GIKEN",
+    "type": "Manufacturer infrastructure overview",
+    "url": "https://www.giken.com/ja/products/eco_cycle/",
+    "scope": "Automated cycle parking exists; specialty infrastructure, not general household equipment.",
+    "checked": "2026-09-24"
+  },
+  "CAR_PARK": {
+    "id": "CAR_PARK",
+    "publisher": "MLIT Japan",
+    "type": "Public infrastructure safety guidance",
+    "url": "https://www.mlit.go.jp/toshi/toshi_gairo_tk_000038.html",
+    "scope": "Mechanical parking safety and constraints; engineering and operator responsibility.",
+    "checked": "2026-09-24"
+  },
+  "CARE": {
+    "id": "CARE",
+    "publisher": "Panasonic Age-Free",
+    "type": "Manufacturer care product catalogue",
+    "url": "https://sumai.panasonic.jp/agefree/products/mobility/smoody/lineup-n.html",
+    "scope": "Support hardware exists; personal assessment and installation cannot be automated safely.",
+    "checked": "2026-09-24"
+  },
+  "CARE_TOILET": {
+    "id": "CARE_TOILET",
+    "publisher": "Panasonic Age-Free",
+    "type": "Manufacturer renovation examples",
+    "url": "https://sumai.panasonic.jp/agefree/shop/reform/toilet/",
+    "scope": "Accessible layout examples; not medical or building-code clearance.",
+    "checked": "2026-09-24"
+  },
+  "MIMAMORI": {
+    "id": "MIMAMORI",
+    "publisher": "Zojirushi",
+    "type": "Manufacturer service history",
+    "url": "https://www.zojirushi.co.jp/corp/sustainable-action/mimamori.html",
+    "scope": "Kettle activity monitoring service; not an emergency detection service.",
+    "checked": "2026-09-24"
+  },
+  "JICA": {
+    "id": "JICA",
+    "publisher": "JICA",
+    "type": "Public international cooperation programme",
+    "url": "https://www.jica.go.jp/english/overseas/egypt/activities/activity12.html",
+    "scope": "Adapted Japanese school activities overseas; not proof each sub-practice is commercially viable.",
+    "checked": "2026-09-24"
+  },
+  "SCHOOL": {
+    "id": "SCHOOL",
+    "publisher": "MEXT",
+    "type": "Public school hygiene guidance",
+    "url": "https://www.mext.go.jp/a_menu/kenko/hoken/1353625.htm",
+    "scope": "School hygiene context; topic-specific evidence still required.",
+    "checked": "2026-09-24"
+  },
+  "SCHOOL_FOOD": {
+    "id": "SCHOOL_FOOD",
+    "publisher": "MEXT",
+    "type": "Public school food guidance",
+    "url": "https://www.mext.go.jp/a_menu/sports/syokuiku/08040316.htm",
+    "scope": "School food hygiene; not a home meal safety protocol.",
+    "checked": "2026-09-24"
+  },
+  "GLORY_TICKET": {
+    "id": "GLORY_TICKET",
+    "publisher": "GLORY",
+    "type": "Manufacturer commercial catalogue",
+    "url": "https://www.glory.co.jp/product/category_detail/contents_type%3D25",
+    "scope": "Ticket vending and self-ordering equipment; integration and payment rules vary.",
+    "checked": "2026-09-24"
+  },
+  "GLORY_CASH": {
+    "id": "GLORY_CASH",
+    "publisher": "GLORY",
+    "type": "Manufacturer commercial product",
+    "url": "https://www.glory.co.jp/tsurisenki/products/380/",
+    "scope": "Automatic cash recycling equipment exists; business case needs actual transaction data.",
+    "checked": "2026-09-24"
+  },
+  "GLORY_KEYS": {
+    "id": "GLORY_KEYS",
+    "publisher": "GLORY",
+    "type": "Manufacturer commercial catalogue",
+    "url": "https://www.glory.co.jp/product/bcategory/sc/",
+    "scope": "Key-management and related retail systems; catalogue alone does not show uptake.",
+    "checked": "2026-09-24"
+  },
+  "SEVEN_PRINT": {
+    "id": "SEVEN_PRINT",
+    "publisher": "Seven-Eleven Japan",
+    "type": "Operator service guide",
+    "url": "https://www.sej.co.jp/services/multicopy/",
+    "scope": "Convenience-store printing and document services exist; identity services excluded from priority.",
+    "checked": "2026-09-24"
+  },
+  "KAO_REFILL": {
+    "id": "KAO_REFILL",
+    "publisher": "Kao",
+    "type": "Manufacturer sustainability account",
+    "url": "https://www.kao.com/global/en/sustainability/planet/zero-waste/refill-replacements/",
+    "scope": "Long-running Japanese refill business; material claims are company-specific, not universal lifecycle results.",
+    "checked": "2026-09-24"
+  },
+  "KAO_DOSE": {
+    "id": "KAO_DOSE",
+    "publisher": "Kao",
+    "type": "Manufacturer lifecycle explanation",
+    "url": "https://www.kao.com/global/en/sustainability/nature/environment/lca-story-attackzero/",
+    "scope": "Concentrated detergent example; doses and lifecycle boundaries differ by product.",
+    "checked": "2026-09-24"
+  },
+  "KAO_COLLECTION": {
+    "id": "KAO_COLLECTION",
+    "publisher": "Kao",
+    "type": "Manufacturer pilot announcement",
+    "url": "https://www.kao.com/global/en/newsroom/news/release/2024/20240308-001/",
+    "scope": "Pouch collection programme example; do not describe a pilot as national infrastructure.",
+    "checked": "2026-09-24"
+  }
+}

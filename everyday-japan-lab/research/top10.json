@@ -1,0 +1,92 @@
+[
+  {
+    "priority": 1,
+    "id": "C001",
+    "topic": "Electric bidet seats",
+    "region": "US / Canada; then locally approved UK/EU models",
+    "reason": "A buyer can avoid an incompatible seat before ordering. Manufacturer fit charts make a documented worksheet possible.",
+    "caution": "Existing retailer guides are strong; differentiate by recording unknowns, regional electrics and no universal pass.",
+    "tool": "Measurement and readiness worksheet"
+  },
+  {
+    "priority": 2,
+    "id": "C013",
+    "topic": "Heat-pump water heating / EcoCute",
+    "region": "US replacement buyers; compare local systems before Australia/Europe",
+    "reason": "A transparent load model connects household use to quotes while explaining why Japanese split CO2 systems differ.",
+    "caution": "High purchase intent is an editorial hypothesis; installation and seasonal performance dominate results.",
+    "tool": "Transparent energy and cost calculator"
+  },
+  {
+    "priority": 3,
+    "id": "C026",
+    "topic": "Rolling household food stocks",
+    "region": "English-speaking households with limited storage",
+    "reason": "Turns an intimidating list into existing-stock subtraction and a repeatable shopping habit.",
+    "caution": "Public recommendations establish the method, not how many Japanese households follow it.",
+    "tool": "Stock deficit and rotation planner"
+  },
+  {
+    "priority": 4,
+    "id": "C036",
+    "topic": "Apartment parcel lockers",
+    "region": "Small apartment managers in US/UK/Australia",
+    "reason": "Managers can collect delivery and dwell-time data before requesting a capacity quote.",
+    "caution": "Commercial lead potential, but no confirmed affiliate programme or service-level guarantee.",
+    "tool": "Capacity sensitivity estimator"
+  },
+  {
+    "priority": 5,
+    "id": "C048",
+    "topic": "Dehumidifier-assisted indoor drying",
+    "region": "Damp-climate renters in UK/Ireland; other regions selectively",
+    "reason": "Compare energy use and room conditions when outdoor drying is unreliable.",
+    "caution": "Already an active overseas category; no claim it is undiscovered or always cheaper than a dryer.",
+    "tool": "Measured energy and room-readiness worksheet"
+  },
+  {
+    "priority": 6,
+    "id": "C057",
+    "topic": "Compact rice cookers",
+    "region": "US/Canada small households",
+    "reason": "Capacity labels and rice-cup units create a solvable buying problem.",
+    "caution": "Highly competitive; start with batch planning rather than untested product rankings.",
+    "tool": "Rice-cup and batch planner"
+  },
+  {
+    "priority": 7,
+    "id": "C069",
+    "topic": "Modular storage dimensions",
+    "region": "Small urban homes across English-language markets",
+    "reason": "A usable-interior-size checker can prevent boxes that almost fit.",
+    "caution": "Global category; Japanese dimension systems are a case study, not a superiority claim.",
+    "tool": "Box nesting and clearance checker"
+  },
+  {
+    "priority": 8,
+    "id": "C106",
+    "topic": "Refill pouch household products",
+    "region": "Markets with locally stocked refill products",
+    "reason": "Cost per usable dose clarifies misleading pack-size comparisons.",
+    "caution": "Do not infer environmental benefit from smaller packaging alone; recycling varies.",
+    "tool": "Unit-price and usable-volume calculator"
+  },
+  {
+    "priority": 9,
+    "id": "C020",
+    "topic": "Secondary interior glazing",
+    "region": "Single-glazed homes where landlord/building permission allows",
+    "reason": "A measurement and installer-questions page supports an expensive, detail-sensitive decision.",
+    "caution": "UK already has mature secondary glazing. Validate a narrow local search gap before writing.",
+    "tool": "Measurement and quote checklist"
+  },
+  {
+    "priority": 10,
+    "id": "C028",
+    "topic": "Emergency toilet bags and liners",
+    "region": "Households planning for water/sewer interruptions",
+    "reason": "Separates toilet uses from people-days and adds storage/disposal questions.",
+    "caution": "Preparedness recommendation is stronger than adoption evidence; no safe-disposal instructions without local sources.",
+    "tool": "Use-count and reorder calculator"
+  }
+]
