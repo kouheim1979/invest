@@ -4,6 +4,11 @@ from html import escape
 import json,re,hashlib
 from content import ARTICLES
 ROOT=Path(__file__).resolve().parents[1]
+publication=json.loads((ROOT/'deployment/blogger.json').read_text())
+if publication.get('preview_paused'):
+    from pause_preview import pause
+    pause()
+    raise SystemExit(0)
 BASE='/invest/everyday-japan-lab/'
 DATE='2026-09-24'
 SOURCES=json.loads((ROOT/'research/sources.json').read_text())

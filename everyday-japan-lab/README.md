@@ -1,5 +1,7 @@
 # Everyday Japan Lab
 
+**Publication paused at the owner’s request (2026-09-25 JST).** Blogger reader access is authors only and search visibility is off. Development and legacy HTML show a pause notice. Source content is retained. `preview_paused` in `deployment/blogger.json` prevents a normal build from republishing it; do not resume without the owner’s instruction.
+
 English guides and transparent planning tools. This directory is a **development preview**, not the production advertising host. All generated HTML keeps `noindex,nofollow`.
 
 ## Build and check

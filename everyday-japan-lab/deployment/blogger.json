@@ -2,7 +2,7 @@
   "origin": "https://everydayjapanlab.blogspot.com",
   "language": "en",
   "display_name": "Everyday Japan Lab",
-  "status": "published_pages_root_post_pending",
+  "status": "publication_paused",
   "domain_source": "URL provided by the owner on 2026-09-24",
   "page_urls_verified": true,
   "tracking_added_by_this_project": false,
@@ -21,6 +21,10 @@
   "adsense_application_submitted_by_this_project": false,
   "ga4_measurement_id_configured": false,
   "https_redirect_enabled": true,
-  "search_visibility_enabled": true,
-  "reviewed": "2026-09-24"
+  "search_visibility_enabled": false,
+  "reviewed": "2026-09-24",
+  "reader_access": "authors_only",
+  "preview_paused": true,
+  "paused_at": "2026-09-25 Asia/Tokyo",
+  "preview_before_pause_commit": "dd856f5d0a3449b87fc6fe819a0731d0cac5b6cb"
 }

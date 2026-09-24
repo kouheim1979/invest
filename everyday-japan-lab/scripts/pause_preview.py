@@ -1,2 +1,19 @@
-<!doctype html>
+"""Replace this project's published HTML with a reversible pause notice."""
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+NOTICE = '''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Publication paused | Everyday Japan Lab</title><style>body{margin:0;background:#f7f6f2;color:#192d36;font:18px/1.6 system-ui,sans-serif}main{max-width:40rem;margin:12vh auto;padding:2rem}h1{font-size:clamp(2rem,7vw,3rem);line-height:1.15}p{max-width:34rem}</style></head><body><main><p>Everyday Japan Lab</p><h1>Publication paused</h1><p>This site is temporarily unavailable.</p></main></body></html>
+'''
+
+
+def pause():
+    paths = [p for p in ROOT.rglob('*.html') if 'blogger-pack' not in p.relative_to(ROOT).parts]
+    paths += list((ROOT.parent / 'japan-ahead').rglob('*.html'))
+    for path in paths:
+        path.write_text(NOTICE)
+    print(f'Paused {len(paths)} development and legacy HTML pages; source code retained.')
+
+
+if __name__ == '__main__':
+    pause()
