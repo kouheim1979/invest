@@ -46,37 +46,37 @@ var T={
 en:{
 html:'en',heroTitle:'Calculate clearly.<br>Check the formula.',heroText:'Five browser-based engineering tools with visible formulas, reverse calculations and input checks.',
 result:'Result',formula:'Formula & substitution',calc:'Calculate',reset:'Reset',copy:'Copy result',enter:'Enter values to calculate.',
-tools:{ma:['4–20 mA scaling','Convert loop current to engineering units, or reverse the calculation.'],v:['0–10 V scaling','Map a voltage to configured engineering endpoints.'],units:['Engineering units','Convert length, pressure, speed and temperature.'],roll:['Roll RPM & surface speed','Calculate ideal roll surface speed or required RPM.'],int:['Hex / binary / signed integers','Interpret a fixed-width bit pattern in multiple integer formats.']},
-direction:'Direction',engineering:'engineering value',valueAt:'value',engUnit:'Engineering unit',input:'Input',quantity:'Quantity',q:{length:'Length',pressure:'Pressure',speed:'Linear speed',temp:'Temperature'},from:'From',to:'To',diameter:'Effective diameter',diameterUnit:'Diameter unit',speedUnit:'Speed unit',inputValue:'Input value',wordWidth:'Word width',inputFormat:'Input format',integer:'Integer',
+tools:{ma:['4–20 mA scaling','Scale current using signal MIN/MAX, engineering MIN/MAX and ADC resolution, or reverse the calculation.'],v:['0–10 V scaling','Scale voltage using signal MIN/MAX, engineering MIN/MAX and ADC resolution.'],units:['Engineering units','Convert length, pressure, speed and temperature.'],roll:['Roll RPM & surface speed','Calculate ideal roll surface speed or required RPM.'],int:['Hex / binary / signed integers','Interpret a fixed-width bit pattern in multiple integer formats.']},
+direction:'Direction',engineering:'engineering value',valueAt:'value',engUnit:'Engineering unit',input:'Input',signalMin:'Signal MIN',signalMax:'Signal MAX',engineeringMin:'Engineering MIN',engineeringMax:'Engineering MAX',resolutionBits:'ADC resolution',bitsSuffix:'bits',scaleFactor:'Scale factor',offset:'Offset',digitalLevels:'Digital levels',signalResolution:'Signal resolution / LSB',engineeringResolution:'Engineering resolution / LSB',rawCount:'Estimated RAW count',quantizedValue:'Quantized engineering value',quantizationError:'Quantization error',quantity:'Quantity',q:{length:'Length',pressure:'Pressure',speed:'Linear speed',temp:'Temperature'},from:'From',to:'To',diameter:'Effective diameter',diameterUnit:'Diameter unit',speedUnit:'Speed unit',inputValue:'Input value',wordWidth:'Word width',inputFormat:'Input format',integer:'Integer',
 rpmTo:'RPM → surface speed',toRpm:'Surface speed → RPM',span:'Span fraction',source:'Source',circumference:'Circumference',
-invalidNumber:'Enter a valid number: ',rangeError:'A and B must be different.',outRange:'Outside nominal span: mathematical extrapolation only, not a fault diagnosis.',inRange:'Within the configured span.',pressureNote:'Unit conversion does not change a gauge/absolute pressure reference.',diameterError:'Diameter must be positive and speed nonnegative.',geometry:'Geometry only. Equating this to material speed assumes no slip.',exactInteger:'Exact integer arithmetic; oversized values are rejected instead of truncated.',resultRange:'Result is outside the supported range.',invalidHex:'Invalid hexadecimal input.',invalidBin:'Invalid binary input.',invalidInteger:'Invalid integer input.',signedRange:'Value is outside the selected signed range.',widthRange:'Value does not fit the selected word width.',
+invalidNumber:'Enter a valid number: ',rangeError:'Signal MIN/MAX and Engineering MIN/MAX must each be different.',outRange:'Outside nominal span: mathematical extrapolation only, not a fault diagnosis.',inRange:'Within the configured span.',pressureNote:'Unit conversion does not change a gauge/absolute pressure reference.',diameterError:'Diameter must be positive and speed nonnegative.',geometry:'Geometry only. Equating this to material speed assumes no slip.',exactInteger:'Exact integer arithmetic; oversized values are rejected instead of truncated.',resultRange:'Result is outside the supported range.',invalidHex:'Invalid hexadecimal input.',invalidBin:'Invalid binary input.',invalidInteger:'Invalid integer input.',signedRange:'Value is outside the selected signed range.',widthRange:'Value does not fit the selected word width.',
 intLabels:{unsigned:'Unsigned',hex:'Hex',binary:'Binary'},footer:'For learning and independent calculation checks. Confirm actual instrument ranges, units, data formats and manufacturer documentation before operational use.'
 },
 ja:{
 html:'ja',heroTitle:'わかりやすく計算。<br>式も確認できます。',heroText:'数式表示・逆算・入力チェックに対応した、ブラウザで使える5種類の工学計算ツールです。',
 result:'計算結果',formula:'数式と代入過程',calc:'計算',reset:'リセット',copy:'結果をコピー',enter:'数値を入力すると計算します。',
-tools:{ma:['4–20 mA スケーリング','電流信号を工学量へ換算、または工学量から電流を逆算します。'],v:['0–10 V スケーリング','電圧を設定された工学量レンジへ換算します。'],units:['工学単位換算','長さ・圧力・速度・温度を換算します。'],roll:['ロール回転数・周速','ロール径と回転数から理想周速を求める、または回転数を逆算します。'],int:['16進数・2進数・符号付き整数','指定ビット幅の同じビット列を複数の整数形式で確認します。']},
-direction:'計算方向',engineering:'工学量',valueAt:'時の値',engUnit:'工学単位',input:'入力値',quantity:'物理量',q:{length:'長さ',pressure:'圧力',speed:'線速度',temp:'温度'},from:'変換元',to:'変換先',diameter:'有効ロール径',diameterUnit:'直径単位',speedUnit:'速度単位',inputValue:'入力値',wordWidth:'ビット幅',inputFormat:'入力形式',integer:'整数',
+tools:{ma:['4–20 mA スケーリング','信号MIN/MAX・工学値MIN/MAX・ADC分解能を使ってスケーリングし、逆算もできます。'],v:['0–10 V スケーリング','信号MIN/MAX・工学値MIN/MAX・ADC分解能を使って電圧をスケーリングします。'],units:['工学単位換算','長さ・圧力・速度・温度を換算します。'],roll:['ロール回転数・周速','ロール径と回転数から理想周速を求める、または回転数を逆算します。'],int:['16進数・2進数・符号付き整数','指定ビット幅の同じビット列を複数の整数形式で確認します。']},
+direction:'計算方向',engineering:'工学量',valueAt:'時の値',engUnit:'工学単位',input:'入力値',signalMin:'信号 MIN',signalMax:'信号 MAX',engineeringMin:'工学値 MIN',engineeringMax:'工学値 MAX',resolutionBits:'ADC分解能',bitsSuffix:'bit',scaleFactor:'スケール係数',offset:'オフセット',digitalLevels:'デジタル段数',signalResolution:'信号分解能 / LSB',engineeringResolution:'工学値分解能 / LSB',rawCount:'推定RAW値',quantizedValue:'量子化後の工学値',quantizationError:'量子化誤差',quantity:'物理量',q:{length:'長さ',pressure:'圧力',speed:'線速度',temp:'温度'},from:'変換元',to:'変換先',diameter:'有効ロール径',diameterUnit:'直径単位',speedUnit:'速度単位',inputValue:'入力値',wordWidth:'ビット幅',inputFormat:'入力形式',integer:'整数',
 rpmTo:'回転数 → 周速',toRpm:'周速 → 回転数',span:'設定レンジ比率',source:'変換元',circumference:'ロール円周',
-invalidNumber:'有効な数値を入力してください：',rangeError:'AとBは異なる値にしてください。',outRange:'標称レンジ外です。数学的な外挿値であり、故障診断を意味しません。',inRange:'設定レンジ内です。',pressureNote:'単位換算をしても、ゲージ圧・絶対圧などの基準は変わりません。',diameterError:'直径は0より大きく、速度は0以上にしてください。',geometry:'幾何学上の計算です。材料速度と等しいとみなす場合は、すべりなしを仮定しています。',exactInteger:'整数として正確に計算します。ビット幅を超える値は切り捨てずエラーにします。',resultRange:'計算結果が対応範囲を超えています。',invalidHex:'16進数の入力が正しくありません。',invalidBin:'2進数の入力が正しくありません。',invalidInteger:'整数の入力が正しくありません。',signedRange:'選択した符号付き整数の範囲外です。',widthRange:'選択したビット幅に収まりません。',
+invalidNumber:'有効な数値を入力してください：',rangeError:'信号MIN/MAX、工学値MIN/MAXは、それぞれ異なる値にしてください。',outRange:'標称レンジ外です。数学的な外挿値であり、故障診断を意味しません。',inRange:'設定レンジ内です。',pressureNote:'単位換算をしても、ゲージ圧・絶対圧などの基準は変わりません。',diameterError:'直径は0より大きく、速度は0以上にしてください。',geometry:'幾何学上の計算です。材料速度と等しいとみなす場合は、すべりなしを仮定しています。',exactInteger:'整数として正確に計算します。ビット幅を超える値は切り捨てずエラーにします。',resultRange:'計算結果が対応範囲を超えています。',invalidHex:'16進数の入力が正しくありません。',invalidBin:'2進数の入力が正しくありません。',invalidInteger:'整数の入力が正しくありません。',signedRange:'選択した符号付き整数の範囲外です。',widthRange:'選択したビット幅に収まりません。',
 intLabels:{unsigned:'符号なし10進数',hex:'16進数',binary:'2進数'},footer:'学習・独立した計算確認用です。実際の設備へ適用する前に、計器レンジ、単位、データ形式、メーカー資料を確認してください。'
 },
 zh:{
 html:'zh-CN',heroTitle:'算得清楚。<br>看得懂公式。',heroText:'5 个工程计算工具：显示公式、支持反算，并检查输入范围。适用于浏览器和手机。',
 result:'计算结果',formula:'公式与代入过程',calc:'计算',reset:'重置',copy:'复制结果',enter:'输入数值后即可计算。',
-tools:{ma:['4–20 mA 换算','将电流信号换算为工程量，或从工程量反算电流。'],v:['0–10 V 换算','将电压映射到设定的工程量范围。'],units:['工程单位换算','长度、压力、速度和温度换算。'],roll:['辊筒转速与表面速度','根据辊径和转速计算理想表面速度，或反算转速。'],int:['十六进制 / 二进制 / 有符号整数','按固定位宽解释同一位模式。']},
-direction:'计算方向',engineering:'工程量',valueAt:'时的值',engUnit:'工程单位',input:'输入值',quantity:'物理量',q:{length:'长度',pressure:'压力',speed:'线速度',temp:'温度'},from:'从',to:'到',diameter:'有效辊径',diameterUnit:'直径单位',speedUnit:'速度单位',inputValue:'输入值',wordWidth:'位宽',inputFormat:'输入格式',integer:'整数',
+tools:{ma:['4–20 mA 换算','使用信号 MIN/MAX、工程值 MIN/MAX 和 ADC 分辨率进行缩放，并支持反算。'],v:['0–10 V 换算','使用信号 MIN/MAX、工程值 MIN/MAX 和 ADC 分辨率进行电压缩放。'],units:['工程单位换算','长度、压力、速度和温度换算。'],roll:['辊筒转速与表面速度','根据辊径和转速计算理想表面速度，或反算转速。'],int:['十六进制 / 二进制 / 有符号整数','按固定位宽解释同一位模式。']},
+direction:'计算方向',engineering:'工程量',valueAt:'时的值',engUnit:'工程单位',input:'输入值',signalMin:'信号 MIN',signalMax:'信号 MAX',engineeringMin:'工程值 MIN',engineeringMax:'工程值 MAX',resolutionBits:'ADC 分辨率',bitsSuffix:'bit',scaleFactor:'缩放系数',offset:'偏移量',digitalLevels:'数字级数',signalResolution:'信号分辨率 / LSB',engineeringResolution:'工程值分辨率 / LSB',rawCount:'估算 RAW 值',quantizedValue:'量化后的工程值',quantizationError:'量化误差',quantity:'物理量',q:{length:'长度',pressure:'压力',speed:'线速度',temp:'温度'},from:'从',to:'到',diameter:'有效辊径',diameterUnit:'直径单位',speedUnit:'速度单位',inputValue:'输入值',wordWidth:'位宽',inputFormat:'输入格式',integer:'整数',
 rpmTo:'转速 → 表面速度',toRpm:'表面速度 → 转速',span:'量程比例',source:'原始值',circumference:'辊筒周长',
-invalidNumber:'请输入有效数字：',rangeError:'A 与 B 不能相同。',outRange:'超出标称量程：这是数学外推，不代表故障诊断。',inRange:'位于设定量程内。',pressureNote:'单位换算不会改变压力的表压/绝压基准。',diameterError:'直径必须大于 0，速度不能为负。',geometry:'几何计算。若等同于材料速度，则假设无滑移。',exactInteger:'精确整数运算；不会静默截断溢出位。',resultRange:'结果超出可计算范围。',invalidHex:'十六进制输入无效。',invalidBin:'二进制输入无效。',invalidInteger:'整数输入无效。',signedRange:'数值超出所选有符号整数范围。',widthRange:'数值无法放入所选位宽。',
+invalidNumber:'请输入有效数字：',rangeError:'信号 MIN/MAX 与工程值 MIN/MAX 必须分别不同。',outRange:'超出标称量程：这是数学外推，不代表故障诊断。',inRange:'位于设定量程内。',pressureNote:'单位换算不会改变压力的表压/绝压基准。',diameterError:'直径必须大于 0，速度不能为负。',geometry:'几何计算。若等同于材料速度，则假设无滑移。',exactInteger:'精确整数运算；不会静默截断溢出位。',resultRange:'结果超出可计算范围。',invalidHex:'十六进制输入无效。',invalidBin:'二进制输入无效。',invalidInteger:'整数输入无效。',signedRange:'数值超出所选有符号整数范围。',widthRange:'数值无法放入所选位宽。',
 intLabels:{unsigned:'无符号十进制',hex:'十六进制',binary:'二进制'},footer:'用于学习和独立计算复核。实际应用前，请确认仪表量程、单位、数据格式和制造商文件。'
 },
 ko:{
 html:'ko',heroTitle:'명확하게 계산하고.<br>공식을 확인하세요.',heroText:'공식 표시, 역산, 입력 검증을 지원하는 브라우저 기반 공학 계산 도구 5종입니다.',
 result:'계산 결과',formula:'공식 및 대입 과정',calc:'계산',reset:'초기화',copy:'결과 복사',enter:'값을 입력하면 계산합니다.',
-tools:{ma:['4–20 mA 스케일링','전류 루프 신호를 공학 단위로 변환하거나 역산합니다.'],v:['0–10 V 스케일링','전압을 설정된 공학 범위에 맞게 변환합니다.'],units:['공학 단위 변환','길이, 압력, 속도, 온도를 변환합니다.'],roll:['롤 RPM 및 표면 속도','롤 직경과 회전수로 이상적인 표면 속도를 계산하거나 RPM을 역산합니다.'],int:['16진수 / 2진수 / 부호 있는 정수','고정 비트 폭의 동일한 비트 패턴을 여러 정수 형식으로 해석합니다.']},
-direction:'계산 방향',engineering:'공학 값',valueAt:'일 때 값',engUnit:'공학 단위',input:'입력값',quantity:'물리량',q:{length:'길이',pressure:'압력',speed:'선속도',temp:'온도'},from:'변환 전',to:'변환 후',diameter:'유효 롤 직경',diameterUnit:'직경 단위',speedUnit:'속도 단위',inputValue:'입력값',wordWidth:'비트 폭',inputFormat:'입력 형식',integer:'정수',
+tools:{ma:['4–20 mA 스케일링','신호 MIN/MAX, 공학값 MIN/MAX, ADC 분해능을 사용해 스케일링하고 역산합니다.'],v:['0–10 V 스케일링','신호 MIN/MAX, 공학값 MIN/MAX, ADC 분해능으로 전압을 스케일링합니다.'],units:['공학 단위 변환','길이, 압력, 속도, 온도를 변환합니다.'],roll:['롤 RPM 및 표면 속도','롤 직경과 회전수로 이상적인 표면 속도를 계산하거나 RPM을 역산합니다.'],int:['16진수 / 2진수 / 부호 있는 정수','고정 비트 폭의 동일한 비트 패턴을 여러 정수 형식으로 해석합니다.']},
+direction:'계산 방향',engineering:'공학 값',valueAt:'일 때 값',engUnit:'공학 단위',input:'입력값',signalMin:'신호 MIN',signalMax:'신호 MAX',engineeringMin:'공학값 MIN',engineeringMax:'공학값 MAX',resolutionBits:'ADC 분해능',bitsSuffix:'bit',scaleFactor:'스케일 계수',offset:'오프셋',digitalLevels:'디지털 단계 수',signalResolution:'신호 분해능 / LSB',engineeringResolution:'공학값 분해능 / LSB',rawCount:'예상 RAW 값',quantizedValue:'양자화 후 공학값',quantizationError:'양자화 오차',quantity:'물리량',q:{length:'길이',pressure:'압력',speed:'선속도',temp:'온도'},from:'변환 전',to:'변환 후',diameter:'유효 롤 직경',diameterUnit:'직경 단위',speedUnit:'속도 단위',inputValue:'입력값',wordWidth:'비트 폭',inputFormat:'입력 형식',integer:'정수',
 rpmTo:'RPM → 표면 속도',toRpm:'표면 속도 → RPM',span:'설정 범위 비율',source:'원본 값',circumference:'롤 원주',
-invalidNumber:'유효한 숫자를 입력하세요: ',rangeError:'A와 B는 서로 다른 값이어야 합니다.',outRange:'공칭 범위를 벗어났습니다. 수학적 외삽값이며 고장 진단을 의미하지 않습니다.',inRange:'설정 범위 안에 있습니다.',pressureNote:'단위를 변환해도 게이지압/절대압과 같은 압력 기준은 바뀌지 않습니다.',diameterError:'직경은 0보다 커야 하고 속도는 0 이상이어야 합니다.',geometry:'기하학적 계산입니다. 재료 속도와 동일하다고 볼 경우 미끄럼이 없다고 가정합니다.',exactInteger:'정확한 정수 연산을 사용합니다. 비트 폭을 넘는 값은 자동 절삭하지 않고 오류로 처리합니다.',resultRange:'계산 결과가 지원 범위를 벗어났습니다.',invalidHex:'16진수 입력이 올바르지 않습니다.',invalidBin:'2진수 입력이 올바르지 않습니다.',invalidInteger:'정수 입력이 올바르지 않습니다.',signedRange:'선택한 부호 있는 정수 범위를 벗어났습니다.',widthRange:'선택한 비트 폭에 들어가지 않습니다.',
+invalidNumber:'유효한 숫자를 입력하세요: ',rangeError:'신호 MIN/MAX와 공학값 MIN/MAX는 각각 서로 다른 값이어야 합니다.',outRange:'공칭 범위를 벗어났습니다. 수학적 외삽값이며 고장 진단을 의미하지 않습니다.',inRange:'설정 범위 안에 있습니다.',pressureNote:'단위를 변환해도 게이지압/절대압과 같은 압력 기준은 바뀌지 않습니다.',diameterError:'직경은 0보다 커야 하고 속도는 0 이상이어야 합니다.',geometry:'기하학적 계산입니다. 재료 속도와 동일하다고 볼 경우 미끄럼이 없다고 가정합니다.',exactInteger:'정확한 정수 연산을 사용합니다. 비트 폭을 넘는 값은 자동 절삭하지 않고 오류로 처리합니다.',resultRange:'계산 결과가 지원 범위를 벗어났습니다.',invalidHex:'16진수 입력이 올바르지 않습니다.',invalidBin:'2진수 입력이 올바르지 않습니다.',invalidInteger:'정수 입력이 올바르지 않습니다.',signedRange:'선택한 부호 있는 정수 범위를 벗어났습니다.',widthRange:'선택한 비트 폭에 들어가지 않습니다.',
 intLabels:{unsigned:'부호 없는 10진수',hex:'16진수',binary:'2진수'},footer:'학습 및 독립적인 계산 확인용입니다. 실제 설비에 적용하기 전에 계기 범위, 단위, 데이터 형식 및 제조사 문서를 확인하세요.'
 }
 };
@@ -87,15 +87,16 @@ function num(id,label){var s=document.getElementById(id).value.trim();if(!s||!is
 function frac(top,bot){return '<span class="frac"><span class="top">'+top+'</span><span class="bot">'+bot+'</span></span>'}
 function setFormula(html,steps){document.getElementById('formula').innerHTML='<div class="eq">'+html+'</div><div class="steps">'+esc(steps||'')+'</div>'}
 function field(id,label,val,mode){return '<label class="field"><span>'+label+'</span><input id="'+id+'" value="'+val+'" inputmode="'+(mode||'decimal')+'"></label>'}
-function select(id,label,opts){return '<label class="field"><span>'+label+'</span><select id="'+id+'">'+opts.map(function(x){return '<option value="'+x[0]+'">'+x[1]+'</option>'}).join('')+'</select></label>'}
+function select(id,label,opts,selected){return '<label class="field"><span>'+label+'</span><select id="'+id+'">'+opts.map(function(x){return '<option value="'+x[0]+'"'+(String(x[0])===String(selected)?' selected':'')+'>'+x[1]+'</option>'}).join('')+'</select></label>'}
 function renderTabs(){var order=['ma','v','units','roll','int'];document.getElementById('tabs').innerHTML=order.map(function(k,i){return '<button type="button" class="tab '+(k===active?'on':'')+'" data-k="'+k+'">'+('0'+(i+1)).slice(-2)+' · '+tr().tools[k][0]+'</button>'}).join('');Array.from(document.querySelectorAll('.tab')).forEach(function(b){b.onclick=function(){active=b.dataset.k;render()}})}
 function renderFields(){
 var h='',t=tr();
 if(active==='ma'||active==='v'){
-  var c=active==='ma',lo=c?'4':'0',hi=c?'20':'10',sig=c?'mA':'V';
+  var c=active==='ma',sig=c?'mA':'V';
   h+=select('dir',t.direction,[['f',sig+' → '+t.engineering],['r',t.engineering+' → '+sig]]);
-  h+='<div class="row">'+field('a','A · '+lo+' '+sig+' '+t.valueAt,'0')+field('b','B · '+hi+' '+sig+' '+t.valueAt,c?'10':'1500')+'</div>';
-  h+=field('u',t.engUnit,c?'bar':'rpm','text');
+  h+='<div class="row">'+field('smin',t.signalMin+(c?' (mA)':' (V)'),c?'4':'0')+field('smax',t.signalMax+(c?' (mA)':' (V)'),c?'20':'10')+'</div>';
+  h+='<div class="row">'+field('emin',t.engineeringMin,'0')+field('emax',t.engineeringMax,c?'10':'1500')+'</div>';
+  h+='<div class="row">'+field('u',t.engUnit,c?'bar':'rpm','text')+select('resbits',t.resolutionBits,[['8','8 '+t.bitsSuffix],['10','10 '+t.bitsSuffix],['12','12 '+t.bitsSuffix],['13','13 '+t.bitsSuffix],['14','14 '+t.bitsSuffix],['15','15 '+t.bitsSuffix],['16','16 '+t.bitsSuffix]],'12')+'</div>';
   h+=field('x',t.input,c?'12':'6');
 }else if(active==='units'){
   h+=select('q',t.quantity,[['length',t.q.length],['pressure',t.q.pressure],['speed',t.q.speed],['temp',t.q.temp]]);
@@ -128,12 +129,40 @@ if(ev)ev.preventDefault();var err=document.getElementById('err');err.hidden=true
 try{
 var main='',rows='',st='',formula='',steps='',t=tr();
 if(active==='ma'||active==='v'){
-  var c=active==='ma',s0=c?4:0,s1=c?20:10,su=c?'mA':'V',a=num('a','A'),b=num('b','B'),x=num('x',t.input),rev=document.getElementById('dir').value==='r',u=document.getElementById('u').value.trim()||'units';
-  if(a===b)throw Error(t.rangeError);
-  var p=rev?(x-a)/(b-a):(x-s0)/(s1-s0),r=rev?s0+p*(s1-s0):a+p*(b-a);
-  main=f(r)+' '+(rev?su:u);rows=t.span+': '+f(p*100)+'%';st=(p<0||p>1)?t.outRange:t.inRange;
-  if(rev){formula='I = '+s0+' + '+frac('(X − A) × ('+(s1-s0)+')','B − A');steps='I = '+s0+' + ('+x+' − '+a+') × '+(s1-s0)+' / ('+b+' − '+a+') = '+f(r)+' '+su}
-  else{formula='X = A + '+frac('('+(c?'I':'V')+' − '+s0+') × (B − A)',String(s1-s0));steps='X = '+a+' + ('+x+' − '+s0+') × ('+b+' − '+a+') / '+(s1-s0)+' = '+f(r)+' '+u}
+  var c=active==='ma',su=c?'mA':'V';
+  var s0=num('smin',t.signalMin),s1=num('smax',t.signalMax),a=num('emin',t.engineeringMin),b=num('emax',t.engineeringMax),x=num('x',t.input);
+  var rev=document.getElementById('dir').value==='r',u=document.getElementById('u').value.trim()||'units',bits=Number(document.getElementById('resbits').value);
+  if(s0===s1||a===b)throw Error(t.rangeError);
+  var sigSpan=s1-s0,engSpan=b-a,levels=Math.pow(2,bits),maxCount=levels-1;
+  var p=rev?(x-a)/engSpan:(x-s0)/sigSpan;
+  var r=rev?s0+p*sigSpan:a+p*engSpan;
+  var slope=engSpan/sigSpan,offset=a-slope*s0;
+  var sigLsb=Math.abs(sigSpan)/maxCount,engLsb=Math.abs(engSpan)/maxCount;
+  var signal=rev?r:x;
+  var rawFloat=(signal-s0)/sigSpan*maxCount;
+  var raw=Math.round(rawFloat);
+  var rawClamped=Math.max(0,Math.min(maxCount,raw));
+  var quantSignal=s0+(rawClamped/maxCount)*sigSpan;
+  var quantEng=a+(rawClamped/maxCount)*engSpan;
+  var qErr=quantEng-(rev?x:r);
+  main=f(r)+' '+(rev?su:u);
+  rows=t.span+': '+f(p*100)+'%'+
+    '<br>'+t.scaleFactor+': '+f(slope)+' '+u+'/'+su+
+    '<br>'+t.offset+': '+f(offset)+' '+u+
+    '<br>'+t.digitalLevels+': '+levels+' (0–'+maxCount+')'+
+    '<br>'+t.signalResolution+': '+f(sigLsb)+' '+su+
+    '<br>'+t.engineeringResolution+': '+f(engLsb)+' '+u+
+    '<br>'+t.rawCount+': '+raw+' / '+maxCount+
+    '<br>'+t.quantizedValue+': '+f(quantEng)+' '+u+
+    '<br>'+t.quantizationError+': '+f(qErr)+' '+u;
+  st=(p<0||p>1)?t.outRange:t.inRange;
+  if(rev){
+    formula='S = S<sub>MIN</sub> + '+frac('(X − X<sub>MIN</sub>) × (S<sub>MAX</sub> − S<sub>MIN</sub>)','X<sub>MAX</sub> − X<sub>MIN</sub>');
+    steps='S = '+s0+' + ('+x+' − '+a+') × ('+s1+' − '+s0+') / ('+b+' − '+a+') = '+f(r)+' '+su;
+  }else{
+    formula='X = X<sub>MIN</sub> + '+frac('(S − S<sub>MIN</sub>) × (X<sub>MAX</sub> − X<sub>MIN</sub>)','S<sub>MAX</sub> − S<sub>MIN</sub>');
+    steps='X = '+a+' + ('+x+' − '+s0+') × ('+b+' − '+a+') / ('+s1+' − '+s0+') = '+f(r)+' '+u;
+  }
   setFormula(formula,steps);
 }else if(active==='units'){
   var q=document.getElementById('q').value,from=document.getElementById('from').value,to=document.getElementById('to').value,x=num('x',t.inputValue),r=convertUnit(q,from,to,x);
