@@ -599,5 +599,21 @@
     }
   ],
   "unmatchedInternal": [],
-  "developmentLinks": []
+  "developmentLinks": [],
+  "responsive_check": {
+    "method": "public Blogger pages embedded in 320 and 390 CSS-pixel iframes; DOM read and screenshots",
+    "pages": [
+      "home",
+      "heat-pump-water-heater"
+    ],
+    "calculation_at_both_widths": "813 kWh/year; USD 163/year; USD 325 annual saving with example inputs",
+    "physical_device_test": false
+  },
+  "tool_checks": {
+    "washlet-fit": "220–240 V supply with 100 V product reports mismatch; reset hides result",
+    "heat-pump-water-heater": "default 813 kWh/year; USD 163/year; delivery 10 C below inlet 15 C rejected",
+    "emergency-stockpile": "4 people, 7 days, 3 L: 84 L; 10 L owned gives 74 L deficit / 37 two-litre containers; blank people rejected",
+    "v2h-backup": "default 32.4 kWh, 64.8 hours; reserve 90% above start 80% rejected",
+    "parcel-locker": "default 15 compartments; occupancy 0 rejected"
+  }
 }
