@@ -171,12 +171,12 @@
         "https://everydayjapanlab.blogspot.com/p/tools.html",
         "https://everydayjapanlab.blogspot.com/p/about.html",
         "https://everydayjapanlab.blogspot.com/p/contact.html",
-        "https://everydayjapanlab.blogspot.com/p/privacy.html",
-        "https://github.com/kouheim1979/invest/issues/new?title=Everyday%20Japan%20Lab%3A%20"
+        "https://everydayjapanlab.blogspot.com/p/privacy.html"
       ],
       "robots": null,
       "title": "Contact",
-      "viewport": "width=device-width, initial-scale=1"
+      "viewport": "width=device-width, initial-scale=1",
+      "redacted_links": 1
     },
     {
       "file": "methodology",
@@ -615,5 +615,9 @@
     "emergency-stockpile": "4 people, 7 days, 3 L: 84 L; 10 L owned gives 74 L deficit / 37 two-litre containers; blank people rejected",
     "v2h-backup": "default 32.4 kWh, 64.8 hours; reserve 90% above start 80% rejected",
     "parcel-locker": "default 15 compartments; occupancy 0 rejected"
+  },
+  "redactions": {
+    "date": "2026-09-25",
+    "note": "Personal-account contact URL removed at owner request. Other data describes the historical 2026-09-24 audit, not the current private site."
   }
 }

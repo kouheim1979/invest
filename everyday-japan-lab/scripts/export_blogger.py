@@ -65,7 +65,7 @@ def scoped_rules(text):
 
 style=scoped_rules(css)+'.ejl-fragment .aside{position:static}.ejl-fragment .hero{grid-template-columns:1fr}.ejl-fragment .article-grid,.ejl-fragment .tool-layout{grid-template-columns:1fr}.ejl-fragment .ejl-menu{display:flex;gap:16px;flex-wrap:wrap;margin:0 0 25px}.ejl-fragment{padding:20px;max-width:1180px;margin:auto}'
 (OUT/'theme/common-gadget.html').write_text('<style>'+style+'</style>\n<script>'+js+'</script>\n')
-privacy='''<article class="prose"><h2>Publisher and contact</h2><p>Everyday Japan Lab is published by Kouhei. Use the Contact page for the current editorial contact route. Public GitHub issues are visible to others; do not include sensitive personal information.</p><h2>Calculator inputs</h2><p>Our calculator code runs in your browser and does not send its inputs to us, store them in cookies or local storage, or create user accounts. A printed copy is under your control.</p><h2>Blogger hosting</h2><p>This site is hosted by Google Blogger. Google may process technical request data and use cookies in providing its platform. See <a href="https://policies.google.com/privacy">Google’s Privacy Policy</a> and <a href="https://policies.google.com/technologies/cookies">Google’s cookie information</a>. Blogger’s own notice is separate from this description of our calculator code.</p><h2>Advertising and analytics</h2><p>At this initial launch, we have not enabled AdSense, GA4, sponsored placements or affiliate tracking links. If we add these services, we will update this notice and configure the applicable consent choices before activating them. We do not send calculator inputs to analytics.</p><h2>External links</h2><p>Manufacturer, public-source and feedback links lead to other services with their own privacy practices. This site does not control those services.</p><p>Last updated: 2026-09-24.</p></article>'''
+privacy='''<article class="prose"><h2>Publisher and contact</h2><p>This site is published under the Everyday Japan Lab name. The contact route is being revised and is not currently accepting enquiries. This notice will be updated to describe the contact service before enquiries reopen.</p><h2>Calculator inputs</h2><p>Our calculator code runs in your browser and does not send its inputs to us, store them in cookies or local storage, or create user accounts. A printed copy is under your control.</p><h2>Blogger hosting</h2><p>This site is hosted by Google Blogger. Google may process technical request data and use cookies in providing its platform. See <a href="https://policies.google.com/privacy">Google’s Privacy Policy</a> and <a href="https://policies.google.com/technologies/cookies">Google’s cookie information</a>. Blogger’s own notice is separate from this description of our calculator code.</p><h2>Advertising and analytics</h2><p>At this initial launch, we have not enabled AdSense, GA4, sponsored placements or affiliate tracking links. If we add these services, we will update this notice and configure the applicable consent choices before activating them. We do not send calculator inputs to analytics.</p><h2>External links</h2><p>Manufacturer and public-source links lead to other services with their own privacy practices. This site does not control those services.</p><p>Last updated: 2026-09-25.</p></article>'''
 
 def mapped(body,mapping):
     def replace(match):
@@ -84,7 +84,7 @@ for p in pages:
     # The development status notice is in the generated shell, not the article body.
     body=body.replace('This development preview','This initial site').replace('This development site','This initial site').replace('This preview','This initial site')
     menu='<nav class="ejl-menu" aria-label="Everyday Japan Lab">'+''.join(f'<a href="{publicmap[s]}">{t}</a>' for s,t in [('','Home'),('topics','Topics'),('tools','Tools'),('about','About'),('contact','Contact'),('privacy','Privacy')])+'</nav>'
-    intro='' if not slug else f'<p class="eyebrow">{escape(p["tag"])}</p><p class="lede">{escape(description)}</p><p class="meta">By Everyday Japan Lab · Reviewed 2026-09-24</p>'
+    intro='' if not slug else f'<p class="eyebrow">{escape(p["tag"])}</p><p class="lede">{escape(description)}</p><p class="meta">By Everyday Japan Lab · Reviewed {escape(p.get("reviewed", "2026-09-24"))}</p>'
     fragment='<div class="ejl-fragment" lang="en">'+menu+intro+mapped(body,publicmap)+'</div>'
     (OUT/'pages'/f'{name}.html').write_text(fragment)
     previewMap={q['slug']:(q['slug'].replace('/','-') or 'home')+'.html' for q in pages}
@@ -108,14 +108,14 @@ Only English exists now, so no hreflang tags should be added yet.
 ''')
 (OUT/'README-JA.md').write_text('''# Blogger移植パック
 
-本番用URLは https://everydayjapanlab.blogspot.com/。2026-09-24に23固定ページを公開し、共通ガジェットと上部ナビを設定しました。実URLは `deployment/published-pages.json`、確認範囲と残作業は `DEPLOYMENT-JA.md` を参照してください。広告・GA4は設定していません。以下は再移植・更新時の手順です。
+現在は公開停止中です。Bloggerは投稿者に限定公開、検索表示OFF。本人から再開指示があるまで一般公開しません。23固定ページ、共通ガジェット、上部ナビは保存されています。実URLは `deployment/published-pages.json`、確認範囲と残作業は `DEPLOYMENT-JA.md` を参照してください。広告・GA4は設定していません。以下は非公開状態での更新、および再開指示後の手順です。
 
-1. 作成済みのEveryday Japan Labの管理画面を開く。現在の検索公開は有効。
+1. 作成済みのEveryday Japan Labの管理画面を開く。投稿者に限定公開・検索表示OFFを維持する。
 2. `confirmed: true` のページは記録済みの編集URLを開く。未登録ページのみ「ページ」→「新しいページ」。HTML表示に切替え、対応する `pages/*.html` の本文を貼り付ける。デザイン表示に何度も切り替えるとHTMLが変わり得るため保存後に確認する。
 3. `page-import-list.json` の `confirmed: true` は実URLを確認済みです。更新時は既存ページを編集し、同じページを重複作成しません。新規ページは保存後の実URLを `deployment/published-pages.json` に記録して再生成します。英語タイトルからの自動スラッグが候補と一致するとは限りません。
 4. 「レイアウト」→「ガジェットを追加」→「HTML/JavaScript」に `theme/common-gadget.html` を貼る。全ページで1回読み込む。HTML表示のフォームやscriptの扱い、テーマの表示幅は実環境で検証する。GitHubのファイルを外部読込する必要はありません。
 5. Home固定ページをナビの先頭にする。Bloggerのルートトップは固定ページと別です。ルートを空にしないため、紹介文とHome/Topics/Toolsへの導線を持つ案内投稿またはホーム用ガジェットを設定し、実表示を確認します。URL確定前にルートからのJS強制リダイレクトを設定しません。
-6. Pagesガジェットで主要ページを表示。Aboutの本人表示、Contactの窓口、Privacyの実際のサービスを確認。Privacy本文は広告・GA4未導入のBlogger用です。
+6. Pagesガジェットで主要ページを表示。表記はEveryday Japan Labに統一。Contactは窓口準備中のため再開前にブランド用の連絡方法を用意し、Privacyを実際のサービスに合わせる。Privacy本文は広告・GA4未導入のBlogger用です。
 7. モバイル、入力エラー、計算、ボタン、印刷、全リンク、canonical、lang、Cookie通知を確認する。プレビューは `preview/` 内でオフラインでも確認できますが、Bloggerテーマ側の動作保証ではありません。
 8. 実URLの自己canonicalを確認。英語しか存在しない間はhreflang不要。翻訳公開時だけ `theme/hreflang-example.txt` を参考に実URLでテーマを設定します。
 9. Search Consoleで所有権とURLを確認。GA4は任意、広告は審査・Privacy・必要なCMP整備後。架空の広告IDや測定IDは入れていません。

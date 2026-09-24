@@ -1,0 +1,395 @@
+{
+  "reviewed": "2026-09-25 Asia/Tokyo",
+  "access": "authors_only",
+  "scope": "Rendered DOM, including text, links and HTML, viewed while signed in. 23 saved pages and root, normal and mobile URLs. Blogger profile inspected separately.",
+  "personal_identifier_matches": 0,
+  "profile_display": "Everyday Japan Lab",
+  "profile_personal_contacts_visible": false,
+  "limits": "Does not erase repository ownership, prior commits, existing caches or externally copied content.",
+  "pages": [
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Privacy",
+      "url": "https://everydayjapanlab.blogspot.com/p/privacy.html"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Emergency stockpile and shopping calculator",
+      "url": "https://everydayjapanlab.blogspot.com/p/emergency-stockpile.html"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Home",
+      "url": "https://everydayjapanlab.blogspot.com/p/home.html"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Topics",
+      "url": "https://everydayjapanlab.blogspot.com/p/topics.html"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Tools",
+      "url": "https://everydayjapanlab.blogspot.com/p/tools.html"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "About",
+      "url": "https://everydayjapanlab.blogspot.com/p/about.html"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Contact",
+      "url": "https://everydayjapanlab.blogspot.com/p/contact.html"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Methodology",
+      "url": "https://everydayjapanlab.blogspot.com/p/methodology.html"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Advertising",
+      "url": "https://everydayjapanlab.blogspot.com/p/advertising.html"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Sources",
+      "url": "https://everydayjapanlab.blogspot.com/p/sources.html"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Bidet seat readiness worksheet",
+      "url": "https://everydayjapanlab.blogspot.com/p/washlet-fit.html"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Heat-pump water-heater cost calculator",
+      "url": "https://everydayjapanlab.blogspot.com/p/heat-pump-water-heater.html"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "V2H backup runtime calculator",
+      "url": "https://everydayjapanlab.blogspot.com/p/v2h-backup.html"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Parcel-locker capacity estimator",
+      "url": "https://everydayjapanlab.blogspot.com/p/parcel-locker.html"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Japanese bidet seats: what to check before buying",
+      "url": "https://everydayjapanlab.blogspot.com/p/bidet-seats.html"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Will a bidet seat fit? A measurement worksheet",
+      "url": "https://everydayjapanlab.blogspot.com/p/bidet-seats-measure.html"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Bidet seat electricity and plumbing: questions for your installer",
+      "url": "https://everydayjapanlab.blogspot.com/p/bidet-seats-electrical-plumbing.html"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Heat-pump water heaters: what Japan’s EcoCute experience can teach",
+      "url": "https://everydayjapanlab.blogspot.com/p/heat-pump-water-heaters.html"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Heat-pump water heater installation: a pre-quote checklist",
+      "url": "https://everydayjapanlab.blogspot.com/p/heat-pump-water-heaters-installation.html"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "COP, heat loss and hot-water cost: understand the calculator",
+      "url": "https://everydayjapanlab.blogspot.com/p/heat-pump-water-heaters-cop-and-cost.html"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Rolling stock: build emergency supplies from things you already use",
+      "url": "https://everydayjapanlab.blogspot.com/p/emergency-preparedness.html"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Emergency water: compare the Japanese and US planning allowances",
+      "url": "https://everydayjapanlab.blogspot.com/p/emergency-preparedness-water.html"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "A practical pantry rotation and outage checklist",
+      "url": "https://everydayjapanlab.blogspot.com/p/emergency-preparedness-rotation.html"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Privacy",
+      "url": "https://everydayjapanlab.blogspot.com/p/privacy.html?m=1"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Emergency stockpile and shopping calculator",
+      "url": "https://everydayjapanlab.blogspot.com/p/emergency-stockpile.html?m=1"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Home",
+      "url": "https://everydayjapanlab.blogspot.com/p/home.html?m=1"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Topics",
+      "url": "https://everydayjapanlab.blogspot.com/p/topics.html?m=1"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Tools",
+      "url": "https://everydayjapanlab.blogspot.com/p/tools.html?m=1"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "About",
+      "url": "https://everydayjapanlab.blogspot.com/p/about.html?m=1"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Contact",
+      "url": "https://everydayjapanlab.blogspot.com/p/contact.html?m=1"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Methodology",
+      "url": "https://everydayjapanlab.blogspot.com/p/methodology.html?m=1"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Advertising",
+      "url": "https://everydayjapanlab.blogspot.com/p/advertising.html?m=1"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Sources",
+      "url": "https://everydayjapanlab.blogspot.com/p/sources.html?m=1"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Bidet seat readiness worksheet",
+      "url": "https://everydayjapanlab.blogspot.com/p/washlet-fit.html?m=1"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Heat-pump water-heater cost calculator",
+      "url": "https://everydayjapanlab.blogspot.com/p/heat-pump-water-heater.html?m=1"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "V2H backup runtime calculator",
+      "url": "https://everydayjapanlab.blogspot.com/p/v2h-backup.html?m=1"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Parcel-locker capacity estimator",
+      "url": "https://everydayjapanlab.blogspot.com/p/parcel-locker.html?m=1"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Japanese bidet seats: what to check before buying",
+      "url": "https://everydayjapanlab.blogspot.com/p/bidet-seats.html?m=1"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Will a bidet seat fit? A measurement worksheet",
+      "url": "https://everydayjapanlab.blogspot.com/p/bidet-seats-measure.html?m=1"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Bidet seat electricity and plumbing: questions for your installer",
+      "url": "https://everydayjapanlab.blogspot.com/p/bidet-seats-electrical-plumbing.html?m=1"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Heat-pump water heaters: what Japan’s EcoCute experience can teach",
+      "url": "https://everydayjapanlab.blogspot.com/p/heat-pump-water-heaters.html?m=1"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Heat-pump water heater installation: a pre-quote checklist",
+      "url": "https://everydayjapanlab.blogspot.com/p/heat-pump-water-heaters-installation.html?m=1"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "COP, heat loss and hot-water cost: understand the calculator",
+      "url": "https://everydayjapanlab.blogspot.com/p/heat-pump-water-heaters-cop-and-cost.html?m=1"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Rolling stock: build emergency supplies from things you already use",
+      "url": "https://everydayjapanlab.blogspot.com/p/emergency-preparedness.html?m=1"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Emergency water: compare the Japanese and US planning allowances",
+      "url": "https://everydayjapanlab.blogspot.com/p/emergency-preparedness-water.html?m=1"
+    },
+    {
+      "fragments": 1,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "A practical pantry rotation and outage checklist",
+      "url": "https://everydayjapanlab.blogspot.com/p/emergency-preparedness-rotation.html?m=1"
+    },
+    {
+      "fragments": 0,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Everyday Japan Lab",
+      "url": "https://everydayjapanlab.blogspot.com/"
+    },
+    {
+      "fragments": 0,
+      "htmlMatches": 0,
+      "personalLinks": 0,
+      "textMatches": 0,
+      "title": "Everyday Japan Lab",
+      "url": "https://everydayjapanlab.blogspot.com/?m=1"
+    }
+  ]
+}
