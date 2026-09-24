@@ -1,7 +1,7 @@
 """Create paste-ready Blogger fragments and independent local review pages.
 
 No account creation, remote asset dependency, tracking ID or paid service.
-Actual Blogger page URLs must be mapped after the owner creates the blog/pages.
+Confirmed Blogger page URLs are kept in deployment/published-pages.json.
 """
 from pathlib import Path
 from html import escape
@@ -22,6 +22,16 @@ js='(()=>{const start=()=>{\n'+models+'\n'+ui+'\n};if(document.readyState==="loa
 urlfile=OUT/'url-map.json'
 default={p['slug']:'/p/'+(p['slug'].replace('/','-') or 'home')+'.html' for p in pages}
 urlmap=json.loads(urlfile.read_text()) if urlfile.exists() else default
+published_file=ROOT/'deployment/published-pages.json'
+published=json.loads(published_file.read_text()) if published_file.exists() else []
+confirmed={p['file']:p for p in published}
+assert len(confirmed)==len(published),'Published page records must be unique'
+for slug in default:
+    name=slug.replace('/','-') or 'home'
+    if name in confirmed:
+        actual=urlsplit(confirmed[name]['url'])
+        assert actual.scheme+'://'+actual.netloc==origin and not actual.query and not actual.fragment,'Published URL must belong to the configured origin'
+        urlmap[slug]=actual.path
 assert set(urlmap)==set(default),'URL map must cover every generated page'
 for path in urlmap.values():
     assert re.fullmatch(r'/p/[a-z0-9-]+\.html',path),'Expected a Blogger page path such as /p/tools.html'
@@ -81,7 +91,8 @@ for p in pages:
     previewbody=mapped(body,previewMap)
     preview=f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>{escape(title)}</title><style>{css}</style></head><body class="ejl"><main class="wrap"><header class="page-head"><h1>{escape(title)}</h1><p>{escape(description)}</p></header>{previewbody}</main><script>{js}</script></body></html>'
     (OUT/'preview'/f'{name}.html').write_text(preview)
-    manifest.append(dict(file=f'pages/{name}.html',title=title,suggested_path=urlmap[slug],suggested_url=publicmap[slug],confirmed=False))
+    verified=confirmed.get(name,{}).get('url')==publicmap[slug]
+    manifest.append(dict(file=f'pages/{name}.html',title=title,suggested_path=urlmap[slug],suggested_url=publicmap[slug],confirmed=verified,published_title=confirmed.get(name,{}).get('title')))
 (OUT/'url-map.json').write_text(json.dumps(urlmap,indent=2)+'\n')
 (OUT/'page-import-list.json').write_text(json.dumps(manifest,indent=2)+'\n')
 (OUT/'theme/hreflang-example.txt').write_text('''FUTURE TEMPLATE ONLY — do not paste placeholder URLs into a live site.
@@ -97,11 +108,11 @@ Only English exists now, so no hreflang tags should be added yet.
 ''')
 (OUT/'README-JA.md').write_text('''# Blogger移植パック
 
-本番用URLは https://everydayjapanlab.blogspot.com/（ユーザー提供）。記事・ツールのBloggerへの反映、実際のページURLと動作の確認は未完了です。広告・GA4は設定していません。
+本番用URLは https://everydayjapanlab.blogspot.com/。2026-09-24に23固定ページを公開し、共通ガジェットと上部ナビを設定しました。実URLは `deployment/published-pages.json`、確認範囲と残作業は `DEPLOYMENT-JA.md` を参照してください。広告・GA4は設定していません。以下は再移植・更新時の手順です。
 
-1. 作成済みのEveryday Japan Labの管理画面を開く。検索公開は移植・確認後に有効化。
-2. `page-import-list.json` のタイトルで「ページ」→「新しいページ」。HTML表示に切替え、対応する `pages/*.html` の本文を貼り付ける。デザイン表示に何度も切り替えるとHTMLが変わり得るため保存後に確認する。
-3. URLは候補であり確定値ではありません。作成された実URLを `url-map.json` に記録し、エクスポートを再実行して本文内リンクを確定する。英語ページタイトルからの自動スラッグが候補と一致するとは限りません。
+1. 作成済みのEveryday Japan Labの管理画面を開く。現在の検索公開は有効。
+2. `confirmed: true` のページは記録済みの編集URLを開く。未登録ページのみ「ページ」→「新しいページ」。HTML表示に切替え、対応する `pages/*.html` の本文を貼り付ける。デザイン表示に何度も切り替えるとHTMLが変わり得るため保存後に確認する。
+3. `page-import-list.json` の `confirmed: true` は実URLを確認済みです。更新時は既存ページを編集し、同じページを重複作成しません。新規ページは保存後の実URLを `deployment/published-pages.json` に記録して再生成します。英語タイトルからの自動スラッグが候補と一致するとは限りません。
 4. 「レイアウト」→「ガジェットを追加」→「HTML/JavaScript」に `theme/common-gadget.html` を貼る。全ページで1回読み込む。HTML表示のフォームやscriptの扱い、テーマの表示幅は実環境で検証する。GitHubのファイルを外部読込する必要はありません。
 5. Home固定ページをナビの先頭にする。Bloggerのルートトップは固定ページと別です。ルートを空にしないため、紹介文とHome/Topics/Toolsへの導線を持つ案内投稿またはホーム用ガジェットを設定し、実表示を確認します。URL確定前にルートからのJS強制リダイレクトを設定しません。
 6. Pagesガジェットで主要ページを表示。Aboutの本人表示、Contactの窓口、Privacyの実際のサービスを確認。Privacy本文は広告・GA4未導入のBlogger用です。
@@ -113,4 +124,4 @@ Google公式の手順と無料運用の比較は `STRATEGY-JA.md` を参照し�
 ''')
 (OUT/'STRATEGY-JA.md').write_text((ROOT/'research/STRATEGY-JA.md').read_text())
 (OUT/'DEPLOYMENT-JA.md').write_text((ROOT/'deployment/STATUS-JA.md').read_text())
-print(f'Exported {len(pages)} Blogger page fragments for {origin}, common gadget and offline previews; actual page URL mapping pending.')
+print(f'Exported {len(pages)} Blogger page fragments for {origin}; {sum(p["confirmed"] for p in manifest)} URLs confirmed from published records.')

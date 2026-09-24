@@ -1,0 +1,17 @@
+<div class="ejl-fragment" lang="en">
+<p class="eyebrow">Practical systems from everyday Japan.</p>
+<p class="lede">Will a bidet seat fit your toilet? Could a heat-pump water heater suit your home? How much emergency water should you store? Start with a practical question, then check the conditions that matter where you live.</p>
+<p>Everyday Japan Lab investigates systems used in everyday Japanese life and explains where they may help elsewhere. Local climate, voltage, building rules, available products and installation costs can change the answer.</p>
+<h2>Start with a guide</h2>
+<ul>
+<li><a href="https://everydayjapanlab.blogspot.com/p/bidet-seats.html">Bidet seats</a>: measurements, power, plumbing and the limits of a fit check.</li>
+<li><a href="https://everydayjapanlab.blogspot.com/p/heat-pump-water-heaters.html">Heat-pump water heaters</a>: Japan’s EcoCute experience, local installation conditions and a transparent energy comparison.</li>
+<li><a href="https://everydayjapanlab.blogspot.com/p/emergency-preparedness.html">Emergency supplies and rolling stock</a>: water, ordinary food, toilet supplies and a rotation plan.</li>
+</ul>
+<h2>Use a free planning tool</h2>
+<p><a class="button" href="https://everydayjapanlab.blogspot.com/p/tools.html">Open all five free tools</a></p>
+<p>Check bidet readiness, compare water-heating energy, calculate emergency shopping quantities, estimate EV-to-home backup time, or explore parcel-locker capacity. Each tool explains its inputs, assumptions and limits. Calculator inputs stay in your browser.</p>
+<p><a href="https://everydayjapanlab.blogspot.com/p/home.html">Explore the site</a> · <a href="https://everydayjapanlab.blogspot.com/p/topics.html">Browse topics</a> · <a href="https://everydayjapanlab.blogspot.com/p/methodology.html">How we research</a></p>
+<p>We cite public and original sources, describe disadvantages as well as benefits, and separate manufacturer specifications from independent evidence. These guides support planning; they do not certify an installation or replace local professional advice.</p>
+<p>This initial English edition has no enabled advertising or affiliate tracking. See our <a href="https://everydayjapanlab.blogspot.com/p/advertising.html">advertising policy</a>, <a href="https://everydayjapanlab.blogspot.com/p/privacy.html">privacy notice</a> and <a href="https://everydayjapanlab.blogspot.com/p/contact.html">contact page</a>.</p>
+</div>

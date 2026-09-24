@@ -118,9 +118,9 @@ Home → Topics / Tools → 個別ガイドと相互リンク。共通フッタ�
 
 準備したもの：独自の英語ガイド9本、ツール5件、About、Methodology、Privacy開発版、Blogger向けPrivacy草案、Contact、広告開示方針、出典、モバイル表示設計、入力検証。
 
-2026-09-24追記：ユーザーから本番用URL https://everydayjapanlab.blogspot.com/ の共有を受け、移行設定へ登録した。記事・ツールのBlogger反映と実動確認は未完了。
+2026-09-24追記：本番用URL https://everydayjapanlab.blogspot.com/ に23固定ページ・共通ガジェット・8項目のナビを公開した。英語ガイド9本とツール5件を含み、全ページの実URL・自己canonical・英語lang・内部リンクを確認済み。ルート紹介投稿と最終公開確認の残件は `deployment/STATUS-JA.md` に記録する。
 
-まだ完了していないもの：Bloggerへの移植・移植後確認、本人による運営者表示と連絡窓口の確定、Google側の審査・同意設定・本人確認。現在の状態を「AdSense承認済み」「本番申請済み」と表現しない。
+まだ完了していないもの：ルート紹介投稿・一部の表示確認、本人による運営者表示と連絡窓口の最終確認、Search Consoleの実アカウント確認、Google側の審査・広告同意設定・本人確認。現在の状態を「AdSense承認済み」「本番申請済み」と表現しない。
 
 - Googleは独自で有用な内容と良い利用体験を求める。公式に固定の記事数や合格保証を示しているとは扱わない。[サイト準備](https://support.google.com/adsense/answer/7299563?hl=en)
 - 空・工事中・価値の乏しいページへの広告、操作を妨げる配置、コンテンツを上回る広告等を避ける。広告をツールの実行ボタンに似せない。[Publisher policies](https://support.google.com/adsense/answer/10502938?hl=en)
