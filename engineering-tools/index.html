@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Engineering Pocket Tools</title>
-<meta name="description" content="Free engineering calculators for 4–20 mA, 0–10 V, unit conversion, roll surface speed, and signed integers. English and Simplified Chinese.">
+<meta name="description" content="Free engineering calculators for 4–20 mA, 0–10 V, unit conversion, roll surface speed, and signed integers. Available in English, Japanese, Simplified Chinese, and Korean.">
 <style>
 :root{--bg:#f5f7f8;--card:#fff;--ink:#132536;--muted:#61707c;--line:#dfe6ea;--accent:#0c6b61;--nav:#122b3c;--soft:#edf7f4;--warn:#fff3dc}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
 button,input,select{font:inherit}button{cursor:pointer}.wrap{max-width:1180px;margin:auto;padding:0 20px}
 header{background:var(--nav);color:#fff}.head{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:20px}
-.brand b{font-size:20px}.brand small{display:block;color:#b9cad4;letter-spacing:.08em;margin-top:2px}.lang{display:flex;gap:8px}
-.lang button{border:1px solid #587080;background:transparent;color:#fff;border-radius:999px;padding:8px 12px}.lang button.on{background:#fff;color:var(--nav)}
+.brand b{font-size:20px}.brand small{display:block;color:#b9cad4;letter-spacing:.08em;margin-top:2px}.lang{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:7px}
+.lang button{border:1px solid #587080;background:transparent;color:#fff;border-radius:999px;padding:8px 11px;white-space:nowrap}.lang button.on{background:#fff;color:var(--nav)}
 .hero{padding:42px 20px 26px}.hero h1{font-size:clamp(30px,5vw,54px);line-height:1.08;margin:.2em 0}.hero p{max-width:720px;color:var(--muted);margin:0}
 .tabs{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0}.tab{border:1px solid var(--line);background:#fff;padding:10px 14px;border-radius:10px}.tab.on{background:var(--nav);color:#fff}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px}.card h2,.card h3{margin-top:0}
@@ -20,72 +20,170 @@ header{background:var(--nav);color:#fff}.head{display:flex;align-items:center;ju
 .result{font-size:clamp(30px,4vw,46px);font-weight:800;letter-spacing:-.03em;margin:8px 0 14px;overflow-wrap:anywhere}.muted{color:var(--muted);font-size:13px}
 .formula{background:#f8fafb;border:1px solid var(--line);border-radius:14px;padding:18px;margin:14px 0}.eq{display:flex;flex-wrap:wrap;align-items:center;gap:.42em;font-family:"Times New Roman",serif;font-size:clamp(22px,3vw,34px);line-height:1.15}.frac{display:inline-grid;grid-template-rows:auto auto;text-align:center;vertical-align:middle}.frac .top{border-bottom:1.5px solid currentColor;padding:0 .2em .1em}.frac .bot{padding:.1em .2em 0}.steps{margin-top:12px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:14px;white-space:pre-wrap}
 .status{padding:11px 12px;border-radius:9px;background:var(--soft);font-size:13px;margin-top:12px}.status.warn{background:var(--warn)}
-.table{width:100%;border-collapse:collapse;font-size:13px}.table td,.table th{border-bottom:1px solid var(--line);padding:8px;text-align:left}
 footer{padding:34px 20px 50px;color:var(--muted);font-size:12px}.note{border-top:1px solid var(--line);padding-top:18px}
 [hidden]{display:none!important}
-@media(max-width:760px){.grid{grid-template-columns:1fr}.row{grid-template-columns:1fr}.hero{padding-top:28px}.tabs{display:grid;grid-template-columns:1fr 1fr}.tab{font-size:13px}.head{align-items:flex-start}.lang{flex-shrink:0}}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.row{grid-template-columns:1fr}.hero{padding-top:28px}.tabs{display:grid;grid-template-columns:1fr 1fr}.tab{font-size:13px}.head{align-items:flex-start;gap:12px}.lang{max-width:190px}.lang button{font-size:12px;padding:7px 9px}}
+@media(max-width:440px){.head{display:block}.lang{justify-content:flex-start;max-width:none;margin-top:14px}.tabs{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<header><div class="wrap head"><div class="brand"><b>Engineering Pocket Tools</b><small>CALCULATORS & GUIDES</small></div><div class="lang"><button id="enBtn" class="on">EN</button><button id="zhBtn">中文</button></div></div></header>
-<section class="wrap hero"><div id="eyebrow" class="muted">FREE ENGINEERING CALCULATORS</div><h1 id="heroTitle">Calculate clearly.<br>Check the formula.</h1><p id="heroText">Five browser-based engineering tools with visible formulas, reverse calculations and input checks.</p></section>
+<header><div class="wrap head"><div class="brand"><b>Engineering Pocket Tools</b><small>CALCULATORS & GUIDES</small></div><div class="lang" aria-label="Language"><button id="enBtn" class="on">EN</button><button id="jaBtn">日本語</button><button id="zhBtn">中文</button><button id="koBtn">한국어</button></div></div></header>
+<section class="wrap hero"><div class="muted">FREE ENGINEERING CALCULATORS</div><h1 id="heroTitle"></h1><p id="heroText"></p></section>
 <main class="wrap">
 <div id="tabs" class="tabs"></div>
 <div class="grid">
-<section class="card"><h2 id="toolTitle"></h2><p id="toolDesc" class="muted"></p><form id="form"><div id="fields"></div><div id="err" class="status warn" hidden></div><div class="actions"><button class="primary" id="calcBtn" type="submit">Calculate</button><button class="secondary" id="resetBtn" type="button">Reset</button></div></form></section>
-<section class="card"><h3 id="resultHeading">Result</h3><div id="resultLabel" class="muted"></div><div id="result" class="result">—</div><div id="details"></div><div id="status" class="status">Enter values to calculate.</div><button id="copyBtn" class="secondary" style="margin-top:12px" type="button">Copy result</button></section>
+<section class="card"><h2 id="toolTitle"></h2><p id="toolDesc" class="muted"></p><form id="form"><div id="fields"></div><div id="err" class="status warn" hidden></div><div class="actions"><button class="primary" id="calcBtn" type="submit"></button><button class="secondary" id="resetBtn" type="button"></button></div></form></section>
+<section class="card"><h3 id="resultHeading"></h3><div id="result" class="result">—</div><div id="details"></div><div id="status" class="status"></div><button id="copyBtn" class="secondary" style="margin-top:12px" type="button"></button></section>
 </div>
-<section class="card" style="margin-top:18px"><h3 id="formulaHeading">Formula & substitution</h3><div id="formula" class="formula"></div><p id="assumption" class="muted"></p></section>
+<section class="card" style="margin-top:18px"><h3 id="formulaHeading"></h3><div id="formula" class="formula"></div></section>
 </main>
-<footer class="wrap"><div class="note" id="footerText">For learning and independent calculation checks. Confirm actual instrument ranges, units, data formats and manufacturer documentation before operational use.</div></footer>
+<footer class="wrap"><div class="note" id="footerText"></div></footer>
 <script>
 (function(){
 'use strict';
 var lang='en',active='ma',copyText='';
 var T={
 en:{
-heroTitle:'Calculate clearly.<br>Check the formula.',heroText:'Five browser-based engineering tools with visible formulas, reverse calculations and input checks.',
+html:'en',heroTitle:'Calculate clearly.<br>Check the formula.',heroText:'Five browser-based engineering tools with visible formulas, reverse calculations and input checks.',
 result:'Result',formula:'Formula & substitution',calc:'Calculate',reset:'Reset',copy:'Copy result',enter:'Enter values to calculate.',
 tools:{ma:['4–20 mA scaling','Convert loop current to engineering units, or reverse the calculation.'],v:['0–10 V scaling','Map a voltage to configured engineering endpoints.'],units:['Engineering units','Convert length, pressure, speed and temperature.'],roll:['Roll RPM & surface speed','Calculate ideal roll surface speed or required RPM.'],int:['Hex / binary / signed integers','Interpret a fixed-width bit pattern in multiple integer formats.']},
-footer:'For learning and independent calculation checks. Confirm actual instrument ranges, units, data formats and manufacturer documentation before operational use.'
+direction:'Direction',engineering:'engineering value',valueAt:'value',engUnit:'Engineering unit',input:'Input',quantity:'Quantity',q:{length:'Length',pressure:'Pressure',speed:'Linear speed',temp:'Temperature'},from:'From',to:'To',diameter:'Effective diameter',diameterUnit:'Diameter unit',speedUnit:'Speed unit',inputValue:'Input value',wordWidth:'Word width',inputFormat:'Input format',integer:'Integer',
+rpmTo:'RPM → surface speed',toRpm:'Surface speed → RPM',span:'Span fraction',source:'Source',circumference:'Circumference',
+invalidNumber:'Enter a valid number: ',rangeError:'A and B must be different.',outRange:'Outside nominal span: mathematical extrapolation only, not a fault diagnosis.',inRange:'Within the configured span.',pressureNote:'Unit conversion does not change a gauge/absolute pressure reference.',diameterError:'Diameter must be positive and speed nonnegative.',geometry:'Geometry only. Equating this to material speed assumes no slip.',exactInteger:'Exact integer arithmetic; oversized values are rejected instead of truncated.',resultRange:'Result is outside the supported range.',invalidHex:'Invalid hexadecimal input.',invalidBin:'Invalid binary input.',invalidInteger:'Invalid integer input.',signedRange:'Value is outside the selected signed range.',widthRange:'Value does not fit the selected word width.',
+intLabels:{unsigned:'Unsigned',hex:'Hex',binary:'Binary'},footer:'For learning and independent calculation checks. Confirm actual instrument ranges, units, data formats and manufacturer documentation before operational use.'
+},
+ja:{
+html:'ja',heroTitle:'わかりやすく計算。<br>式も確認できます。',heroText:'数式表示・逆算・入力チェックに対応した、ブラウザで使える5種類の工学計算ツールです。',
+result:'計算結果',formula:'数式と代入過程',calc:'計算',reset:'リセット',copy:'結果をコピー',enter:'数値を入力すると計算します。',
+tools:{ma:['4–20 mA スケーリング','電流信号を工学量へ換算、または工学量から電流を逆算します。'],v:['0–10 V スケーリング','電圧を設定された工学量レンジへ換算します。'],units:['工学単位換算','長さ・圧力・速度・温度を換算します。'],roll:['ロール回転数・周速','ロール径と回転数から理想周速を求める、または回転数を逆算します。'],int:['16進数・2進数・符号付き整数','指定ビット幅の同じビット列を複数の整数形式で確認します。']},
+direction:'計算方向',engineering:'工学量',valueAt:'時の値',engUnit:'工学単位',input:'入力値',quantity:'物理量',q:{length:'長さ',pressure:'圧力',speed:'線速度',temp:'温度'},from:'変換元',to:'変換先',diameter:'有効ロール径',diameterUnit:'直径単位',speedUnit:'速度単位',inputValue:'入力値',wordWidth:'ビット幅',inputFormat:'入力形式',integer:'整数',
+rpmTo:'回転数 → 周速',toRpm:'周速 → 回転数',span:'設定レンジ比率',source:'変換元',circumference:'ロール円周',
+invalidNumber:'有効な数値を入力してください：',rangeError:'AとBは異なる値にしてください。',outRange:'標称レンジ外です。数学的な外挿値であり、故障診断を意味しません。',inRange:'設定レンジ内です。',pressureNote:'単位換算をしても、ゲージ圧・絶対圧などの基準は変わりません。',diameterError:'直径は0より大きく、速度は0以上にしてください。',geometry:'幾何学上の計算です。材料速度と等しいとみなす場合は、すべりなしを仮定しています。',exactInteger:'整数として正確に計算します。ビット幅を超える値は切り捨てずエラーにします。',resultRange:'計算結果が対応範囲を超えています。',invalidHex:'16進数の入力が正しくありません。',invalidBin:'2進数の入力が正しくありません。',invalidInteger:'整数の入力が正しくありません。',signedRange:'選択した符号付き整数の範囲外です。',widthRange:'選択したビット幅に収まりません。',
+intLabels:{unsigned:'符号なし10進数',hex:'16進数',binary:'2進数'},footer:'学習・独立した計算確認用です。実際の設備へ適用する前に、計器レンジ、単位、データ形式、メーカー資料を確認してください。'
 },
 zh:{
-heroTitle:'算得清楚。<br>看得懂公式。',heroText:'5 个工程计算工具：显示公式、支持反算，并检查输入范围。适用于浏览器和手机。',
+html:'zh-CN',heroTitle:'算得清楚。<br>看得懂公式。',heroText:'5 个工程计算工具：显示公式、支持反算，并检查输入范围。适用于浏览器和手机。',
 result:'计算结果',formula:'公式与代入过程',calc:'计算',reset:'重置',copy:'复制结果',enter:'输入数值后即可计算。',
 tools:{ma:['4–20 mA 换算','将电流信号换算为工程量，或从工程量反算电流。'],v:['0–10 V 换算','将电压映射到设定的工程量范围。'],units:['工程单位换算','长度、压力、速度和温度换算。'],roll:['辊筒转速与表面速度','根据辊径和转速计算理想表面速度，或反算转速。'],int:['十六进制 / 二进制 / 有符号整数','按固定位宽解释同一位模式。']},
-footer:'用于学习和独立计算复核。实际应用前，请确认仪表量程、单位、数据格式和制造商文件。'
-}};
+direction:'计算方向',engineering:'工程量',valueAt:'时的值',engUnit:'工程单位',input:'输入值',quantity:'物理量',q:{length:'长度',pressure:'压力',speed:'线速度',temp:'温度'},from:'从',to:'到',diameter:'有效辊径',diameterUnit:'直径单位',speedUnit:'速度单位',inputValue:'输入值',wordWidth:'位宽',inputFormat:'输入格式',integer:'整数',
+rpmTo:'转速 → 表面速度',toRpm:'表面速度 → 转速',span:'量程比例',source:'原始值',circumference:'辊筒周长',
+invalidNumber:'请输入有效数字：',rangeError:'A 与 B 不能相同。',outRange:'超出标称量程：这是数学外推，不代表故障诊断。',inRange:'位于设定量程内。',pressureNote:'单位换算不会改变压力的表压/绝压基准。',diameterError:'直径必须大于 0，速度不能为负。',geometry:'几何计算。若等同于材料速度，则假设无滑移。',exactInteger:'精确整数运算；不会静默截断溢出位。',resultRange:'结果超出可计算范围。',invalidHex:'十六进制输入无效。',invalidBin:'二进制输入无效。',invalidInteger:'整数输入无效。',signedRange:'数值超出所选有符号整数范围。',widthRange:'数值无法放入所选位宽。',
+intLabels:{unsigned:'无符号十进制',hex:'十六进制',binary:'二进制'},footer:'用于学习和独立计算复核。实际应用前，请确认仪表量程、单位、数据格式和制造商文件。'
+},
+ko:{
+html:'ko',heroTitle:'명확하게 계산하고.<br>공식을 확인하세요.',heroText:'공식 표시, 역산, 입력 검증을 지원하는 브라우저 기반 공학 계산 도구 5종입니다.',
+result:'계산 결과',formula:'공식 및 대입 과정',calc:'계산',reset:'초기화',copy:'결과 복사',enter:'값을 입력하면 계산합니다.',
+tools:{ma:['4–20 mA 스케일링','전류 루프 신호를 공학 단위로 변환하거나 역산합니다.'],v:['0–10 V 스케일링','전압을 설정된 공학 범위에 맞게 변환합니다.'],units:['공학 단위 변환','길이, 압력, 속도, 온도를 변환합니다.'],roll:['롤 RPM 및 표면 속도','롤 직경과 회전수로 이상적인 표면 속도를 계산하거나 RPM을 역산합니다.'],int:['16진수 / 2진수 / 부호 있는 정수','고정 비트 폭의 동일한 비트 패턴을 여러 정수 형식으로 해석합니다.']},
+direction:'계산 방향',engineering:'공학 값',valueAt:'일 때 값',engUnit:'공학 단위',input:'입력값',quantity:'물리량',q:{length:'길이',pressure:'압력',speed:'선속도',temp:'온도'},from:'변환 전',to:'변환 후',diameter:'유효 롤 직경',diameterUnit:'직경 단위',speedUnit:'속도 단위',inputValue:'입력값',wordWidth:'비트 폭',inputFormat:'입력 형식',integer:'정수',
+rpmTo:'RPM → 표면 속도',toRpm:'표면 속도 → RPM',span:'설정 범위 비율',source:'원본 값',circumference:'롤 원주',
+invalidNumber:'유효한 숫자를 입력하세요: ',rangeError:'A와 B는 서로 다른 값이어야 합니다.',outRange:'공칭 범위를 벗어났습니다. 수학적 외삽값이며 고장 진단을 의미하지 않습니다.',inRange:'설정 범위 안에 있습니다.',pressureNote:'단위를 변환해도 게이지압/절대압과 같은 압력 기준은 바뀌지 않습니다.',diameterError:'직경은 0보다 커야 하고 속도는 0 이상이어야 합니다.',geometry:'기하학적 계산입니다. 재료 속도와 동일하다고 볼 경우 미끄럼이 없다고 가정합니다.',exactInteger:'정확한 정수 연산을 사용합니다. 비트 폭을 넘는 값은 자동 절삭하지 않고 오류로 처리합니다.',resultRange:'계산 결과가 지원 범위를 벗어났습니다.',invalidHex:'16진수 입력이 올바르지 않습니다.',invalidBin:'2진수 입력이 올바르지 않습니다.',invalidInteger:'정수 입력이 올바르지 않습니다.',signedRange:'선택한 부호 있는 정수 범위를 벗어났습니다.',widthRange:'선택한 비트 폭에 들어가지 않습니다.',
+intLabels:{unsigned:'부호 없는 10진수',hex:'16진수',binary:'2진수'},footer:'학습 및 독립적인 계산 확인용입니다. 실제 설비에 적용하기 전에 계기 범위, 단위, 데이터 형식 및 제조사 문서를 확인하세요.'
+}
+};
+function tr(){return T[lang]}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
-function f(n){if(!Number.isFinite(n))throw Error(lang==='zh'?'结果超出可计算范围。':'Result is outside the supported range.');if(Math.abs(n)>=1e10||(Math.abs(n)>0&&Math.abs(n)<1e-6))return n.toExponential(8);return String(Number(n.toPrecision(10)))}
-function num(id,label){var s=document.getElementById(id).value.trim();if(!s||!isFinite(Number(s)))throw Error((lang==='zh'?'请输入有效数字：':'Enter a valid number: ')+label);return Number(s)}
+function f(n){if(!Number.isFinite(n))throw Error(tr().resultRange);if(Math.abs(n)>=1e10||(Math.abs(n)>0&&Math.abs(n)<1e-6))return n.toExponential(8);return String(Number(n.toPrecision(10)))}
+function num(id,label){var s=document.getElementById(id).value.trim();if(!s||!isFinite(Number(s)))throw Error(tr().invalidNumber+label);return Number(s)}
 function frac(top,bot){return '<span class="frac"><span class="top">'+top+'</span><span class="bot">'+bot+'</span></span>'}
 function setFormula(html,steps){document.getElementById('formula').innerHTML='<div class="eq">'+html+'</div><div class="steps">'+esc(steps||'')+'</div>'}
-function field(id,label,val){return '<label class="field"><span>'+label+'</span><input id="'+id+'" value="'+val+'" inputmode="decimal"></label>'}
+function field(id,label,val,mode){return '<label class="field"><span>'+label+'</span><input id="'+id+'" value="'+val+'" inputmode="'+(mode||'decimal')+'"></label>'}
 function select(id,label,opts){return '<label class="field"><span>'+label+'</span><select id="'+id+'">'+opts.map(function(x){return '<option value="'+x[0]+'">'+x[1]+'</option>'}).join('')+'</select></label>'}
-function renderTabs(){var order=['ma','v','units','roll','int'];document.getElementById('tabs').innerHTML=order.map(function(k,i){return '<button type="button" class="tab '+(k===active?'on':'')+'" data-k="'+k+'">'+('0'+(i+1)).slice(-2)+' · '+T[lang].tools[k][0]+'</button>'}).join('');Array.from(document.querySelectorAll('.tab')).forEach(function(b){b.onclick=function(){active=b.dataset.k;render()}})}
+function renderTabs(){var order=['ma','v','units','roll','int'];document.getElementById('tabs').innerHTML=order.map(function(k,i){return '<button type="button" class="tab '+(k===active?'on':'')+'" data-k="'+k+'">'+('0'+(i+1)).slice(-2)+' · '+tr().tools[k][0]+'</button>'}).join('');Array.from(document.querySelectorAll('.tab')).forEach(function(b){b.onclick=function(){active=b.dataset.k;render()}})}
 function renderFields(){
-var h='';
-if(active==='ma'||active==='v'){var c=active==='ma',lo=c?'4':'0',hi=c?'20':'10',sig=c?'mA':'V';h+=select('dir',lang==='zh'?'计算方向':'Direction',[['f',sig+' → '+(lang==='zh'?'工程量':'engineering value')],['r',(lang==='zh'?'工程量':'engineering value')+' → '+sig]]);h+='<div class="row">'+field('a','A · '+lo+' '+sig+(lang==='zh'?' 时的值':' value'),'0')+field('b','B · '+hi+' '+sig+(lang==='zh'?' 时的值':' value'),c?'10':'1500')+'</div>';h+=field('u',lang==='zh'?'工程单位标签':'Engineering unit',c?'bar':'rpm');h+=field('x',lang==='zh'?'输入值':'Input',c?'12':'6')}
-else if(active==='units'){h+=select('q',lang==='zh'?'物理量':'Quantity',[['length',lang==='zh'?'长度':'Length'],['pressure',lang==='zh'?'压力':'Pressure'],['speed',lang==='zh'?'线速度':'Linear speed'],['temp',lang==='zh'?'温度':'Temperature']]);h+='<div class="row">'+select('from',lang==='zh'?'从':'From',[['mm','mm'],['m','m'],['in','in'],['ft','ft']])+select('to',lang==='zh'?'到':'To',[['m','m'],['mm','mm'],['in','in'],['ft','ft']])+'</div>';h+=field('x',lang==='zh'?'数值':'Value','25.4')}
-else if(active==='roll'){h+=select('dir',lang==='zh'?'计算方向':'Direction',[['f',lang==='zh'?'转速 → 表面速度':'RPM → surface speed'],['r',lang==='zh'?'表面速度 → 转速':'Surface speed → RPM']]);h+='<div class="row">'+field('d',lang==='zh'?'有效辊径':'Effective diameter','500')+select('du',lang==='zh'?'直径单位':'Diameter unit',[['mm','mm'],['m','m'],['in','in']])+'</div>';h+=select('su',lang==='zh'?'速度单位':'Speed unit',[['m/min','m/min'],['m/s','m/s'],['ft/min','ft/min']]);h+=field('x',lang==='zh'?'输入值':'Input value','100')}
-else{h+='<div class="row">'+select('bits',lang==='zh'?'位宽':'Word width',[['8','8 bit'],['16','16 bit'],['32','32 bit'],['64','64 bit']])+select('base',lang==='zh'?'输入格式':'Input format',[['hex','Hex'],['bin','Binary'],['u','Unsigned decimal'],['s','Signed decimal']])+'</div>';h+=field('x',lang==='zh'?'整数':'Integer','FFFF')}
-document.getElementById('fields').innerHTML=h}
+var h='',t=tr();
+if(active==='ma'||active==='v'){
+  var c=active==='ma',lo=c?'4':'0',hi=c?'20':'10',sig=c?'mA':'V';
+  h+=select('dir',t.direction,[['f',sig+' → '+t.engineering],['r',t.engineering+' → '+sig]]);
+  h+='<div class="row">'+field('a','A · '+lo+' '+sig+' '+t.valueAt,'0')+field('b','B · '+hi+' '+sig+' '+t.valueAt,c?'10':'1500')+'</div>';
+  h+=field('u',t.engUnit,c?'bar':'rpm','text');
+  h+=field('x',t.input,c?'12':'6');
+}else if(active==='units'){
+  h+=select('q',t.quantity,[['length',t.q.length],['pressure',t.q.pressure],['speed',t.q.speed],['temp',t.q.temp]]);
+  h+='<div class="row">'+select('from',t.from,[['mm','mm'],['m','m'],['in','in'],['ft','ft']])+select('to',t.to,[['m','m'],['mm','mm'],['in','in'],['ft','ft']])+'</div>';
+  h+=field('x',t.inputValue,'25.4');
+}else if(active==='roll'){
+  h+=select('dir',t.direction,[['f',t.rpmTo],['r',t.toRpm]]);
+  h+='<div class="row">'+field('d',t.diameter,'500')+select('du',t.diameterUnit,[['mm','mm'],['m','m'],['in','in']])+'</div>';
+  h+=select('su',t.speedUnit,[['m/min','m/min'],['m/s','m/s'],['ft/min','ft/min']]);
+  h+=field('x',t.inputValue,'100');
+}else{
+  h+='<div class="row">'+select('bits',t.wordWidth,[['8','8 bit'],['16','16 bit'],['32','32 bit'],['64','64 bit']])+select('base',t.inputFormat,[['hex',lang==='ja'?'16進数':lang==='zh'?'十六进制':lang==='ko'?'16진수':'Hex'],['bin',lang==='ja'?'2進数':lang==='zh'?'二进制':lang==='ko'?'2진수':'Binary'],['u',lang==='ja'?'符号なし10進数':lang==='zh'?'无符号十进制':lang==='ko'?'부호 없는 10진수':'Unsigned decimal'],['s',lang==='ja'?'符号付き10進数':lang==='zh'?'有符号十进制':lang==='ko'?'부호 있는 10진수':'Signed decimal']])+'</div>';
+  h+=field('x',t.integer,'FFFF','text');
+}
+document.getElementById('fields').innerHTML=h
+}
 function convertUnit(q,from,to,x){
 var g={length:{mm:.001,m:1,in:.0254,ft:.3048},pressure:{Pa:1,kPa:1000,MPa:1000000,bar:100000},speed:{'m/s':1,'m/min':1/60,'ft/min':.3048/60,'km/h':1/3.6}};
 if(q==='temp'){function K(v,u){if(u==='K')return v;if(u==='C')return v+273.15;return (v+459.67)*5/9}function fromK(v,u){if(u==='K')return v;if(u==='C')return v-273.15;return v*9/5-459.67}return fromK(K(x,from),to)}
-return x*g[q][from]/g[q][to]}
+return x*g[q][from]/g[q][to]
+}
+function unitLabel(q,u){return q==='temp'?(u==='K'?'K':'°'+u):u}
 function updateUnitOptions(){
-if(active!=='units')return;var q=document.getElementById('q').value,opts={length:['mm','m','in','ft'],pressure:['Pa','kPa','MPa','bar'],speed:['m/s','m/min','ft/min','km/h'],temp:['C','F','K']}[q];['from','to'].forEach(function(id,idx){var s=document.getElementById(id),old=s.value;s.innerHTML=opts.map(function(u){return '<option value="'+u+'">'+(q==='temp'?'°'+u.replace('K','K'):u)+'</option>'}).join('');s.value=opts.includes(old)?old:opts[idx?1:0]})}
-function calc(ev){if(ev)ev.preventDefault();var err=document.getElementById('err');err.hidden=true;try{
-var main='',rows='',st='',formula='',steps='';
-if(active==='ma'||active==='v'){var c=active==='ma',s0=c?4:0,s1=c?20:10,su=c?'mA':'V',a=num('a','A'),b=num('b','B'),x=num('x','input'),rev=document.getElementById('dir').value==='r',u=document.getElementById('u').value.trim()||'units';if(a===b)throw Error(lang==='zh'?'A 与 B 不能相同。':'A and B must be different.');var p=rev?(x-a)/(b-a):(x-s0)/(s1-s0),r=rev?s0+p*(s1-s0):a+p*(b-a);main=f(r)+' '+(rev?su:u);rows=(lang==='zh'?'量程比例':'Span fraction')+': '+f(p*100)+'%';st=(p<0||p>1)?(lang==='zh'?'超出标称量程：这是数学外推，不代表故障诊断。':'Outside nominal span: mathematical extrapolation only, not a fault diagnosis.'):(lang==='zh'?'位于设定量程内。':'Within the configured span.');if(rev){formula='I = '+s0+' + '+frac('(X − A) × ('+(s1-s0)+')','B − A');steps='I = '+s0+' + ('+x+' − '+a+') × '+(s1-s0)+' / ('+b+' − '+a+') = '+f(r)+' '+su}else{formula='X = A + '+frac('('+(c?'I':'V')+' − '+s0+') × (B − A)',String(s1-s0));steps='X = '+a+' + ('+x+' − '+s0+') × ('+b+' − '+a+') / '+(s1-s0)+' = '+f(r)+' '+u}setFormula(formula,steps)}
-else if(active==='units'){var q=document.getElementById('q').value,from=document.getElementById('from').value,to=document.getElementById('to').value,x=num('x','value'),r=convertUnit(q,from,to,x);main=f(r)+' '+(q==='temp'?'°'+to.replace('°',''):to);rows=(lang==='zh'?'原始值':'Source')+': '+x+' '+from;st=lang==='zh'?'单位换算不会改变压力的表压/绝压基准。':'Unit conversion does not change a gauge/absolute pressure reference.';setFormula('y = x × '+frac('source factor','target factor'),x+' '+from+' = '+f(r)+' '+to)}
-else if(active==='roll'){var d=num('d','diameter'),du=document.getElementById('du').value,su=document.getElementById('su').value,x=num('x','input'),rev=document.getElementById('dir').value==='r';if(d<=0||x<0)throw Error(lang==='zh'?'直径必须大于 0，速度不能为负。':'Diameter must be positive and speed nonnegative.');var dm=convertUnit('length',du,'m',d),circ=Math.PI*dm,r;if(rev){var mmin=convertUnit('speed',su,'m/min',x);r=mmin/circ;main=f(r)+' rpm';setFormula('n = '+frac('v','πD'), 'n = '+f(mmin)+' / (π × '+f(dm)+') = '+f(r)+' rpm')}else{var mmin=circ*x;r=convertUnit('speed','m/min',su,mmin);main=f(r)+' '+su;setFormula('v = πDn','v = π × '+f(dm)+' × '+x+' = '+f(mmin)+' m/min = '+f(r)+' '+su)}rows=(lang==='zh'?'辊筒周长':'Circumference')+': '+f(circ)+' m';st=lang==='zh'?'几何计算。若等同于材料速度，则假设无滑移。':'Geometry only. Equating this to material speed assumes no slip.'}
-else{var bits=Number(document.getElementById('bits').value),base=document.getElementById('base').value,t=document.getElementById('x').value.trim(),mod=1n<<BigInt(bits),sign=mod>>1n,max=mod-1n,u;if(base==='hex'){t=t.replace(/^0x/i,'');if(!/^[0-9a-f]+$/i.test(t))throw Error('Invalid hex');u=BigInt('0x'+t)}else if(base==='bin'){t=t.replace(/^0b/i,'');if(!/^[01]+$/.test(t))throw Error('Invalid binary');u=BigInt('0b'+t)}else{if(!/^[+-]?\d+$/.test(t))throw Error('Invalid integer');u=BigInt(t);if(base==='s'){if(u< -sign||u>=sign)throw Error('Out of signed range');if(u<0)u+=mod}}if(u<0||u>max)throw Error('Value does not fit selected width');var sv=u>=sign?u-mod:u,h=u.toString(16).toUpperCase().padStart(bits/4,'0'),bin=u.toString(2).padStart(bits,'0');main=sv.toString();rows='Unsigned: '+u+'<br>Hex: 0x'+h+'<br>Binary: '+bin.replace(/(.{4})/g,'$1 ').trim();st=lang==='zh'?'精确整数运算；不会静默截断溢出位。':'Exact integer arithmetic; oversized values are rejected instead of truncated.';setFormula('signed = U ≥ 2<sup>N−1</sup> ? U − 2<sup>N</sup> : U','U = '+u+', N = '+bits+', signed = '+sv)}
-document.getElementById('result').textContent=main;document.getElementById('details').innerHTML='<div class="muted">'+rows+'</div>';document.getElementById('status').textContent=st;document.getElementById('status').className='status';copyText=T[lang].tools[active][0]+'\n'+main+'\n'+rows.replace(/<br>/g,'\n')+'\n'+st
-}catch(e){err.textContent=e.message;err.hidden=false;document.getElementById('result').textContent='—';document.getElementById('details').innerHTML='';document.getElementById('status').textContent=T[lang].enter;document.getElementById('formula').innerHTML=''}}
-function render(){var tr=T[lang];document.documentElement.lang=lang==='zh'?'zh-CN':'en';document.getElementById('heroTitle').innerHTML=tr.heroTitle;document.getElementById('heroText').textContent=tr.heroText;document.getElementById('toolTitle').textContent=tr.tools[active][0];document.getElementById('toolDesc').textContent=tr.tools[active][1];document.getElementById('resultHeading').textContent=tr.result;document.getElementById('formulaHeading').textContent=tr.formula;document.getElementById('calcBtn').textContent=tr.calc;document.getElementById('resetBtn').textContent=tr.reset;document.getElementById('copyBtn').textContent=tr.copy;document.getElementById('footerText').textContent=tr.footer;document.getElementById('enBtn').className=lang==='en'?'on':'';document.getElementById('zhBtn').className=lang==='zh'?'on':'';renderTabs();renderFields();if(active==='units'){document.getElementById('q').onchange=function(){updateUnitOptions();calc()};updateUnitOptions()}Array.from(document.querySelectorAll('#fields input,#fields select')).forEach(function(el){el.addEventListener('change',calc)});calc()}
-document.getElementById('form').onsubmit=calc;document.getElementById('resetBtn').onclick=render;document.getElementById('copyBtn').onclick=function(){if(copyText&&navigator.clipboard)navigator.clipboard.writeText(copyText)};document.getElementById('enBtn').onclick=function(){lang='en';render()};document.getElementById('zhBtn').onclick=function(){lang='zh';render()};render()
+if(active!=='units')return;
+var q=document.getElementById('q').value,opts={length:['mm','m','in','ft'],pressure:['Pa','kPa','MPa','bar'],speed:['m/s','m/min','ft/min','km/h'],temp:['C','F','K']}[q];
+['from','to'].forEach(function(id,idx){var s=document.getElementById(id),old=s.value;s.innerHTML=opts.map(function(u){return '<option value="'+u+'">'+unitLabel(q,u)+'</option>'}).join('');s.value=opts.includes(old)?old:opts[idx?1:0]})
+}
+function calc(ev){
+if(ev)ev.preventDefault();var err=document.getElementById('err');err.hidden=true;
+try{
+var main='',rows='',st='',formula='',steps='',t=tr();
+if(active==='ma'||active==='v'){
+  var c=active==='ma',s0=c?4:0,s1=c?20:10,su=c?'mA':'V',a=num('a','A'),b=num('b','B'),x=num('x',t.input),rev=document.getElementById('dir').value==='r',u=document.getElementById('u').value.trim()||'units';
+  if(a===b)throw Error(t.rangeError);
+  var p=rev?(x-a)/(b-a):(x-s0)/(s1-s0),r=rev?s0+p*(s1-s0):a+p*(b-a);
+  main=f(r)+' '+(rev?su:u);rows=t.span+': '+f(p*100)+'%';st=(p<0||p>1)?t.outRange:t.inRange;
+  if(rev){formula='I = '+s0+' + '+frac('(X − A) × ('+(s1-s0)+')','B − A');steps='I = '+s0+' + ('+x+' − '+a+') × '+(s1-s0)+' / ('+b+' − '+a+') = '+f(r)+' '+su}
+  else{formula='X = A + '+frac('('+(c?'I':'V')+' − '+s0+') × (B − A)',String(s1-s0));steps='X = '+a+' + ('+x+' − '+s0+') × ('+b+' − '+a+') / '+(s1-s0)+' = '+f(r)+' '+u}
+  setFormula(formula,steps);
+}else if(active==='units'){
+  var q=document.getElementById('q').value,from=document.getElementById('from').value,to=document.getElementById('to').value,x=num('x',t.inputValue),r=convertUnit(q,from,to,x);
+  main=f(r)+' '+unitLabel(q,to);rows=t.source+': '+x+' '+unitLabel(q,from);st=q==='pressure'?t.pressureNote:'';
+  setFormula('y = x × '+frac('source factor','target factor'),x+' '+unitLabel(q,from)+' = '+f(r)+' '+unitLabel(q,to));
+}else if(active==='roll'){
+  var d=num('d',t.diameter),du=document.getElementById('du').value,su=document.getElementById('su').value,x=num('x',t.inputValue),rev=document.getElementById('dir').value==='r';
+  if(d<=0||x<0)throw Error(t.diameterError);
+  var dm=convertUnit('length',du,'m',d),circ=Math.PI*dm,r;
+  if(rev){var mmin=convertUnit('speed',su,'m/min',x);r=mmin/circ;main=f(r)+' rpm';setFormula('n = '+frac('v','πD'),'n = '+f(mmin)+' / (π × '+f(dm)+') = '+f(r)+' rpm')}
+  else{var mmin=circ*x;r=convertUnit('speed','m/min',su,mmin);main=f(r)+' '+su;setFormula('v = πDn','v = π × '+f(dm)+' × '+x+' = '+f(mmin)+' m/min = '+f(r)+' '+su)}
+  rows=t.circumference+': '+f(circ)+' m';st=t.geometry;
+}else{
+  var bits=Number(document.getElementById('bits').value),base=document.getElementById('base').value,raw=document.getElementById('x').value.trim(),mod=1n<<BigInt(bits),sign=mod>>1n,max=mod-1n,u;
+  if(base==='hex'){raw=raw.replace(/^0x/i,'');if(!/^[0-9a-f]+$/i.test(raw))throw Error(t.invalidHex);u=BigInt('0x'+raw)}
+  else if(base==='bin'){raw=raw.replace(/^0b/i,'');if(!/^[01]+$/.test(raw))throw Error(t.invalidBin);u=BigInt('0b'+raw)}
+  else{if(!/^[+-]?\d+$/.test(raw))throw Error(t.invalidInteger);u=BigInt(raw);if(base==='s'){if(u< -sign||u>=sign)throw Error(t.signedRange);if(u<0)u+=mod}}
+  if(u<0||u>max)throw Error(t.widthRange);
+  var sv=u>=sign?u-mod:u,h=u.toString(16).toUpperCase().padStart(bits/4,'0'),bin=u.toString(2).padStart(bits,'0');
+  main=sv.toString();rows=t.intLabels.unsigned+': '+u+'<br>'+t.intLabels.hex+': 0x'+h+'<br>'+t.intLabels.binary+': '+bin.replace(/(.{4})/g,'$1 ').trim();st=t.exactInteger;
+  setFormula('signed = U ≥ 2<sup>N−1</sup> ? U − 2<sup>N</sup> : U','U = '+u+', N = '+bits+', signed = '+sv);
+}
+document.getElementById('result').textContent=main;
+document.getElementById('details').innerHTML='<div class="muted">'+rows+'</div>';
+document.getElementById('status').textContent=st||t.enter;
+document.getElementById('status').className='status';
+copyText=t.tools[active][0]+'\n'+main+'\n'+rows.replace(/<br>/g,'\n')+'\n'+st;
+}catch(e){
+err.textContent=e.message;err.hidden=false;document.getElementById('result').textContent='—';document.getElementById('details').innerHTML='';document.getElementById('status').textContent=tr().enter;document.getElementById('formula').innerHTML=''
+}}
+function render(){
+var t=tr();document.documentElement.lang=t.html;
+document.getElementById('heroTitle').innerHTML=t.heroTitle;document.getElementById('heroText').textContent=t.heroText;
+document.getElementById('toolTitle').textContent=t.tools[active][0];document.getElementById('toolDesc').textContent=t.tools[active][1];
+document.getElementById('resultHeading').textContent=t.result;document.getElementById('formulaHeading').textContent=t.formula;
+document.getElementById('calcBtn').textContent=t.calc;document.getElementById('resetBtn').textContent=t.reset;document.getElementById('copyBtn').textContent=t.copy;document.getElementById('footerText').textContent=t.footer;
+['en','ja','zh','ko'].forEach(function(k){document.getElementById(k+'Btn').className=lang===k?'on':''});
+renderTabs();renderFields();
+if(active==='units'){document.getElementById('q').onchange=function(){updateUnitOptions();calc()};updateUnitOptions()}
+Array.from(document.querySelectorAll('#fields input,#fields select')).forEach(function(el){el.addEventListener('change',calc)});
+calc()
+}
+document.getElementById('form').onsubmit=calc;
+document.getElementById('resetBtn').onclick=render;
+document.getElementById('copyBtn').onclick=function(){if(copyText&&navigator.clipboard)navigator.clipboard.writeText(copyText)};
+document.getElementById('enBtn').onclick=function(){lang='en';render()};
+document.getElementById('jaBtn').onclick=function(){lang='ja';render()};
+document.getElementById('zhBtn').onclick=function(){lang='zh';render()};
+document.getElementById('koBtn').onclick=function(){lang='ko';render()};
+render()
 })();
 </script>
 </body></html>
