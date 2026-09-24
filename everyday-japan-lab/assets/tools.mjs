@@ -26,7 +26,7 @@ for(const form of document.querySelectorAll('form[data-tool]')){
   form.addEventListener('submit',event=>{
     event.preventDefault();clear();
     try{
-      if(!form.checkValidity()) {const invalid=form.querySelector(':invalid');throw new Error(`${invalid.labels?.[0]?.textContent.trim()||'Input'}: check this value. ${invalid.validationMessage}`);}
+      if(!form.checkValidity()) {const invalid=form.querySelector('input:invalid,select:invalid');throw new Error(`${invalid.labels?.[0]?.textContent.trim()||'Input'}: ${invalid.validationMessage||'check this value.'}`);}
       const x=Object.fromEntries(new FormData(form)), type=form.dataset.tool, r=functions[type](x);
       let content='';
       if(type==='heatPump'){

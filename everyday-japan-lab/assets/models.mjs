@@ -11,7 +11,7 @@ export function heatPump(x) {
   if(hot<=cold) throw new Error('Delivered water temperature must be above the cold inlet temperature.');
   const cop=number(x.cop,'Seasonal heat-pump COP',1,8), loss=number(x.loss,'Heat-loss allowance',0,100)/100;
   const auxiliary=number(x.auxiliary,'Resistance heat share',0,100)/100;
-  const rate=number(x.rate,'Electricity price',0,10), baselineRate=number(x.baselineRate,'Baseline energy price',0,10);
+  const rate=number(x.rate,'Electricity price',0,10000), baselineRate=number(x.baselineRate,'Baseline energy price',0,10000);
   const baselineEfficiency=number(x.baselineEfficiency,'Baseline efficiency',1,100)/100;
   const extra=number(x.extra,'Additional upfront cost',0,1000000);
   const drawHeat=litres*4.186*(hot-cold)/3600*days, heat=drawHeat*(1+loss);

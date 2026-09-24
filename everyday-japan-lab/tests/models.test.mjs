@@ -11,6 +11,9 @@ test('resistance-only scenario removes COP advantage and payback',()=>{
 test('expensive electricity can produce negative savings',()=>{
   const r=heatPump({...hp,rate:1,baselineRate:.05});assert.ok(r.saving<0);assert.equal(r.payback,null);
 });
+test('currency-neutral tariff bounds accept yen-denominated rates',()=>{
+  const r=heatPump({...hp,rate:30,baselineRate:30});assert.ok(r.cost>20000);assert.ok(r.saving>0);
+});
 test('zero demand yields zero energy, no invented fixed loss or payback',()=>{
   const r=heatPump({...hp,litres:0,loss:15});assert.equal(r.electricity,0);assert.equal(r.payback,null);
 });
