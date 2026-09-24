@@ -14,7 +14,7 @@ for(const form of document.querySelectorAll('form[data-tool]')){
     const next=form.elements.unit.value;
     if(next!==measurementUnit){
       for(const name of ['length','bolts','clearance']){
-        const input=form.elements[name];
+        const input=form.elements.namedItem(name);
         if(input.value!==''&&Number.isFinite(Number(input.value))) input.value=String(Number((Number(input.value)*(next==='in'?1/25.4:25.4)).toFixed(3)));
       }
       measurementUnit=next;
