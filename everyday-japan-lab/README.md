@@ -7,7 +7,7 @@ English guides and transparent planning tools. This directory is a **development
 ```sh
 python3 everyday-japan-lab/scripts/research.py
 python3 everyday-japan-lab/scripts/build.py
-node --test everyday-japan-lab/tests/models.test.mjs
+node --test everyday-japan-lab/tests/*.test.mjs
 python3 everyday-japan-lab/tests/site.py
 ```
 

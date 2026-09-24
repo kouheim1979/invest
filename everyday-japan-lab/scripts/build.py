@@ -1,13 +1,19 @@
 """Dependency-free static build. Generated HTML stays committed for GitHub Pages."""
 from pathlib import Path
 from html import escape
-import json,re
+import json,re,hashlib
 from content import ARTICLES
 ROOT=Path(__file__).resolve().parents[1]
 BASE='/invest/everyday-japan-lab/'
 DATE='2026-09-24'
 SOURCES=json.loads((ROOT/'research/sources.json').read_text())
 PAGES=[]
+model_code=(ROOT/'assets/models.mjs').read_text().replace('export function','function')
+ui_code=(ROOT/'assets/tools.mjs').read_text().split('\n',1)[1]
+bundle='(()=>{\n'+model_code+'\n'+ui_code+'\n})();\n'
+(ROOT/'assets/tools.bundle.js').write_text(bundle)
+ASSET_VERSION=hashlib.sha256(bundle.encode()).hexdigest()[:12]
+CSS_VERSION=hashlib.sha256((ROOT/'assets/site.css').read_bytes()).hexdigest()[:12]
 
 def link(slug,text): return f'<a href="{BASE}{slug+"/" if slug else ""}">{text}</a>'
 def source_block(keys):
@@ -23,9 +29,9 @@ def page(slug,title,deck,body,tag='Everyday Japan Lab',refs=None,tool=False,wide
     header='' if not slug else f'<header class="page-head">{breadcrumb}<p class="eyebrow">{escape(tag)}</p><h1>{escape(title)}</h1><p class="lede">{escape(deck)}</p><p class="meta">By Everyday Japan Lab · Reviewed {DATE} · Research and planning, not product certification</p></header>'
     fullbody=body+source_block(refs)
     footlinks=''.join(link(s,t) for s,t in [('about','About'),('methodology','Methodology'),('privacy','Privacy'),('contact','Contact'),('advertising','Advertising & affiliate policy'),('sources','Sources')])
-    script=f'<script type="module" src="{BASE}assets/tools.mjs"></script>' if tool else ''
+    script=f'<script defer src="{BASE}assets/tools.bundle.js?v={ASSET_VERSION}"></script>' if tool else ''
     html=f'''<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="description" content="{description}"><meta name="theme-color" content="#192d36"><title>{escape(title)} | Everyday Japan Lab</title><link rel="stylesheet" href="{BASE}assets/site.css">{script}</head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="description" content="{description}"><meta name="theme-color" content="#192d36"><title>{escape(title)} | Everyday Japan Lab</title><link rel="stylesheet" href="{BASE}assets/site.css?v={CSS_VERSION}">{script}</head>
 <body class="ejl"><a class="skip" href="#main">Skip to content</a><div class="dev-note">Development preview · No advertising · Not indexed for search</div><header class="site-header"><div class="wrap header-inner"><a class="brand" href="{BASE}"><span class="brand-mark" aria-hidden="true">日</span>Everyday Japan Lab</a><nav class="nav" aria-label="Main navigation">{nav}</nav></div></header>
 <main class="wrap" id="main">{header}{fullbody}</main>
 <footer class="site-footer"><div class="wrap"><div class="footer-top"><div><strong>Everyday Japan Lab</strong><br>Practical systems from everyday Japan.</div><nav class="footer-links" aria-label="Footer">{footlinks}</nav></div><p class="footer-note">Useful ideas need local checks. Product ratings, building conditions and rules vary. We distinguish official guidance, manufacturer claims and our own assumptions. This preview contains no paid placements, affiliate links or analytics tags.</p></div></footer></body></html>'''
