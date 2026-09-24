@@ -29,5 +29,10 @@
   "preview_before_pause_commit": "dd856f5d0a3449b87fc6fe819a0731d0cac5b6cb",
   "brand_attribution_verified_on": "2026-09-25 Asia/Tokyo",
   "personal_identifier_audit": "48 page variants checked; no matches in rendered DOM",
-  "contact_route_status": "pending_brand_contact"
+  "contact_route_status": "email_configured_on_private_site",
+  "contact_email": "tpaqgicufhco@gmail.com",
+  "contact_email_source": "Address supplied by the owner for site contact on 2026-09-25 JST",
+  "contact_mail_delivery_tested": false,
+  "contact_sender_display_name_verified": false,
+  "contact_page_display_verified_on": "2026-09-25 Asia/Tokyo"
 }

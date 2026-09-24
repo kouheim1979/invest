@@ -1,0 +1,63 @@
+{
+  "reviewed": "2026-09-25 Asia/Tokyo",
+  "scope": "Contact and Privacy saved and checked in authenticated normal/mobile views",
+  "reader_access": "authors_only",
+  "search_visibility_enabled": false,
+  "email_sent": false,
+  "mail_delivery_tested": false,
+  "sender_display_name_verified": false,
+  "pages": [
+    {
+      "emailLinks": [
+        {
+          "href": "mailto:tpaqgicufhco@gmail.com",
+          "text": "tpaqgicufhco@gmail.com"
+        }
+      ],
+      "fragments": 1,
+      "oldPersonalMatches": 0,
+      "pendingContactText": false,
+      "title": "Contact",
+      "url": "https://everydayjapanlab.blogspot.com/p/contact.html"
+    },
+    {
+      "emailLinks": [
+        {
+          "href": "mailto:tpaqgicufhco@gmail.com",
+          "text": "tpaqgicufhco@gmail.com"
+        }
+      ],
+      "fragments": 1,
+      "oldPersonalMatches": 0,
+      "pendingContactText": false,
+      "title": "Contact",
+      "url": "https://everydayjapanlab.blogspot.com/p/contact.html?m=1"
+    },
+    {
+      "emailLinks": [
+        {
+          "href": "mailto:tpaqgicufhco@gmail.com",
+          "text": "tpaqgicufhco@gmail.com"
+        }
+      ],
+      "fragments": 1,
+      "oldPersonalMatches": 0,
+      "pendingContactText": false,
+      "title": "Privacy",
+      "url": "https://everydayjapanlab.blogspot.com/p/privacy.html"
+    },
+    {
+      "emailLinks": [
+        {
+          "href": "mailto:tpaqgicufhco@gmail.com",
+          "text": "tpaqgicufhco@gmail.com"
+        }
+      ],
+      "fragments": 1,
+      "oldPersonalMatches": 0,
+      "pendingContactText": false,
+      "title": "Privacy",
+      "url": "https://everydayjapanlab.blogspot.com/p/privacy.html?m=1"
+    }
+  ]
+}

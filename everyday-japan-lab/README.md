@@ -21,4 +21,4 @@ While publication is paused, run `python3 everyday-japan-lab/scripts/build.py --
 
 See `deployment/STATUS-JA.md` and `deployment/live-audit.json` for verified results and remaining work. The root introduction post is pending because the editing session's automatic approval review blocked actions while its save state was unverified. The eight-link navigation is saved. AdSense is not connected, and GA4 and affiliate tracking are not enabled. Publishing content is not AdSense approval.
 
-Public-facing attribution uses the Everyday Japan Lab name. Personal account links are not used as the contact route. A brand contact method is a prerequisite for resuming publication. Repository ownership and historical commits are not anonymized by this content change.
+Public-facing attribution uses the Everyday Japan Lab name. Personal account links are not used as the contact route. The owner-supplied site contact email is configured in `deployment/blogger.json` and used by Contact and Privacy. Mail delivery and the sender display name still need owner verification. Repository ownership and historical commits are not anonymized by this content change.
