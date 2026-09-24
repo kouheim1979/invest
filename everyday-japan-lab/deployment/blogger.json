@@ -2,9 +2,15 @@
   "origin": "https://everydayjapanlab.blogspot.com",
   "language": "en",
   "display_name": "Everyday Japan Lab",
-  "status": "domain_provided_content_not_deployed",
+  "status": "partial_blogger_deployment",
   "domain_source": "URL provided by the owner on 2026-09-24",
   "page_urls_verified": false,
   "tracking_added_by_this_project": false,
-  "ads_added_by_this_project": false
+  "ads_added_by_this_project": false,
+  "blog_id": "8880776772336117006",
+  "management_login_verified": true,
+  "blog_title_verified": "Everyday Japan Lab",
+  "blog_language_verified": "English",
+  "privacy_page_id": "3500370231989541958",
+  "privacy_page_requires_content_replacement": true
 }
