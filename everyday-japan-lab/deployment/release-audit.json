@@ -1,0 +1,97 @@
+{
+  "reviewed": "2026-09-25 Asia/Tokyo",
+  "authorization": "Owner requested publication",
+  "reader_access": "public",
+  "search_visibility_enabled": false,
+  "search_visibility_change": "Automatic approval review rejected enabling search visibility because it treated broad discoverability as requiring separate authorization. No retry or workaround used.",
+  "preview_paused": true,
+  "welcome_post_id": "5191379019055896793",
+  "welcome_post_url": "https://everydayjapanlab.blogspot.com/2026/09/practical-systems-from-everyday-japan.html",
+  "adsense_connection": "not_connected",
+  "tool_navigation_verified": true,
+  "stockpile_example": {
+    "people": 4,
+    "days": 7,
+    "litres_per_day": 3,
+    "stored_litres": 10,
+    "target_litres": 84,
+    "additional_litres": 74,
+    "two_litre_containers": 37
+  },
+  "mail_delivery_tested": false,
+  "sender_display_name_verified": false,
+  "independent_public_fetch": "Web retrieval tool could not access the URLs; browser session was authenticated and Blogger saved reader access was Public.",
+  "feed_check": "Browser blocked the feed URL, so feed contents were not verified.",
+  "pages": [
+    {
+      "bodyWidth": 1363,
+      "canonical": "https://everydayjapanlab.blogspot.com/",
+      "emailLinks": [],
+      "hasWelcome": true,
+      "lang": "en",
+      "personalMatches": 0,
+      "title": "Everyday Japan Lab",
+      "url": "https://everydayjapanlab.blogspot.com/",
+      "viewport": 1363
+    },
+    {
+      "bodyWidth": 1363,
+      "canonical": "https://everydayjapanlab.blogspot.com/",
+      "emailLinks": [],
+      "hasWelcome": true,
+      "lang": "en",
+      "personalMatches": 0,
+      "title": "Everyday Japan Lab",
+      "url": "https://everydayjapanlab.blogspot.com/?m=1",
+      "viewport": 1363
+    },
+    {
+      "bodyWidth": 1348,
+      "canonical": "https://everydayjapanlab.blogspot.com/2026/09/practical-systems-from-everyday-japan.html",
+      "emailLinks": [],
+      "hasWelcome": true,
+      "lang": "en",
+      "personalMatches": 0,
+      "title": "Practical systems from everyday Japan",
+      "url": "https://everydayjapanlab.blogspot.com/2026/09/practical-systems-from-everyday-japan.html",
+      "viewport": 1363
+    },
+    {
+      "bodyWidth": 1348,
+      "canonical": "https://everydayjapanlab.blogspot.com/2026/09/practical-systems-from-everyday-japan.html",
+      "emailLinks": [],
+      "hasWelcome": true,
+      "lang": "en",
+      "personalMatches": 0,
+      "title": "Practical systems from everyday Japan",
+      "url": "https://everydayjapanlab.blogspot.com/2026/09/practical-systems-from-everyday-japan.html?m=1",
+      "viewport": 1363
+    },
+    {
+      "bodyWidth": 1348,
+      "canonical": "https://everydayjapanlab.blogspot.com/p/contact.html",
+      "emailLinks": [
+        "mailto:tpaqgicufhco@gmail.com"
+      ],
+      "hasWelcome": true,
+      "lang": "en",
+      "personalMatches": 0,
+      "title": "Contact",
+      "url": "https://everydayjapanlab.blogspot.com/p/contact.html",
+      "viewport": 1363
+    },
+    {
+      "bodyWidth": 1348,
+      "canonical": "https://everydayjapanlab.blogspot.com/p/privacy.html",
+      "emailLinks": [
+        "mailto:tpaqgicufhco@gmail.com"
+      ],
+      "hasWelcome": true,
+      "lang": "en",
+      "personalMatches": 0,
+      "title": "Privacy",
+      "url": "https://everydayjapanlab.blogspot.com/p/privacy.html",
+      "viewport": 1363
+    }
+  ]
+}

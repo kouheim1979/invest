@@ -107,22 +107,24 @@ Each page also needs its own canonical URL; preserve/check Blogger's existing ca
 Optional x-default: the real language selector or deliberate fallback page.
 Only English exists now, so no hreflang tags should be added yet.
 ''')
+publication_note = ('Blogger本番は一般公開を再開しています。検索エンジンへの表示はOFF、開発版は休止中です。' if deployment.get('reader_access') == 'public' else '現在は公開停止中です。Bloggerは投稿者に限定公開、検索表示OFF。本人から再開指示があるまで一般公開しません。')
+(OUT/'welcome-post.html').write_text((ROOT/'deployment/welcome-post.txt').read_text())
 (OUT/'README-JA.md').write_text('''# Blogger移植パック
 
-現在は公開停止中です。Bloggerは投稿者に限定公開、検索表示OFF。本人から再開指示があるまで一般公開しません。23固定ページ、共通ガジェット、上部ナビは保存されています。実URLは `deployment/published-pages.json`、確認範囲と残作業は `DEPLOYMENT-JA.md` を参照してください。広告・GA4は設定していません。以下は非公開状態での更新、および再開指示後の手順です。
+CURRENT_PUBLICATION_STATUS 23固定ページ、共通ガジェット、上部ナビは保存されています。実URLは `deployment/published-pages.json`、確認範囲と残作業は `DEPLOYMENT-JA.md` を参照してください。広告・GA4は設定していません。以下は更新・再移植時の手順です。既存ページと公開済み案内投稿を再利用し、重複作成しません。
 
-1. 作成済みのEveryday Japan Labの管理画面を開く。投稿者に限定公開・検索表示OFFを維持する。
+1. 作成済みのEveryday Japan Labの管理画面を開く。公開範囲と検索表示は `deployment/blogger.json` の保存済み状態に合わせ、未承認の変更をしない。
 2. `confirmed: true` のページは記録済みの編集URLを開く。未登録ページのみ「ページ」→「新しいページ」。HTML表示に切替え、対応する `pages/*.html` の本文を貼り付ける。デザイン表示に何度も切り替えるとHTMLが変わり得るため保存後に確認する。
 3. `page-import-list.json` の `confirmed: true` は実URLを確認済みです。更新時は既存ページを編集し、同じページを重複作成しません。新規ページは保存後の実URLを `deployment/published-pages.json` に記録して再生成します。英語タイトルからの自動スラッグが候補と一致するとは限りません。
 4. 「レイアウト」→「ガジェットを追加」→「HTML/JavaScript」に `theme/common-gadget.html` を貼る。全ページで1回読み込む。HTML表示のフォームやscriptの扱い、テーマの表示幅は実環境で検証する。GitHubのファイルを外部読込する必要はありません。
-5. Home固定ページをナビの先頭にする。Bloggerのルートトップは固定ページと別です。ルートを空にしないため、紹介文とHome/Topics/Toolsへの導線を持つ案内投稿またはホーム用ガジェットを設定し、実表示を確認します。URL確定前にルートからのJS強制リダイレクトを設定しません。
+5. Home固定ページをナビの先頭にする。Bloggerのルートトップは固定ページと別です。ルートには案内投稿を公開済みです。更新には `welcome-post.html` を使い、記録済みの投稿を編集して実表示を確認します。URL確定前にルートからのJS強制リダイレクトを設定しません。
 6. Pagesガジェットで主要ページを表示。表記はEveryday Japan Labに統一。Contactは本人指定のサイト用メールに設定済み。再開前に本人側で受信と返信時の表示名を確認し、Privacyを実際のサービスに合わせる。Privacy本文は広告・GA4未導入のBlogger用です。
 7. モバイル、入力エラー、計算、ボタン、印刷、全リンク、canonical、lang、Cookie通知を確認する。プレビューは `preview/` 内でオフラインでも確認できますが、Bloggerテーマ側の動作保証ではありません。
 8. 実URLの自己canonicalを確認。英語しか存在しない間はhreflang不要。翻訳公開時だけ `theme/hreflang-example.txt` を参考に実URLでテーマを設定します。
 9. Search Consoleで所有権とURLを確認。GA4は任意、広告は審査・Privacy・必要なCMP整備後。架空の広告IDや測定IDは入れていません。
 
 Google公式の手順と無料運用の比較は `STRATEGY-JA.md` を参照してください。
-''')
+'''.replace('CURRENT_PUBLICATION_STATUS', publication_note))
 (OUT/'STRATEGY-JA.md').write_text((ROOT/'research/STRATEGY-JA.md').read_text())
 (OUT/'DEPLOYMENT-JA.md').write_text((ROOT/'deployment/STATUS-JA.md').read_text())
 print(f'Exported {len(pages)} Blogger page fragments for {origin}; {sum(p["confirmed"] for p in manifest)} URLs confirmed from published records.')
