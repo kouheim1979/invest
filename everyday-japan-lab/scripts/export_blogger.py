@@ -66,7 +66,7 @@ def scoped_rules(text):
 
 style=scoped_rules(css)+'.ejl-fragment .aside{position:static}.ejl-fragment .hero{grid-template-columns:1fr}.ejl-fragment .article-grid,.ejl-fragment .tool-layout{grid-template-columns:1fr}.ejl-fragment .ejl-menu{display:flex;gap:16px;flex-wrap:wrap;margin:0 0 25px}.ejl-fragment{padding:20px;max-width:1180px;margin:auto}'
 (OUT/'theme/common-gadget.html').write_text('<style>'+style+'</style>\n<script>'+js+'</script>\n')
-privacy=f'''<article class="prose"><h2>Publisher and contact</h2><p>This site is published under the Everyday Japan Lab name. For editorial questions or corrections, email <a href="mailto:{CONTACT_EMAIL}">{CONTACT_EMAIL}</a>.</p><h2>Calculator inputs</h2><p>Our calculator code runs in your browser and does not send its inputs to us, store them in cookies or local storage, or create user accounts. A printed copy is under your control.</p><h2>Email enquiries</h2><p>When you email us, we receive your email address and the information you include in your message. We use this correspondence to reply and investigate reported problems. Messages are handled through Gmail under Google’s Privacy Policy linked below. Do not send passwords, payment details or sensitive personal information. Clicking an email link opens your email app; the page does not send a message automatically.</p><h2>Blogger hosting</h2><p>This site is hosted by Google Blogger. Google may process technical request data and use cookies in providing its platform. See <a href="https://policies.google.com/privacy">Google’s Privacy Policy</a> and <a href="https://policies.google.com/technologies/cookies">Google’s cookie information</a>. Blogger’s own notice is separate from this description of our calculator code.</p><h2>Advertising and analytics</h2><p>At this initial launch, we have not enabled AdSense, GA4, sponsored placements or affiliate tracking links. If we add these services, we will update this notice and configure the applicable consent choices before activating them. We do not send calculator inputs to analytics.</p><h2>External links</h2><p>Manufacturer and public-source links lead to other services with their own privacy practices. This site does not control those services.</p><p>Last updated: 2026-09-25.</p></article>'''
+privacy=(ROOT/'deployment/production-privacy.html').read_text().replace('{{CONTACT_EMAIL}}',CONTACT_EMAIL)
 
 def mapped(body,mapping):
     def replace(match):
@@ -82,10 +82,20 @@ for p in pages:
     title='Privacy' if slug=='privacy' else p['title']
     description='How this Blogger site handles calculator inputs, hosting data and external links.' if slug=='privacy' else p['description']
     body=privacy if slug=='privacy' else p['body']
+    if slug=='about':
+        old='This development preview has no advertising, sponsorship, paid rankings or affiliate links. Future commercial relationships will be identified visibly and will not determine editorial rankings.'
+        assert body.count(old)==1
+        body=body.replace(old,'We have applied to Google AdSense to help support our free guides and tools. Paid relationships will be identified visibly and will not determine editorial rankings. We do not currently publish sponsored articles or paid affiliate links.')
+    if slug=='advertising':
+        old='This development preview carries no advertising, affiliate links or sponsored content. Ordinary manufacturer and public-source links are references, not paid recommendations.'
+        assert body.count(old)==1
+        body=body.replace(old,"Google AdSense is connected to this site. As of September 25, 2026, the site is awaiting Google's review; this is not an approval notice. Advertising may support our free guides and tools after approval. There are currently no paid affiliate links or sponsored articles. Ordinary manufacturer and public-source links are references, not paid recommendations.")
+        body=body.replace('If monetization is introduced','Advertising and editorial standards')
     # The development status notice is in the generated shell, not the article body.
     body=body.replace('This development preview','This initial site').replace('This development site','This initial site').replace('This preview','This initial site')
     menu='<nav class="ejl-menu" aria-label="Everyday Japan Lab">'+''.join(f'<a href="{publicmap[s]}">{t}</a>' for s,t in [('','Home'),('topics','Topics'),('tools','Tools'),('about','About'),('contact','Contact'),('privacy','Privacy')])+'</nav>'
-    intro='' if not slug else f'<p class="eyebrow">{escape(p["tag"])}</p><p class="lede">{escape(description)}</p><p class="meta">By Everyday Japan Lab · Reviewed {escape(p.get("reviewed", "2026-09-24"))}</p>'
+    reviewed='2026-09-25' if slug in ['privacy','about','advertising'] else p.get('reviewed','2026-09-24')
+    intro='' if not slug else f'<p class="eyebrow">{escape(p["tag"])}</p><p class="lede">{escape(description)}</p><p class="meta">By Everyday Japan Lab · Reviewed {escape(reviewed)}</p>'
     fragment='<div class="ejl-fragment" lang="en">'+menu+intro+mapped(body,publicmap)+'</div>'
     (OUT/'pages'/f'{name}.html').write_text(fragment)
     previewMap={q['slug']:(q['slug'].replace('/','-') or 'home')+'.html' for q in pages}
@@ -111,14 +121,14 @@ publication_note = ('Blogger本番は一般公開を再開しています。検�
 (OUT/'welcome-post.html').write_text((ROOT/'deployment/welcome-post.txt').read_text())
 (OUT/'README-JA.md').write_text('''# Blogger移植パック
 
-CURRENT_PUBLICATION_STATUS 23固定ページ、共通ガジェット、上部ナビは保存されています。実URLは `deployment/published-pages.json`、確認範囲と残作業は `DEPLOYMENT-JA.md` を参照してください。広告・GA4は設定していません。以下は更新・再移植時の手順です。既存ページと公開済み案内投稿を再利用し、重複作成しません。
+CURRENT_PUBLICATION_STATUS 23固定ページ、共通ガジェット、上部ナビは保存されています。実URLは `deployment/published-pages.json`、確認範囲と残作業は `DEPLOYMENT-JA.md` を参照してください。AdSenseは本人が接続・審査申請済みで、2026-09-25時点で審査待ち。Google CMPの選択は保存済み、GA4は未設定です。以下は更新・再移植時の手順です。既存ページと公開済み案内投稿を再利用し、重複作成しません。
 
 1. 作成済みのEveryday Japan Labの管理画面を開く。公開範囲と検索表示は `deployment/blogger.json` の保存済み状態に合わせ、未承認の変更をしない。
 2. `confirmed: true` のページは記録済みの編集URLを開く。未登録ページのみ「ページ」→「新しいページ」。HTML表示に切替え、対応する `pages/*.html` の本文を貼り付ける。デザイン表示に何度も切り替えるとHTMLが変わり得るため保存後に確認する。
 3. `page-import-list.json` の `confirmed: true` は実URLを確認済みです。更新時は既存ページを編集し、同じページを重複作成しません。新規ページは保存後の実URLを `deployment/published-pages.json` に記録して再生成します。英語タイトルからの自動スラッグが候補と一致するとは限りません。
 4. 「レイアウト」→「ガジェットを追加」→「HTML/JavaScript」に `theme/common-gadget.html` を貼る。全ページで1回読み込む。HTML表示のフォームやscriptの扱い、テーマの表示幅は実環境で検証する。GitHubのファイルを外部読込する必要はありません。
 5. Home固定ページをナビの先頭にする。Bloggerのルートトップは固定ページと別です。ルートには案内投稿を公開済みです。更新には `welcome-post.html` を使い、記録済みの投稿を編集して実表示を確認します。URL確定前にルートからのJS強制リダイレクトを設定しません。
-6. Pagesガジェットで主要ページを表示。表記はEveryday Japan Labに統一。Contactは本人指定のサイト用メールに設定済み。再開前に本人側で受信と返信時の表示名を確認し、Privacyを実際のサービスに合わせる。Privacy本文は広告・GA4未導入のBlogger用です。
+6. Pagesガジェットで主要ページを表示。表記はEveryday Japan Labに統一。Contactは本人指定のサイト用メールに設定済み。本人側で受信と返信時の表示名を確認し、Privacyを実際のサービスに合わせる。Privacy本文はBlogger・AdSense審査中・Google CMP選択済みの状態を反映し、広告Cookieと選択肢を説明しています。審査承認後は申請状況の日付を更新し、広告の実表示と同意操作を確認します。
 7. モバイル、入力エラー、計算、ボタン、印刷、全リンク、canonical、lang、Cookie通知を確認する。プレビューは `preview/` 内でオフラインでも確認できますが、Bloggerテーマ側の動作保証ではありません。
 8. 実URLの自己canonicalを確認。英語しか存在しない間はhreflang不要。翻訳公開時だけ `theme/hreflang-example.txt` を参考に実URLでテーマを設定します。
 9. Search Consoleで所有権とURLを確認。GA4は任意、広告は審査・Privacy・必要なCMP整備後。架空の広告IDや測定IDは入れていません。

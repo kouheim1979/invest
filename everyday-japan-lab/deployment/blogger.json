@@ -17,7 +17,7 @@
   "common_gadget_installed": true,
   "navigation_installed": true,
   "root_landing_complete": true,
-  "adsense_connection_verified": "not_connected",
+  "adsense_connection_verified": "connected",
   "adsense_application_submitted_by_this_project": false,
   "ga4_measurement_id_configured": false,
   "https_redirect_enabled": true,
@@ -39,5 +39,20 @@
   "resumed_at": "2026-09-25 Asia/Tokyo",
   "welcome_post_id": "5191379019055896793",
   "welcome_post_url": "https://everydayjapanlab.blogspot.com/2026/09/practical-systems-from-everyday-japan.html",
-  "search_visibility_change_status": "blocked_by_automatic_approval_review_pending_explicit_authorization"
+  "search_visibility_change_status": "blocked_by_automatic_approval_review_pending_explicit_authorization",
+  "adsense_review_status": "pending",
+  "adsense_application_submitted_by_owner": true,
+  "adsense_ad_script_present": true,
+  "adsense_serving_approved": false,
+  "adsense_review_verified_on": "2026-09-25 Asia/Tokyo",
+  "google_cmp_provider": "Google LLC",
+  "google_cmp_message_status": "published",
+  "google_cmp_verified_on": "2026-09-25 Asia/Tokyo",
+  "google_cmp_consent_buttons": [
+    "Consent",
+    "Do not consent",
+    "Manage options"
+  ],
+  "google_cmp_public_name": "Everyday Japan Lab",
+  "google_cmp_privacy_url": "https://everydayjapanlab.blogspot.com/p/privacy.html"
 }

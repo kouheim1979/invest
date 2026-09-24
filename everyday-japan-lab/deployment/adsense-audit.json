@@ -1,0 +1,121 @@
+{
+  "reviewed_on": "2026-09-25 Asia/Tokyo",
+  "adsense": {
+    "connection": "connected",
+    "review": "pending",
+    "application_submitted_by": "owner",
+    "source": "Blogger Earnings and AdSense Home plus owner-provided confirmation PDF",
+    "revenue_or_approval_claimed": false
+  },
+  "cmp": {
+    "provider": "Google LLC",
+    "message_status": "published",
+    "standard_preview_choices": [
+      "Consent",
+      "Do not consent",
+      "Manage options"
+    ],
+    "public_name": "Everyday Japan Lab",
+    "privacy_url": "https://everydayjapanlab.blogspot.com/p/privacy.html",
+    "privacy_url_corrected_from_root": true,
+    "changes_published": true
+  },
+  "public_page_audits": [
+    {
+      "adSenseDisclosure": true,
+      "adTag": true,
+      "canonical": "https://everydayjapanlab.blogspot.com/p/privacy.html",
+      "fragments": 1,
+      "lang": "en",
+      "oldDisclosure": false,
+      "personalIdentifier": false,
+      "title": "Privacy",
+      "url": "https://everydayjapanlab.blogspot.com/p/privacy.html"
+    },
+    {
+      "adSenseDisclosure": true,
+      "adTag": true,
+      "canonical": "https://everydayjapanlab.blogspot.com/p/about.html",
+      "fragments": 1,
+      "lang": "en",
+      "oldDisclosure": false,
+      "personalIdentifier": false,
+      "title": "About",
+      "url": "https://everydayjapanlab.blogspot.com/p/about.html"
+    },
+    {
+      "adSenseDisclosure": true,
+      "adTag": true,
+      "canonical": "https://everydayjapanlab.blogspot.com/p/advertising.html",
+      "fragments": 1,
+      "lang": "en",
+      "oldDisclosure": false,
+      "personalIdentifier": false,
+      "title": "Advertising",
+      "url": "https://everydayjapanlab.blogspot.com/p/advertising.html"
+    },
+    {
+      "adSenseDisclosure": true,
+      "adTag": true,
+      "canonical": "https://everydayjapanlab.blogspot.com/2026/09/practical-systems-from-everyday-japan.html",
+      "fragments": 1,
+      "lang": "en",
+      "oldDisclosure": false,
+      "personalIdentifier": false,
+      "title": "Practical systems from everyday Japan",
+      "url": "https://everydayjapanlab.blogspot.com/2026/09/practical-systems-from-everyday-japan.html"
+    },
+    {
+      "adSenseDisclosure": true,
+      "adTag": true,
+      "canonical": "https://everydayjapanlab.blogspot.com/p/privacy.html",
+      "fragments": 1,
+      "lang": "en",
+      "oldDisclosure": false,
+      "personalIdentifier": false,
+      "title": "Privacy",
+      "url": "https://everydayjapanlab.blogspot.com/p/privacy.html?m=1"
+    },
+    {
+      "adSenseDisclosure": true,
+      "adTag": true,
+      "canonical": "https://everydayjapanlab.blogspot.com/p/about.html",
+      "fragments": 1,
+      "lang": "en",
+      "oldDisclosure": false,
+      "personalIdentifier": false,
+      "title": "About",
+      "url": "https://everydayjapanlab.blogspot.com/p/about.html?m=1"
+    },
+    {
+      "adSenseDisclosure": true,
+      "adTag": true,
+      "canonical": "https://everydayjapanlab.blogspot.com/p/advertising.html",
+      "fragments": 1,
+      "lang": "en",
+      "oldDisclosure": false,
+      "personalIdentifier": false,
+      "title": "Advertising",
+      "url": "https://everydayjapanlab.blogspot.com/p/advertising.html?m=1"
+    },
+    {
+      "adSenseDisclosure": true,
+      "adTag": true,
+      "canonical": "https://everydayjapanlab.blogspot.com/2026/09/practical-systems-from-everyday-japan.html",
+      "fragments": 1,
+      "lang": "en",
+      "oldDisclosure": false,
+      "personalIdentifier": false,
+      "title": "Practical systems from everyday Japan",
+      "url": "https://everydayjapanlab.blogspot.com/2026/09/practical-systems-from-everyday-japan.html?m=1"
+    }
+  ],
+  "limits": [
+    "Review approval, ad delivery and revenue have not begun based on the review status.",
+    "Live region-specific consent acceptance, rejection and revocation await post-approval verification.",
+    "The automatic Google consent message retains its existing default configuration beyond its site name and privacy URL.",
+    "Payment recipient details were not opened, entered or changed by this work.",
+    "Search visibility remains off pending explicit authorization.",
+    "The existing personal-identifier audit does not establish anonymity of the separate public repository or Google advertising transparency data."
+  ]
+}

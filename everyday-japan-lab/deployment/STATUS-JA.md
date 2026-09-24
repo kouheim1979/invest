@@ -1,3 +1,26 @@
+# AdSense申請・同意設定の確認 — 2026-09-25（日本時間）
+
+本人がAdSense登録・受取人情報の入力・規約同意・サイト審査申請を行った。提供された画面と、Blogger「収益」およびAdSenseホームの読み取りで、接続済み・審査待ちを確認。審査承認や広告収益の発生とは扱わない。
+
+- Google CMPは欧州向けメッセージ1件が公開済み。標準プレビューにConsent / Do not consent / Manage optionsの3ボタンがあることを確認。
+- CMPの公開名をEveryday Japan Labに設定し、プライバシーポリシー参照先をトップURLから `https://everydayjapanlab.blogspot.com/p/privacy.html` に修正して公開した。
+- Privacy、About、Advertising、トップ用紹介投稿の「AdSense未導入」等の説明を更新。Privacyに広告Cookie、Googleのデータ利用説明、選択肢・オプトアウト先を記載。
+- AdSenseタグはBlogger連携によって公開ページに存在する。追加の広告タグやGA4は挿入していない。
+- 姓名・住所・電話・銀行情報・税務情報は当作業で入力・変更していない。受取人情報の内容は取得・記録しない。
+- 読者権限は一般公開。検索表示OFF、開発版休止を維持。検索表示ONは別途明示的な承認待ち。
+
+確認結果は `adsense-audit.json`。審査承認後、実際の広告配置・対象地域での同意/拒否/変更操作を確認する。Google公式案内では、同意取り消しリンクは承認済みでAdSenseタグを持つサイトに自動追加される。現時点では実配信の動作を検証済みとしない。米国各州向け設定、本人への追加確認通知、Search Console、問い合わせメールの受信と返信時の表示名も必要に応じて確認する。
+
+根拠：
+- https://support.google.com/adsense/answer/1348695?hl=en
+- https://support.google.com/adsense/answer/7584263?hl=en
+- https://support.google.com/adsense/answer/10960768?hl=en
+- https://support.google.com/adsense/answer/10959060?hl=en
+
+---
+
+以下は過去の作業履歴で、現在のAdSense接続状態を表さない。
+
 # 本番サイトを一般公開へ再開 — 2026-09-25（日本時間）
 
 公開URL: https://everydayjapanlab.blogspot.com/
