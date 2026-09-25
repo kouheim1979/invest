@@ -65,7 +65,11 @@ def scoped_rules(text):
     return result
 
 style=scoped_rules(css)+'.ejl-fragment .aside{position:static}.ejl-fragment .hero{grid-template-columns:1fr}.ejl-fragment .article-grid,.ejl-fragment .tool-layout{grid-template-columns:1fr}.ejl-fragment .ejl-menu{display:flex;gap:16px;flex-wrap:wrap;margin:0 0 25px}.ejl-fragment{padding:20px;max-width:1180px;margin:auto}'
-(OUT/'theme/common-gadget.html').write_text('<style>'+style+'</style>\n<script>'+js+'</script>\n')
+design=ROOT/'deployment/design'
+editorial_css=(design/'editorial.css').read_text()
+editorial_home=(design/'editorial-home.html').read_text()
+front_js=(design/'front-page.js').read_text()
+(OUT/'theme/common-gadget.html').write_text('<style>'+style+'\n'+editorial_css+'</style>\n<template id="ejl-front-template">'+editorial_home+'</template>\n<script>'+js+'\n'+front_js+'</script>\n')
 privacy=(ROOT/'deployment/production-privacy.html').read_text().replace('{{CONTACT_EMAIL}}',CONTACT_EMAIL)
 
 def mapped(body,mapping):
@@ -81,7 +85,7 @@ for p in pages:
     slug=p['slug'];name=slug.replace('/','-') or 'home'
     title='Privacy' if slug=='privacy' else p['title']
     description='How this Blogger site handles calculator inputs, hosting data and external links.' if slug=='privacy' else p['description']
-    body=privacy if slug=='privacy' else p['body']
+    body=privacy if slug=='privacy' else editorial_home if slug=='' else p['body']
     if slug=='about':
         old='This development preview has no advertising, sponsorship, paid rankings or affiliate links. Future commercial relationships will be identified visibly and will not determine editorial rankings.'
         assert body.count(old)==1
@@ -94,6 +98,7 @@ for p in pages:
     # The development status notice is in the generated shell, not the article body.
     body=body.replace('This development preview','This initial site').replace('This development site','This initial site').replace('This preview','This initial site')
     menu='<nav class="ejl-menu" aria-label="Everyday Japan Lab">'+''.join(f'<a href="{publicmap[s]}">{t}</a>' for s,t in [('','Home'),('topics','Topics'),('tools','Tools'),('about','About'),('contact','Contact'),('privacy','Privacy')])+'</nav>'
+    if not slug: menu=''
     reviewed='2026-09-25' if slug in ['privacy','about','advertising'] else p.get('reviewed','2026-09-24')
     intro='' if not slug else f'<p class="eyebrow">{escape(p["tag"])}</p><p class="lede">{escape(description)}</p><p class="meta">By Everyday Japan Lab · Reviewed {escape(reviewed)}</p>'
     fragment='<div class="ejl-fragment" lang="en">'+menu+intro+mapped(body,publicmap)+'</div>'
@@ -117,7 +122,7 @@ Each page also needs its own canonical URL; preserve/check Blogger's existing ca
 Optional x-default: the real language selector or deliberate fallback page.
 Only English exists now, so no hreflang tags should be added yet.
 ''')
-publication_note = ('Blogger本番は一般公開を再開しています。検索エンジンへの表示はOFF、開発版は休止中です。' if deployment.get('reader_access') == 'public' else '現在は公開停止中です。Bloggerは投稿者に限定公開、検索表示OFF。本人から再開指示があるまで一般公開しません。')
+publication_note = ('Blogger本番は一般公開中です。検索表示は' + ('ON' if deployment.get('search_visibility_enabled') else 'OFF') + '、開発版は休止中です。' if deployment.get('reader_access') == 'public' else '現在は公開停止中です。Bloggerは投稿者に限定公開、検索表示OFF。本人から再開指示があるまで一般公開しません。')
 (OUT/'welcome-post.html').write_text((ROOT/'deployment/welcome-post.txt').read_text())
 (OUT/'README-JA.md').write_text('''# Blogger移植パック
 

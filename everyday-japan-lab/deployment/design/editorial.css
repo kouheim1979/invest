@@ -1,0 +1,72 @@
+/* Blogger shell and an original, lightweight editorial front page. No remote assets. */
+body{background:#f8f6ef!important;color:#273d34!important}
+.bg-photo,.bg-photo-overlay{display:none!important}
+.centered-top-container{background:#f8f6ef!important;color:#273d34!important;border-top:5px solid #a54d31;border-bottom:1px solid #c5c8ba;box-shadow:none!important}
+.centered-top-container .svg-icon-24{fill:#273d34!important}
+.centered-top-container .centered-top{padding-top:22px!important;padding-bottom:12px!important}
+.Header h1,.Header h1 a,.Header h2,.Header h2 a{font-family:Georgia,'Times New Roman',serif!important;font-size:clamp(28px,3.6vw,44px)!important;font-weight:400!important;letter-spacing:-1.5px!important;color:#273d34!important}
+.Header .description{color:#526054!important;font-size:13px!important;max-width:720px;margin:10px auto!important;line-height:1.6}
+.PageList li a{color:#273d34!important;font-size:12px!important;letter-spacing:.065em}
+.PageList li.selected a{color:#a54d31!important}
+.centered-bottom{max-width:1120px!important;padding-top:30px!important}
+.post-outer-container,.FeaturedPost,.post-outer{box-shadow:none!important;background:transparent!important}
+.post-title,.post-title a{font-family:Georgia,'Times New Roman',serif!important;color:#273d34!important;letter-spacing:-.025em}
+.post-body,.post-snippet{color:#384c42!important}
+.ejl-fragment{background:transparent!important;padding:10px 0!important;--paper:#f8f6ef;--ink:#273d34;--green:#315c47;--soft:#eaf0e6;--line:#c5c8ba}
+.ejl-fragment h2,.ejl-fragment h3{font-family:Georgia,'Times New Roman',serif;font-weight:400;letter-spacing:-.025em}
+.ejl-fragment .card{border:0;border-top:2px solid #c5c8ba;background:transparent;padding:24px 4px}
+.ejl-fragment .ejl-menu{border-bottom:1px solid #c5c8ba;padding-bottom:16px;font-size:13px;gap:14px}
+.ejl-fragment .tool-form{border:1px solid #c5c8ba;border-top:4px solid #315c47;background:#fffef9}
+.ejl-fragment .button,.ejl-fragment button{border-radius:0}
+.ejl-fragment .sources{border-top:2px solid #273d34}
+body.ejl-front .FeaturedPost,body.ejl-front #Blog1{display:none!important}
+body.ejl-front .centered-bottom{padding-top:0!important}
+.ejl-edition,.ejl-edition *{box-sizing:border-box}
+.ejl-edition{color:#273d34;font:16px/1.65 system-ui,-apple-system,'Segoe UI',sans-serif;max-width:1100px;margin:auto;text-align:left}
+.ejl-edition a{color:inherit;text-decoration-thickness:1px;text-underline-offset:5px}
+.ejl-edition a:hover{color:#a54d31}
+.ejl-edition a:focus-visible{outline:3px solid #a54d31;outline-offset:5px}
+.ejl-edition h2,.ejl-edition h3{font-family:Georgia,'Times New Roman',serif;font-weight:400;letter-spacing:-.035em;line-height:1.12;color:#273d34}
+.ejl-indexline{display:flex;justify-content:space-between;gap:16px;border-bottom:1px solid #c5c8ba;padding:17px 0;font:10px/1.5 ui-monospace,monospace;text-transform:uppercase;letter-spacing:.12em}
+.ejl-opening{display:grid;grid-template-columns:1fr 1.12fr;gap:30px;align-items:center;padding:48px 0 45px}
+.ejl-kicker{font:11px/1.5 ui-monospace,monospace;text-transform:uppercase;letter-spacing:.12em;color:#8b422a;margin:0 0 18px}
+.ejl-opening h2{font-size:clamp(42px,4.8vw,66px);margin:0 0 25px}
+.ejl-opening h2 em{font-weight:400;color:#a54d31}
+.ejl-opening-copy>p:not(.ejl-kicker){max-width:410px;font-size:15px}
+.ejl-edition .ejl-solid-link{display:inline-flex;gap:24px;align-items:center;background:#273d34;color:#fffdf4;padding:13px 18px;margin-top:12px;font-size:13px;text-decoration:none}
+.ejl-edition .ejl-solid-link:hover{background:#a54d31;color:white}
+.ejl-edition .ejl-marginal{font:11px/1.8 ui-monospace,monospace;color:#5d695e;margin-top:20px}
+.ejl-house{margin:0;min-width:0;transform:rotate(-1deg)}
+.ejl-house svg{display:block;width:100%;height:auto;border:1px solid #c5c8ba}
+.ejl-house figcaption{display:flex;justify-content:space-between;gap:12px;font:9px/1.6 ui-monospace,monospace;color:#526054;margin-top:12px}
+.ejl-section-heading{border-top:3px solid #273d34;border-bottom:1px solid #c5c8ba;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 0}
+.ejl-section-heading h2{font-size:30px;margin:0}.ejl-section-heading>span{font:10px/1.6 ui-monospace,monospace;color:#526054}
+.ejl-guide-row{display:grid;grid-template-columns:130px 1fr 175px;gap:22px;align-items:start;padding:30px 0;border-bottom:1px solid #c5c8ba}
+.ejl-folio{font:10px/1.6 ui-monospace,monospace;letter-spacing:.07em;color:#8b422a;padding-top:6px}
+.ejl-guide-row h3{font-size:27px;margin:0 0 12px}.ejl-guide-row h3 a{text-decoration:none}.ejl-guide-row h3 a:hover{text-decoration:underline}
+.ejl-guide-row p{font-size:14px;margin:0;color:#526054}.ejl-guide-row .ejl-checkline{font:10px/1.7 ui-monospace,monospace;margin-top:12px;color:#526054}
+.ejl-row-action{font-size:12px;line-height:1.7;padding:9px 0;min-height:44px;align-self:center}
+.ejl-workbench{display:grid;grid-template-columns:1fr 1.1fr;gap:60px;background:#e8ede2;padding:36px;margin:48px 0}
+.ejl-workbench h2{font-size:34px;margin:0 0 18px}.ejl-workbench p:not(.ejl-kicker){font-size:14px;color:#526054}.ejl-workbench>div>a{font-size:13px}
+.ejl-tool-ledger{list-style:none;counter-reset:tool;padding:0;margin:0;border-top:1px solid #aab6a6}
+.ejl-tool-ledger li{counter-increment:tool;border-bottom:1px solid #aab6a6}
+.ejl-tool-ledger a{display:grid;grid-template-columns:24px 1fr;column-gap:12px;padding:12px 0;text-decoration:none;font-size:14px}
+.ejl-tool-ledger a:before{content:'0' counter(tool);font:10px/2 ui-monospace,monospace;grid-row:span 2;color:#8b422a}
+.ejl-tool-ledger small{grid-column:2;font-size:11px;color:#526054}
+.ejl-editor-note{display:grid;grid-template-columns:180px 1fr;gap:30px;margin:40px 0 50px;max-width:860px}
+.ejl-editor-note h2{font-size:30px;margin:0 0 15px}.ejl-editor-note p{font-size:15px;color:#526054}.ejl-editor-note a{font-size:12px}.ejl-editor-note div>span{margin:0 12px;color:#a1a698}
+.ejl-edition-footer{display:flex;justify-content:space-between;gap:20px;border-top:1px solid #c5c8ba;padding:23px 0;font:11px/1.9 ui-monospace,monospace}
+#Attribution1{margin-top:28px!important;font-size:11px!important}
+@media(max-width:800px){.ejl-guide-row{grid-template-columns:110px 1fr}.ejl-row-action{grid-column:2}.ejl-workbench{gap:30px;padding:26px}.ejl-editor-note{grid-template-columns:130px 1fr}.ejl-opening{gap:22px}.ejl-house figcaption{display:block}.ejl-house figcaption span{display:block}}
+@media(max-width:600px){.centered-top-container .centered-top{padding-top:16px!important}.Header h1,.Header h1 a{font-size:29px!important;letter-spacing:-1px!important}.Header .description{font-size:12px!important}.centered-bottom{padding-left:20px!important;padding-right:20px!important}.ejl-indexline{font-size:9px;display:block}.ejl-indexline span{display:block}.ejl-indexline span+span{margin-top:5px}.ejl-opening{grid-template-columns:1fr;padding:30px 0;gap:24px}.ejl-opening h2{font-size:42px}.ejl-opening-copy>p:not(.ejl-kicker){max-width:none}.ejl-house{transform:none;max-width:500px}.ejl-house figcaption{display:flex;font-size:8px}.ejl-section-heading{display:block;padding:20px 0}.ejl-section-heading h2{font-size:28px;margin-bottom:10px}.ejl-guide-row{grid-template-columns:1fr;gap:12px;padding:23px 0}.ejl-guide-row h3{font-size:27px}.ejl-row-action{grid-column:1;padding:8px 0}.ejl-workbench{grid-template-columns:1fr;margin:32px 0;padding:24px 20px;gap:22px}.ejl-workbench h2{font-size:30px}.ejl-editor-note{grid-template-columns:1fr;gap:12px;margin:30px 0}.ejl-edition-footer{display:block}.ejl-edition-footer>span{display:block;margin-bottom:16px}.ejl-fragment .fields,.ejl-fragment .metrics{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.ejl-edition *{scroll-behavior:auto!important}}
+@media print{.ejl-house{transform:none}.ejl-opening{grid-template-columns:1fr 1fr}.ejl-guide-row,.ejl-workbench{break-inside:avoid}.ejl-edition{font-size:11pt}.ejl-opening h2{font-size:30pt}}
+/* Keep the native Blogger masthead compact and its description readable. */
+.Header .header-widget p{color:#526054!important;font-size:13px!important;line-height:1.6;max-width:690px;margin:8px auto 0!important}
+body .centered{max-width:1140px!important;width:calc(100% - 40px)!important;padding-top:0!important}
+.centered-top .blog-name{margin:8px 0!important}
+.centered-top .Header{margin-bottom:0!important}
+#PageList1{margin:10px 0 0!important;padding-top:0!important}
+@media(max-width:600px){body .centered{width:100%!important}.Header .header-widget p{font-size:12px!important}}
+
+#PageList1 li{margin-left:12px!important;margin-right:12px!important}
