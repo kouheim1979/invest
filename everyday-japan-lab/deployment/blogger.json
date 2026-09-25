@@ -2,7 +2,7 @@
   "origin": "https://everydayjapanlab.blogspot.com",
   "language": "en",
   "display_name": "Everyday Japan Lab",
-  "status": "public_search_visibility_off",
+  "status": "public_search_visibility_on",
   "domain_source": "URL provided by the owner on 2026-09-24",
   "page_urls_verified": true,
   "tracking_added_by_this_project": false,
@@ -21,8 +21,8 @@
   "adsense_application_submitted_by_this_project": false,
   "ga4_measurement_id_configured": false,
   "https_redirect_enabled": true,
-  "search_visibility_enabled": false,
-  "reviewed": "2026-09-24",
+  "search_visibility_enabled": true,
+  "reviewed": "2026-09-25",
   "reader_access": "public",
   "preview_paused": true,
   "paused_at": "2026-09-25 Asia/Tokyo",
@@ -39,7 +39,7 @@
   "resumed_at": "2026-09-25 Asia/Tokyo",
   "welcome_post_id": "5191379019055896793",
   "welcome_post_url": "https://everydayjapanlab.blogspot.com/2026/09/practical-systems-from-everyday-japan.html",
-  "search_visibility_change_status": "blocked_by_automatic_approval_review_pending_explicit_authorization",
+  "search_visibility_change_status": "enabled_after_explicit_owner_authorization",
   "adsense_review_status": "pending",
   "adsense_application_submitted_by_owner": true,
   "adsense_ad_script_present": true,
@@ -54,5 +54,19 @@
     "Manage options"
   ],
   "google_cmp_public_name": "Everyday Japan Lab",
-  "google_cmp_privacy_url": "https://everydayjapanlab.blogspot.com/p/privacy.html"
+  "google_cmp_privacy_url": "https://everydayjapanlab.blogspot.com/p/privacy.html",
+  "search_console_property": "https://everydayjapanlab.blogspot.com/",
+  "search_console_ownership_verified": true,
+  "search_console_sitemaps": {
+    "sitemap.xml": {
+      "status": "success",
+      "discovered_pages": 1
+    },
+    "sitemap-pages.xml": {
+      "status": "success",
+      "discovered_pages": 23
+    }
+  },
+  "search_console_home_indexing_request": "submitted",
+  "search_console_verified_on": "2026-09-25 Asia/Tokyo"
 }
