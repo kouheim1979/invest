@@ -1,0 +1,591 @@
+{
+  "project": "Everyday Japan Lab",
+  "title_ja": "既存5ツールに続く無料ツール候補の追加調査",
+  "checked_at_utc": "2026-09-29T23:34:37Z",
+  "checked_date_japan": "2026-09-30",
+  "status": "Research only; no new public tool deployed",
+  "method_ja": [
+    "既存110候補を再検討し、公開済み5ツールと異なる8つの具体的な利用場面に絞った。",
+    "順位は編集上の実装優先順。検索量、市場規模、普及率、予想収益を推測して点数化していない。",
+    "メーカーの公式FAQ・仕様・説明書から確認できるのは製品条件や質問の存在。海外需要の大きさ、日本の世帯普及率、未普及市場の証明とは区別する。",
+    "広告主・アフィリエイト欄は商品カテゴリーとの相性の仮説。提携、審査承認、案件の存在や収益を保証しない。",
+    "ブランド横断、入力単位の明示、未確認条件の表示を重視。使用していない商品のランキングは作らない。",
+    "公開資料の検索結果本文と閲覧可能な公式ページを確認。全文が取得できない資料は実装前に原文・現行モデルの説明書を再確認する。"
+  ],
+  "recommended_sequence": [
+    "T01",
+    "T02",
+    "T03"
+  ],
+  "candidates": [
+    {
+      "id": "T01",
+      "priority": 1,
+      "original_candidate_ids": [
+        "C057"
+      ],
+      "title_ja": "炊飯器の容量・米カップ換算",
+      "proposed_title_en": "Rice Cooker Cup and Batch Planner",
+      "problem_ja": "炊飯器の『3 cups』が生米か炊いたご飯か、手元のカップと同じ単位か分からない。",
+      "audience_ja": "英語圏で炊飯器を初めて買う人、少人数世帯、まとめ炊きをする人。",
+      "evaluation": {
+        "japan_maturity": "Established product category; manufacturer manuals and domestic statistics categories exist; household penetration not measured.",
+        "overseas_growth": "Opportunity in interpreting capacity labels, not a claim that rice cookers are new overseas.",
+        "search_intent": [
+          "rice cooker cup size",
+          "3 cup vs 5 cup rice cooker",
+          "uncooked rice cooker capacity"
+        ],
+        "purchase_need": "Direct: compare a usual batch with a candidate model's documented cooking range.",
+        "advertiser_fit": "Kitchen appliances and rice-storage accessories.",
+        "affiliate": "Possible retailer or manufacturer links; programme availability and approval not checked.",
+        "competition": "Strong manufacturer and specialist-retailer FAQs; query volumes and rankings not measured.",
+        "toolability": "High: volume conversion and explicit model/mode minimum-maximum checks.",
+        "primary_information": "Strong for specific models; Zojirushi states 180 mL raw-rice capacity conventions.",
+        "safety": "Low if limited to capacity; avoid food-storage safety promises and unsupported cooking instructions."
+      },
+      "inputs_ja": [
+        "米の体積と単位",
+        "一度に炊きたい量",
+        "モデル説明書の最小・最大量",
+        "白米・玄米・おかゆ等のモード"
+      ],
+      "outputs_ja": [
+        "180 mL米カップ換算",
+        "そのモードの指定範囲内か／条件未確認",
+        "説明書で確認すべき項目"
+      ],
+      "formula": "rice_cups = uncooked_rice_volume_ml / 180; compare only with limits stated for that model and mode.",
+      "example": {
+        "input_ml": 360,
+        "output_rice_cups": 2
+      },
+      "limits_ja": [
+        "mLとgは同じではない。種類別の密度なしに重量換算しない。",
+        "US cup、metric cup、付属米カップを区別する。単位定義は実装時に計量一次資料で検証する。",
+        "炊き上がり量や1人前の量は固定しない。白米以外の上限は別扱い。"
+      ],
+      "differentiation_ja": "単純な換算に、候補機種の調理モード別範囲と未確認表示を組み合わせる。",
+      "cluster_en": [
+        "What does rice cooker capacity mean?",
+        "Rice cup vs measuring cup",
+        "Choosing capacity for your usual batch",
+        "Why brown-rice and porridge limits differ"
+      ],
+      "source_ids": [
+        "ZOJIRUSHI_CAPACITY",
+        "ZOJIRUSHI_FAQ",
+        "YUMASIA_VOLUME"
+      ]
+    },
+    {
+      "id": "T02",
+      "priority": 2,
+      "original_candidate_ids": [
+        "C069"
+      ],
+      "title_ja": "収納ケースの寸法・配置チェック",
+      "proposed_title_en": "Storage Box Fit Planner",
+      "problem_ja": "棚に収まるはずのケースが入らない、取っ手やふたが使えない、買った個数を並べられない。",
+      "audience_ja": "狭い住居や賃貸で、異なるブランドの棚とケースを組み合わせたい人。",
+      "evaluation": {
+        "japan_maturity": "MUJI documents modular dimensions and storage systems; this does not quantify nationwide adoption.",
+        "overseas_growth": "Storage is already global; independent unit-aware fit checking is the opportunity hypothesis.",
+        "search_intent": [
+          "storage boxes fit shelf",
+          "storage bin size calculator",
+          "cm to inches storage organizer"
+        ],
+        "purchase_need": "Direct: verify dimensions before buying several boxes.",
+        "advertiser_fit": "Storage boxes, shelving and household organisation products.",
+        "affiliate": "Retail links potentially relevant; programme approval unverified.",
+        "competition": "Manufacturer planners already exist; avoid claiming an empty market.",
+        "toolability": "High for rectangular, fixed-orientation arrangements; not arbitrary packing optimisation.",
+        "primary_information": "Manufacturer dimension drawings available; interior and exterior dimensions must be distinguished.",
+        "safety": "Low for geometry; stacking, shelf strength, anchoring and child safety cannot be certified."
+      },
+      "inputs_ja": [
+        "棚の有効内寸",
+        "ケース最大外寸（取っ手・ふたを含む）",
+        "端の余白",
+        "ケース間の間隔",
+        "許される向き"
+      ],
+      "outputs_ja": [
+        "向きごとの1列の個数",
+        "余った幅・高さ・奥行き",
+        "ふたや引き出し操作の確認項目",
+        "寸法が不足している項目"
+      ],
+      "formula": "For one fixed orientation: usable_width = shelf_inner_width - left_margin - right_margin; n = max(0, floor((usable_width + gap) / (box_outer_width + gap))); independently check height, depth and access. This is a uniform row, not an optimal mixed layout.",
+      "example": {
+        "shelf_inner_width_mm": 800,
+        "left_margin_mm": 10,
+        "right_margin_mm": 10,
+        "box_outer_width_mm": 250,
+        "gap_mm": 10,
+        "count": 3,
+        "occupied_width_mm": 770
+      },
+      "limits_ja": [
+        "変形品・出っ張り・棚の金具・採寸誤差を含める。",
+        "90度回転を比較しても、混在配置の最大収納数は保証しない。",
+        "積み重ね可能数や耐荷重は計算しない。メーカー指定を記録する。"
+      ],
+      "differentiation_ja": "メーカーをまたいだ内寸・外寸比較、cm/inch、引き出しやふたの動作余白。",
+      "cluster_en": [
+        "Measure the inside of your shelf",
+        "Storage box dimensions that matter",
+        "Plan clearance for lids and drawers",
+        "Why nominal size is not usable size"
+      ],
+      "source_ids": [
+        "MUJI_MODULES",
+        "MUJI_PLANNER"
+      ]
+    },
+    {
+      "id": "T03",
+      "priority": 3,
+      "original_candidate_ids": [
+        "C048"
+      ],
+      "title_ja": "部屋干し・乾燥機の1回あたり費用比較",
+      "proposed_title_en": "Laundry Drying Energy and Cost Comparison",
+      "problem_ja": "除湿機の消費電力が小さくても運転時間が長い。衣類乾燥機と何を比べればよいか分からない。",
+      "audience_ja": "屋外干しが難しい地域の賃貸世帯。最初は英国・アイルランド等の英語読者を想定。",
+      "evaluation": {
+        "japan_maturity": "Japanese manufacturers document dedicated clothes-drying dehumidifiers and test methods; penetration unverified.",
+        "overseas_growth": "Already an active UK product category; focus on transparent comparison, not market novelty.",
+        "search_intent": [
+          "dehumidifier vs tumble dryer cost",
+          "cost to dry clothes indoors",
+          "laundry drying electricity calculator"
+        ],
+        "purchase_need": "Direct operating-cost comparison; equipment suitability still depends on room and conditions.",
+        "advertiser_fit": "Dehumidifiers, dryers, racks and energy monitors.",
+        "affiliate": "Product-category fit only; no confirmed programme or earnings.",
+        "competition": "High: manufacturers already publish cost examples and laundry tests.",
+        "toolability": "High for user-entered measured kWh; lower reliability for power-times-hours estimates.",
+        "primary_information": "ENERGY STAR explains L/kWh; Panasonic publishes cycle-energy test conditions.",
+        "safety": "Medium: damp conditions and electrical use; no mould diagnosis or ventilation design."
+      },
+      "inputs_ja": [
+        "1回の実測kWhを優先",
+        "不明なら平均Wと稼働時間",
+        "電力単価",
+        "月の回数",
+        "衣類量・乾燥終了条件・室温などの比較条件"
+      ],
+      "outputs_ja": [
+        "1回・月あたり電力量と費用",
+        "比較条件が揃っていない項目",
+        "実測値と概算値の区別"
+      ],
+      "formula": "cost_per_cycle = measured_kWh_per_cycle * local_tariff_per_kWh; monthly_cost = cost_per_cycle * cycles_per_month. Optional estimate: kWh = average_power_W * hours / 1000.",
+      "example": {
+        "kWh_per_cycle": 0.6,
+        "tariff_per_kWh": 0.3,
+        "currency": "user-selected",
+        "cycles_per_month": 20,
+        "cost_per_cycle": 0.18,
+        "cost_per_month": 3.6,
+        "note": "Illustrative inputs, not product performance or a current tariff."
+      },
+      "limits_ja": [
+        "同じ衣類量・脱水状態・乾燥終了条件で比べる。",
+        "銘板の定格Wを実際の平均Wとして扱わない。",
+        "除湿効率L/kWhから衣類の乾燥時間を直接算出しない。",
+        "室内暖房・換気への影響、機器購入費を含むか明記する。",
+        "メーカーの異なる条件の実験から『必ず安い』と結論しない。"
+      ],
+      "differentiation_ja": "時間あたりの電力ではなく1回の乾燥を比較し、比較条件の不足を表示する。",
+      "cluster_en": [
+        "Watts vs kWh per load",
+        "How to measure a drying cycle",
+        "Dehumidifier vs dryer comparison conditions",
+        "Room and drain checklist"
+      ],
+      "source_ids": [
+        "PANASONIC_DRYING",
+        "ENERGYSTAR_DEHUMIDIFIER",
+        "MEACO_LAUNDRY"
+      ]
+    },
+    {
+      "id": "T04",
+      "priority": 4,
+      "original_candidate_ids": [
+        "C106",
+        "C107"
+      ],
+      "title_ja": "洗剤・詰め替えの1洗濯あたり価格比較",
+      "proposed_title_en": "Detergent Cost per Wash",
+      "problem_ja": "大容量や濃縮タイプが、内容量の単価だけでは比較できない。",
+      "evaluation": {
+        "japan_maturity": "Kao publishes product-specific dosing instructions and concentrated/refill products; no national usage rate claimed.",
+        "overseas_growth": "Concentrated detergents and refills already exist overseas; dose-normalised comparison may help.",
+        "search_intent": [
+          "detergent cost per wash",
+          "concentrated detergent value",
+          "refill detergent price comparison"
+        ],
+        "purchase_need": "Direct recurring purchase comparison.",
+        "advertiser_fit": "Laundry products and dispensers.",
+        "affiliate": "Repeat-purchase category; no programme or rate confirmed.",
+        "competition": "Retail unit pricing and generic calculators; search competition not quantified.",
+        "toolability": "High: price multiplied by labelled dose divided by usable content.",
+        "primary_information": "Product labels and official dose FAQs; values change by product and machine.",
+        "safety": "Low when calculating cost only; never change a label's recommended dose or advise chemical mixing."
+      },
+      "inputs_ja": [
+        "価格",
+        "使用可能な内容量",
+        "同じ洗濯条件での表示使用量",
+        "洗濯回数"
+      ],
+      "outputs_ja": [
+        "1回・月の費用",
+        "推定回数",
+        "単位・洗濯条件の不一致"
+      ],
+      "formula": "cost_per_wash = price * dose_per_wash / usable_package_content, with dose and content in matching units.",
+      "limits_ja": [
+        "gとmLの混在は密度が分からなければ比較不可にする。",
+        "洗浄力・香り・肌への適合や環境負荷の優劣は計算結果から判断しない。"
+      ],
+      "differentiation_ja": "内容量単価でなくラベルの使用量で比較し、濃度・機種・水量の違いを表に残す。",
+      "source_ids": [
+        "KAO_DOSE",
+        "KAO_CONCENTRATED"
+      ]
+    },
+    {
+      "id": "T05",
+      "priority": 5,
+      "original_candidate_ids": [
+        "C063",
+        "C064"
+      ],
+      "title_ja": "卓上食洗機の設置条件チェック",
+      "proposed_title_en": "Countertop Dishwasher Space and Connection Checklist",
+      "problem_ja": "本体は置けても扉を開けられない、タンクに給水できない、蛇口や排水経路が合わない。",
+      "evaluation": {
+        "japan_maturity": "Panasonic has official countertop installation, tank and faucet guidance; penetration not established here.",
+        "overseas_growth": "Danby already sells countertop models in North America; avoid describing the category as absent abroad.",
+        "search_intent": [
+          "will a countertop dishwasher fit",
+          "countertop dishwasher faucet compatibility",
+          "tank dishwasher clearance"
+        ],
+        "purchase_need": "Direct pre-purchase fit and readiness.",
+        "advertiser_fit": "Compact appliances and local installation services.",
+        "affiliate": "Potential local-market retail links; programme unverified.",
+        "competition": "Manufacturer AR, installation pages and FAQs already exist.",
+        "toolability": "High as measurements plus unanswered questions; not an installation approval.",
+        "primary_information": "Strong model manuals; local-market versions and connections must be checked.",
+        "safety": "Medium: water, steam, electrical supply and counter loading require exact instructions."
+      },
+      "inputs_ja": [
+        "作業台の有効寸法",
+        "機種の外寸・扉開放寸法・必要余白",
+        "給水方式",
+        "排水・ホース経路",
+        "販売地域"
+      ],
+      "outputs_ja": [
+        "寸法上の不足",
+        "接続方式・電源・給水の未確認項目",
+        "購入前に販売店へ聞くリスト"
+      ],
+      "limits_ja": [
+        "タンク式でも排水経路や給水作業スペースは必要。",
+        "他社・他地域のクリアランス値を流用しない。",
+        "日本向け機種の輸入を推奨せず、現地の電圧・認証・施工条件を確認する。"
+      ],
+      "differentiation_ja": "開いた扉とタンク給水の動線まで含む、メーカー横断の確認票。",
+      "source_ids": [
+        "PANASONIC_DISH_INSTALL",
+        "PANASONIC_DISH_CONNECTION",
+        "PANASONIC_DISH_AR",
+        "DANBY_DISH_FAQ"
+      ]
+    },
+    {
+      "id": "T06",
+      "priority": 6,
+      "original_candidate_ids": [
+        "C049",
+        "C050",
+        "C051"
+      ],
+      "title_ja": "室内物干しの高さ・動線チェック",
+      "proposed_title_en": "Indoor Drying Rack Space Planner",
+      "problem_ja": "長い衣類が床に触れる、通路をふさぐ、取り付け後に手が届かない。",
+      "evaluation": {
+        "japan_maturity": "Kawaguchigiken documents indoor rod lengths, mounting and product-specific use constraints; no adoption percentage.",
+        "overseas_growth": "Useful for compact homes; unmet overseas demand remains a hypothesis.",
+        "search_intent": [
+          "ceiling clothes airer clearance",
+          "indoor drying rack small room",
+          "clothes rail hanging height"
+        ],
+        "purchase_need": "Before selecting a rack or asking for a mounting quote.",
+        "advertiser_fit": "Laundry racks, ceiling airers and home organisation.",
+        "affiliate": "Category fit possible; no approved programme.",
+        "competition": "Supplier sizing guides; independent layout value requires checking.",
+        "toolability": "High for geometry and reach prompts; inappropriate for automated structural approval.",
+        "primary_information": "Product drawings and installation manuals available.",
+        "safety": "Medium: overhead mounting and wet laundry loads must follow manufacturer and installer requirements."
+      },
+      "inputs_ja": [
+        "天井高さ",
+        "吊り下げ長さ",
+        "ハンガー・衣類の長さ",
+        "床や家具から欲しい余白",
+        "通路"
+      ],
+      "outputs_ja": [
+        "床までの幾何学的余白",
+        "衣類・扉・通路との干渉確認",
+        "専門家・説明書で確認する取り付け条件"
+      ],
+      "formula": "floor_clearance = ceiling_height - suspension_drop - hanger_and_garment_drop; not a load calculation.",
+      "limits_ja": [
+        "下地・ねじ・天井耐力・耐荷重をこの計算で判定しない。",
+        "製品の定格荷重や複数本への荷重配分を独自に倍増させない。"
+      ],
+      "differentiation_ja": "部屋干し費用ツールと相互リンクし、収納時と使用時の両方を確認する。",
+      "source_ids": [
+        "KAWAGUCHI_SPC",
+        "KAWAGUCHI_QA"
+      ]
+    },
+    {
+      "id": "T07",
+      "priority": 7,
+      "original_candidate_ids": [
+        "C020"
+      ],
+      "title_ja": "内窓・二重窓の採寸と見積もり準備",
+      "proposed_title_en": "Secondary Glazing Survey Checklist",
+      "problem_ja": "窓枠の奥行き、ハンドルの干渉、開閉や清掃、賃貸条件を確認せず製品を選んでしまう。",
+      "evaluation": {
+        "japan_maturity": "LIXIL documents an established interior-window product range and installation constraints; current adoption rate unverified.",
+        "overseas_growth": "Secondary glazing is already established in UK supply; not an unserved category.",
+        "search_intent": [
+          "secondary glazing reveal depth",
+          "secondary glazing measurement checklist",
+          "secondary glazing window handle clearance"
+        ],
+        "purchase_need": "High relevance before professional survey and quote.",
+        "advertiser_fit": "Window suppliers and installers.",
+        "affiliate": "Local services might fit; neither programme nor lead agreement confirmed.",
+        "competition": "Strong specialist supplier guides, measuring downloads and installers.",
+        "toolability": "Good for a checklist; poor for universal savings, acoustic or installation certification.",
+        "primary_information": "Manufacturer installation guides available; regulations require market-specific checks.",
+        "safety": "Medium: ventilation, condensation, opening access, escape routes and approvals."
+      },
+      "inputs_ja": [
+        "窓の幅・高さ・奥行き",
+        "取っ手・カーテン等の干渉",
+        "開閉方向",
+        "所有・賃貸",
+        "設置地域"
+      ],
+      "outputs_ja": [
+        "採寸記録",
+        "業者に渡す確認リスト",
+        "未解決の許可・換気・避難経路項目"
+      ],
+      "limits_ja": [
+        "特定の日本製品の必要奥行きを世界共通基準にしない。",
+        "断熱・騒音・年間節約額は採寸から推定しない。"
+      ],
+      "differentiation_ja": "最初は英語の見積もり準備票。地域法規や性能計算まで広げない。",
+      "source_ids": [
+        "LIXIL_INPLUS",
+        "SELECTAGLAZE_DOWNLOADS",
+        "SELECTAGLAZE_CILLS"
+      ]
+    },
+    {
+      "id": "T08",
+      "priority": 8,
+      "original_candidate_ids": [
+        "C055",
+        "C069"
+      ],
+      "title_ja": "大型家具・家電の搬入経路チェック",
+      "proposed_title_en": "Furniture and Appliance Delivery Measurement Checklist",
+      "problem_ja": "部屋には入る寸法でも、玄関、廊下、階段やエレベーターを通れない。",
+      "evaluation": {
+        "japan_maturity": "MUJI publishes a delivery-space simulator and delivery guidance; furniture delivery constraints are not unique to Japan.",
+        "overseas_growth": "Global practical problem; any underserved segment needs further audience validation.",
+        "search_intent": [
+          "will furniture fit through door",
+          "appliance delivery measurements",
+          "sofa delivery hallway checklist"
+        ],
+        "purchase_need": "Direct pre-order or pre-delivery task.",
+        "advertiser_fit": "Furniture, appliances and moving services.",
+        "affiliate": "Possible commerce adjacency; agreements not checked.",
+        "competition": "Retailer delivery guides and actual manufacturer simulators exist.",
+        "toolability": "High for a printable measurement record; low for reliable automatic 3D clearance without full geometry.",
+        "primary_information": "Retailer delivery instructions and packaging dimensions.",
+        "safety": "Medium if presented as a guarantee; avoid unsafe lifting and appliance-tilting advice."
+      },
+      "inputs_ja": [
+        "梱包外寸",
+        "開梱や部品取り外しの可否",
+        "玄関・廊下・階段・踊り場・エレベーターの有効寸法"
+      ],
+      "outputs_ja": [
+        "搬入業者へ渡す採寸一覧",
+        "直線区間の寸法不足",
+        "曲がり角・搬入姿勢等の要確認箇所"
+      ],
+      "limits_ja": [
+        "対角線が長いだけで搬入可能としない。3次元の回転経路は保証できない。",
+        "家電の傾斜・分解・持ち方はメーカーと搬入業者の指示に従う。"
+      ],
+      "differentiation_ja": "複雑な搬入判定を装わず、購入前に配送業者と共有できる記録を作る。",
+      "source_ids": [
+        "MUJI_DELIVERY"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "ZOJIRUSHI_CAPACITY",
+      "url": "https://www.zojirushi.com/app/product/nszcc",
+      "type": "Manufacturer product specifications",
+      "supports": "Capacity based on approximately 180 mL cups of raw short-grain white rice; other grains may differ."
+    },
+    {
+      "id": "ZOJIRUSHI_FAQ",
+      "url": "https://www.zojirushi.com/app/faq/rice-cookers",
+      "type": "Manufacturer FAQ",
+      "supports": "Meaning of rice-cooker capacity and supplied rice cup."
+    },
+    {
+      "id": "YUMASIA_VOLUME",
+      "url": "https://help.yum-asia.com/general-questions/why-do-you-measure-rice-in-volume-rather-than-weight",
+      "type": "Specialist manufacturer/retailer FAQ",
+      "supports": "Overseas explanation of rice volume and 180 mL cups; evidence of existing explanations, not search volume."
+    },
+    {
+      "id": "MUJI_MODULES",
+      "url": "https://www.muji.com/jp/ja/special-feature/furniture/shelf/",
+      "type": "Manufacturer planning guide",
+      "supports": "Modular shelving and storage dimensions."
+    },
+    {
+      "id": "MUJI_PLANNER",
+      "url": "https://www.muji.net/store/pc/user/homewares/ssf/simulator.html",
+      "type": "Manufacturer simulator",
+      "supports": "Existing stacking-shelf planning tool and dimensional caveats."
+    },
+    {
+      "id": "PANASONIC_DRYING",
+      "url": "https://panasonic.jp/joshitsu/feature/eco_hybrid.html",
+      "type": "Manufacturer test disclosure",
+      "supports": "Clothes-drying cycle energy and elapsed time with specified test conditions; not independent or universal savings evidence."
+    },
+    {
+      "id": "ENERGYSTAR_DEHUMIDIFIER",
+      "url": "https://www.energystar.gov/products/dehumidifiers",
+      "type": "Government programme",
+      "supports": "Dehumidifier efficiency in L/kWh and dependence on room conditions; not laundry-cycle duration."
+    },
+    {
+      "id": "MEACO_LAUNDRY",
+      "url": "https://www.meaco.com/pages/dry-laundry-fast-meaco-experiment",
+      "type": "Manufacturer experiment",
+      "supports": "UK vendor already covers dehumidifier-assisted laundry drying; claims remain vendor test results."
+    },
+    {
+      "id": "KAO_DOSE",
+      "url": "https://www.kao.com/jp/qa/detail/28064/",
+      "type": "Manufacturer FAQ",
+      "supports": "Product-specific detergent dosing; do not generalise its g/mL approximation to other products."
+    },
+    {
+      "id": "KAO_CONCENTRATED",
+      "url": "https://www.kao.co.jp/attack/products/zero/concentrated/",
+      "type": "Manufacturer product guide",
+      "supports": "Different products use different label doses; does not establish equivalent cleaning or environmental performance."
+    },
+    {
+      "id": "PANASONIC_DISH_INSTALL",
+      "url": "https://panasonic.jp/dish/installation.html",
+      "type": "Manufacturer installation guide",
+      "supports": "Placement and faucet checks for applicable countertop models."
+    },
+    {
+      "id": "PANASONIC_DISH_CONNECTION",
+      "url": "https://panasonic.jp/dish/attachment.html",
+      "type": "Manufacturer connection guide",
+      "supports": "Tank and faucet-connected options have different requirements."
+    },
+    {
+      "id": "PANASONIC_DISH_AR",
+      "url": "https://panasonic.jp/dish/contents/ar.html",
+      "type": "Manufacturer simulator",
+      "supports": "Existing placement preview including door space; not guaranteed measurement accuracy."
+    },
+    {
+      "id": "DANBY_DISH_FAQ",
+      "url": "https://www.danby.com/en-us/faqs-categories/dishwashers/",
+      "type": "Manufacturer regional FAQ",
+      "supports": "North American countertop appliances and model-dependent faucet/clearance requirements."
+    },
+    {
+      "id": "KAWAGUCHI_SPC",
+      "url": "https://www.kawaguchigiken.co.jp/products/monohoshi/index/spc.html",
+      "type": "Manufacturer product specifications",
+      "supports": "Product-specific suspension lengths and mounting parts."
+    },
+    {
+      "id": "KAWAGUCHI_QA",
+      "url": "https://www.kawaguchigiken.co.jp/maintenance/qa/monohoshi/customer/",
+      "type": "Manufacturer FAQ",
+      "supports": "Mounting and load conditions need product guidance; geometry alone cannot confirm safety."
+    },
+    {
+      "id": "LIXIL_INPLUS",
+      "url": "https://www.lixil.co.jp/lineup/window/inplus/install/",
+      "type": "Manufacturer installation guide",
+      "supports": "Installation conditions for the stated Japanese product range, not worldwide requirements."
+    },
+    {
+      "id": "SELECTAGLAZE_DOWNLOADS",
+      "url": "https://www.selectaglaze.co.uk/technical-support/technical-downloads",
+      "type": "Manufacturer technical library",
+      "supports": "UK secondary-glazing survey and technical guidance already available."
+    },
+    {
+      "id": "SELECTAGLAZE_CILLS",
+      "url": "https://www.selectaglaze.co.uk/technical-support/blogs-and-articles/window-cill-extensions",
+      "type": "Manufacturer technical guide",
+      "supports": "Available depth and sill extensions affect the survey."
+    },
+    {
+      "id": "MUJI_DELIVERY",
+      "url": "https://faq.muji.com/搬入スペースシミュレーターについて-697073f33f5b36f3f92ad4cb",
+      "type": "Manufacturer FAQ",
+      "supports": "Existing delivery-space simulator; a competitor, not evidence of a market gap."
+    }
+  ],
+  "deferred_ja": [
+    "個人宅の宅配ボックス寸法チェックは既存parcel-lockerツールの拡張候補に留め、別の新規テーマとして水増ししない。",
+    "風呂ふたの適合や保温費用は形状・純正品指定・実測条件の確認が必要なため、今回の上位8件から外した。",
+    "医学的判定、耐震・構造の安全認証、投資回収の断定、地域法規への適合保証は行わない。"
+  ],
+  "next_implementation_ja": [
+    "まず炊飯器ツールを1本。容量表示の解説、単位換算、機種のモード別範囲記録を同じページに設計する。",
+    "収納寸法チェックは長方形ケースの一列配置から始め、誤った最大収納数・耐荷重保証を避ける。",
+    "部屋干し費用比較は実測kWhを主入力にし、条件が揃わない比較を明示する。",
+    "本番実装時に説明書の全文、単位定義、モバイル表示、無効入力、境界値、キーボード操作、説明と計算結果の一致を確認する。"
+  ]
+}
