@@ -22,10 +22,46 @@ dict(slug='bidet-seats',title='Japanese bidet seats: what to check before buying
 <ol><li>Choose the functions you actually need and a locally supported product range.</li><li>Record the toilet’s dimensions and contour; compare the exact fit drawing.</li><li>Get unresolved electrical and plumbing questions checked.</li><li>Compare the full installed cost, maintenance and return terms.</li><li>Keep the manual and model number for future cleaning and service.</li></ol>
 <p>This guide is desk research. We have not physically tested or certified the linked products, and the links are not paid placements.</p>
 '''),
-dict(slug='bidet-seats/measure',title='Will a bidet seat fit? A measurement worksheet',tag='Bathroom / Fit',deck='Measure the mounting points and the shape around them. Use the drawing for the exact seat you intend to buy.',refs=['TOTO_FIT','BRONDELL_FIT'],tool='washlet-fit',body='''
+dict(slug='bidet-seats/measure',title='Will a bidet seat fit? A measurement worksheet',tag='Bathroom / Fit',deck='Measure the mounting points and the shape around them. Use the drawing for the exact seat you intend to buy.',refs=['TOTO_FIT','BRONDELL_FIT'],tool='washlet-fit',reviewed='2026-09-30',body='''
 <h2>Make one record for the existing toilet</h2>
 <ol><li>Write down the toilet’s manufacturer and model. A photograph of a label is more reliable than remembering the bowl’s appearance.</li><li>Measure from the centre line of the seat mounting bolts to the front edge of the bowl.</li><li>Measure the bolt holes from centre to centre.</li><li>Measure the space behind the bolt centre line toward the tank, and record the curved or raised surfaces in that area.</li><li>Check whether the underside of the holes is accessible or whether the toilet needs a particular mounting arrangement.</li></ol>
 <p>Use the same units for the toilet and product drawing. One inch equals 25.4 mm exactly. Record a sensible measurement tolerance instead of treating a rough tape measurement as millimetre-perfect.</p>
+<h2 id="measurement-diagram">Where to place the tape</h2>
+<figure style="margin:1.5rem 0;padding:1rem;border:1px solid #b9c7be;border-radius:4px;background:#f6f4ec">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 450" role="img" aria-labelledby="fit-diagram-title fit-diagram-desc" style="display:block;width:100%;max-width:560px;height:auto;margin:auto">
+<title id="fit-diagram-title">Three toilet measurements, viewed from above</title>
+<desc id="fit-diagram-desc">A is the distance from the mounting-bolt centre line to the front edge of the bowl. B is the spacing between the centres of the two mounting holes. C is the distance from the bolt centre line back to the tank face. The diagram is schematic and does not show a particular toilet or seat.</desc>
+<g fill="none" stroke="#244c43" stroke-width="3">
+<rect x="110" y="30" width="300" height="80" rx="15" fill="#e3e9e1"/>
+<path d="M170 116 Q125 145 125 218 L125 282 C125 438 395 438 395 282 L395 218 Q395 145 350 116 Z" fill="#fffdf7"/>
+<ellipse cx="260" cy="287" rx="92" ry="89"/>
+<circle cx="200" cy="180" r="7" fill="#244c43"/><circle cx="320" cy="180" r="7" fill="#244c43"/>
+</g>
+<g fill="none" stroke="#687b72" stroke-width="1.5" stroke-dasharray="5 5">
+<path d="M58 180 H447 M58 399 H260 M410 110 H447"/>
+</g>
+<g fill="none" stroke="#9b4d32" stroke-width="3">
+<path d="M68 180 V399 M60 180 H76 M60 399 H76 M200 157 H320 M200 149 V165 M320 149 V165 M438 110 V180 M430 110 H446 M430 180 H446"/>
+</g>
+<g fill="#9b4d32" font-family="system-ui,sans-serif" font-size="28" font-weight="700" text-anchor="middle">
+<text x="40" y="301">A</text><text x="260" y="148">B</text><text x="471" y="155">C</text>
+</g>
+<g fill="#244c43" font-family="system-ui,sans-serif" font-size="20" text-anchor="middle">
+<text x="260" y="79">Tank</text><text x="260" y="436">Front of bowl</text>
+</g>
+</svg>
+<figcaption style="font-size:.9em;line-height:1.6"><strong>Schematic, not to scale.</strong> An original Everyday Japan Lab diagram of measurement locations. It is not a manufacturer’s installation drawing or a fit test.</figcaption>
+</figure>
+<ul><li><strong>A — front length:</strong> start at the line through the centres of both mounting holes and measure forward to the outside front edge of the ceramic bowl. Do not measure to the front of the existing seat.</li><li><strong>B — bolt spacing:</strong> measure between the two hole centres, not between their nearest edges.</li><li><strong>C — rear clearance:</strong> record the distance from that bolt centre line back toward the tank face. Also photograph any slope, raised ceramic or curve; a single distance cannot describe its shape.</li></ul>
+<p>The exact product’s drawing may use different reference points. Match its method before comparing numbers. The TOTO and Brondell guides include model-specific requirements and possible contour interference; the letters here are our own recording labels. <a href="#sources">[1, 2]</a></p>
+<h2>Copy this record before shopping</h2>
+<div class="table-scroll" role="region" aria-label="Toilet measurement record" tabindex="0"><table><thead><tr><th scope="col">Record</th><th scope="col">Your notes</th></tr></thead><tbody>
+<tr><th scope="row">Toilet and proposed seat</th><td>Manufacturer / exact model / market: ______</td></tr>
+<tr><th scope="row">A / B / C</th><td>A: ____ &nbsp; B: ____ &nbsp; C: ____<br>Unit (mm or inches): ____</td></tr>
+<tr><th scope="row">Shape and mounting</th><td>Tank contour photo; access beneath holes; any unusual mounting: ______</td></tr>
+<tr><th scope="row">Product evidence</th><td>Fit drawing URL or document version; unresolved question: ______</td></tr>
+</tbody></table></div>
+<p><strong>Example of a unit conversion, not a fit result:</strong> a measured A of 18 inches is 457.2 mm. That calculation does not tell you whether a particular seat fits. Near a published limit, check the measurement and ask the manufacturer about tolerances instead of rounding toward a pass.</p>
 <h2>Round versus elongated is only a starting label</h2>
 <p>The linked US fit charts distinguish bowl shapes, but the housing and mounting arrangement also matter. Do not use a generic US shape name for a toilet sold elsewhere without checking the outline. A tank can interfere with a seat even when a front-to-back dimension looks plausible. <a href="#sources">[1, 2]</a></p>
 <h2>Compare like with like</h2>
@@ -79,7 +115,7 @@ dict(slug='heat-pump-water-heaters/installation',title='Heat-pump water heater i
 <p>This checklist does not select a tank capacity, certify a room, prescribe a temperature or approve electrical work. It organizes observations for a professional. Our calculator models annual energy; matching an annual total does not show that the heater can meet the busiest hour of the day.</p>
 <p>A practical comparison includes the installed price, required alterations, expected service life information from the supplier, maintenance, warranty coverage and local repair availability. Record exclusions in each quote so that unlike packages are not compared as though they were identical.</p>
 '''),
-dict(slug='heat-pump-water-heaters/cop-and-cost',title='COP, heat loss and hot-water cost: understand the calculator',tag='Energy / Calculation method',deck='Follow the units and change one assumption at a time.',refs=['DOE_HP','HP_DESIGN'],tool='heat-pump-water-heater',body='''
+dict(slug='heat-pump-water-heaters/cop-and-cost',title='COP, heat loss and hot-water cost: understand the calculator',tag='Energy / Calculation method',deck='Follow the units and change one assumption at a time.',refs=['DOE_HP','HP_DESIGN'],tool='heat-pump-water-heater',reviewed='2026-09-30',body='''
 <h2>Start with the water’s temperature rise</h2>
 <p>For an approximate household model, take water density as 1 kg per litre and specific heat capacity as 4.186 kJ per kg per °C. Heating V litres through a temperature rise ΔT requires V × 4.186 × ΔT ÷ 3,600 kWh of useful heat. These are physical modelling assumptions, not appliance test results.</p>
 <p>At 200 litres per day and a 25 °C rise, this is about 5.8 kWh of useful heat per day. This is an illustrative demand, not a national average.</p>
@@ -91,6 +127,24 @@ dict(slug='heat-pump-water-heaters/cop-and-cost',title='COP, heat loss and hot-w
 <h2>Compare the baseline honestly</h2>
 <p>Baseline energy equals the same modelled heat divided by baseline efficiency. Multiply each energy input by its own price per kWh. A negative saving means the heat-pump scenario costs more under those assumptions. The tool deliberately allows that outcome.</p>
 <p>Simple payback divides a positive additional upfront cost by a positive annual saving. It ignores financing, maintenance, future tariffs, replacement and residual value. If the saving is zero or negative, or no extra cost is provided, it reports no payback rather than inventing a break-even date.</p>
+<h2 id="worked-example">Worked example: the same hot water, three COP assumptions</h2>
+<p>Imagine a household using <strong>200 L of delivered warm water per day</strong>, heated from 15 °C to 40 °C, for 365 days. Add a 15% allowance to useful draw heat and initially assume no resistance backup. Use an illustrative electricity price of <strong>USD 0.20/kWh</strong> for both the heat pump and an electric-resistance baseline with 100% efficiency at this model boundary.</p>
+<p>These are editable example inputs, not current tariffs, a typical household, recommended temperatures or measured appliance performance. The 40 °C value describes delivered mixed water, not a tank setpoint. Use local requirements and the product instructions for storage and mixing arrangements.</p>
+<ol><li>Useful draw heat: 200 × 4.186 × (40 − 15) ÷ 3,600 × 365 = <strong>about 2,122 kWh/year</strong>.</li><li>Including the chosen loss allowance: 2,122.07 × 1.15 = <strong>about 2,440 kWh of heat/year</strong>.</li><li>At COP 3 with no backup: 2,440.38 ÷ 3 = <strong>about 813 kWh of electricity/year</strong>.</li><li>Electricity cost: 813.46 × USD 0.20 = <strong>about USD 163/year</strong>.</li></ol>
+<div class="table-scroll" role="region" aria-label="Annual hot-water comparison example" tabindex="0"><table><caption>Same demand and loss allowance; figures rounded after calculation</caption><thead><tr><th scope="col">Scenario</th><th scope="col">Electricity / year</th><th scope="col">Energy cost / year</th></tr></thead><tbody>
+<tr><th scope="row">Resistance baseline</th><td>2,440 kWh</td><td>USD 488</td></tr>
+<tr><th scope="row">Heat pump, COP 2</th><td>1,220 kWh</td><td>USD 244</td></tr>
+<tr><th scope="row">Heat pump, COP 3</th><td>813 kWh</td><td>USD 163</td></tr>
+<tr><th scope="row">Heat pump, COP 4</th><td>610 kWh</td><td>USD 122</td></tr>
+</tbody></table></div>
+<p>To reproduce the table in the <a href="/invest/everyday-japan-lab/heat-pump-water-heater/">calculator</a>, enter the inputs above in litres and degrees Celsius, select USD, set baseline efficiency to 100% and leave additional upfront cost at zero. Compare the COP sensitivity rows. COP 2, 3 and 4 are scenarios here, not a forecast for your home.</p>
+<h2>What if resistance backup supplies 10% of the heat?</h2>
+<p>Keep COP 3 and the other inputs, but change the resistance heat share from 0% to 10%. Electricity becomes 2,440.38 × [(0.9 ÷ 3) + 0.1] = <strong>about 976 kWh/year</strong>, costing <strong>USD 195/year</strong>. That is about USD 33 more than the no-backup scenario, using unrounded results.</p>
+<p>The US Department of Energy describes hybrid units with resistance elements, and ENERGY STAR discusses their use during high demand. Neither source supplies the 10% assumption used here. Ask which operating mode and performance boundary underpin a supplier’s estimate. <a href="#sources">[1, 2]</a></p>
+<h2>A more efficient system can still cost more to run</h2>
+<p>Now assume heat-pump electricity costs USD 0.35/kWh, while a different baseline fuel costs USD 0.06 per kWh of input energy and its efficiency is 85%. Keep the same heat demand, COP 3 and zero backup. These prices and efficiency are hypothetical.</p>
+<ul><li>Heat-pump energy cost: 813.46 × 0.35 = <strong>about USD 285/year</strong>.</li><li>Baseline energy cost: (2,440.38 ÷ 0.85) × 0.06 = <strong>about USD 172/year</strong>.</li><li>Modelled saving: <strong>minus USD 112/year</strong>, calculated before rounding. The heat-pump scenario costs more in this example.</li></ul>
+<p>Convert the baseline’s billed fuel unit into kWh before entering its price. These comparisons exclude fixed charges, installation and maintenance. Change one assumption at a time to see which ones control the decision; an efficiency label alone cannot settle a bill comparison.</p>
 <h2>What the model leaves out</h2>
 <p>It does not simulate hourly weather, draw patterns, storage recovery, solar self-consumption, demand charges, plumbing circulation or interactions with space conditioning. COP sensitivity at 2, 3 and 4 is a scenario comparison, not a promised operating range. Manufacturer performance data and local design review are the next sources to use.</p>
 '''),
@@ -125,10 +179,23 @@ dict(slug='emergency-preparedness/water',title='Emergency water: compare the Jap
 <p>Use the current public-health guidance for suitable containers, labelling, storage and replacement. Follow the dates and instructions for commercially bottled water. A quantity calculator cannot decide whether water remains safe. We do not provide improvised disinfection recipes or treat appearance as a safety test.</p>
 <p>Plan additional needs explicitly, including pets and any local conditions the guideline identifies. Enter a custom rate when appropriate, and write down the source or reason so that the next household review can understand the number.</p>
 '''),
-dict(slug='emergency-preparedness/rotation',title='A practical pantry rotation and outage checklist',tag='Preparedness / Routine',deck='Build a reserve that is visible, usable and easy to replenish.',refs=['MAFF','STOCK','TOILET_STOCK'],tool='emergency-stockpile',body='''
+dict(slug='emergency-preparedness/rotation',title='A practical pantry rotation and outage checklist',tag='Preparedness / Routine',deck='Build a reserve that is visible, usable and easy to replenish.',refs=['MAFF','STOCK','TOILET_STOCK'],tool='emergency-stockpile',reviewed='2026-09-30',body='''
 <h2>Use a small inventory</h2>
 <p>A useful record needs an item name, quantity, location, the next date to check and whether preparation requires water, heat or electricity. A complicated inventory that nobody updates can be less useful than a short list kept near the cupboard.</p>
 <p>MAFF’s rolling-stock guidance connects ordinary consumption with replenishment. Our suggested inventory is an editorial way to apply that idea, not a government-approved template. <a href="#sources">[1]</a></p>
+<h2 id="two-person-example">Worked example: two people, seven days</h2>
+<p>For an example shopping plan, choose two people and seven days. Use 3 L of drinking water, three individual meal portions and five toilet uses per person per day. The water and toilet inputs reflect the scope of the Japanese planning references; three meals is an editable counting assumption, not a nutritional assessment. Local advice and household needs may require different amounts. <a href="#sources">[2, 3]</a></p>
+<p>Suppose the household already has 10 L of usable drinking water, 12 suitable individual meal portions and sanitation supplies supporting 20 uses. Subtract those quantities before buying anything.</p>
+<div class="table-scroll" role="region" aria-label="Two-person seven-day stockpile example" tabindex="0"><table><caption>Example inventory — targets, usable stock and remaining gaps</caption><thead><tr><th scope="col">Supply</th><th scope="col">Target</th><th scope="col">Owned</th><th scope="col">Gap</th></tr></thead><tbody>
+<tr><th scope="row">Drinking water</th><td>42 L</td><td>10 L</td><td>32 L</td></tr>
+<tr><th scope="row">Individual meals</th><td>42 portions</td><td>12 portions</td><td>30 portions</td></tr>
+<tr><th scope="row">Toilet supplies</th><td>70 uses</td><td>20 uses</td><td>50 uses</td></tr>
+</tbody></table></div>
+<p>The arithmetic is people × days × daily allowance. For water, 2 × 7 × 3 = 42 L; subtract 10 L to get 32 L. With 2 L containers, the shopping gap is <strong>16 additional containers</strong>. For a gap that does not divide evenly, round up to a whole container. These water figures do not cover every washing, cleaning or flushing need.</p>
+<p>Enter these values in the <a href="/invest/everyday-japan-lab/emergency-stockpile/">stockpile calculator</a> to make a printable record. Count toilet supplies by the uses supported under their instructions, not simply by the number of boxes. A bag of ingredients or a multi-serving package is not automatically one or several complete meals.</p>
+<h2>Turn the shopping list into a routine</h2>
+<ol><li><strong>Make the reserve usable.</strong> Check that the planned portions can be prepared with the water and safe equipment available during the outage you are planning for. Include suitable ready-to-eat options.</li><li><strong>Label a place, not just a total.</strong> Record where each supply is kept and the nearest date or condition needing attention. Keep access and evacuation routes clear.</li><li><strong>Use older suitable items in normal meals.</strong> Follow each item’s storage and date instructions. Rotation is not a reason to use food that is no longer suitable.</li><li><strong>Replace what you use.</strong> After the meal reserve reaches 42 portions, using two leaves 40. Add two suitable portions to the next shopping list. The target stays 42.</li><li><strong>Recheck when circumstances change.</strong> A visitor, a new dietary requirement or different local advice can change the plan. A full-looking cupboard does not answer those questions.</li></ol>
+<div class="callout"><p><strong>Before counting an item:</strong> Is it suitable for this household, in usable condition and accessible? Can it be prepared during the planned outage? If not, keep it out of the “owned” quantity until that problem is resolved. A calculator can subtract stock; it cannot inspect it.</p></div>
 <h2>Keep quantity and usefulness separate</h2>
 <ul><li>Count individual meals rather than assuming each package is a full meal.</li><li>Identify which items need cooking and whether the necessary safe preparation method is available.</li><li>Check household preferences and dietary requirements without treating the calculator as nutrition advice.</li><li>Place older appropriate stock in the normal use path and replace what is taken from the reserve.</li><li>Set a review routine that someone in the household will actually maintain.</li></ul>
 <h2>Remember non-food supplies</h2>

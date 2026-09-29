@@ -13,7 +13,7 @@
     "type": "Model-specific technical drawing",
     "url": "https://www.totousa.com/filemanager_uploads/product_assets/OwnersManual/Washlet-Fit-Chart.pdf",
     "scope": "Dimensions vary by model, bowl and tank contour; no universal fit threshold.",
-    "checked": "2026-09-24"
+    "checked": "2026-09-30"
   },
   "BRONDELL_FIT": {
     "id": "BRONDELL_FIT",
@@ -21,7 +21,7 @@
     "type": "Manufacturer fit guide",
     "url": "https://help.brondell.com/hc/en-us/articles/34579633981709-Fit-Measurement-Guide-Toilet-Compatibility",
     "scope": "Overseas fit guidance exists; does not establish search volume.",
-    "checked": "2026-09-24"
+    "checked": "2026-09-30"
   },
   "BRONDELL_MANUAL": {
     "id": "BRONDELL_MANUAL",
@@ -101,7 +101,7 @@
     "type": "Government programme technical guidance",
     "url": "https://www.energystar.gov/partner-resources/residential_new/educational_resources/sup_program_guidance/heat_pump_water_heater_guide/design_considerations",
     "scope": "US integrated HPWH design constraints; do not transfer these unchanged to split CO2 systems.",
-    "checked": "2026-09-24"
+    "checked": "2026-09-30"
   },
   "HP_INSTALL": {
     "id": "HP_INSTALL",
@@ -115,9 +115,9 @@
     "id": "DOE_HP",
     "publisher": "US Department of Energy",
     "type": "Technical explanation",
-    "url": "https://bsesc.energy.gov/energy-basics/hvac-heat-pump-water-heaters",
+    "url": "https://bsesc.energy.gov/energy-basics/water-heaters-heat-pumps",
     "scope": "Heat transfer principle, not a guaranteed seasonal COP.",
-    "checked": "2026-09-24"
+    "checked": "2026-09-30"
   },
   "HEMS": {
     "id": "HEMS",
@@ -197,7 +197,7 @@
     "type": "Household food-stock guidance",
     "url": "https://www.maff.go.jp/j/zyukyu/foodstock/chapter02.html",
     "scope": "Rotate familiar foods; recommendation does not establish household compliance.",
-    "checked": "2026-09-24"
+    "checked": "2026-09-30"
   },
   "CDC_WATER": {
     "id": "CDC_WATER",
