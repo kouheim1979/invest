@@ -22,7 +22,9 @@ ui=(ROOT/'assets/tools.mjs').read_text().split('\n',1)[1]
 js='(()=>{const start=()=>{\n'+models+'\n'+ui+'\n};if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",start);else start();})();'
 urlfile=OUT/'url-map.json'
 default={p['slug']:'/p/'+(p['slug'].replace('/','-') or 'home')+'.html' for p in pages}
-urlmap=json.loads(urlfile.read_text()) if urlfile.exists() else default
+urlmap=json.loads(urlfile.read_text()) if urlfile.exists() else dict(default)
+for slug,path in default.items():
+    urlmap.setdefault(slug,path)
 published_file=ROOT/'deployment/published-pages.json'
 published=json.loads(published_file.read_text()) if published_file.exists() else []
 confirmed={p['file']:p for p in published}
@@ -139,7 +141,7 @@ CURRENT_PUBLICATION_STATUS 23固定ページ、共通ガジェット、上部ナ
 9. Search Consoleで所有権とURLを確認。GA4は任意、広告は審査・Privacy・必要なCMP整備後。架空の広告IDや測定IDは入れていません。
 
 Google公式の手順と無料運用の比較は `STRATEGY-JA.md` を参照してください。
-'''.replace('CURRENT_PUBLICATION_STATUS', publication_note))
+'''.replace('CURRENT_PUBLICATION_STATUS', publication_note).replace('23固定ページ', str(len(pages))+'固定ページ'))
 (OUT/'STRATEGY-JA.md').write_text((ROOT/'research/STRATEGY-JA.md').read_text())
 (OUT/'DEPLOYMENT-JA.md').write_text((ROOT/'deployment/STATUS-JA.md').read_text())
 print(f'Exported {len(pages)} Blogger page fragments for {origin}; {sum(p["confirmed"] for p in manifest)} URLs confirmed from published records.')

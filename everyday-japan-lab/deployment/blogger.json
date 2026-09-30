@@ -13,7 +13,7 @@
   "blog_language_verified": "English",
   "privacy_page_id": "3500370231989541958",
   "privacy_page_requires_content_replacement": false,
-  "published_page_count": 23,
+  "published_page_count": 24,
   "common_gadget_installed": true,
   "navigation_installed": true,
   "root_landing_complete": true,
@@ -68,5 +68,7 @@
     }
   },
   "search_console_home_indexing_request": "submitted",
-  "search_console_verified_on": "2026-09-25 Asia/Tokyo"
+  "search_console_verified_on": "2026-09-25 Asia/Tokyo",
+  "published_tool_count": 6,
+  "latest_content_update": "2026-09-30"
 }

@@ -1,3 +1,24 @@
+# 鍋炊飯ガイド・カップ換算・段階タイマーを公開 — 2026-09-30（日本時間）
+
+ユーザーの「追加しましょう」に基づき、英語の鍋炊飯ガイドと無料ツールを追加した。
+
+- 公開URL: https://everydayjapanlab.blogspot.com/p/stovetop-rice.html
+- 対象: 日本式の短粒白米2合（乾燥米360 mL）、水400 mL、ふた付き20 cm深型フライパンというThermos公式レシピの条件。万能な水加減・分量拡大器とはせず、当サイトでの調理実験は未実施と明記。
+- 手持ちカップの容量50〜500 mLを入力し、固定量の米と水を換算。180 mLの炊飯用カップと一般の計量カップの違いを説明。Zojirushi、農林水産省の資料も掲載。
+- 浸水、沸騰待ち、弱火、消火後の蒸らし、完了の5段階。利用者が火加減と状態を確認して手動で進む。背景タブでの遅延、音なし、再読込でリセットされる制約を明示。
+- 公開トップ用の共通ガジェット、Home、Tools、Topics、Sources、Methodology、紹介投稿を更新。4テーマの入口、無料ツール6種類、固定ページ24件。公開ページのURL一覧と再生成設定を保存。
+- 検証: モデル・単位換算を含む14テスト成功。生成HTMLの内部リンクとIDを確認。公開ページで250 mLカップなら米1.44杯・水1.6杯、入力エラー、タイマー全段階・リセットを確認。
+- BloggerのHTMLエディタでは全文選択をMeta+Aで行い、貼付後にコピーした全文を照合。公開本文の重複なし、正規URL、lang=en、横はみ出しなしを確認。
+- 最新内容のBlogger標準スマートフォンプレビューで本文幅397 px・横はみ出しなしを確認。換算とタイマー開始・リセットをキーボード操作で確認。これは実機のiOS Safari検証ではない。
+- 更新した関連ページでリンク・出典・本文反映を確認し、公開HTMLに対象の個人名パターンがないことを確認。サイト全体の新たな匿名性保証ではない。
+- 開発版休止を維持し、build.py --manifest-onlyとBloggerエクスポートを使用。広告・計測設定は変更していない。確認アクセスを集客実績として扱わない。
+
+主な変更ファイル: assets/rice-model.mjs、assets/rice.mjs、assets/rice.css、content/stovetop-rice.html、tests/rice.test.mjs、scripts/build.py、scripts/export_blogger.py、research/sources.json、deployment/design/editorial-home.html、deployment/welcome-post.txt、deployment/published-pages.json、deployment/blogger.json、deployment/STATUS-JA.md。
+
+次の優先作業: 実際の調理記録や読者の疑問が得られた時点で、写真・失敗例・対応条件を追加する。検証していない鍋・米・分量へ自動拡張しない。
+
+---
+
 # 既存3記事に採寸図・計算例・備蓄実例を追加 — 2026-09-30（日本時間）
 
 ユーザーの内容更新の指示に基づき、既存URLの3記事と出典一覧をBlogger管理画面で更新・公開した。

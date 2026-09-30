@@ -622,5 +622,29 @@
     "url": "https://www.kao.com/global/en/newsroom/news/release/2024/20240308-001/",
     "scope": "Pouch collection programme example; do not describe a pilot as national infrastructure.",
     "checked": "2026-09-24"
+  },
+  "THERMOS_PAN_RICE": {
+    "id": "THERMOS_PAN_RICE",
+    "publisher": "Thermos Japan",
+    "type": "Manufacturer reference recipe",
+    "url": "https://www.thermos.jp/recipe/detail/fry_182.html",
+    "scope": "Two rice cups and 400 mL water in a 20 cm deep frying pan with lid; stated soak, low-heat and rest ranges. Not a universal pot recipe or our own kitchen test.",
+    "checked": "2026-09-30"
+  },
+  "ZOJIRUSHI_RICE_CUP": {
+    "id": "ZOJIRUSHI_RICE_CUP",
+    "publisher": "Zojirushi",
+    "type": "Manufacturer measurement convention",
+    "url": "https://www.zojirushi.com/app/product/nhs",
+    "scope": "180 mL raw short-grain white-rice cup convention; no universal conversion to grams, cooked portions or other grains.",
+    "checked": "2026-09-30"
+  },
+  "MAFF_RICE_METHOD": {
+    "id": "MAFF_RICE_METHOD",
+    "publisher": "Japan Ministry of Agriculture, Forestry and Fisheries",
+    "type": "Public technical explanation",
+    "url": "https://www.maff.go.jp/j/syouan/keikaku/soukatu/okome_summary/02/charact_eristic_01.html",
+    "scope": "Japanese absorption cooking and the role of soaking; not a survey of pan-cooking adoption or a universal timing rule.",
+    "checked": "2026-09-30"
   }
 }
