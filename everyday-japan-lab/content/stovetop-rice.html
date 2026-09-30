@@ -5,6 +5,12 @@
 <p><a href="#rice-method">Read the cooking steps</a> · <a href="#rice-workbench">Open the measure helper and timer</a></p>
 <h2>A rice cup is a unit, not a serving</h2>
 <p>Japanese rice-cooker measurements commonly use a 180 mL cup of uncooked rice. It is different from many kitchen measuring cups. Two such cups measure 360 mL; that is a volume, not 360 grams and not two portions of cooked rice. Zojirushi's specifications illustrate this convention. <a href="#sources">[2]</a></p>
+<figure class="rice-volume-figure">
+<figcaption><strong>Check the cup before measuring</strong><br>Bar lengths show volume. The 250 mL cup is an example, not a universal kitchen-cup standard.</figcaption>
+<div class="rice-volume-row"><span>1 rice-cooker cup</span><div class="rice-volume-track" aria-hidden="true"><span style="width:72%"></span></div><strong>180 mL</strong></div>
+<div class="rice-volume-row"><span>1 example kitchen cup</span><div class="rice-volume-track" aria-hidden="true"><span style="width:100%"></span></div><strong>250 mL</strong></div>
+<p class="small">For this recipe, 2 rice-cooker cups = 360 mL dry rice. Two of the example 250 mL cups would measure 500 mL and change the batch.</p>
+</figure>
 <p>Use the marked millilitre scale on a measuring jug if available. If using another cup, check its stated volume first; the helper below converts this fixed batch to your cup size. It does not resize the recipe or predict cooked portions.</p>
 <h2 id="rice-method">The method, with cues you can see</h2>
 <ol class="rice-step-list">
@@ -34,6 +40,8 @@
 <div class="field"><label for="rice-rest">Rest reminder</label><select id="rice-rest" data-rice-duration><option value="5">5 min</option><option value="6">6 min</option><option value="7">7 min</option><option value="8">8 min</option><option value="9">9 min</option><option value="10" selected>10 min</option></select></div>
 </div>
 <section class="rice-timer" aria-label="Cooking step timer">
+<p class="small rice-batch-line">This batch: <strong>360 mL dry rice + 400 mL water</strong></p>
+<ol class="rice-progress" aria-label="Five cooking stages"><li data-rice-progress><span>1</span> Soak</li><li data-rice-progress><span>2</span> Boil</li><li data-rice-progress><span>3</span> Low heat</li><li data-rice-progress><span>4</span> Heat off / rest</li><li data-rice-progress><span>5</span> Fluff</li></ol>
 <h3 data-phase-title tabindex="-1">Ready when your ingredients are measured</h3>
 <p data-phase-instruction>Start with the heat off.</p>
 <span class="rice-clock" data-rice-clock role="timer" aria-live="off" aria-label="Time in minutes and seconds">—</span>
@@ -49,6 +57,36 @@
 <h2>What transfers from everyday Japan?</h2>
 <p>Japan's agriculture ministry describes absorption cooking as the usual Japanese approach: water is measured before heating, and no surplus is drained at the end. It also explains that insufficient soaking can leave a firm centre because water and heat do not reach the grain evenly. This is context for the method, not evidence that most Japanese households cook in a pan. <a href="#sources">[3]</a></p>
 <p>The useful idea is a repeatable sequence: measure, allow absorption, control the heat, then rest. Write down your rice, pan, water and result. If you need to adapt a reliable recipe, change one variable at a time so the next attempt tells you something.</p>
+<details class="rice-notebook" id="rice-notes"><summary>Keep a cooking note for next time</summary>
+<p>Record what you actually used and what happened. These are your observations, not a tested recipe from this site. Copy the note to your own notes app or print it before leaving this page. Nothing is submitted or saved here; reloading clears the form.</p>
+<div data-rice-notes-ui hidden>
+<form data-rice-notes autocomplete="off">
+<div class="rice-note-fields">
+<div><label for="rice-note-date">Cooking date (optional)</label><input id="rice-note-date" type="date" data-note-label="Cooking date"></div>
+<div><label for="rice-note-rice">Rice type and brand</label><input id="rice-note-rice" type="text" maxlength="160" data-note-label="Rice type and brand"></div>
+<div><label for="rice-note-pan">Pan, lid and heat source</label><input id="rice-note-pan" type="text" maxlength="200" data-note-label="Pan, lid and heat source"></div>
+<div><label for="rice-note-amount">Rice and water actually measured (include units)</label><input id="rice-note-amount" type="text" maxlength="200" data-note-label="Actual rice and water measurements"></div>
+<div><label for="rice-note-time">Actual soaking, heating and resting times</label><textarea id="rice-note-time" rows="3" maxlength="400" data-note-label="Actual times"></textarea></div>
+<div><label for="rice-note-result">Result and one thing to check next time</label><textarea id="rice-note-result" rows="3" maxlength="600" data-note-label="Result and next check"></textarea></div>
+</div>
+<button type="submit">Prepare my cooking note</button>
+</form>
+<div data-note-output hidden>
+<label for="rice-note-text"><strong>Your note, ready to keep</strong></label>
+<textarea id="rice-note-text" rows="10" readonly aria-describedby="rice-note-copy-status" spellcheck="false"></textarea>
+<button type="button" class="secondary" data-note-copy>Copy my note</button>
+<p id="rice-note-copy-status" role="status" aria-live="polite"></p>
+</div>
+</div>
+<noscript><p>Use the blank record below when printing this guide.</p></noscript>
+<pre class="rice-note-paper" data-note-paper>MY STOVETOP RICE RECORD
+Cooking date: ____________________
+Rice type and brand: ____________________
+Pan, lid and heat source: ____________________
+Actual rice and water measurements (with units): ____________________
+Actual soaking, heating and resting times: ____________________
+Result and next check: ____________________</pre>
+</details>
 <h2>When the result is not what you expected</h2>
 <dl><dt><strong>Firm centres</strong></dt><dd>Check that you used the intended rice and completed the soaking step. A timer measures elapsed time, not the state of the grain. <a href="#sources">[3]</a></dd>
 <dt><strong>Too wet or too dry</strong></dt><dd>First check the measuring units and whether the recipe matches your pan. Record the actual water amount and result before changing the next batch.</dd>
@@ -59,6 +97,6 @@
 <p><strong>Volume conversion:</strong> cupfuls = required volume in mL ÷ your cup's marked capacity in mL. For the example 250 mL cup, dry rice is 360 ÷ 250 = 1.44 cups and water is 400 ÷ 250 = 1.6 cups. Results are rounded to three decimal places; fractional cupfuls are approximate to measure. The 50–500 mL input range is this tool's validation limit, not a cookware limit.</p>
 <p><strong>No water-scaling model:</strong> this page retains the reference two-rice-cup batch. It does not multiply cooking time by rice quantity, convert rice volume to weight, or infer capacity from a pan's diameter.</p>
 <p><strong>Timer:</strong> remaining seconds = the rounded-up positive difference between a target timestamp and the current time. Time spent away from the tab is counted when you return; reminders may arrive late. The boil step is an elapsed clock, not a predicted boiling time. No step advances automatically. You can confirm a step already completed; changing the timer does not control the hob. A changed device clock can affect the displayed time.</p>
-<p>Inputs and timer state stay in this page's memory. This tool adds no cookies, tracking, accounts or server requests. See the site's <a href="/invest/everyday-japan-lab/privacy/">Privacy notice</a> for Blogger and advertising services.</p>
+<p>Inputs, cooking notes and timer state stay in this page's memory. Preparing a note displays plain text; copying puts it on your device's clipboard only when you press the copy button. This tool adds no cookies, tracking, accounts or server requests. See the site's <a href="/invest/everyday-japan-lab/privacy/">Privacy notice</a> for Blogger and advertising services.</p>
 </details>
 </article>

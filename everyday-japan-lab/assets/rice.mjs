@@ -22,6 +22,11 @@ const initRice = () => {
   const clock = q('[data-rice-clock]'), clockNote = q('[data-clock-note]'), status = q('[data-rice-status]');
   const settings = [...root.querySelectorAll('[data-rice-duration]')];
   const steps = [...root.querySelectorAll('[data-rice-step]')];
+  const progress = [...root.querySelectorAll('[data-rice-progress]')];
+  const showProgress = current => progress.forEach((el, i) => {
+    if (i === current) el.setAttribute('aria-current', 'step'); else el.removeAttribute('aria-current');
+    el.classList.toggle('rice-completed', i < current);
+  });
   const titles = ['Soak', 'Bring to a boil', 'Cook on low heat', 'Rest off the heat', 'Fluff and serve'];
   const instructions = [
     'Rinsed rice and measured water in the pan; heat off.',
@@ -48,6 +53,7 @@ const initRice = () => {
     title.textContent = `${phase + 1} / 5 - ${titles[phase]}`;
     instruction.textContent = instructions[phase];
     steps.forEach((el, i) => { if (i === phase) el.setAttribute('aria-current', 'step'); else el.removeAttribute('aria-current'); });
+    showProgress(phase);
     primary.hidden = true; next.hidden = phase === 4; reset.hidden = false;
     status.textContent = `${titles[phase]}. ${instructions[phase]}`;
     if (phase === 4) { clock.textContent = 'Done'; clockNote.textContent = 'No active timer.'; title.focus(); return; }
@@ -62,6 +68,7 @@ const initRice = () => {
     clearInterval(interval); interval = null; phase = -1; deadline = null;
     settings.forEach(el => { el.disabled = false; });
     steps.forEach(el => el.removeAttribute('aria-current'));
+    showProgress(-1);
     title.textContent = 'Ready when your ingredients are measured'; instruction.textContent = 'Start with the heat off.';
     clock.textContent = '-'; clockNote.textContent = 'No active timer.';
     status.textContent = 'Timer reset. This does not switch off your hob.';
@@ -69,6 +76,31 @@ const initRice = () => {
   });
   document.addEventListener('visibilitychange', drawClock);
   q('[data-rice-print]').addEventListener('click', () => window.print());
+  const notesForm = q('[data-rice-notes]'), noteOutput = q('[data-note-output]');
+  const noteText = q('#rice-note-text'), noteStatus = q('#rice-note-copy-status');
+  const noteFields = [...notesForm.querySelectorAll('[data-note-label]')];
+  const blankNote = q('[data-note-paper]').textContent;
+  const prepareNote = () => ['MY STOVETOP RICE RECORD', 'Everyday Japan Lab - my own observations',
+    'Guide: ' + (document.querySelector('link[rel="canonical"]')?.href || location.href.split('#')[0]),
+    '', ...noteFields.map(el => `${el.dataset.noteLabel}: ${el.value.trim() || '(not recorded)'}`),
+    '', 'Reference only: 360 mL dry short-grain white rice + 400 mL water in a covered 20 cm deep pan.',
+    'My recorded measurements and results may differ from the reference.'].join('\n');
+  notesForm.addEventListener('input', () => { noteOutput.hidden = true; noteStatus.textContent = ''; });
+  notesForm.addEventListener('submit', event => {
+    event.preventDefault(); noteText.value = prepareNote(); noteOutput.hidden = false;
+    noteStatus.textContent = 'Ready to copy or select. Keep a copy before leaving this page.'; noteText.focus();
+  });
+  q('[data-note-copy]').addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(noteText.value); noteStatus.textContent = 'Copied. Paste into your own notes app to keep it.'; }
+    catch { noteText.focus(); noteText.select(); noteStatus.textContent = 'Automatic copying is unavailable. The note is selected; use your device\'s Copy command.'; }
+  });
+  let notesWereOpen = false;
+  window.addEventListener('beforeprint', () => {
+    notesWereOpen = q('#rice-notes').open; q('#rice-notes').open = true;
+    q('[data-note-paper]').textContent = noteFields.some(el => el.value.trim()) ? prepareNote() : blankNote;
+  });
+  window.addEventListener('afterprint', () => { q('#rice-notes').open = notesWereOpen; });
+  q('[data-rice-notes-ui]').hidden = false;
   q('[data-rice-interactive]').hidden = false;
 };
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initRice);
