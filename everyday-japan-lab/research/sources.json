@@ -623,6 +623,14 @@
     "scope": "Pouch collection programme example; do not describe a pilot as national infrastructure.",
     "checked": "2026-09-24"
   },
+  "NIST_KITCHEN_CUPS": {
+    "id": "NIST_KITCHEN_CUPS",
+    "publisher": "US National Institute of Standards and Technology",
+    "type": "Public cooking measurement reference",
+    "url": "https://www.nist.gov/pml/owm/metric-si/metric-kitchen/metric-kitchen-cooking-measurement-equivalencies",
+    "scope": "US cooking cup is approximately 240 mL in a household equivalencies table; approximate unit comparison, not a universal physical cup size or a rice recipe.",
+    "checked": "2026-10-10"
+  },
   "THERMOS_PAN_RICE": {
     "id": "THERMOS_PAN_RICE",
     "publisher": "Thermos Japan",
