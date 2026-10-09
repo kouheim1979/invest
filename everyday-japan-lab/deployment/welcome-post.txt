@@ -1,10 +1,10 @@
 <div class="ejl-fragment" lang="en">
 <p class="eyebrow">Practical systems from everyday Japan.</p>
-<p class="lede">Will a bidet seat fit your toilet? Could a heat-pump water heater suit your home? How much emergency water should you store? Start with a practical question, then check the conditions that matter where you live.</p>
+<p class="lede">How do you cook Japanese rice without a rice cooker? Will a bidet seat fit your toilet? Could a heat-pump water heater suit your home? Explore a real question, then check the practical conditions.</p>
 <p>Everyday Japan Lab investigates systems used in everyday Japanese life and explains where they may help elsewhere. Local climate, voltage, building rules, available products and installation costs can change the answer.</p>
 <h2>Start with a guide</h2>
 <ul>
-<li><a href="https://everydayjapanlab.blogspot.com/p/stovetop-rice.html">Stovetop rice</a>: one defined white-rice batch, cup conversion and a cooking step timer.</li>
+<li><a href="https://everydayjapanlab.blogspot.com/p/stovetop-rice.html">Cook Japanese rice without a rice cooker</a>: a defined two-rice-cup white-rice batch, measuring-cup conversion and manual-step cooking timer.</li>
 <li><a href="https://everydayjapanlab.blogspot.com/p/bidet-seats.html">Bidet seats</a>: measurements, power, plumbing and the limits of a fit check.</li>
 <li><a href="https://everydayjapanlab.blogspot.com/p/heat-pump-water-heaters.html">Heat-pump water heaters</a>: Japan’s EcoCute experience, local installation conditions and a transparent energy comparison.</li>
 <li><a href="https://everydayjapanlab.blogspot.com/p/emergency-preparedness.html">Emergency supplies and rolling stock</a>: water, ordinary food, toilet supplies and a rotation plan.</li>
