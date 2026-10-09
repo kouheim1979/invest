@@ -72,8 +72,8 @@ page('topics','Guides for practical decisions','Practical household guides, now 
 page('tools','Free planning tools','Use your own inputs. See the calculation method, check its limits and print the result.',toolcards()+'<div class="callout"><p>Tools run in your browser and do not save your inputs. Example values are editable assumptions, not current prices or typical consumption claims.</p></div>',reviewed='2026-09-30')
 rice_js=(ROOT/'assets/rice-model.mjs').read_text().replace('export function','function')+'\n'+(ROOT/'assets/rice.mjs').read_text().split('\n',1)[1]
 rice_body='<style>'+(ROOT/'assets/rice.css').read_text()+'</style>'+(ROOT/'content/stovetop-rice.html').read_text()+'<script>(()=>{'+rice_js+'})();</script>'
-RICE_REFS=['THERMOS_PAN_RICE','ZOJIRUSHI_RICE_CUP','MAFF_RICE_METHOD']
-page('stovetop-rice','Stovetop rice','Cook Japanese-style white rice in a covered pan: a two-cup method, measuring helper and step-by-step timer.',rice_body,'Kitchen / Free guide and timer',RICE_REFS,reviewed='2026-09-30')
+RICE_REFS=['THERMOS_PAN_RICE','ZOJIRUSHI_RICE_CUP','MAFF_RICE_METHOD','NIST_KITCHEN_CUPS']
+page('stovetop-rice','How to Cook Japanese Rice Without a Rice Cooker','A two-rice-cup (360 mL) pan method, US-vs-Japanese cup comparison, measuring helper and manual-step timer.',rice_body,'Kitchen / Free guide and timer',RICE_REFS,reviewed='2026-10-10')
 
 for a in ARTICLES:
     siblings=[b for b in ARTICLES if b['slug'].split('/')[0]==a['slug'].split('/')[0] and b!=a]
