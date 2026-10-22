@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20T00:25:51.247622+00:00",
+  "updatedAt": "2026-10-22T00:02:44.361544+00:00",
   "series": {
     "1820.T": {
       "symbol": "1820.T",
@@ -10,7 +10,7 @@
       "adjustment": "source-split-adjusted",
       "source": "Yahoo!ファイナンス",
       "sourceUrl": "https://finance.yahoo.co.jp/quote/1820.T/dividend",
-      "checkedAt": "2026-10-20T00:25:53.229534+00:00",
+      "checkedAt": "2026-10-22T00:02:46.127390+00:00",
       "years": [
         {
           "period": "2017-03",
@@ -143,7 +143,7 @@
       "adjustment": "source-split-adjusted",
       "source": "Yahoo!ファイナンス",
       "sourceUrl": "https://finance.yahoo.co.jp/quote/2193.T/dividend",
-      "checkedAt": "2026-10-20T00:25:53.211565+00:00",
+      "checkedAt": "2026-10-22T00:02:45.909498+00:00",
       "years": [
         {
           "period": "2016-12",
@@ -276,7 +276,7 @@
       "adjustment": "source-split-adjusted",
       "source": "Yahoo!ファイナンス",
       "sourceUrl": "https://finance.yahoo.co.jp/quote/2685.T/dividend",
-      "checkedAt": "2026-10-20T00:25:55.278641+00:00",
+      "checkedAt": "2026-10-22T00:02:47.168612+00:00",
       "years": [
         {
           "period": "2017-02",
@@ -409,7 +409,7 @@
       "adjustment": "source-split-adjusted",
       "source": "Yahoo!ファイナンス",
       "sourceUrl": "https://finance.yahoo.co.jp/quote/2811.T/dividend",
-      "checkedAt": "2026-10-20T00:25:55.307738+00:00",
+      "checkedAt": "2026-10-22T00:02:47.391304+00:00",
       "years": [
         {
           "period": "2016-12",
@@ -542,7 +542,7 @@
       "adjustment": "source-split-adjusted",
       "source": "Yahoo!ファイナンス",
       "sourceUrl": "https://finance.yahoo.co.jp/quote/2928.S/dividend",
-      "checkedAt": "2026-10-20T00:25:56.880011+00:00",
+      "checkedAt": "2026-10-22T00:02:48.438108+00:00",
       "years": [
         {
           "period": "2017-03",
@@ -675,7 +675,7 @@
       "adjustment": "source-split-adjusted",
       "source": "Yahoo!ファイナンス",
       "sourceUrl": "https://finance.yahoo.co.jp/quote/3289.T/dividend",
-      "checkedAt": "2026-10-20T00:25:56.765038+00:00",
+      "checkedAt": "2026-10-22T00:02:48.637310+00:00",
       "years": [
         {
           "period": "2017-03",
@@ -808,7 +808,7 @@
       "adjustment": "source-split-adjusted",
       "source": "Yahoo!ファイナンス",
       "sourceUrl": "https://finance.yahoo.co.jp/quote/3395.T/dividend",
-      "checkedAt": "2026-10-20T00:25:58.205216+00:00",
+      "checkedAt": "2026-10-22T00:02:49.901098+00:00",
       "years": [
         {
           "period": "2017-03",
@@ -941,7 +941,7 @@
       "adjustment": "source-split-adjusted",
       "source": "Yahoo!ファイナンス",
       "sourceUrl": "https://finance.yahoo.co.jp/quote/4755.T/dividend",
-      "checkedAt": "2026-10-20T00:25:58.082290+00:00",
+      "checkedAt": "2026-10-22T00:02:49.918051+00:00",
       "years": [
         {
           "period": "2016-12",
@@ -1074,7 +1074,7 @@
       "adjustment": "source-split-adjusted",
       "source": "Yahoo!ファイナンス",
       "sourceUrl": "https://finance.yahoo.co.jp/quote/4801.T/dividend",
-      "checkedAt": "2026-10-20T00:25:59.517726+00:00",
+      "checkedAt": "2026-10-22T00:02:51.459017+00:00",
       "years": [
         {
           "period": "2017-03",
@@ -1207,7 +1207,7 @@
       "adjustment": "source-split-adjusted",
       "source": "Yahoo!ファイナンス",
       "sourceUrl": "https://finance.yahoo.co.jp/quote/5726.T/dividend",
-      "checkedAt": "2026-10-20T00:25:59.531162+00:00",
+      "checkedAt": "2026-10-22T00:02:51.171674+00:00",
       "years": [
         {
           "period": "2017-03",
@@ -1340,7 +1340,7 @@
       "adjustment": "source-split-adjusted",
       "source": "Yahoo!ファイナンス",
       "sourceUrl": "https://finance.yahoo.co.jp/quote/6594.T/dividend",
-      "checkedAt": "2026-10-20T00:26:01.008506+00:00",
+      "checkedAt": "2026-10-22T00:02:52.490637+00:00",
       "years": [
         {
           "period": "2017-03",
@@ -1473,7 +1473,7 @@
       "adjustment": "source-split-adjusted",
       "source": "Yahoo!ファイナンス",
       "sourceUrl": "https://finance.yahoo.co.jp/quote/6723.T/dividend",
-      "checkedAt": "2026-10-20T00:26:00.939251+00:00",
+      "checkedAt": "2026-10-22T00:02:52.565366+00:00",
       "years": [
         {
           "period": "2016-12",
@@ -1606,7 +1606,7 @@
       "adjustment": "source-split-adjusted",
       "source": "Yahoo!ファイナンス",
       "sourceUrl": "https://finance.yahoo.co.jp/quote/6819.T/dividend",
-      "checkedAt": "2026-10-20T00:26:02.210799+00:00",
+      "checkedAt": "2026-10-22T00:02:53.601548+00:00",
       "years": [
         {
           "period": "2017-03",
@@ -1739,7 +1739,7 @@
       "adjustment": "source-split-adjusted",
       "source": "Yahoo!ファイナンス",
       "sourceUrl": "https://finance.yahoo.co.jp/quote/6841.T/dividend",
-      "checkedAt": "2026-10-20T00:26:02.388429+00:00",
+      "checkedAt": "2026-10-22T00:02:53.900624+00:00",
       "years": [
         {
           "period": "2017-03",
@@ -1872,7 +1872,7 @@
       "adjustment": "source-split-adjusted",
       "source": "Yahoo!ファイナンス",
       "sourceUrl": "https://finance.yahoo.co.jp/quote/6902.T/dividend",
-      "checkedAt": "2026-10-20T00:26:03.443879+00:00",
+      "checkedAt": "2026-10-22T00:02:54.876398+00:00",
       "years": [
         {
           "period": "2017-03",
@@ -2005,7 +2005,7 @@
       "adjustment": "source-split-adjusted",
       "source": "Yahoo!ファイナンス",
       "sourceUrl": "https://finance.yahoo.co.jp/quote/7545.T/dividend",
-      "checkedAt": "2026-10-20T00:26:03.883132+00:00",
+      "checkedAt": "2026-10-22T00:02:55.177591+00:00",
       "years": [
         {
           "period": "2017-02",
@@ -2138,7 +2138,7 @@
       "adjustment": "source-split-adjusted",
       "source": "Yahoo!ファイナンス",
       "sourceUrl": "https://finance.yahoo.co.jp/quote/7590.T/dividend",
-      "checkedAt": "2026-10-20T00:26:04.925506+00:00",
+      "checkedAt": "2026-10-22T00:02:56.139325+00:00",
       "years": [
         {
           "period": "2017-01",
@@ -2271,7 +2271,7 @@
       "adjustment": "source-split-adjusted",
       "source": "Yahoo!ファイナンス",
       "sourceUrl": "https://finance.yahoo.co.jp/quote/7606.T/dividend",
-      "checkedAt": "2026-10-20T00:26:05.415949+00:00",
+      "checkedAt": "2026-10-22T00:02:56.378338+00:00",
       "years": [
         {
           "period": "2017-03",
@@ -2404,7 +2404,7 @@
       "adjustment": "source-split-adjusted",
       "source": "Yahoo!ファイナンス",
       "sourceUrl": "https://finance.yahoo.co.jp/quote/7974.T/dividend",
-      "checkedAt": "2026-10-20T00:26:06.307153+00:00",
+      "checkedAt": "2026-10-22T00:02:57.233172+00:00",
       "years": [
         {
           "period": "2017-03",
@@ -2537,7 +2537,7 @@
       "adjustment": "source-split-adjusted",
       "source": "Yahoo!ファイナンス",
       "sourceUrl": "https://finance.yahoo.co.jp/quote/8173.T/dividend",
-      "checkedAt": "2026-10-20T00:26:06.694134+00:00",
+      "checkedAt": "2026-10-22T00:02:57.521509+00:00",
       "years": [
         {
           "period": "2017-03",
@@ -2670,7 +2670,7 @@
       "adjustment": "source-split-adjusted",
       "source": "Yahoo!ファイナンス",
       "sourceUrl": "https://finance.yahoo.co.jp/quote/8267.T/dividend",
-      "checkedAt": "2026-10-20T00:26:07.558970+00:00",
+      "checkedAt": "2026-10-22T00:02:58.718932+00:00",
       "years": [
         {
           "period": "2017-02",
@@ -2803,7 +2803,7 @@
       "adjustment": "source-split-adjusted",
       "source": "Yahoo!ファイナンス",
       "sourceUrl": "https://finance.yahoo.co.jp/quote/8306.T/dividend",
-      "checkedAt": "2026-10-20T00:26:08.040551+00:00",
+      "checkedAt": "2026-10-22T00:02:58.617407+00:00",
       "years": [
         {
           "period": "2017-03",
@@ -2936,7 +2936,7 @@
       "adjustment": "source-split-adjusted",
       "source": "Yahoo!ファイナンス",
       "sourceUrl": "https://finance.yahoo.co.jp/quote/8316.T/dividend",
-      "checkedAt": "2026-10-20T00:26:08.854498+00:00",
+      "checkedAt": "2026-10-22T00:02:59.745307+00:00",
       "years": [
         {
           "period": "2017-03",
@@ -3069,7 +3069,7 @@
       "adjustment": "source-split-adjusted",
       "source": "Yahoo!ファイナンス",
       "sourceUrl": "https://finance.yahoo.co.jp/quote/8604.T/dividend",
-      "checkedAt": "2026-10-20T00:26:09.269718+00:00",
+      "checkedAt": "2026-10-22T00:03:00.071289+00:00",
       "years": [
         {
           "period": "2016-03",
@@ -3202,7 +3202,7 @@
       "adjustment": "source-split-adjusted",
       "source": "Yahoo!ファイナンス",
       "sourceUrl": "https://finance.yahoo.co.jp/quote/9434.T/dividend",
-      "checkedAt": "2026-10-20T00:26:10.809091+00:00",
+      "checkedAt": "2026-10-22T00:03:01.022826+00:00",
       "years": [
         {
           "period": "2019-03",
