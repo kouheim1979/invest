@@ -1,11 +1,281 @@
 {
  "app": "esim-finder",
- "updatedAt": null,
- "lastRunAt": null,
- "okCount": 0,
- "targetCount": 0,
- "rates": null,
- "items": {},
+ "updatedAt": "2026-11-04T23:36:13.161961Z",
+ "lastRunAt": "2026-11-04T23:36:13.161961Z",
+ "okCount": 17,
+ "targetCount": 26,
+ "rates": {
+  "source": "Frankfurter(ECB)",
+  "date": "2026-11-04",
+  "perJPY": {
+   "USD": 0.0063191,
+   "HKD": 0.049579,
+   "EUR": 0.0056085,
+   "SGD": 0.0080752
+  },
+  "jpyPer": {
+   "USD": 158.2504,
+   "HKD": 20.1698,
+   "EUR": 178.3008,
+   "SGD": 123.8359
+  }
+ },
+ "items": {
+  "l2-40": {
+   "price": 220,
+   "cur": "HKD",
+   "checkedAt": "2026-11-05",
+   "auto": true
+  },
+  "l2-12": {
+   "price": 100,
+   "cur": "HKD",
+   "checkedAt": "2026-11-05",
+   "auto": true
+  },
+  "l2-60": {
+   "price": 400,
+   "cur": "HKD",
+   "checkedAt": "2026-11-05",
+   "auto": true
+  },
+  "l2-15": {
+   "price": 300,
+   "cur": "HKD",
+   "checkedAt": "2026-11-05",
+   "auto": true
+  },
+  "ls-30": {
+   "price": 180,
+   "cur": "HKD",
+   "checkedAt": "2026-11-05",
+   "auto": true
+  },
+  "ls-24": {
+   "price": 150,
+   "cur": "HKD",
+   "checkedAt": "2026-11-05",
+   "auto": true
+  },
+  "ls-40": {
+   "price": 328,
+   "cur": "HKD",
+   "checkedAt": "2026-11-05",
+   "auto": true
+  },
+  "gs-20": {
+   "price": 148.0,
+   "cur": "HKD",
+   "checkedAt": "2026-11-05",
+   "auto": true
+  },
+  "gs-10x2": {
+   "price": 150.0,
+   "cur": "HKD",
+   "checkedAt": "2026-11-05",
+   "auto": true
+  },
+  "rf-y-10": {
+   "price": 15.0,
+   "cur": "USD",
+   "checkedAt": "2026-11-05",
+   "auto": true
+  },
+  "rf-y-20": {
+   "price": 35.0,
+   "cur": "USD",
+   "checkedAt": "2026-11-05",
+   "auto": true
+  },
+  "rf-y-30": {
+   "price": 50.0,
+   "cur": "USD",
+   "checkedAt": "2026-11-05",
+   "auto": true
+  },
+  "rf-y-50": {
+   "price": 70.0,
+   "cur": "USD",
+   "checkedAt": "2026-11-05",
+   "auto": true
+  },
+  "rf-y-100": {
+   "price": 90.0,
+   "cur": "USD",
+   "checkedAt": "2026-11-05",
+   "auto": true
+  },
+  "thr-17": {
+   "price": 43.99,
+   "cur": "USD",
+   "checkedAt": "2026-11-05",
+   "auto": true
+  },
+  "thr-34": {
+   "price": 74.99,
+   "cur": "USD",
+   "checkedAt": "2026-11-05",
+   "auto": true
+  },
+  "ubi-jp-60": {
+   "price": 55.0,
+   "cur": "USD",
+   "checkedAt": "2026-11-05",
+   "auto": true
+  }
+ },
  "extra": [],
- "report": {}
+ "report": {
+  "l2-40": {
+   "url": "https://shop.lucky2.com.hk/365days-cn-jp-kr-tw-mo-hk-data-40gb-unlimited-en",
+   "ok": true,
+   "price": 220,
+   "method": "text"
+  },
+  "l2-12": {
+   "url": "https://shop.lucky2.com.hk/365days-50countries-hk-data-17gb-en",
+   "ok": true,
+   "price": 100,
+   "method": "text"
+  },
+  "l2-60": {
+   "url": "https://shop.lucky2.com.hk/365days-20regions-roaming-60gb-hk-20gb-en",
+   "ok": true,
+   "price": 400,
+   "method": "text"
+  },
+  "l2-15": {
+   "url": "https://shop.lucky2.com.hk/365days-70countries-hk-data-30gb-en",
+   "ok": true,
+   "price": 300,
+   "method": "text"
+  },
+  "ls-30": {
+   "url": "https://shop.luckysim.com.hk/365days-17countries-roaming-data-30gb-en",
+   "ok": true,
+   "price": 180,
+   "method": "text"
+  },
+  "ls-24": {
+   "url": "https://shop.luckysim.com.hk/2-years-17countries-roaming-data-24gb",
+   "ok": true,
+   "price": 150,
+   "method": "text"
+  },
+  "ls-40": {
+   "url": "https://shop.luckysim.com.hk/3-years-17countries-roaming-data-40gb",
+   "ok": true,
+   "price": 328,
+   "method": "text"
+  },
+  "ban-10": {
+   "url": "https://www.bananatravelsim.com/en/products/esim-365days-offer",
+   "ok": false,
+   "error": "jsonld: 価格が見つからない / text: 目印の文字列が見つからない"
+  },
+  "gs-20": {
+   "url": "https://www.datasimstore.com/-globalsim-3655g-10gb-512k-sim-data-1270-p1270.html",
+   "ok": true,
+   "price": 148.0,
+   "method": "jsonld"
+  },
+  "gs-30": {
+   "url": "https://www.datasimstore.com/-globalsim-3655g-10gb-512k-sim-data-1270-p1270.html",
+   "ok": false,
+   "error": "jsonld: 価格が見つからない / text: 価格が見つからない"
+  },
+  "gs-50": {
+   "url": "https://www.datasimstore.com/-globalsim-3655g-10gb-512k-sim-data-1270-p1270.html",
+   "ok": false,
+   "error": "jsonld: 価格が見つからない / text: 価格が見つからない"
+  },
+  "gs-10x2": {
+   "url": "https://www.datasimstore.com/-globalsim-3655g-10gb-512k-sim-data--p1269.html",
+   "ok": true,
+   "price": 150.0,
+   "method": "jsonld"
+  },
+  "rf-y-10": {
+   "url": "https://www.getroamify.com/en/esim/asia-one-year/esim-asia-one-year-365days-10gb-all/",
+   "ok": true,
+   "price": 15.0,
+   "method": "jsonld"
+  },
+  "rf-y-20": {
+   "url": "https://www.getroamify.com/en/esim/asia-one-year/esim-asia-one-year-365days-20gb-all/",
+   "ok": true,
+   "price": 35.0,
+   "method": "jsonld"
+  },
+  "rf-y-30": {
+   "url": "https://www.getroamify.com/en/esim/asia-one-year/esim-asia-one-year-365days-30gb-all/",
+   "ok": true,
+   "price": 50.0,
+   "method": "jsonld"
+  },
+  "rf-y-50": {
+   "url": "https://www.getroamify.com/en/esim/asia-one-year/esim-asia-one-year-365days-50gb-all/",
+   "ok": true,
+   "price": 70.0,
+   "method": "jsonld"
+  },
+  "rf-y-100": {
+   "url": "https://www.getroamify.com/en/esim/asia-one-year/esim-asia-one-year-365days-100gb-all/",
+   "ok": true,
+   "price": 90.0,
+   "method": "jsonld"
+  },
+  "bne-as-10": {
+   "url": "https://www.bnesim.com/plans/asia/",
+   "ok": false,
+   "error": "text: 目印の文字列が見つからない"
+  },
+  "bne-as-20": {
+   "url": "https://www.bnesim.com/plans/asia/",
+   "ok": false,
+   "error": "text: 目印の文字列が見つからない"
+  },
+  "bne-as-50": {
+   "url": "https://www.bnesim.com/plans/asia/",
+   "ok": false,
+   "error": "text: 目印の文字列が見つからない"
+  },
+  "bne-as-100": {
+   "url": "https://www.bnesim.com/plans/asia/",
+   "ok": false,
+   "error": "text: 目印の文字列が見つからない"
+  },
+  "thr-17": {
+   "url": "https://mobimatter.com/travel-esim/3-apac-17-gb-yearly-esim",
+   "ok": true,
+   "price": 43.99,
+   "method": "jsonld"
+  },
+  "thr-34": {
+   "url": "https://mobimatter.com/travel-esim/3-apac-34-gb-yearly-esim",
+   "ok": true,
+   "price": 74.99,
+   "method": "jsonld"
+  },
+  "ubi-jp-60": {
+   "url": "https://cellulardata.ubigi.com/rates-and-coverage/japan-data-plans/japan-5gb-month-x12/",
+   "ok": true,
+   "price": 55.0,
+   "method": "jsonld"
+  },
+  "chill-40": {
+   "url": "https://chillyik.com/en/products/lucky2-a30g",
+   "ok": false,
+   "error": "前回値160から大きく外れたため不採用",
+   "observed": 22.0,
+   "method": "meta"
+  },
+  "chill-12": {
+   "url": "https://chillyik.com/en/products/lk13c",
+   "ok": false,
+   "error": "前回値75から大きく外れたため不採用",
+   "observed": 11.0,
+   "method": "meta"
+  }
+ }
 }
