@@ -183,26 +183,98 @@ def decide(values, expect, prefer_first=False):
     return None, "候補が複数あり判断できない: " + ", ".join(f"{u:g}" for u in uniq[:8])
 
 
+def shopify_variants(url):
+    """Shopify系ストアの /products/<handle>.js から価格(店舗通貨)と在庫を読む。"""
+    base = url.split("?")[0].split("#")[0].rstrip("/")
+    data = json.loads(fetch(base + ".js"))
+    out = []
+    for v in data.get("variants") or []:
+        price = v.get("price")
+        if isinstance(price, (int, float)):
+            price = price / 100.0
+        else:
+            price = to_num(price)
+        title = " ".join(str(x) for x in [data.get("title"), v.get("title"), v.get("public_title")] if x)
+        out.append({"name": title, "price": price, "available": bool(v.get("available"))})
+    if not out and data.get("price") is not None:
+        out.append({"name": data.get("title") or "", "price": data["price"] / 100.0, "available": bool(data.get("available"))})
+    return out
+
+
+def debug_info(page, cur):
+    """失敗時に原因を探すための短い手がかり(公開リポジトリに残るので短く)。"""
+    info = {}
+    types = re.findall(r"\"@type\"\s*:\s*\"([A-Za-z]+)\"", page)
+    info["ldTypes"] = sorted(set(types))[:8]
+    offers = jsonld_offers(page)
+    info["ldOffers"] = [f"{(o['name'] or '')[:40]}={o['price']}{o.get('currency') or ''}" for o in offers[:6]]
+    text = text_of(page)
+    pat = re.compile(CUR_PATTERNS.get(cur, CUR_PATTERNS["USD"]))
+    snips = []
+    for m in pat.finditer(text):
+        snips.append(text[max(0, m.start() - 50): m.end() + 10])
+        if len(snips) >= 5:
+            break
+    info["textPrices"] = snips
+    info["textLen"] = len(text)
+    info["spa"] = [k for k in ("__NEXT_DATA__", "__NUXT__", "window.__INITIAL_STATE__", "ng-version", "data-reactroot", "Shopify", "shopline") if k in page]
+    return info
+
+
 def extract(t, prev_price):
+    urls = t.get("urls") or [t["url"]]
+    last = (None, None, None, ["価格が見つからない"], None)
+    for url in urls:
+        try:
+            r = _extract_one(dict(t, url=url), prev_price)
+        except Exception as e:  # noqa: BLE001
+            r = (None, None, None, [f"{url}: {e}"], None)
+        if r[0] is not None:
+            return r
+        last = r
+    return last
+
+
+def _extract_one(t, prev_price):
     url = t["url"]
     cur = t["cur"]
     expect = prev_price if prev_price is not None else t.get("expect")
-    page = fetch(url)
     errors = []
     status = None
+    page = None
     for method in t.get("methods", ["jsonld", "meta", "text"]):
+        if method == "shopifyjs":
+            try:
+                vs = shopify_variants(url)
+            except Exception as e:  # noqa: BLE001
+                errors.append(f"shopifyjs: {type(e).__name__}")
+                continue
+            if t.get("match"):
+                vs = [v for v in vs if re.search(t["match"], v["name"], re.I)]
+            if t.get("track_stock") and vs:
+                status = "ok" if any(v["available"] for v in vs) else "soldout"
+            v, err = decide([x["price"] for x in vs if x["price"] is not None], expect)
+            if v is not None:
+                return v, method, status, errors, None
+            errors.append(f"{method}: {err}")
+            continue
+        if page is None:
+            page = fetch(url)
         if method == "jsonld":
             offers = jsonld_offers(page)
             if t.get("match"):
                 offers = [o for o in offers if re.search(t["match"], o["name"] or "", re.I)]
-            offers = [o for o in offers if not o.get("currency") or str(o["currency"]).upper() == cur]
-            if t.get("track_stock") and offers:
+            if t.get("track_stock") and offers and status is None:
                 av = " ".join(o["availability"] for o in offers)
                 if "OutOfStock" in av and "InStock" not in av:
                     status = "soldout"
                 elif "InStock" in av:
                     status = "ok"
+            offers = [o for o in offers if not o.get("currency") or str(o["currency"]).upper() == cur]
             v, err = decide([o["price"] for o in offers], expect)
+        elif method == "raw":
+            vals = [to_num(m.group(1), cur) for m in re.finditer(t["raw_pattern"], page, re.S)]
+            v, err = decide([x for x in vals if x is not None], expect, prefer_first=True)
         elif method == "meta":
             if t.get("match"):
                 continue  # 1ページ複数商品ではmetaは使わない
@@ -216,9 +288,15 @@ def extract(t, prev_price):
         else:
             continue
         if v is not None:
-            return v, method, status, errors
+            return v, method, status, errors, None
         errors.append(f"{method}: {err}")
-    return None, None, status, errors
+    dbg = None
+    if t.get("debug", True):
+        try:
+            dbg = debug_info(page if page is not None else fetch(url), cur)
+        except Exception as e:  # noqa: BLE001
+            dbg = {"fetch": str(e)[:120]}
+    return None, None, status, errors, dbg
 
 
 def fetch_rates():
@@ -260,8 +338,14 @@ def main():
         prev_price = old.get("price") if isinstance(old.get("price"), (int, float)) else None
         entry = {"url": t["url"], "ok": False}
         try:
-            v, method, status, errs = extract(t, prev_price)
+            v, method, status, errs, dbg = extract(t, prev_price)
             base = prev_price if prev_price is not None else t.get("expect")
+            if status and t.get("track_stock"):
+                # 価格が取れなくても在庫状態だけは反映する(再入荷・売り切れの検知)
+                keep = dict(old) if old else {"price": base, "cur": t["cur"], "checkedAt": None, "auto": False}
+                keep["status"] = status
+                items[pid] = keep
+                entry["status"] = status
             if v is not None and base and not (LOW <= v / base <= HIGH):
                 entry.update(error=f"前回値{base:g}から大きく外れたため不採用", observed=v, method=method)
             elif v is not None:
@@ -277,8 +361,8 @@ def main():
                 ok_count += 1
             else:
                 entry["error"] = " / ".join(errs) or "価格が見つからない"
-                if status:
-                    entry["status"] = status
+                if dbg:
+                    entry["debug"] = dbg
         except Exception as e:  # noqa: BLE001
             entry["error"] = str(e)
         report[pid] = entry
