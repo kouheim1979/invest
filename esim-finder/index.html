@@ -1,0 +1,916 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="必要な容量・使う国・有効期間から、最安のeSIMの組み合わせを円換算で計算します。">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>eSIM最安ファインダー</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+JP:wght@400;500;700&display=swap">
+<style>
+/* Layout: SIMトレイ型コンソール — 左に条件レール(固定)、右に結果スタック。スマホでは1列に積む */
+:root{
+  --bg:#EDF1EF; --surface:#FFFFFF; --surface-2:#F5F7F6; --ink:#14201C; --muted:#56645F; --line:#D2DBD7;
+  --accent:#0A6B5F; --accent-ink:#FFFFFF; --accent-soft:#D8EDE7;
+  --gold:#BE8C2C; --gold-line:#8A631A; --gold-soft:#F5E8C9;
+  --ok:#1E7A3C; --ok-soft:#DCEFE2; --warn:#8F5B00; --warn-soft:#F6E9C9; --bad:#AD2A20; --bad-soft:#F7DEDA;
+  --font-body:"IBM Plex Sans JP","Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --r:12px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D1311; --surface:#141C19; --surface-2:#1A2420; --ink:#E3EBE8; --muted:#9BA9A4; --line:#28352F;
+    --accent:#3BC0A9; --accent-ink:#04201A; --accent-soft:#11342D;
+    --gold:#D7AE5C; --gold-line:#7A5A1C; --gold-soft:#372C15;
+    --ok:#5BC888; --ok-soft:#14301F; --warn:#E3A846; --warn-soft:#382810; --bad:#F07C72; --bad-soft:#3B1613;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D1311; --surface:#141C19; --surface-2:#1A2420; --ink:#E3EBE8; --muted:#9BA9A4; --line:#28352F;
+  --accent:#3BC0A9; --accent-ink:#04201A; --accent-soft:#11342D;
+  --gold:#D7AE5C; --gold-line:#7A5A1C; --gold-soft:#372C15;
+  --ok:#5BC888; --ok-soft:#14301F; --warn:#E3A846; --warn-soft:#382810; --bad:#F07C72; --bad-soft:#3B1613;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:14px;line-height:1.65;-webkit-text-size-adjust:100%}
+a{color:var(--accent)}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.num{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+.gutter{padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+
+/* header */
+.top{padding-block:28px 8px}
+.top-in{max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;gap:8px 24px;align-items:flex-end;justify-content:space-between}
+.brand{display:flex;gap:14px;align-items:center}
+.chipmark{width:42px;height:32px;border-radius:7px;flex:none;background:
+  linear-gradient(90deg,transparent 46%,var(--gold-line) 46% 54%,transparent 54%),
+  linear-gradient(transparent 30%,var(--gold-line) 30% 37%,transparent 37% 63%,var(--gold-line) 63% 70%,transparent 70%),
+  var(--gold)}
+h1{font-size:clamp(22px,3.2vw,30px);line-height:1.2;margin:0;font-weight:700;letter-spacing:.01em;text-wrap:balance}
+.lede{margin:2px 0 0;color:var(--muted);max-width:62ch}
+.stamp{font-family:var(--font-mono);font-size:12px;color:var(--muted);letter-spacing:.04em}
+.live{margin:6px 0 0;font-size:12.5px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 14px}
+.live .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--muted);margin-right:6px;vertical-align:1px}
+.live .dot.on{background:var(--ok)}
+.live .dot.off{background:var(--warn)}
+.bd.plain{background:var(--surface-2);color:var(--muted);border-color:var(--line)}
+
+/* grid */
+.wrap{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:330px minmax(0,1fr);gap:20px;padding-block:16px 40px}
+@media (max-width:900px){.wrap{grid-template-columns:minmax(0,1fr)}}
+.rail{align-self:start;position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);max-height:calc(100vh - 24px);overflow:auto;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:18px}
+@media (max-width:900px){.rail{position:static;max-height:none;overflow:visible}}
+.main{display:flex;flex-direction:column;gap:20px;min-width:0}
+
+.fld{display:flex;flex-direction:column;gap:8px}
+.lbl{font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--muted)}
+.gbrow{display:flex;align-items:baseline;gap:8px}
+.gbin{width:120px;font-family:var(--font-mono);font-size:30px;font-weight:600;padding:4px 10px;border:1px solid var(--line);border-radius:10px;background:var(--surface-2)}
+.gbunit{font-family:var(--font-mono);font-size:18px;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chipbtn{border:1px solid var(--line);background:var(--surface-2);border-radius:999px;padding:4px 12px;cursor:pointer;font-size:13px}
+.chipbtn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.chipbtn:hover{border-color:var(--accent)}
+.preset{font-size:12px;padding:2px 10px}
+select,.txt{border:1px solid var(--line);background:var(--surface-2);border-radius:8px;padding:6px 10px;width:100%}
+.checks{display:flex;flex-direction:column;gap:8px}
+.check{display:flex;gap:8px;align-items:flex-start;cursor:pointer;font-size:13px;line-height:1.5}
+.check input{margin-top:3px;accent-color:var(--accent)}
+.check small{display:block;color:var(--muted);font-size:11.5px}
+details.fx summary{cursor:pointer;font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--muted)}
+.fxgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
+.fxgrid label{display:flex;flex-direction:column;gap:2px;font-size:12px;color:var(--muted)}
+.fxgrid input{font-family:var(--font-mono);border:1px solid var(--line);background:var(--surface-2);border-radius:8px;padding:5px 8px;width:100%}
+.hint{font-size:12px;color:var(--muted);margin:0}
+
+/* cards */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.card h2{font-size:16px;margin:0 0 4px;font-weight:700}
+.card .sub{margin:0 0 14px;color:var(--muted);font-size:12.5px}
+
+.best{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.besthead{display:flex;flex-wrap:wrap;gap:6px 24px;align-items:flex-end;justify-content:space-between;margin-bottom:16px}
+.total{font-family:var(--font-mono);font-size:clamp(34px,5vw,46px);font-weight:600;line-height:1;letter-spacing:-.01em}
+.metas{display:flex;flex-wrap:wrap;gap:6px 18px;color:var(--muted);font-size:13px}
+.metas b{color:var(--ink);font-family:var(--font-mono);font-weight:600}
+.cond{font-size:12px;color:var(--muted);margin:0 0 4px}
+
+.sims{display:flex;flex-direction:column;gap:10px}
+.sim{position:relative;background:var(--surface-2);border-radius:10px;padding:14px 16px 14px 70px;
+  clip-path:polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,0 100%)}
+.sim::before{content:"";position:absolute;left:16px;top:16px;width:38px;height:29px;border-radius:6px;background:
+  linear-gradient(90deg,transparent 46%,var(--gold-line) 46% 54%,transparent 54%),
+  linear-gradient(transparent 30%,var(--gold-line) 30% 37%,transparent 37% 63%,var(--gold-line) 63% 70%,transparent 70%),
+  var(--gold)}
+.simtop{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;justify-content:space-between}
+.simname{font-weight:700;font-size:15px}
+.simname .br{color:var(--muted);font-weight:500;margin-right:6px}
+.qty{font-family:var(--font-mono);font-weight:600;color:var(--accent);margin-left:6px}
+.simprice{font-family:var(--font-mono);font-weight:600}
+.simspec{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12.5px;color:var(--muted);margin-top:2px}
+.simspec .num{color:var(--ink)}
+.simnote{font-size:12.5px;color:var(--muted);margin:6px 0 0}
+.badges{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.bd{font-size:11px;font-weight:500;border-radius:5px;padding:1px 7px;border:1px solid transparent;white-space:nowrap}
+.bd.ok{background:var(--ok-soft);color:var(--ok)}
+.bd.warn{background:var(--warn-soft);color:var(--warn)}
+.bd.bad{background:var(--bad-soft);color:var(--bad)}
+.bd.info{background:var(--accent-soft);color:var(--accent)}
+.bd.gold{background:var(--gold-soft);color:var(--warn)}
+.empty{padding:18px;border:1px dashed var(--line);border-radius:10px;color:var(--muted)}
+
+.alts{display:flex;flex-direction:column;gap:8px}
+.alt{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 16px;align-items:baseline;padding:10px 12px;border:1px solid var(--line);border-radius:10px}
+.alt .what{min-width:0}
+.alt .why{font-size:12px;color:var(--muted)}
+.alt .amt{font-family:var(--font-mono);font-weight:600;text-align:right}
+.alt .amt small{display:block;font-weight:400;color:var(--muted);font-size:11.5px}
+
+.tblwrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-size:11.5px;letter-spacing:.06em;color:var(--muted);font-weight:700;background:var(--surface-2);white-space:nowrap;position:sticky;top:0}
+tr:last-child td{border-bottom:0}
+td.r,th.r{text-align:right}
+tr.cur td{background:var(--accent-soft)}
+tr.off td{color:var(--muted)}
+tr.off .pname{text-decoration:line-through;text-decoration-color:var(--line)}
+.bar{height:8px;border-radius:4px;background:var(--accent);min-width:2px}
+.barcell{width:28%;min-width:90px}
+.combo{min-width:220px}
+.pname{font-weight:500}
+.pname .br{color:var(--muted);font-weight:400;display:block;font-size:12px}
+.sortbtn{background:none;border:0;padding:0;cursor:pointer;font:inherit;color:inherit;letter-spacing:inherit}
+.sortbtn[aria-sort]{color:var(--accent)}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between;margin-bottom:12px}
+.toolbar .chips{gap:6px}
+.btn{border:1px solid var(--line);background:var(--surface-2);border-radius:8px;padding:5px 12px;cursor:pointer;font-size:13px}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.pricein{width:92px;font-family:var(--font-mono);border:1px solid var(--accent);background:var(--surface-2);border-radius:6px;padding:3px 6px;text-align:right}
+.statsel{width:auto;padding:3px 6px;font-size:12px}
+.reason{font-size:11.5px;color:var(--bad)}
+
+.addgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:12px}
+.addgrid label{display:flex;flex-direction:column;gap:3px;font-size:12px;color:var(--muted)}
+.addgrid input,.addgrid select{border:1px solid var(--line);background:var(--surface-2);border-radius:8px;padding:6px 8px;width:100%}
+textarea.json{width:100%;min-height:110px;font-family:var(--font-mono);font-size:12px;border:1px solid var(--line);background:var(--surface-2);border-radius:8px;padding:8px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px}
+.msg{font-size:12.5px;color:var(--muted)}
+details.data>summary{cursor:pointer;font-weight:700;font-size:16px}
+.foot{max-width:1240px;margin:0 auto;padding-block:0 40px;color:var(--muted);font-size:12px}
+.foot p{margin:0 0 6px;max-width:90ch}
+@media (prefers-reduced-motion: no-preference){.sim{transition:transform .15s ease}.sim:hover{transform:translateX(2px)}}
+</style>
+</head>
+<body>
+
+
+<header class="top gutter">
+  <div class="top-in">
+    <div class="brand">
+      <span class="chipmark" aria-hidden="true"></span>
+      <div>
+        <h1>eSIM最安ファインダー</h1>
+        <p class="lede">調べたeSIMプランの中から、必要な容量・使う国・有効期間に合う最安の組み合わせを計算します。外貨の価格は為替とカード手数料込みの円で比べます。</p>
+        <p class="live" id="liveStatus">最新の価格と為替を読み込んでいます…</p>
+      </div>
+    </div>
+    <div class="stamp" id="stamp">DATA 2026-11-02 / — PLANS</div>
+  </div>
+</header>
+
+<div class="wrap gutter">
+  <aside class="rail" aria-label="条件">
+    <div class="fld">
+      <span class="lbl">必要な容量</span>
+      <div class="gbrow">
+        <input id="gb" class="gbin" type="number" min="1" max="1500" step="1" inputmode="numeric" aria-label="必要な容量(GB)">
+        <span class="gbunit">GB</span>
+      </div>
+      <input id="gbRange" type="range" min="1" max="300" step="1" aria-label="必要な容量のスライダー">
+      <div class="chips" id="gbChips"></div>
+    </div>
+
+    <div class="fld">
+      <span class="lbl">使う国・地域(すべてを1枚でカバー)</span>
+      <div class="chips" id="presets"></div>
+      <div class="chips" id="regions"></div>
+    </div>
+
+    <div class="fld">
+      <label class="lbl" for="days">有効期間</label>
+      <select id="days"></select>
+    </div>
+
+    <div class="fld">
+      <label class="lbl" for="maxCount">組み合わせる商品の数(最大)</label>
+      <select id="maxCount"></select>
+      <p class="hint">同じ商品を2つ買う場合も2と数えます。</p>
+    </div>
+
+    <div class="fld">
+      <span class="lbl">含める商品</span>
+      <div class="checks" id="checks"></div>
+    </div>
+
+    <details class="fx" id="fxBox">
+      <summary>為替と手数料</summary>
+      <label class="check" for="autoRates" style="margin-top:10px"><input type="checkbox" id="autoRates"><span>開いたときに最新の為替を取得<small id="ratesInfo">レートを手で入力すると自動取得を止めます</small></span></label>
+      <div class="fxgrid">
+        <label for="rUSD">1 USD(円)<input id="rUSD" type="number" step="0.1" min="1"></label>
+        <label for="rHKD">1 HKD(円)<input id="rHKD" type="number" step="0.01" min="0.1"></label>
+        <label for="rEUR">1 EUR(円)<input id="rEUR" type="number" step="0.1" min="1"></label>
+        <label for="rSGD">1 SGD(円)<input id="rSGD" type="number" step="0.1" min="1"></label>
+        <label for="fee">海外事務手数料(%)<input id="fee" type="number" step="0.01" min="0" max="10"></label>
+      </div>
+      <p class="hint" style="margin-top:8px">自動取得できないときは、最後に取得したレートか2026年11月2日前後のレートを使います。外貨建ての商品にだけ手数料を上乗せします。</p>
+    </details>
+    <button class="btn" id="resetSettings" type="button">条件を初期値に戻す</button>
+  </aside>
+
+  <main class="main">
+    <section class="card best" aria-live="polite">
+      <p class="cond" id="condLine"></p>
+      <div id="bestBox"></div>
+    </section>
+
+    <section class="card">
+      <h2>ほかの選択肢</h2>
+      <p class="sub">最安の組み合わせに入っているブランドを1つずつ外して計算し直した結果です。</p>
+      <div class="alts" id="alts"></div>
+    </section>
+
+    <section class="card">
+      <h2>容量別の最安</h2>
+      <p class="sub">いまの条件のまま、必要な容量だけを変えた場合です。円/GBは必要な容量で割った値です。</p>
+      <div class="tblwrap"><table id="ladder"></table></div>
+    </section>
+
+    <section class="card">
+      <h2 id="catTitle">商品一覧</h2>
+      <p class="sub">選んだ国・地域をすべてカバーする商品です。条件で外れたものは灰色で理由を表示します。円/GBは商品の容量あたりの値段です。</p>
+      <div class="toolbar">
+        <div class="chips">
+          <button class="chipbtn preset" type="button" id="showOff" aria-pressed="true">除外中も表示</button>
+          <button class="chipbtn preset" type="button" id="editMode" aria-pressed="false">価格を編集</button>
+        </div>
+        <span class="msg" id="catCount"></span>
+      </div>
+      <div class="tblwrap"><table id="catalog"></table></div>
+    </section>
+
+    <section class="card">
+      <details class="data" id="dataBox">
+        <summary>データの管理</summary>
+        <p class="sub" style="margin-top:8px">価格の変更や追加した商品は、このブラウザにだけ保存されます。別の端末に移すときは、下の書き出しと読み込みを使ってください。</p>
+
+        <h2 style="margin-top:12px">商品を追加</h2>
+        <form id="addForm" class="addgrid" autocomplete="off">
+          <label for="aBrand">ブランド<input id="aBrand" required placeholder="例: Lucky2"></label>
+          <label for="aName">プラン名<input id="aName" required placeholder="例: 中日韓台澳 40GB"></label>
+          <label for="aGb">容量(GB)<input id="aGb" type="number" step="0.1" min="0.1" required></label>
+          <label for="aDays">有効期間(日、空欄=期限なし)<input id="aDays" type="number" step="1" min="1"></label>
+          <label for="aPrice">価格<input id="aPrice" type="number" step="0.01" min="0" required></label>
+          <label for="aCur">通貨<select id="aCur"><option>JPY</option><option>USD</option><option>HKD</option><option>EUR</option><option>SGD</option></select></label>
+          <label for="aRn">実名登録<select id="aRn"><option value="">不要・不明</option><option value="TW,HK">台湾・香港で必要</option><option value="all">利用前に必要</option><option value="domestic">国内契約</option></select></label>
+          <label for="aUrl">出典URL<input id="aUrl" type="url" placeholder="https://"></label>
+          <fieldset style="grid-column:1/-1;border:0;padding:0;margin:0">
+            <legend class="lbl" style="margin-bottom:6px">対象の国・地域</legend>
+            <div class="chips" id="aRegions"></div>
+          </fieldset>
+          <div class="row" style="grid-column:1/-1;margin-top:0">
+            <button class="btn primary" type="submit">追加する</button>
+            <span class="msg" id="addMsg"></span>
+          </div>
+        </form>
+
+        <h2 style="margin-top:20px">書き出し・読み込み</h2>
+        <textarea class="json" id="jsonBox" aria-label="変更データ(JSON)" spellcheck="false"></textarea>
+        <div class="row">
+          <button class="btn" type="button" id="exportBtn">変更を書き出してコピー</button>
+          <button class="btn" type="button" id="importBtn">貼り付けたJSONを読み込む</button>
+          <button class="btn" type="button" id="resetData">価格の変更と追加をすべて消す</button>
+          <span class="msg" id="dataMsg"></span>
+        </div>
+      </details>
+    </section>
+  </main>
+</div>
+
+<footer class="foot gutter">
+  <p>データは2026年11月2〜3日の調査結果です。価格と条件は変わるので、買う前に各販売ページで確かめてください。「比較サイト」はeSIMDBやesims.ioの掲載値で、公式ページでは確認していない価格です。</p>
+  <p>「香港IPの可能性」は、通信が香港経由になり日本にいてもChatGPT・Claudeなどが使えない可能性がある商品です。実名登録は販売ページの記載に基づきます。円換算 = 価格 × 為替 × (1 + 手数料)。</p>
+</footer>
+
+<script>
+(function(){
+"use strict";
+const CHECK_DATE = "2026-11-02";
+// 価格データ: GitHub上の最新(raw)→同じ場所に置いたprices.json の順に読む。読めなければ内蔵データ
+const LIVE_URLS = [
+  "https://raw.githubusercontent.com/kouheim1979/invest/main/esim-finder/prices.json",
+  "prices.json"
+];
+// 為替: 開くたびに取得(ECB基準のFrankfurter → ExchangeRate-API)
+const RATE_APIS = [
+  {name:"Frankfurter(ECB)", url:"https://api.frankfurter.dev/v1/latest?base=JPY&symbols=USD,HKD,EUR,SGD", pick: d => ({rates:d.rates, date:d.date})},
+  {name:"ExchangeRate-API", url:"https://open.er-api.com/v6/latest/JPY", pick: d => ({rates:d.rates, date:(d.time_last_update_utc||"").slice(5,16)})}
+];
+const U = {
+  povoNews:"https://povo.jp/en/news/newsrelease/20260618_02/",
+  povoSale:"https://mobareco.jp/ca-news/a360896/",
+  povo360:"https://povo.jp/en/data-only-list/360G_365d_data-only/",
+  bneJP:"https://esims.io/providers/bnesim/8945120100-15379",
+  bneJPdb:"https://esimdb.com/japan/bnesim",
+  eskJP:"https://esimdb.com/japan/eskimo",
+  mobiJP:"https://esimdb.com/japan/mobimatter",
+  mobi:"https://mobimatter.com/",
+  ubiJP:"https://cellulardata.ubigi.com/rates-and-coverage/japan-data-plans/japan-5gb-month-x12/",
+  sailyJP:"https://esimdb.com/japan/saily",
+  roamlessJP:"https://esimdb.com/japan/roamless",
+  airaloJP:"https://esimdb.com/japan/airalo",
+  pal:"https://www.getesimpal.com/ja-JP?country=JP#rates",
+  jpAll:"https://esimdb.com/japan",
+  keepgo:"https://www1.keepgo.com/products/apac-esim",
+  l2_40:"https://shop.lucky2.com.hk/365days-cn-jp-kr-tw-mo-hk-data-40gb-unlimited-en",
+  l2_12:"https://shop.lucky2.com.hk/365days-50countries-hk-data-17gb-en",
+  l2_60:"https://shop.lucky2.com.hk/365days-20regions-roaming-60gb-hk-20gb-en",
+  l2_15:"https://shop.lucky2.com.hk/365days-70countries-hk-data-30gb-en",
+  ls_30:"https://shop.luckysim.com.hk/365days-17countries-roaming-data-30gb-en",
+  ls_24:"https://shop.luckysim.com.hk/2-years-17countries-roaming-data-24gb",
+  ls_40:"https://shop.luckysim.com.hk/3-years-17countries-roaming-data-40gb",
+  banana:"https://www.bananatravelsim.com/en/products/esim-365days-offer",
+  gs2:"https://www.datasimstore.com/-globalsim-3655g-10gb-512k-sim-data--p1269.html",
+  gs1:"https://www.datasimstore.com/-globalsim-3655g-10gb-512k-sim-data-1270-p1270.html",
+  roamifyY:"https://www.getroamify.com/en/esim/asia-one-year/",
+  roamifyS:"https://devs.getroamify.com/en/esim/asia-sprint/",
+  bneAsia:"https://www.bnesim.com/plans/asia/",
+  bneAsiaDb:"https://esimdb.com/region/asia/bnesim",
+  asialink:"https://www.airalo.com/asia/asialink-30days-3gb",
+  asialinkDb:"https://esimdb.com/region/east-asia/airalo",
+  eskAP:"https://esimdb.com/region/east-asia/eskimo",
+  yesim:"https://esimdb.com/region/east-asia/yesim",
+  sailyG:"https://esimdb.com/region/east-asia/saily",
+  three17:"https://mobimatter.com/travel-esim/3-apac-17-gb-yearly-esim",
+  three34:"https://mobimatter.com/travel-esim/3-apac-34-gb-yearly-esim",
+  redtea:"https://esim.redteago.com/esim-global",
+  singtel:"https://singtel.com/personal/products-services/mobile/prepaid-plans/hi-tourist",
+  aeri:"https://esimdb.com/region/east-asia/aerisim",
+  nomad:"https://www.nomadesim.com/apac-eSIM",
+  jetpac:"https://www.jetpacglobal.com/product-details/asia-pacific-esim/",
+  chill:"https://chillyik.com/en/collections/esim",
+  eastAsia:"https://esimdb.com/region/east-asia"
+};
+
+function P(id, family, brand, name, regions, gb, days, price, cur, verify, o){
+  return Object.assign({id:id, family:family, brand:brand, name:name, regions:regions.split(" "), gb:gb, days:days, price:price, cur:cur, verify:verify, rn:null, status:"ok", oneTime:false, hkip:false, note:"", url:"", carriers:"", checkedAt:CHECK_DATE, autoAt:null}, o||{});
+}
+const NB_JP = "期限なし(使わない期間が続いたときの失効条件は未確認)。esims.ioにクーポンESIMS30で30%引きの表示あり。接続不良・返金拒否の低評価レビューあり";
+const NB_AS = "16か国(国名は比較サイトの情報)。期限なしプランの失効条件は未確認";
+const L2 = {rn:["TW","HK"], hkip:true, carriers:"日本 KDDI/SoftBank・中国 聯通/電信・台湾 中華電信/台湾大哥大"};
+const LS = {rn:"all", hkip:true, note:"容量を使い切ると通信停止。利用前に実名登録が必要。各国の回線は記載なし"};
+const RFY = {url:U.roamifyY, carriers:"日本 docomo/SoftBank・中国 聯通/電信・台湾 中華電信", note:"公式ページにKYC不要と明記。365日は初回接続から数える"};
+const RFS = {url:U.roamifyS, hkip:true, note:"30日プラン。香港経由のIPになる可能性"};
+const ASL = {url:U.asialinkDb, note:"eKYC不要(公式)。有効期間は対象国で初めて接続した時から"};
+const PAL = {url:U.pal, note:"有効期間は有効化した時から。日本では2社の回線(社名は非公開)"};
+const AER = {url:U.aeri, note:"公式サイトと運営会社が見つからず、対象国も比較サイトの情報のみ"};
+const THR = {rn:["TW","HK"], hkip:true, carriers:"日本 楽天/docomo・中国 電信/聯通・台湾 中華電信/台湾大哥大", note:"Three香港系。同系統の販売店に「香港IPのためChatGPT/Claudeが使えない」との注意書きあり"};
+
+const DATA = [
+  // ---- 日本のみ ----
+  P("povo-60","povo","povo2.0","1年間トッピング 60GB","JP",60,365,13200,"JPY","official",{rn:"domestic",url:U.povoSale,carriers:"au",note:"国内の回線契約(本人確認あり)。180日以内に有料トッピングの購入が必要。価格は2026年8月時点の情報"}),
+  P("povo-120","povo","povo2.0","1年間トッピング 120GB","JP",120,365,21600,"JPY","official",{rn:"domestic",url:U.povoSale,carriers:"au",note:"国内の回線契約。データ専用プランの初回向けにも同額の商品あり"}),
+  P("povo-360","povo","povo2.0","1年間トッピング 360GB","JP",360,365,26400,"JPY","official",{rn:"domestic",url:U.povo360,carriers:"au",note:"データ専用プランは本人確認書類なし・eSIMのみ。SMSを受けられる別の回線が必要"}),
+  P("povo-1320","povo","povo2.0","1年間トッピング 1.32TB","JP",1320,365,39240,"JPY","official",{rn:"domestic",url:U.povoNews,carriers:"au",note:"月あたり110GB相当。国内の回線契約"}),
+  P("bne-jp-1","BNESIM","BNESIM","日本 1GB","JP",1,null,3.34,"USD","aggregator",{url:U.bneJP,carriers:"KDDI/SoftBank",note:NB_JP}),
+  P("bne-jp-3","BNESIM","BNESIM","日本 3GB","JP",3,null,4.46,"USD","aggregator",{url:U.bneJP,carriers:"KDDI/SoftBank",note:NB_JP}),
+  P("bne-jp-5","BNESIM","BNESIM","日本 5GB","JP",5,null,6.13,"USD","aggregator",{url:U.bneJP,carriers:"KDDI/SoftBank",note:NB_JP}),
+  P("bne-jp-10","BNESIM","BNESIM","日本 10GB","JP",10,null,8.36,"USD","aggregator",{url:U.bneJP,carriers:"KDDI/SoftBank",note:NB_JP}),
+  P("bne-jp-20","BNESIM","BNESIM","日本 20GB","JP",20,null,13.39,"USD","aggregator",{url:U.bneJP,carriers:"KDDI/SoftBank",note:NB_JP}),
+  P("bne-jp-50","BNESIM","BNESIM","日本 50GB","JP",50,null,27.90,"USD","aggregator",{url:U.bneJP,carriers:"KDDI/SoftBank",note:NB_JP}),
+  P("bne-jp-100","BNESIM","BNESIM","日本 100GB","JP",100,null,55.80,"USD","aggregator",{url:U.bneJP,carriers:"KDDI/SoftBank",note:NB_JP}),
+  P("bne-jp-50m","BNESIM","BNESIM","日本 50GB(30日)","JP",50,30,22.40,"USD","aggregator",{url:U.bneJPdb,carriers:"KDDI/SoftBank"}),
+  P("esk-jp-1","Eskimo","Eskimo","日本 1GB","JP",1,730,3.90,"USD","aggregator",{url:U.eskJP}),
+  P("esk-jp-3","Eskimo","Eskimo","日本 3GB","JP",3,730,7.90,"USD","aggregator",{url:U.eskJP}),
+  P("esk-jp-5","Eskimo","Eskimo","日本 5GB","JP",5,730,10.90,"USD","aggregator",{url:U.eskJP}),
+  P("esk-jp-10","Eskimo","Eskimo","日本 10GB","JP",10,730,17.90,"USD","aggregator",{url:U.eskJP}),
+  P("mobi-jp-50","MobiMatter","MobiMatter","日本 50GB(30日)","JP",50,30,29.99,"USD","aggregator",{url:U.mobiJP}),
+  P("mobi-jp-60","MobiMatter","MobiMatter","日本 60GB(90日)","JP",60,90,44.99,"USD","aggregator",{url:U.mobiJP}),
+  P("mobi-iij-20","MobiMatter","MobiMatter","IIJ 日本 20GB(30日)","JP",20,30,13.99,"USD","official",{url:U.mobi,carriers:"IIJ(5G)"}),
+  P("ubi-jp-60","Ubigi","Ubigi","日本 5GB/月×12か月","JP",60,365,55,"USD","official",{url:U.ubiJP,carriers:"KDDI/docomo/SoftBank",note:"毎月5GBまで(合計60GB)。購入から6か月以内に開始しないと失効"}),
+  P("saily-jp-10","Saily","Saily","日本 10GB(30日)","JP",10,30,17.99,"USD","aggregator",{url:U.sailyJP}),
+  P("saily-jp-20","Saily","Saily","日本 20GB(30日)","JP",20,30,24.99,"USD","aggregator",{url:U.sailyJP}),
+  P("rl-jp-free","Roamless","Roamless","日本 無料500MB","JP",0.5,null,0,"USD","aggregator",{oneTime:true,url:U.roamlessJP,note:"新規ユーザーのみ"}),
+  P("rl-jp-10","Roamless","Roamless","日本 従量 10GB","JP",10,null,24.50,"USD","aggregator",{url:U.roamlessJP,note:"従量課金の残高は失効しない"}),
+  P("rl-jp-20","Roamless","Roamless","日本 従量 20GB","JP",20,null,49.00,"USD","aggregator",{url:U.roamlessJP,note:"従量課金の残高は失効しない"}),
+  P("rl-jp-50","Roamless","Roamless","日本 50GB(30日)","JP",50,30,45.95,"USD","aggregator",{url:U.roamlessJP}),
+  P("ar-jp-10","Airalo","Airalo","Moshi Moshi 10GB(30日)","JP",10,30,18,"USD","aggregator",{url:U.airaloJP}),
+  P("ar-jp-20","Airalo","Airalo","Moshi Moshi 20GB(30日)","JP",20,30,25,"USD","aggregator",{url:U.airaloJP}),
+  P("pal-1","eSIMPal","eSIMPal","日本 1GB(円表示の特典)","JP",1,30,46,"JPY","official",{oneTime:true,url:U.pal,note:"円表示のときだけ出る特典価格(ドル表示では$3.90)。有効期間は有効化から"}),
+  P("pal-3","eSIMPal","eSIMPal","日本 3GB(30日)","JP",3,30,1590,"JPY","official",PAL),
+  P("pal-5","eSIMPal","eSIMPal","日本 5GB(30日)","JP",5,30,2590,"JPY","official",PAL),
+  P("pal-10","eSIMPal","eSIMPal","日本 10GB(60日)","JP",10,60,4790,"JPY","official",PAL),
+  P("pal-15","eSIMPal","eSIMPal","日本 15GB(60日)","JP",15,60,6990,"JPY","official",PAL),
+  P("pal-30","eSIMPal","eSIMPal","日本 30GB(90日)","JP",30,90,13590,"JPY","official",PAL),
+  P("pal-50","eSIMPal","eSIMPal","日本 50GB(120日)","JP",50,120,22090,"JPY","official",PAL),
+  P("pal-100","eSIMPal","eSIMPal","日本 100GB(120日)","JP",100,120,44090,"JPY","official",PAL),
+  P("micro-jp-5","MicroEsim","MicroEsim","日本 docomo 5GB(1日)","JP",5,1,1.20,"USD","aggregator",{url:U.jpAll,carriers:"docomo"}),
+  P("staff-01","StaffTraveler","StaffTraveler","100MB(365日)","JP",0.1,365,0.99,"USD","unverified",{url:U.jpAll,note:"航空会社社員向けアプリの可能性があり、購入資格が未確認"}),
+  P("kg-norm","Keepgo","Keepgo","Norm 100MB","JP CN",0.1,null,1,"USD","aggregator",{url:U.keepgo,note:"期限なし。台湾が含まれるかは未確認"}),
+  P("kg-10","Keepgo","Keepgo","APAC 10GB","JP CN",10,null,31,"USD","aggregator",{url:U.keepgo,note:"期限なし。台湾が含まれるかは未確認"}),
+  P("kg-50","Keepgo","Keepgo","APAC 50GB","JP CN",50,null,140,"USD","aggregator",{url:U.keepgo,note:"期限なし。台湾が含まれるかは未確認"}),
+
+  // ---- 日本+中国+台湾ほか ----
+  P("l2-40","Lucky","Lucky2","中日韓台澳 40GB","JP CN KR TW HK",40,365,220,"HKD","official",Object.assign({url:U.l2_40,note:"超過後512kbps。同じHK$220で30GB表示のページもあるのでカートで容量を確認。eSIMは1回だけインストール可"},L2)),
+  P("l2-12","Lucky","Lucky2","50か国 12GB","JP CN KR TW HK",12,365,100,"HKD","official",Object.assign({url:U.l2_12,note:"通常HK$120のセール価格。超過後384kbps"},L2)),
+  P("l2-60","Lucky","Lucky2","19か国 60GB","JP CN TW HK",60,365,400,"HKD","official",Object.assign({url:U.l2_60,note:"超過後384kbps"},L2)),
+  P("l2-15","Lucky","Lucky2","70か国 15GB","JP CN TW HK",15,365,300,"HKD","official",Object.assign({url:U.l2_15,note:"セール価格(通常HK$400)"},L2)),
+  P("ls-30","Lucky","LuckySIM","17か国 30GB","JP CN KR TW",30,365,180,"HKD","official",Object.assign({url:U.ls_30},LS)),
+  P("ls-24","Lucky","LuckySIM","2年 17か国 24GB","JP CN KR TW",24,730,150,"HKD","official",Object.assign({url:U.ls_24},LS)),
+  P("ls-40","Lucky","LuckySIM","3年 17か国 40GB","JP CN KR TW",40,1095,328,"HKD","official",Object.assign({url:U.ls_40},LS)),
+  P("ban-10","Banana","Banana SIM","52地 10GB","JP CN TW",10,365,78,"HKD","official",{rn:["TW"],hkip:true,url:U.banana,carriers:"日本 SoftBank/KDDI・中国 China Mobile・台湾 中華電信",note:"期間限定価格。表示価格を10GBの値段と判断(カートで確認)。購入から365日以内に開通"}),
+  P("gs-20","Globalsim","Globalsim","11地 20GB","JP CN TW",20,365,148,"HKD","official",{rn:["TW"],url:U.gs1,note:"DataSIM Store販売。初回利用から365日。最終開通期限2027/12/31"}),
+  P("gs-30","Globalsim","Globalsim","11地 30GB","JP CN TW",30,365,238,"HKD","official",{rn:["TW"],url:U.gs1,note:"DataSIM Store販売。初回利用から365日"}),
+  P("gs-50","Globalsim","Globalsim","11地 50GB","JP CN TW",50,365,388,"HKD","official",{rn:["TW"],url:U.gs1,note:"DataSIM Store販売。初回利用から365日"}),
+  P("gs-10x2","Globalsim","Globalsim","11地 10GB×2枚セット","JP CN TW",20,365,150,"HKD","official",{rn:["TW"],url:U.gs2,note:"10GBのeSIMが2枚。各eSIMは初回利用から365日"}),
+  P("rf-y-1","Roamify","Roamify","Asia One Year 1GB","JP CN TW",1,365,3,"USD","aggregator",RFY),
+  P("rf-y-10","Roamify","Roamify","Asia One Year 10GB","JP CN TW",10,365,15,"USD","official",RFY),
+  P("rf-y-20","Roamify","Roamify","Asia One Year 20GB","JP CN TW",20,365,35,"USD","official",RFY),
+  P("rf-y-30","Roamify","Roamify","Asia One Year 30GB","JP CN TW",30,365,50,"USD","official",RFY),
+  P("rf-y-50","Roamify","Roamify","Asia One Year 50GB","JP CN TW",50,365,70,"USD","official",RFY),
+  P("rf-y-100","Roamify","Roamify","Asia One Year 100GB","JP CN TW",100,365,90,"USD","official",RFY),
+  P("rf-s-10","Roamify","Roamify","Asia Sprint 10GB(30日)","JP CN TW",10,30,12.5,"USD","aggregator",RFS),
+  P("rf-s-20","Roamify","Roamify","Asia Sprint 20GB(30日)","JP CN TW",20,30,18.5,"USD","aggregator",RFS),
+  P("rf-s-30","Roamify","Roamify","Asia Sprint 30GB(30日)","JP CN TW",30,30,23.5,"USD","aggregator",RFS),
+  P("rf-s-50","Roamify","Roamify","Asia Sprint 50GB(30日)","JP CN TW",50,30,37.5,"USD","aggregator",{url:U.roamifyS,hkip:true,note:"開発用ページでのみ価格を確認。香港経由のIPになる可能性"}),
+  P("bne-as-1","BNESIM","BNESIM","Asia 1GB","JP CN TW KR HK",1,null,3.90,"USD","aggregator",{url:U.bneAsiaDb,note:NB_AS}),
+  P("bne-as-3","BNESIM","BNESIM","Asia 3GB","JP CN TW KR HK",3,null,11.16,"USD","aggregator",{url:U.bneAsiaDb,note:NB_AS}),
+  P("bne-as-5","BNESIM","BNESIM","Asia 5GB","JP CN TW KR HK",5,null,17.84,"USD","aggregator",{url:U.bneAsiaDb,note:NB_AS}),
+  P("bne-as-10","BNESIM","BNESIM","Asia 10GB","JP CN TW KR HK",10,null,26.99,"EUR","official",{url:U.bneAsia,note:NB_AS}),
+  P("bne-as-20","BNESIM","BNESIM","Asia 20GB","JP CN TW KR HK",20,null,45.99,"EUR","official",{url:U.bneAsia,note:NB_AS}),
+  P("bne-as-50","BNESIM","BNESIM","Asia 50GB","JP CN TW KR HK",50,null,59.99,"EUR","official",{url:U.bneAsia,note:NB_AS}),
+  P("bne-as-100","BNESIM","BNESIM","Asia 100GB","JP CN TW KR HK",100,null,79.99,"EUR","official",{url:U.bneAsia,note:NB_AS}),
+  P("bne-as-10m","BNESIM","BNESIM","Asia 10GB(30日)","JP CN TW KR HK",10,30,21.99,"EUR","official",{url:U.bneAsia}),
+  P("bne-as-20m","BNESIM","BNESIM","Asia 20GB(30日)","JP CN TW KR HK",20,30,36.99,"EUR","official",{url:U.bneAsia}),
+  P("bne-as-50m","BNESIM","BNESIM","Asia 50GB(30日)","JP CN TW KR HK",50,30,47.99,"EUR","official",{url:U.bneAsia}),
+  P("bne-as-100m","BNESIM","BNESIM","Asia 100GB(30日)","JP CN TW KR HK",100,30,63.99,"EUR","official",{url:U.bneAsia}),
+  P("asl-10","Airalo","Airalo","Asialink 10GB(30日)","JP CN TW KR HK",10,30,25,"USD","aggregator",ASL),
+  P("asl-20","Airalo","Airalo","Asialink 20GB(30日)","JP CN TW KR HK",20,30,39,"USD","aggregator",ASL),
+  P("asl-50","Airalo","Airalo","Asialink 50GB(30日)","JP CN TW KR HK",50,30,59,"USD","aggregator",ASL),
+  P("asl-50q","Airalo","Airalo","Asialink 50GB(90日)","JP CN TW KR HK",50,90,69,"USD","aggregator",ASL),
+  P("asl-100","Airalo","Airalo","Asialink 100GB(180日)","JP CN TW KR HK",100,180,89,"USD","aggregator",ASL),
+  P("esk-ap-10","Eskimo","Eskimo","Asia Pacific 10GB","JP CN TW KR HK",10,730,32.90,"USD","aggregator",{url:U.eskAP}),
+  P("esk-ap-20","Eskimo","Eskimo","Asia Pacific 20GB","JP CN TW KR HK",20,730,57.90,"USD","aggregator",{url:U.eskAP}),
+  P("esk-ap-30","Eskimo","Eskimo","Asia Pacific 30GB","JP CN TW KR HK",30,730,79.90,"USD","aggregator",{url:U.eskAP}),
+  P("esk-ap-50","Eskimo","Eskimo","Asia Pacific 50GB","JP CN TW KR HK",50,730,124.90,"USD","aggregator",{url:U.eskAP}),
+  P("esk-ap-100","Eskimo","Eskimo","Asia Pacific 100GB","JP CN TW KR HK",100,730,239.90,"USD","aggregator",{url:U.eskAP}),
+  P("ye-ap-20","Yesim","Yesim","Asia Pacific 20GB(30日)","JP CN TW KR HK",20,30,33.39,"USD","aggregator",{url:U.yesim}),
+  P("ye-ap-30","Yesim","Yesim","Asia Pacific 30GB(30日)","JP CN TW KR HK",30,30,42.58,"USD","aggregator",{url:U.yesim}),
+  P("ye-g-40","Yesim","Yesim","Global 40GB","JP CN TW KR HK",40,365,77.32,"USD","aggregator",{url:U.yesim}),
+  P("ye-g-80","Yesim","Yesim","Global 80GB","JP CN TW KR HK",80,365,122.10,"USD","aggregator",{url:U.yesim}),
+  P("sa-g-20","Saily","Saily","Global 20GB","JP CN TW KR HK",20,365,66.99,"USD","aggregator",{url:U.sailyG}),
+  P("thr-17","Three","3 APAC(MobiMatter)","17GB Yearly","JP CN TW",17,365,43.99,"USD","official",Object.assign({url:U.three17},THR)),
+  P("thr-34","Three","3 APAC(MobiMatter)","34GB Yearly","JP CN TW",34,365,74.99,"USD","official",Object.assign({url:U.three34},THR)),
+  P("rt-10","RedteaGO","RedteaGO","Global 10GB","JP CN TW",10,365,55,"USD","official",{url:U.redtea,note:"対象国は比較サイトの情報。チャージ可"}),
+  P("rt-20","RedteaGO","RedteaGO","Global 20GB","JP CN TW",20,365,63.80,"USD","official",{url:U.redtea,note:"対象国は比較サイトの情報。チャージ可"}),
+  P("sg-100","Singtel","Singtel hi!Tourist","$30 eSIM アジア100GB(30日)","JP CN TW",100,30,30,"SGD","official",{status:"caution",rn:"all",url:U.singtel,note:"パスポート登録が必要。シンガポール国外で開通できるか情報が食い違う。Pelagoで購入し60日以内に引き換え"}),
+  P("ae-10","AeriSIM","AeriSIM","Asia & Europe 10GB(30日)","JP CN TW",10,30,8.07,"USD","unverified",AER),
+  P("ae-20","AeriSIM","AeriSIM","Asia & Europe 20GB(30日)","JP CN TW",20,30,14.69,"USD","unverified",AER),
+  P("ae-30","AeriSIM","AeriSIM","Asia & Europe 30GB(30日)","JP CN TW",30,30,20.28,"USD","unverified",AER),
+  P("ae-50","AeriSIM","AeriSIM","Asia & Europe 50GB(30日)","JP CN TW",50,30,30.97,"USD","unverified",AER),
+  P("nm-10","Nomad","Nomad","APAC 10GB(30日)","JP CN TW",10,30,21,"USD","aggregator",{url:U.nomad,carriers:"日本 au/SoftBank・中国 聯通/電信・台湾 中華電信"}),
+  P("nm-20","Nomad","Nomad","APAC 20GB(45日)","JP CN TW",20,45,35,"USD","aggregator",{url:U.nomad,carriers:"日本 au/SoftBank・中国 聯通/電信・台湾 中華電信"}),
+  P("nm-50","Nomad","Nomad","APAC 50GB(45日)","JP CN TW",50,45,51,"USD","aggregator",{url:U.nomad,carriers:"日本 au/SoftBank・中国 聯通/電信・台湾 中華電信"}),
+  P("jet-40","Jetpac","Jetpac","Asia-Pacific 40GB(30日)","JP CN TW",40,30,44.99,"USD","aggregator",{url:U.jetpac}),
+  P("chill-40","Lucky","Lucky2(chillyik再販)","中日韓台澳 40GB","JP CN KR TW HK",40,365,160,"HKD","official",Object.assign({status:"soldout",url:U.chill,note:"売り切れ・カード決済停止中"},{rn:["TW","HK"],hkip:true})),
+  P("chill-12","Lucky","Lucky2(chillyik再販)","13か国 12GB","JP CN TW",12,365,75,"HKD","official",{status:"soldout",rn:["TW","HK"],hkip:true,url:U.chill,note:"売り切れ・カード決済停止中"})
+];
+
+const CUR = {JPY:"¥",USD:"$",HKD:"HK$",EUR:"€",SGD:"S$"};
+const REG = [["JP","日本"],["CN","中国本土"],["TW","台湾"],["KR","韓国"],["HK","香港"]];
+const REGNAME = Object.fromEntries(REG);
+const PRESETS = [["日本のみ",["JP"]],["日中台",["JP","CN","TW"]],["日中台韓",["JP","CN","TW","KR"]]];
+const NOEXP = 99999;
+const DAYS = [[0,"期間を問わない"],[30,"30日以上"],[90,"90日以上"],[180,"180日以上"],[365,"365日以上"],[730,"730日以上"],[NOEXP,"期限なしのみ"]];
+const CHECKS = [
+  ["realName","実名登録が必要な商品","使う国で登録が必要なもの(Lucky2の台湾・香港など)"],
+  ["aggregator","比較サイトだけで確認した価格","eSIMDB・esims.ioの掲載値。公式ページは未確認"],
+  ["unverified","裏取りできていない・要確認の商品","AeriSIM、Singtelなど"],
+  ["oneTime","初回限定・特典","1回しか買えない価格。eSIMPal ¥46など"],
+  ["domestic","国内キャリア(povo)","日本の回線契約。日本のみで使う場合"],
+];
+const DEFAULTS = {gb:40, regions:["JP","CN","TW"], minDays:365, maxCount:3,
+  realName:true, aggregator:true, unverified:false, oneTime:false, domestic:true,
+  rates:{USD:158, HKD:20.3, EUR:176.2, SGD:124}, fee:2.0, autoRates:true};
+const KS="esimfinder.settings.v1", KO="esimfinder.overrides.v1", KC="esimfinder.custom.v1";
+
+function load(k, fb){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : fb; }catch(e){ return fb; } }
+function save(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+function clone(o){ return JSON.parse(JSON.stringify(o)); }
+
+let S = clone(DEFAULTS);
+(function(){ const s = load(KS, null); if(s && typeof s === "object"){ Object.assign(S, s); S.rates = Object.assign({}, DEFAULTS.rates, s.rates||{}); if(!Array.isArray(S.regions) || !S.regions.length) S.regions = DEFAULTS.regions.slice(); } })();
+let OV = load(KO, {}) || {};
+let CUSTOM = load(KC, []) || [];
+let LIVE = null;          // 読み込んだprices.json
+let LIVE_SRC = "";        // どこから読んだか
+let RATE_STATE = "";      // 為替の取得状況
+let catSort = {key:"ppg", dir:1};
+let showOff = true, editMode = false;
+
+const $ = id => document.getElementById(id);
+function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+function yen(n){ return "¥" + Math.round(n).toLocaleString("ja-JP"); }
+function gbLabel(g){ return g < 1 ? Math.round(g*1000) + "MB" : (Number.isInteger(g) ? g : g.toFixed(1)) + "GB"; }
+function dayVal(d){ return d == null ? Infinity : d; }
+function dayLabel(d){ if(d == null) return "期限なし"; if(d === 730) return "730日(2年)"; if(d === 1095) return "1095日(3年)"; return d + "日"; }
+function priceLabel(it){ const sym = CUR[it.cur] || it.cur; const p = it.cur === "JPY" ? Math.round(it.price).toLocaleString("ja-JP") : Number(it.price).toLocaleString("en-US",{minimumFractionDigits: it.price % 1 ? 2 : 0, maximumFractionDigits:2}); return sym + p; }
+
+function liveOf(id){ return LIVE && LIVE.items && LIVE.items[id]; }
+function allItems(){
+  const extra = (LIVE && Array.isArray(LIVE.extra)) ? LIVE.extra.filter(x => x && x.id && Array.isArray(x.regions) && CUR[x.cur]).map(x => Object.assign({rn:null,status:"ok",oneTime:false,hkip:false,note:"",url:"",carriers:"",checkedAt:CHECK_DATE,autoAt:null,verify:"official"}, x)) : [];
+  return DATA.concat(extra, CUSTOM).map(it => {
+    let x = it;
+    const l = liveOf(it.id);
+    if(l && typeof l.price === "number" && l.price >= 0){
+      x = Object.assign({}, x, {price:l.price, cur: CUR[l.cur] ? l.cur : x.cur, checkedAt: l.checkedAt || x.checkedAt, autoAt: l.auto ? (l.checkedAt || null) : x.autoAt});
+      if(l.status) x.status = l.status;
+    }
+    const o = OV[it.id];
+    return o ? Object.assign({}, x, o, {userEdited:true}) : x;
+  });
+}
+function costJPY(it){
+  if(it.cur === "JPY") return it.price;
+  const r = Number(S.rates[it.cur]) || 0;
+  return it.price * r * (1 + (Number(S.fee)||0)/100);
+}
+function covers(it){ return S.regions.every(r => it.regions.indexOf(r) >= 0); }
+function rnApplies(it){
+  if(!it.rn) return false;
+  if(it.rn === "all") return true;
+  if(it.rn === "domestic") return false;
+  return Array.isArray(it.rn) && it.rn.some(r => S.regions.indexOf(r) >= 0);
+}
+function reasons(it){
+  const out = [];
+  if(it.status === "soldout") out.push("売り切れ");
+  if(dayVal(it.days) < S.minDays) out.push("有効期間が短い");
+  if(it.rn === "domestic" && !S.domestic) out.push("国内キャリア");
+  if(rnApplies(it) && !S.realName) out.push("実名登録が必要");
+  if(it.verify === "aggregator" && !S.aggregator) out.push("比較サイトのみ");
+  if((it.verify === "unverified" || it.status === "caution") && !S.unverified) out.push("未確認");
+  if(it.oneTime && !S.oneTime) out.push("初回限定");
+  if(!(it.gb > 0)) out.push("容量なし");
+  return out;
+}
+
+// 0/1ナップサック(商品の個数上限K、容量は0.1GB単位、必要量以上で打ち切り)
+function solve(items, needGB, K, excludeFamilies){
+  const UNIT = 10;
+  const G = Math.max(1, Math.round(needGB * UNIT));
+  const copies = [];
+  items.forEach((it, idx) => {
+    if(excludeFamilies && excludeFamilies.indexOf(it.family) >= 0) return;
+    const w = Math.max(1, Math.round(it.gb * UNIT));
+    const c = costJPY(it);
+    const q = it.oneTime ? 1 : K;
+    for(let i = 0; i < q; i++) copies.push([idx, w, c]);
+  });
+  const dp = [], pick = [];
+  for(let k = 0; k <= K; k++){ dp.push(new Float64Array(G + 1).fill(Infinity)); pick.push(new Array(G + 1).fill(null)); }
+  dp[0][0] = 0; pick[0][0] = [];
+  for(const [idx, w, c] of copies){
+    for(let k = K; k >= 1; k--){
+      const prev = dp[k-1], cur = dp[k], pp = pick[k-1], pc = pick[k];
+      for(let g = G; g >= 0; g--){
+        const base = prev[g];
+        if(base === Infinity) continue;
+        const ng = g + w >= G ? G : g + w;
+        const v = base + c;
+        if(v < cur[ng] - 1e-9){ cur[ng] = v; pc[ng] = pp[g].concat(idx); }
+      }
+    }
+  }
+  let best = null;
+  for(let k = 1; k <= K; k++){ if(dp[k][G] < Infinity && (!best || dp[k][G] < best.cost - 1e-9)) best = {cost: dp[k][G], idxs: pick[k][G]}; }
+  if(!best) return null;
+  const counts = new Map();
+  best.idxs.forEach(i => counts.set(i, (counts.get(i)||0) + 1));
+  const lines = Array.from(counts.entries()).map(([i, q]) => ({it: items[i], qty: q})).sort((a,b) => b.it.gb*b.qty - a.it.gb*a.qty);
+  const gotGB = lines.reduce((s, l) => s + l.it.gb * l.qty, 0);
+  return {cost: best.cost, lines: lines, gotGB: gotGB, count: best.idxs.length, need: needGB};
+}
+function comboKey(r){ return r.lines.map(l => l.it.id + "x" + l.qty).sort().join("|"); }
+function comboText(r){ return r.lines.map(l => l.it.brand + " " + l.it.name + (l.qty > 1 ? " ×" + l.qty : "")).join(" + "); }
+
+function badgesFor(it){
+  const b = [];
+  if(it.verify === "official") b.push('<span class="bd ok">公式で確認</span>');
+  else if(it.verify === "aggregator") b.push('<span class="bd warn">比較サイト</span>');
+  else if(it.verify === "custom") b.push('<span class="bd info">手入力</span>');
+  else b.push('<span class="bd bad">未確認</span>');
+  if(it.status === "caution") b.push('<span class="bd bad">要確認</span>');
+  if(it.status === "soldout") b.push('<span class="bd bad">売り切れ</span>');
+  if(it.rn === "domestic") b.push('<span class="bd info">国内契約</span>');
+  else if(it.rn === "all") b.push('<span class="bd gold">実名登録 必須</span>');
+  else if(Array.isArray(it.rn)) b.push('<span class="bd gold">' + esc(it.rn.map(r => REGNAME[r] || r).join("・")) + 'で実名登録</span>');
+  if(it.hkip) b.push('<span class="bd warn">香港IPの可能性</span>');
+  if(it.oneTime) b.push('<span class="bd info">初回限定</span>');
+  if(it.userEdited) b.push('<span class="bd info">手で修正</span>');
+  else if(it.autoAt) b.push('<span class="bd ok">自動更新 ' + esc(String(it.autoAt).slice(5,10).replace("-","/")) + '</span>');
+  else if(it.checkedAt) b.push('<span class="bd plain">確認 ' + esc(String(it.checkedAt).slice(5,10).replace("-","/")) + '</span>');
+  return b.join("");
+}
+
+let renderTimer = 0;
+function schedule(){ clearTimeout(renderTimer); renderTimer = setTimeout(render, 40); }
+
+function render(){
+  save(KS, S);
+  const items = allItems();
+  const covering = items.filter(covers);
+  const usable = covering.filter(it => reasons(it).length === 0);
+  $("stamp").textContent = "DATA " + CHECK_DATE + " / " + items.length + " PLANS";
+
+  const daysTxt = (DAYS.find(d => d[0] === S.minDays) || [0,"期間を問わない"])[1];
+  $("condLine").textContent = S.regions.map(r => REGNAME[r]).join("・") + " / " + daysTxt + " / 最大" + S.maxCount + "点 / 候補 " + usable.length + "件";
+
+  const best = solve(usable, S.gb, S.maxCount);
+  renderBest(best);
+  renderAlts(best, usable);
+  renderLadder(usable);
+  renderCatalog(covering);
+}
+
+function renderBest(r){
+  const box = $("bestBox");
+  if(!r){
+    box.innerHTML = '<div class="empty"><b>条件に合う組み合わせがありません。</b><br>有効期間を短くする、組み合わせる数を増やす、含める商品を広げる、のどれかを試してください。</div>';
+    return;
+  }
+  const extra = r.gotGB - r.need;
+  let h = '<div class="besthead"><div><div class="lbl" style="margin-bottom:6px">最安の組み合わせ</div><div class="total">' + yen(r.cost) + '</div></div>';
+  h += '<div class="metas"><span>確保 <b>' + gbLabel(r.gotGB) + '</b>' + (extra > 0.05 ? '(余り ' + gbLabel(extra) + ')' : '') + '</span>';
+  h += '<span>必要量あたり <b>' + yen(r.cost / r.need) + '/GB</b></span><span>購入 <b>' + r.count + '点</b></span></div></div>';
+  h += '<div class="sims">';
+  r.lines.forEach(l => {
+    const it = l.it;
+    h += '<div class="sim"><div class="simtop"><div class="simname"><span class="br">' + esc(it.brand) + '</span>' + esc(it.name) + (l.qty > 1 ? '<span class="qty">×' + l.qty + '</span>' : '') + '</div>';
+    h += '<div class="simprice">' + yen(costJPY(it) * l.qty) + '</div></div>';
+    h += '<div class="simspec"><span>容量 <span class="num">' + gbLabel(it.gb) + '</span></span><span>有効期間 <span class="num">' + dayLabel(it.days) + '</span></span><span>価格 <span class="num">' + esc(priceLabel(it)) + '</span></span>';
+    if(it.carriers) h += '<span>回線 ' + esc(it.carriers) + '</span>';
+    h += '</div>';
+    if(it.note) h += '<p class="simnote">' + esc(it.note) + '</p>';
+    h += '<div class="badges">' + badgesFor(it) + (it.url ? ' <a class="bd info" href="' + esc(it.url) + '" target="_blank" rel="noopener">販売・出典ページ</a>' : '') + '</div></div>';
+  });
+  h += '</div>';
+  box.innerHTML = h;
+}
+
+function renderAlts(best, usable){
+  const el = $("alts");
+  if(!best){ el.innerHTML = '<div class="empty">最安の組み合わせが見つからないため、ほかの選択肢もありません。</div>'; return; }
+  const fams = Array.from(new Set(best.lines.map(l => l.it.family)));
+  const seen = new Set([comboKey(best)]);
+  const out = [];
+  fams.forEach(f => {
+    const r = solve(usable, S.gb, S.maxCount, [f]);
+    if(r && !seen.has(comboKey(r))){ seen.add(comboKey(r)); out.push({r: r, why: f + " を使わない場合"}); }
+  });
+  if(fams.length > 1){
+    const r = solve(usable, S.gb, S.maxCount, fams);
+    if(r && !seen.has(comboKey(r))){ seen.add(comboKey(r)); out.push({r: r, why: fams.join("・") + " をすべて使わない場合"}); }
+  }
+  out.sort((a,b) => a.r.cost - b.r.cost);
+  if(!out.length){ el.innerHTML = '<div class="empty">条件に合うほかの組み合わせはありません。</div>'; return; }
+  el.innerHTML = out.slice(0,4).map(o => '<div class="alt"><div class="what"><div>' + esc(comboText(o.r)) + '</div><div class="why">' + esc(o.why) + '・確保 ' + gbLabel(o.r.gotGB) + '</div></div><div class="amt">' + yen(o.r.cost) + '<small>+' + yen(o.r.cost - best.cost) + '</small></div></div>').join("");
+}
+
+function renderLadder(usable){
+  const sizes = [10,20,30,40,50,60,70,80,90,100];
+  if(sizes.indexOf(S.gb) < 0) sizes.push(S.gb);
+  sizes.sort((a,b) => a-b);
+  const rows = sizes.map(g => ({g: g, r: solve(usable, g, S.maxCount)}));
+  const maxPer = Math.max(1, ...rows.filter(x => x.r).map(x => x.r.cost / x.g));
+  let h = '<thead><tr><th class="r">容量</th><th>構成</th><th class="r">総額</th><th class="r">円/GB</th><th class="barcell" aria-label="円/GBの比較"></th></tr></thead><tbody>';
+  rows.forEach(x => {
+    const cur = x.g === S.gb ? ' class="cur"' : '';
+    if(!x.r){ h += '<tr' + cur + '><td class="r num">' + x.g + 'GB</td><td colspan="4" class="msg">条件に合う組み合わせなし</td></tr>'; return; }
+    const per = x.r.cost / x.g;
+    h += '<tr' + cur + '><td class="r num">' + x.g + 'GB</td><td class="combo">' + esc(comboText(x.r)) + (x.r.gotGB - x.g > 0.05 ? ' <span class="msg">(計' + gbLabel(x.r.gotGB) + ')</span>' : '') + '</td><td class="r num">' + yen(x.r.cost) + '</td><td class="r num">' + yen(per) + '</td><td class="barcell"><div class="bar" style="width:' + (per / maxPer * 100).toFixed(1) + '%"></div></td></tr>';
+  });
+  h += '</tbody>';
+  $("ladder").innerHTML = h;
+}
+
+function renderCatalog(covering){
+  let rows = covering.map(it => ({it: it, rs: reasons(it), jpy: costJPY(it)}));
+  const total = rows.length;
+  const okCount = rows.filter(r => !r.rs.length).length;
+  if(!showOff) rows = rows.filter(r => !r.rs.length);
+  const key = catSort.key, dir = catSort.dir;
+  const val = r => key === "ppg" ? r.jpy / r.it.gb : key === "jpy" ? r.jpy : key === "gb" ? r.it.gb : key === "days" ? dayVal(r.it.days) : (r.it.brand + r.it.name);
+  rows.sort((a,b) => { if(!!a.rs.length !== !!b.rs.length) return a.rs.length ? 1 : -1; const va = val(a), vb = val(b); if(va < vb) return -dir; if(va > vb) return dir; return 0; });
+  $("catTitle").textContent = "商品一覧";
+  $("catCount").textContent = "対象 " + total + "件のうち条件に合う " + okCount + "件";
+  const th = (k, label, cls) => '<th class="' + (cls||"") + '"><button class="sortbtn" type="button" data-sort="' + k + '"' + (catSort.key === k ? ' aria-sort="' + (dir > 0 ? "ascending" : "descending") + '"' : '') + '>' + label + (catSort.key === k ? (dir > 0 ? " ↑" : " ↓") : "") + '</button></th>';
+  let h = '<thead><tr>' + th("name","商品") + th("gb","容量","r") + th("days","有効期間","r") + '<th class="r">価格</th>' + th("jpy","円換算","r") + th("ppg","円/GB","r") + '<th>状態</th></tr></thead><tbody>';
+  rows.forEach(r => {
+    const it = r.it;
+    const off = r.rs.length ? ' class="off"' : '';
+    let priceCell = esc(priceLabel(it));
+    let stateCell = r.rs.length ? '<span class="reason">' + esc(r.rs.join("・")) + '</span>' : '<span class="bd ok">候補</span>';
+    if(editMode){
+      priceCell = '<span class="msg">' + esc(CUR[it.cur] || it.cur) + '</span> <input class="pricein" type="number" step="0.01" min="0" data-price="' + esc(it.id) + '" value="' + esc(it.price) + '" aria-label="' + esc(it.brand + " " + it.name) + 'の価格">';
+      stateCell = '<select class="statsel" data-status="' + esc(it.id) + '" aria-label="販売状態"><option value="ok"' + (it.status === "ok" ? " selected" : "") + '>販売中</option><option value="caution"' + (it.status === "caution" ? " selected" : "") + '>要確認</option><option value="soldout"' + (it.status === "soldout" ? " selected" : "") + '>売り切れ</option></select>' + (OV[it.id] ? ' <button class="btn" type="button" data-revert="' + esc(it.id) + '" style="padding:1px 8px;font-size:12px">元に戻す</button>' : '') + (it.verify === "custom" ? ' <button class="btn" type="button" data-del="' + esc(it.id) + '" style="padding:1px 8px;font-size:12px">削除</button>' : '');
+    }
+    h += '<tr' + off + '><td><div class="pname"><span class="br">' + esc(it.brand) + '</span>' + (it.url ? '<a href="' + esc(it.url) + '" target="_blank" rel="noopener">' + esc(it.name) + '</a>' : esc(it.name)) + '</div><div class="badges">' + badgesFor(it) + '</div></td>';
+    h += '<td class="r num">' + gbLabel(it.gb) + '</td><td class="r num">' + dayLabel(it.days) + '</td><td class="r num">' + priceCell + '</td><td class="r num">' + yen(r.jpy) + '</td><td class="r num">' + (it.gb > 0 ? yen(r.jpy / it.gb) : "—") + '</td><td>' + stateCell + '</td></tr>';
+  });
+  if(!rows.length) h += '<tr><td colspan="7" class="msg">選んだ国・地域をすべてカバーする商品がありません。</td></tr>';
+  h += '</tbody>';
+  $("catalog").innerHTML = h;
+}
+
+// ---- controls ----
+function buildControls(){
+  $("gbChips").innerHTML = [5,10,20,30,40,60,100].map(g => '<button type="button" class="chipbtn preset" data-gb="' + g + '">' + g + 'GB</button>').join("");
+  $("presets").innerHTML = PRESETS.map((p,i) => '<button type="button" class="chipbtn preset" data-preset="' + i + '">' + p[0] + '</button>').join("");
+  $("regions").innerHTML = REG.map(r => '<button type="button" class="chipbtn" data-reg="' + r[0] + '">' + r[1] + '</button>').join("");
+  $("days").innerHTML = DAYS.map(d => '<option value="' + d[0] + '">' + d[1] + '</option>').join("");
+  $("maxCount").innerHTML = [1,2,3,4,5].map(n => '<option value="' + n + '">' + n + '点まで</option>').join("");
+  $("checks").innerHTML = CHECKS.map(c => '<label class="check" for="ck_' + c[0] + '"><input type="checkbox" id="ck_' + c[0] + '" data-check="' + c[0] + '"><span>' + c[1] + '<small>' + c[2] + '</small></span></label>').join("");
+  $("aRegions").innerHTML = REG.map(r => '<button type="button" class="chipbtn" data-areg="' + r[0] + '" aria-pressed="' + (r[0] === "JP") + '">' + r[1] + '</button>').join("");
+}
+function syncControls(){
+  $("gb").value = S.gb;
+  $("gbRange").value = Math.min(300, S.gb);
+  document.querySelectorAll("[data-reg]").forEach(b => b.setAttribute("aria-pressed", S.regions.indexOf(b.dataset.reg) >= 0 ? "true" : "false"));
+  document.querySelectorAll("[data-preset]").forEach(b => { const p = PRESETS[+b.dataset.preset][1]; b.setAttribute("aria-pressed", (p.length === S.regions.length && p.every(r => S.regions.indexOf(r) >= 0)) ? "true" : "false"); });
+  document.querySelectorAll("[data-gb]").forEach(b => b.setAttribute("aria-pressed", +b.dataset.gb === S.gb ? "true" : "false"));
+  $("days").value = String(S.minDays);
+  $("maxCount").value = String(S.maxCount);
+  CHECKS.forEach(c => { $("ck_" + c[0]).checked = !!S[c[0]]; });
+  $("rUSD").value = S.rates.USD; $("rHKD").value = S.rates.HKD; $("rEUR").value = S.rates.EUR; $("rSGD").value = S.rates.SGD; $("fee").value = S.fee;
+  $("autoRates").checked = !!S.autoRates;
+  $("ratesInfo").textContent = RATE_STATE || "レートを手で入力すると自動取得を止めます";
+}
+
+// ---- 最新データの読み込み ----
+function fetchJSON(url, ms){
+  const ctl = typeof AbortController === "function" ? new AbortController() : null;
+  const t = setTimeout(() => { if(ctl) ctl.abort(); }, ms || 8000);
+  return fetch(url, {cache:"no-store", signal: ctl ? ctl.signal : undefined}).then(r => { clearTimeout(t); if(!r.ok) throw new Error("HTTP " + r.status); return r.json(); }, e => { clearTimeout(t); throw e; });
+}
+function round(n, d){ const p = Math.pow(10, d); return Math.round(n * p) / p; }
+function applyRates(perJPY, label){
+  const out = {};
+  ["USD","HKD","EUR","SGD"].forEach(c => { const v = Number(perJPY && perJPY[c]); if(v > 0) out[c] = round(1 / v, c === "HKD" ? 2 : 1); });
+  if(Object.keys(out).length < 4) return false;
+  S.rates = Object.assign({}, S.rates, out);
+  RATE_STATE = label;
+  return true;
+}
+function loadLivePrices(){
+  let i = 0;
+  const next = () => {
+    if(i >= LIVE_URLS.length) return Promise.resolve(null);
+    const u = LIVE_URLS[i++];
+    return fetchJSON(u + (u.indexOf("?") < 0 ? "?t=" : "&t=") + Date.now()).then(d => (d && d.items) ? {d:d, src:u} : next(), () => next());
+  };
+  return next();
+}
+function loadRates(){
+  let i = 0;
+  const next = () => {
+    if(i >= RATE_APIS.length) return Promise.resolve(false);
+    const a = RATE_APIS[i++];
+    return fetchJSON(a.url, 6000).then(d => { const p = a.pick(d); return applyRates(p.rates, "取得: " + a.name + " " + (p.date || "")) ? true : next(); }, () => next());
+  };
+  return next();
+}
+function liveLine(){
+  const parts = [];
+  if(LIVE){
+    const n = LIVE.items ? Object.values(LIVE.items).filter(x => x && x.auto).length : 0;
+    const when = LIVE.updatedAt ? new Date(LIVE.updatedAt) : null;
+    const ts = when && !isNaN(when) ? when.toLocaleString("ja-JP", {timeZone:"Asia/Tokyo", year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit"}) : "日時不明";
+    parts.push('<span><span class="dot on"></span>価格: ' + esc(ts) + ' に自動更新(' + n + '件)</span>');
+  } else {
+    parts.push('<span><span class="dot off"></span>価格: 最新データを読めないため内蔵データ(' + CHECK_DATE + '時点)で計算</span>');
+  }
+  if(!S.autoRates) parts.push('<span>為替: 手入力の値</span>');
+  else if(RATE_STATE) parts.push('<span><span class="dot on"></span>為替: ' + esc(RATE_STATE.replace(/^取得: /, "")) + '</span>');
+  else parts.push('<span><span class="dot off"></span>為替: 取得できず、前回の値で計算</span>');
+  $("liveStatus").innerHTML = parts.join("");
+}
+function refreshLive(){
+  const pr = loadLivePrices().then(r => { if(r){ LIVE = r.d; LIVE_SRC = r.src; } });
+  const rr = S.autoRates ? loadRates().then(ok => {
+    if(!ok && LIVE && LIVE.rates) applyRates(LIVE.rates.perJPY, "Actionsが取得した値 " + (LIVE.rates.date || ""));
+  }) : Promise.resolve();
+  return Promise.all([pr, rr]).then(() => {
+    if(S.autoRates && !RATE_STATE && LIVE && LIVE.rates) applyRates(LIVE.rates.perJPY, "Actionsが取得した値 " + (LIVE.rates.date || ""));
+    syncControls(); liveLine(); render();
+  });
+}
+function setGB(v){ v = Math.round(Number(v)); if(!(v >= 1)) return; S.gb = Math.min(1500, v); syncControls(); schedule(); }
+
+document.addEventListener("click", e => {
+  const t = e.target.closest("button,[data-sort]");
+  if(!t) return;
+  if(t.dataset.gb){ setGB(t.dataset.gb); return; }
+  if(t.dataset.preset != null){ S.regions = PRESETS[+t.dataset.preset][1].slice(); syncControls(); schedule(); return; }
+  if(t.dataset.reg){ const r = t.dataset.reg; const i = S.regions.indexOf(r); if(i >= 0){ if(S.regions.length > 1) S.regions.splice(i,1); } else S.regions.push(r); syncControls(); schedule(); return; }
+  if(t.dataset.areg){ t.setAttribute("aria-pressed", t.getAttribute("aria-pressed") === "true" ? "false" : "true"); return; }
+  if(t.dataset.sort){ const k = t.dataset.sort; if(catSort.key === k) catSort.dir *= -1; else catSort = {key:k, dir: 1}; render(); return; }
+  if(t.dataset.revert){ delete OV[t.dataset.revert]; save(KO, OV); render(); return; }
+  if(t.dataset.del){ CUSTOM = CUSTOM.filter(c => c.id !== t.dataset.del); delete OV[t.dataset.del]; save(KC, CUSTOM); save(KO, OV); render(); return; }
+});
+$("gb").addEventListener("input", e => { const v = Math.round(Number(e.target.value)); if(v >= 1){ S.gb = Math.min(1500, v); $("gbRange").value = Math.min(300, S.gb); document.querySelectorAll("[data-gb]").forEach(b => b.setAttribute("aria-pressed", +b.dataset.gb === S.gb ? "true" : "false")); schedule(); } });
+$("gbRange").addEventListener("input", e => setGB(e.target.value));
+$("days").addEventListener("change", e => { S.minDays = Number(e.target.value); schedule(); });
+$("maxCount").addEventListener("change", e => { S.maxCount = Number(e.target.value); schedule(); });
+$("checks").addEventListener("change", e => { const k = e.target.dataset.check; if(k){ S[k] = e.target.checked; schedule(); } });
+[["rUSD","USD"],["rHKD","HKD"],["rEUR","EUR"],["rSGD","SGD"]].forEach(([id, c]) => $(id).addEventListener("input", e => { const v = Number(e.target.value); if(v > 0){ S.rates[c] = v; if(S.autoRates){ S.autoRates = false; $("autoRates").checked = false; liveLine(); } schedule(); } }));
+$("autoRates").addEventListener("change", e => { S.autoRates = e.target.checked; RATE_STATE = ""; if(S.autoRates){ $("ratesInfo").textContent = "取得しています…"; refreshLive(); } else { syncControls(); liveLine(); schedule(); } });
+$("fee").addEventListener("input", e => { const v = Number(e.target.value); if(v >= 0){ S.fee = v; schedule(); } });
+$("resetSettings").addEventListener("click", () => { S = clone(DEFAULTS); syncControls(); render(); });
+$("showOff").addEventListener("click", e => { showOff = !showOff; e.currentTarget.setAttribute("aria-pressed", String(showOff)); render(); });
+$("editMode").addEventListener("click", e => { editMode = !editMode; e.currentTarget.setAttribute("aria-pressed", String(editMode)); render(); });
+$("catalog").addEventListener("change", e => {
+  const t = e.target;
+  if(t.dataset.price){ const v = Number(t.value); if(v >= 0){ OV[t.dataset.price] = Object.assign({}, OV[t.dataset.price], {price: v}); save(KO, OV); render(); } }
+  if(t.dataset.status){ OV[t.dataset.status] = Object.assign({}, OV[t.dataset.status], {status: t.value}); save(KO, OV); render(); }
+});
+
+$("addForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const regs = Array.from(document.querySelectorAll("[data-areg][aria-pressed='true']")).map(b => b.dataset.areg);
+  const msg = $("addMsg");
+  if(!regs.length){ msg.textContent = "対象の国・地域を1つ以上選んでください。"; return; }
+  const gb = Number($("aGb").value), price = Number($("aPrice").value);
+  if(!(gb > 0) || !(price >= 0)){ msg.textContent = "容量と価格を数字で入れてください。"; return; }
+  const daysRaw = $("aDays").value.trim();
+  const rnRaw = $("aRn").value;
+  const brand = $("aBrand").value.trim();
+  const item = {id: "c-" + Date.now().toString(36), family: brand, brand: brand, name: $("aName").value.trim(), regions: regs, gb: gb,
+    days: daysRaw ? Math.round(Number(daysRaw)) : null, price: price, cur: $("aCur").value, verify: "custom",
+    rn: rnRaw === "" ? null : (rnRaw === "all" || rnRaw === "domestic" ? rnRaw : rnRaw.split(",")),
+    status: "ok", oneTime: false, hkip: false, note: "手入力した商品", url: $("aUrl").value.trim(), carriers: ""};
+  CUSTOM.push(item); save(KC, CUSTOM);
+  msg.textContent = "「" + item.brand + " " + item.name + "」を追加しました。";
+  e.target.reset();
+  document.querySelectorAll("[data-areg]").forEach(b => b.setAttribute("aria-pressed", b.dataset.areg === "JP" ? "true" : "false"));
+  render();
+});
+
+$("exportBtn").addEventListener("click", () => {
+  const txt = JSON.stringify({app:"esim-finder", version:1, exported: new Date().toISOString().slice(0,10), overrides: OV, custom: CUSTOM}, null, 1);
+  const box = $("jsonBox"); box.value = txt;
+  const done = () => { $("dataMsg").textContent = "書き出してコピーしました。"; };
+  try{ navigator.clipboard.writeText(txt).then(done, () => { box.select(); $("dataMsg").textContent = "書き出しました。選択した文字列をコピーしてください。"; }); }
+  catch(err){ box.select(); $("dataMsg").textContent = "書き出しました。選択した文字列をコピーしてください。"; }
+});
+$("importBtn").addEventListener("click", () => {
+  const msg = $("dataMsg");
+  let d;
+  try{ d = JSON.parse($("jsonBox").value); }catch(err){ msg.textContent = "JSONとして読めませんでした。書き出した文字列をそのまま貼り付けてください。"; return; }
+  if(!d || typeof d !== "object" || (!d.overrides && !d.custom)){ msg.textContent = "このアプリの書き出しデータではありません。"; return; }
+  const ok = c => c && typeof c.id === "string" && typeof c.gb === "number" && typeof c.price === "number" && Array.isArray(c.regions) && CUR[c.cur];
+  const custom = Array.isArray(d.custom) ? d.custom.filter(ok) : [];
+  OV = (d.overrides && typeof d.overrides === "object") ? d.overrides : {};
+  CUSTOM = custom;
+  save(KO, OV); save(KC, CUSTOM);
+  msg.textContent = "読み込みました(価格の変更 " + Object.keys(OV).length + "件、追加 " + CUSTOM.length + "件)。";
+  render();
+});
+$("resetData").addEventListener("click", e => {
+  const b = e.currentTarget;
+  if(b.dataset.armed !== "1"){ b.dataset.armed = "1"; b.textContent = "もう一度押すと消します"; setTimeout(() => { b.dataset.armed = ""; b.textContent = "価格の変更と追加をすべて消す"; }, 4000); return; }
+  OV = {}; CUSTOM = []; save(KO, OV); save(KC, CUSTOM);
+  b.dataset.armed = ""; b.textContent = "価格の変更と追加をすべて消す";
+  $("dataMsg").textContent = "初期データに戻しました。";
+  render();
+});
+
+buildControls();
+syncControls();
+render();
+refreshLive();
+})();
+</script>
+
+</body>
+</html>

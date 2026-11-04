@@ -1,0 +1,31 @@
+{
+ "_comment": "eSIM最安ファインダーの自動取得ルール。id はアプリ内の商品IDと一致させる。expect は初回の比較用の価格(2026-11-02調査値)。match は1ページに複数商品があるときに商品名を絞る正規表現、near は本文で価格を探す目印の正規表現。",
+ "targets": [
+  {"id": "l2-40", "cur": "HKD", "expect": 220, "url": "https://shop.lucky2.com.hk/365days-cn-jp-kr-tw-mo-hk-data-40gb-unlimited-en"},
+  {"id": "l2-12", "cur": "HKD", "expect": 100, "url": "https://shop.lucky2.com.hk/365days-50countries-hk-data-17gb-en"},
+  {"id": "l2-60", "cur": "HKD", "expect": 400, "url": "https://shop.lucky2.com.hk/365days-20regions-roaming-60gb-hk-20gb-en"},
+  {"id": "l2-15", "cur": "HKD", "expect": 300, "url": "https://shop.lucky2.com.hk/365days-70countries-hk-data-30gb-en"},
+  {"id": "ls-30", "cur": "HKD", "expect": 180, "url": "https://shop.luckysim.com.hk/365days-17countries-roaming-data-30gb-en"},
+  {"id": "ls-24", "cur": "HKD", "expect": 150, "url": "https://shop.luckysim.com.hk/2-years-17countries-roaming-data-24gb"},
+  {"id": "ls-40", "cur": "HKD", "expect": 328, "url": "https://shop.luckysim.com.hk/3-years-17countries-roaming-data-40gb"},
+  {"id": "ban-10", "cur": "HKD", "expect": 78, "url": "https://www.bananatravelsim.com/en/products/esim-365days-offer", "match": "52.*10\\s*GB", "near": "52\\s*(?:地|regions?)?\\s*10\\s*GB", "window": 200},
+  {"id": "gs-20", "cur": "HKD", "expect": 148, "url": "https://www.datasimstore.com/-globalsim-3655g-10gb-512k-sim-data-1270-p1270.html", "match": "20\\s*GB", "near": "20\\s*GB", "window": 120},
+  {"id": "gs-30", "cur": "HKD", "expect": 238, "url": "https://www.datasimstore.com/-globalsim-3655g-10gb-512k-sim-data-1270-p1270.html", "match": "30\\s*GB", "near": "30\\s*GB", "window": 120},
+  {"id": "gs-50", "cur": "HKD", "expect": 388, "url": "https://www.datasimstore.com/-globalsim-3655g-10gb-512k-sim-data-1270-p1270.html", "match": "50\\s*GB", "near": "50\\s*GB", "window": 120},
+  {"id": "gs-10x2", "cur": "HKD", "expect": 150, "url": "https://www.datasimstore.com/-globalsim-3655g-10gb-512k-sim-data--p1269.html", "match": "10\\s*GB", "near": "10\\s*GB", "window": 120},
+  {"id": "rf-y-10", "cur": "USD", "expect": 15, "url": "https://www.getroamify.com/en/esim/asia-one-year/esim-asia-one-year-365days-10gb-all/"},
+  {"id": "rf-y-20", "cur": "USD", "expect": 35, "url": "https://www.getroamify.com/en/esim/asia-one-year/esim-asia-one-year-365days-20gb-all/"},
+  {"id": "rf-y-30", "cur": "USD", "expect": 50, "url": "https://www.getroamify.com/en/esim/asia-one-year/esim-asia-one-year-365days-30gb-all/"},
+  {"id": "rf-y-50", "cur": "USD", "expect": 70, "url": "https://www.getroamify.com/en/esim/asia-one-year/esim-asia-one-year-365days-50gb-all/"},
+  {"id": "rf-y-100", "cur": "USD", "expect": 90, "url": "https://www.getroamify.com/en/esim/asia-one-year/esim-asia-one-year-365days-100gb-all/"},
+  {"id": "bne-as-10", "cur": "EUR", "expect": 26.99, "url": "https://www.bnesim.com/plans/asia/", "methods": ["text"], "near": "Surf\\s*10\\s*GB\\s*in\\s*Asia(?!\\s*per)", "window": 300},
+  {"id": "bne-as-20", "cur": "EUR", "expect": 45.99, "url": "https://www.bnesim.com/plans/asia/", "methods": ["text"], "near": "Surf\\s*20\\s*GB\\s*in\\s*Asia(?!\\s*per)", "window": 300},
+  {"id": "bne-as-50", "cur": "EUR", "expect": 59.99, "url": "https://www.bnesim.com/plans/asia/", "methods": ["text"], "near": "Surf\\s*50\\s*GB\\s*in\\s*Asia(?!\\s*per)", "window": 300},
+  {"id": "bne-as-100", "cur": "EUR", "expect": 79.99, "url": "https://www.bnesim.com/plans/asia/", "methods": ["text"], "near": "Surf\\s*100\\s*GB\\s*in\\s*Asia(?!\\s*per)", "window": 300},
+  {"id": "thr-17", "cur": "USD", "expect": 43.99, "url": "https://mobimatter.com/travel-esim/3-apac-17-gb-yearly-esim"},
+  {"id": "thr-34", "cur": "USD", "expect": 74.99, "url": "https://mobimatter.com/travel-esim/3-apac-34-gb-yearly-esim"},
+  {"id": "ubi-jp-60", "cur": "USD", "expect": 55, "url": "https://cellulardata.ubigi.com/rates-and-coverage/japan-data-plans/japan-5gb-month-x12/"},
+  {"id": "chill-40", "cur": "HKD", "expect": 160, "url": "https://chillyik.com/en/products/lucky2-a30g", "track_stock": true},
+  {"id": "chill-12", "cur": "HKD", "expect": 75, "url": "https://chillyik.com/en/products/lk13c", "track_stock": true}
+ ]
+}

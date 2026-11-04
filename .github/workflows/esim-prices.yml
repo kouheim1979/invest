@@ -1,0 +1,63 @@
+name: eSIM price refresh
+# eSIM最安ファインダー(esim-finder/)の価格と為替を毎朝取得して prices.json に保存し、Pagesへ反映する。
+on:
+  schedule:
+    - cron: '20 21 * * *'   # 毎日 06:20 JST
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'esim-finder/scripts/**'
+      - '.github/workflows/esim-prices.yml'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Fetch prices and exchange rates
+        run: python3 esim-finder/scripts/fetch_prices.py
+      - name: Persist prices.json on main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add esim-finder/prices.json
+          if git diff --cached --quiet; then
+            echo "prices.json unchanged"
+            exit 0
+          fi
+          git commit -m "chore: refresh eSIM prices [skip ci]"
+          for i in 1 2 3; do
+            if git pull --rebase origin main && git push origin HEAD:main; then exit 0; fi
+            sleep 5
+          done
+          exit 1
+
+  deploy:
+    needs: refresh
+    runs-on: ubuntu-latest
+    concurrency:
+      group: portfolio-publish
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - uses: actions/deploy-pages@v4
+        id: deployment
