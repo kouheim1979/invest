@@ -1,9 +1,9 @@
 {
  "app": "esim-finder",
- "updatedAt": "2026-11-04T23:39:18.500619Z",
- "lastRunAt": "2026-11-04T23:39:18.500619Z",
- "okCount": 21,
- "targetCount": 26,
+ "updatedAt": "2026-11-05T04:30:42.129832Z",
+ "lastRunAt": "2026-11-05T04:30:42.129832Z",
+ "okCount": 22,
+ "targetCount": 24,
  "rates": {
   "source": "Frankfurter(ECB)",
   "date": "2026-11-04",
@@ -160,6 +160,12 @@
    "checkedAt": null,
    "auto": false,
    "status": "ok"
+  },
+  "ban-10": {
+   "price": 78.0,
+   "cur": "HKD",
+   "checkedAt": "2026-11-05",
+   "auto": true
   }
  },
  "extra": [],
@@ -208,73 +214,15 @@
   },
   "ban-10": {
    "url": "https://www.bananatravelsim.com/en/products/esim-365days-offer",
-   "ok": false,
-   "error": "shopifyjs: JSONDecodeError / jsonld: 価格が見つからない / text: 目印の文字列が見つからない",
-   "debug": {
-    "ldTypes": [],
-    "ldOffers": [],
-    "textPrices": [
-     "port Google, WhatsApp, Facebook, Youtube, IG App. HK$78 Select Pr",
-     " other personal reasons, an administrative fee of HK$20 for each ",
-     "ralia+New Zealand 5G High-speed Network Data Plan HK$228 - HK$368 ",
-     " Zealand 5G High-speed Network Data Plan HK$228 - HK$368 eSIM USA ",
-     "- HK$368 eSIM USA 5G High-speed Network Data Plan HK$138 - HK$268 "
-    ],
-    "textLen": 4723,
-    "spa": []
-   }
+   "ok": true,
+   "price": 78.0,
+   "method": "text"
   },
   "gs-20": {
    "url": "https://www.datasimstore.com/-globalsim-3655g-10gb-512k-sim-data-1270-p1270.html",
    "ok": true,
    "price": 148.0,
    "method": "jsonld"
-  },
-  "gs-30": {
-   "url": "https://www.datasimstore.com/-globalsim-3655g-10gb-512k-sim-data-1270-p1270.html",
-   "ok": false,
-   "error": "jsonld: 価格が見つからない / text: 価格が見つからない",
-   "debug": {
-    "ldTypes": [
-     "Offer",
-     "Product"
-    ],
-    "ldOffers": [
-     "特價  【可選擇eSIM/普通SIM】Globalsim亞洲多國+ 英國 美國（=148.0HKD"
-    ],
-    "textPrices": [
-     "價格抵至: HKD HKD TWD CNY SAR SGD NZD ARS INR COP AED HK$148.00 HK$250.00",
-     "HKD TWD CNY SAR SGD NZD ARS INR COP AED HK$148.00 HK$250.00 SKU: SIM卡",
-     " 澳洲 香港 台灣通用 4G上網+通話年卡/月卡 香港號碼可在6地使用，香港人旅居/留學/移民首選 HK$ 50.00 【攜號碼轉台】Gl",
-     "通話年卡/月卡 香港號碼可在英國使用，香港人旅居/留學UK首選(套餐DATA通用35個國家/地區） HK$ 50.00 【攜號碼轉台/新號",
-     "lobalsim 5G/4G香港上網+通話30日/365日/730日/3年/6年 多種套餐可供選擇 HK$ 38.00 【可選擇eSIM/"
-    ],
-    "textLen": 3899,
-    "spa": []
-   }
-  },
-  "gs-50": {
-   "url": "https://www.datasimstore.com/-globalsim-3655g-10gb-512k-sim-data-1270-p1270.html",
-   "ok": false,
-   "error": "jsonld: 価格が見つからない / text: 価格が見つからない",
-   "debug": {
-    "ldTypes": [
-     "Offer",
-     "Product"
-    ],
-    "ldOffers": [
-     "特價  【可選擇eSIM/普通SIM】Globalsim亞洲多國+ 英國 美國（=148.0HKD"
-    ],
-    "textPrices": [
-     "價格抵至: HKD HKD TWD CNY SAR SGD NZD ARS INR COP AED HK$148.00 HK$250.00",
-     "HKD TWD CNY SAR SGD NZD ARS INR COP AED HK$148.00 HK$250.00 SKU: SIM卡",
-     " 澳洲 香港 台灣通用 4G上網+通話年卡/月卡 香港號碼可在6地使用，香港人旅居/留學/移民首選 HK$ 50.00 【攜號碼轉台】Gl",
-     "通話年卡/月卡 香港號碼可在英國使用，香港人旅居/留學UK首選(套餐DATA通用35個國家/地區） HK$ 50.00 【攜號碼轉台/新號",
-     "lobalsim 5G/4G香港上網+通話30日/365日/730日/3年/6年 多種套餐可供選擇 HK$ 38.00 【可選擇eSIM/"
-    ],
-    "textLen": 3899,
-    "spa": []
-   }
   },
   "gs-10x2": {
    "url": "https://www.datasimstore.com/-globalsim-3655g-10gb-512k-sim-data--p1269.html",
@@ -358,7 +306,7 @@
    "url": "https://chillyik.com/en/products/lucky2-a30g",
    "ok": false,
    "status": "ok",
-   "error": "shopifyjs: 候補が複数あり判断できない: 22, 28, 23 / jsonld: 価格が見つからない",
+   "error": "shopifyjs: 候補が複数あり判断できない: 22, 28, 23",
    "debug": {
     "ldTypes": [
      "AggregateRating",
@@ -380,13 +328,18 @@
     "spa": [
      "Shopify"
     ]
-   }
+   },
+   "variants": [
+    "for Hong Kong. Physical SIM Physical SIM: 在庫あり",
+    "IM (no mailing, please leave your email): 在庫あり",
+    "n the message to finish the application): 在庫あり"
+   ]
   },
   "chill-12": {
    "url": "https://chillyik.com/en/products/lk13c",
    "ok": false,
    "status": "ok",
-   "error": "shopifyjs: 候補が複数あり判断できない: 11, 14 / jsonld: 価格が見つからない",
+   "error": "shopifyjs: 候補が複数あり判断できない: 11, 14",
    "debug": {
     "ldTypes": [
      "AggregateRating",
@@ -407,7 +360,11 @@
     "spa": [
      "Shopify"
     ]
-   }
+   },
+   "variants": [
+    "n available) Physical Card Physical Card: 在庫あり",
+    " by unlimited throttled data at 384kbps): 在庫あり"
+   ]
   }
  }
 }
