@@ -34,6 +34,7 @@ CUR_PATTERNS = {
 LOW, HIGH = 0.4, 2.5  # 前回値からこの比率を外れたら採用しない
 
 _cache = {}
+LAST_VARIANTS = {}
 
 
 def fetch(url, timeout=25):
@@ -249,10 +250,13 @@ def _extract_one(t, prev_price):
             except Exception as e:  # noqa: BLE001
                 errors.append(f"shopifyjs: {type(e).__name__}")
                 continue
+            LAST_VARIANTS[t["id"]] = [f"{v['name'][-40:]}: {'在庫あり' if v['available'] else '売り切れ'}" for v in vs][:8]
             if t.get("match"):
                 vs = [v for v in vs if re.search(t["match"], v["name"], re.I)]
             if t.get("track_stock") and vs:
-                status = "ok" if any(v["available"] for v in vs) else "soldout"
+                sv = [v for v in vs if re.search(t["stock_match"], v["name"], re.I)] if t.get("stock_match") else vs
+                if sv:
+                    status = "ok" if any(v["available"] for v in sv) else "soldout"
             v, err = decide([x["price"] for x in vs if x["price"] is not None], expect)
             if v is not None:
                 return v, method, status, errors, None
@@ -365,6 +369,8 @@ def main():
                     entry["debug"] = dbg
         except Exception as e:  # noqa: BLE001
             entry["error"] = str(e)
+        if pid in LAST_VARIANTS:
+            entry["variants"] = LAST_VARIANTS[pid]
         report[pid] = entry
         print(("OK  " if entry["ok"] else "NG  ") + pid + "  " + json.dumps({k: v for k, v in entry.items() if k != "url"}, ensure_ascii=False))
         time.sleep(0.8)

@@ -48,14 +48,10 @@
    "cur": "HKD",
    "expect": 78,
    "url": "https://www.bananatravelsim.com/en/products/esim-365days-offer",
-   "match": "52.*10\\s*GB",
-   "near": "52\\s*(?:地|regions?)?\\s*10\\s*GB",
-   "window": 200,
    "methods": [
-    "shopifyjs",
-    "jsonld",
     "text"
-   ]
+   ],
+   "pattern": "HK\\$\\s*([0-9][0-9,]*(?:\\.[0-9]{1,2})?)\\s*Select"
   },
   {
    "id": "gs-20",
@@ -64,24 +60,6 @@
    "url": "https://www.datasimstore.com/-globalsim-3655g-10gb-512k-sim-data-1270-p1270.html",
    "match": "20\\s*GB",
    "near": "20\\s*GB",
-   "window": 120
-  },
-  {
-   "id": "gs-30",
-   "cur": "HKD",
-   "expect": 238,
-   "url": "https://www.datasimstore.com/-globalsim-3655g-10gb-512k-sim-data-1270-p1270.html",
-   "match": "30\\s*GB",
-   "near": "30\\s*GB",
-   "window": 120
-  },
-  {
-   "id": "gs-50",
-   "cur": "HKD",
-   "expect": 388,
-   "url": "https://www.datasimstore.com/-globalsim-3655g-10gb-512k-sim-data-1270-p1270.html",
-   "match": "50\\s*GB",
-   "near": "50\\s*GB",
    "window": 120
   },
   {
@@ -212,9 +190,9 @@
    "url": "https://chillyik.com/en/products/lucky2-a30g",
    "track_stock": true,
    "methods": [
-    "shopifyjs",
-    "jsonld"
-   ]
+    "shopifyjs"
+   ],
+   "stock_match": "eSIM"
   },
   {
    "id": "chill-12",
@@ -223,9 +201,9 @@
    "url": "https://chillyik.com/en/products/lk13c",
    "track_stock": true,
    "methods": [
-    "shopifyjs",
-    "jsonld"
-   ]
+    "shopifyjs"
+   ],
+   "stock_match": "eSIM"
   }
  ]
 }
