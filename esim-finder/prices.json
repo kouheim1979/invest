@@ -1,7 +1,7 @@
 {
  "app": "esim-finder",
- "updatedAt": "2026-11-05T04:30:42.129832Z",
- "lastRunAt": "2026-11-05T04:30:42.129832Z",
+ "updatedAt": "2026-11-05T04:33:17.164318Z",
+ "lastRunAt": "2026-11-05T04:33:17.164318Z",
  "okCount": 22,
  "targetCount": 24,
  "rates": {
@@ -152,14 +152,14 @@
    "cur": "HKD",
    "checkedAt": null,
    "auto": false,
-   "status": "ok"
+   "status": "caution"
   },
   "chill-12": {
    "price": 75,
    "cur": "HKD",
    "checkedAt": null,
    "auto": false,
-   "status": "ok"
+   "status": "caution"
   },
   "ban-10": {
    "price": 78.0,
@@ -305,7 +305,7 @@
   "chill-40": {
    "url": "https://chillyik.com/en/products/lucky2-a30g",
    "ok": false,
-   "status": "ok",
+   "status": "caution",
    "error": "shopifyjs: 候補が複数あり判断できない: 22, 28, 23",
    "debug": {
     "ldTypes": [
@@ -324,7 +324,7 @@
      "Lucky2 [China, Japan, South Korea, Taiwa=23.0USD"
     ],
     "textPrices": [],
-    "textLen": 26162,
+    "textLen": 26183,
     "spa": [
      "Shopify"
     ]
@@ -338,7 +338,7 @@
   "chill-12": {
    "url": "https://chillyik.com/en/products/lk13c",
    "ok": false,
-   "status": "ok",
+   "status": "caution",
    "error": "shopifyjs: 候補が複数あり判断できない: 11, 14",
    "debug": {
     "ldTypes": [
@@ -356,7 +356,7 @@
      "Lucky2 [13 Countries/Regions] 365-Day 15=14.0USD"
     ],
     "textPrices": [],
-    "textLen": 25173,
+    "textLen": 25194,
     "spa": [
      "Shopify"
     ]
