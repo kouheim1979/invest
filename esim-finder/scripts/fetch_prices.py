@@ -256,7 +256,7 @@ def _extract_one(t, prev_price):
             if t.get("track_stock") and vs:
                 sv = [v for v in vs if re.search(t["stock_match"], v["name"], re.I)] if t.get("stock_match") else vs
                 if sv:
-                    status = "ok" if any(v["available"] for v in sv) else "soldout"
+                    status = t.get("stock_ok_status", "ok") if any(v["available"] for v in sv) else "soldout"
             v, err = decide([x["price"] for x in vs if x["price"] is not None], expect)
             if v is not None:
                 return v, method, status, errors, None

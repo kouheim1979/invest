@@ -192,7 +192,8 @@
    "methods": [
     "shopifyjs"
    ],
-   "stock_match": "eSIM"
+   "stock_match": "eSIM",
+   "stock_ok_status": "caution"
   },
   {
    "id": "chill-12",
@@ -203,7 +204,8 @@
    "methods": [
     "shopifyjs"
    ],
-   "stock_match": "eSIM"
+   "stock_match": "eSIM",
+   "stock_ok_status": "caution"
   }
  ]
 }
