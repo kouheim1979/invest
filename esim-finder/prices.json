@@ -1,7 +1,7 @@
 {
  "app": "esim-finder",
- "updatedAt": "2026-11-07T00:57:14.447133Z",
- "lastRunAt": "2026-11-07T00:57:14.447133Z",
+ "updatedAt": "2026-11-08T00:41:05.194227Z",
+ "lastRunAt": "2026-11-08T00:41:05.194227Z",
  "okCount": 22,
  "targetCount": 24,
  "rates": {
@@ -24,127 +24,127 @@
   "l2-40": {
    "price": 220,
    "cur": "HKD",
-   "checkedAt": "2026-11-07",
+   "checkedAt": "2026-11-08",
    "auto": true
   },
   "l2-12": {
    "price": 100,
    "cur": "HKD",
-   "checkedAt": "2026-11-07",
+   "checkedAt": "2026-11-08",
    "auto": true
   },
   "l2-60": {
    "price": 400,
    "cur": "HKD",
-   "checkedAt": "2026-11-07",
+   "checkedAt": "2026-11-08",
    "auto": true
   },
   "l2-15": {
    "price": 300,
    "cur": "HKD",
-   "checkedAt": "2026-11-07",
+   "checkedAt": "2026-11-08",
    "auto": true
   },
   "ls-30": {
    "price": 180,
    "cur": "HKD",
-   "checkedAt": "2026-11-07",
+   "checkedAt": "2026-11-08",
    "auto": true
   },
   "ls-24": {
    "price": 150,
    "cur": "HKD",
-   "checkedAt": "2026-11-07",
+   "checkedAt": "2026-11-08",
    "auto": true
   },
   "ls-40": {
    "price": 328,
    "cur": "HKD",
-   "checkedAt": "2026-11-07",
+   "checkedAt": "2026-11-08",
    "auto": true
   },
   "gs-20": {
    "price": 148.0,
    "cur": "HKD",
-   "checkedAt": "2026-11-07",
+   "checkedAt": "2026-11-08",
    "auto": true
   },
   "gs-10x2": {
    "price": 150.0,
    "cur": "HKD",
-   "checkedAt": "2026-11-07",
+   "checkedAt": "2026-11-08",
    "auto": true
   },
   "rf-y-10": {
    "price": 15.0,
    "cur": "USD",
-   "checkedAt": "2026-11-07",
+   "checkedAt": "2026-11-08",
    "auto": true
   },
   "rf-y-20": {
    "price": 35.0,
    "cur": "USD",
-   "checkedAt": "2026-11-07",
+   "checkedAt": "2026-11-08",
    "auto": true
   },
   "rf-y-30": {
    "price": 50.0,
    "cur": "USD",
-   "checkedAt": "2026-11-07",
+   "checkedAt": "2026-11-08",
    "auto": true
   },
   "rf-y-50": {
    "price": 70.0,
    "cur": "USD",
-   "checkedAt": "2026-11-07",
+   "checkedAt": "2026-11-08",
    "auto": true
   },
   "rf-y-100": {
    "price": 90.0,
    "cur": "USD",
-   "checkedAt": "2026-11-07",
+   "checkedAt": "2026-11-08",
    "auto": true
   },
   "thr-17": {
    "price": 43.99,
    "cur": "USD",
-   "checkedAt": "2026-11-07",
+   "checkedAt": "2026-11-08",
    "auto": true
   },
   "thr-34": {
    "price": 74.99,
    "cur": "USD",
-   "checkedAt": "2026-11-07",
+   "checkedAt": "2026-11-08",
    "auto": true
   },
   "ubi-jp-60": {
    "price": 55.0,
    "cur": "USD",
-   "checkedAt": "2026-11-07",
+   "checkedAt": "2026-11-08",
    "auto": true
   },
   "bne-as-10": {
    "price": 26.99,
    "cur": "EUR",
-   "checkedAt": "2026-11-07",
+   "checkedAt": "2026-11-08",
    "auto": true
   },
   "bne-as-20": {
    "price": 45.99,
    "cur": "EUR",
-   "checkedAt": "2026-11-07",
+   "checkedAt": "2026-11-08",
    "auto": true
   },
   "bne-as-50": {
    "price": 59.99,
    "cur": "EUR",
-   "checkedAt": "2026-11-07",
+   "checkedAt": "2026-11-08",
    "auto": true
   },
   "bne-as-100": {
    "price": 79.99,
    "cur": "EUR",
-   "checkedAt": "2026-11-07",
+   "checkedAt": "2026-11-08",
    "auto": true
   },
   "chill-40": {
@@ -164,7 +164,7 @@
   "ban-10": {
    "price": 78.0,
    "cur": "HKD",
-   "checkedAt": "2026-11-07",
+   "checkedAt": "2026-11-08",
    "auto": true
   }
  },
@@ -324,7 +324,7 @@
      "Lucky2 [China, Japan, South Korea, Taiwa=23.0USD"
     ],
     "textPrices": [],
-    "textLen": 26162,
+    "textLen": 26176,
     "spa": [
      "Shopify"
     ]
@@ -356,7 +356,7 @@
      "Lucky2 [13 Countries/Regions] 365-Day 15=14.0USD"
     ],
     "textPrices": [],
-    "textLen": 25173,
+    "textLen": 25187,
     "spa": [
      "Shopify"
     ]
