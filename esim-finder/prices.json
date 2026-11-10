@@ -1,150 +1,150 @@
 {
  "app": "esim-finder",
- "updatedAt": "2026-11-09T00:56:36.367751Z",
- "lastRunAt": "2026-11-09T00:56:36.367751Z",
+ "updatedAt": "2026-11-10T03:36:42.961511Z",
+ "lastRunAt": "2026-11-10T03:36:42.961511Z",
  "okCount": 22,
  "targetCount": 24,
  "rates": {
   "source": "Frankfurter(ECB)",
-  "date": "2026-11-06",
+  "date": "2026-11-09",
   "perJPY": {
-   "USD": 0.0063161,
-   "HKD": 0.049502,
-   "EUR": 0.0056571,
-   "SGD": 0.0080947
+   "USD": 0.0063312,
+   "HKD": 0.049648,
+   "EUR": 0.0056564,
+   "SGD": 0.0081045
   },
   "jpyPer": {
-   "USD": 158.3255,
-   "HKD": 20.2012,
-   "EUR": 176.769,
-   "SGD": 123.5376
+   "USD": 157.9479,
+   "HKD": 20.1418,
+   "EUR": 176.7909,
+   "SGD": 123.3882
   }
  },
  "items": {
   "l2-40": {
    "price": 220,
    "cur": "HKD",
-   "checkedAt": "2026-11-09",
+   "checkedAt": "2026-11-10",
    "auto": true
   },
   "l2-12": {
    "price": 100,
    "cur": "HKD",
-   "checkedAt": "2026-11-09",
+   "checkedAt": "2026-11-10",
    "auto": true
   },
   "l2-60": {
    "price": 400,
    "cur": "HKD",
-   "checkedAt": "2026-11-09",
+   "checkedAt": "2026-11-10",
    "auto": true
   },
   "l2-15": {
    "price": 300,
    "cur": "HKD",
-   "checkedAt": "2026-11-09",
+   "checkedAt": "2026-11-10",
    "auto": true
   },
   "ls-30": {
    "price": 180,
    "cur": "HKD",
-   "checkedAt": "2026-11-09",
+   "checkedAt": "2026-11-10",
    "auto": true
   },
   "ls-24": {
    "price": 150,
    "cur": "HKD",
-   "checkedAt": "2026-11-09",
+   "checkedAt": "2026-11-10",
    "auto": true
   },
   "ls-40": {
    "price": 328,
    "cur": "HKD",
-   "checkedAt": "2026-11-09",
+   "checkedAt": "2026-11-10",
    "auto": true
   },
   "gs-20": {
    "price": 148.0,
    "cur": "HKD",
-   "checkedAt": "2026-11-09",
+   "checkedAt": "2026-11-10",
    "auto": true
   },
   "gs-10x2": {
    "price": 150.0,
    "cur": "HKD",
-   "checkedAt": "2026-11-09",
+   "checkedAt": "2026-11-10",
    "auto": true
   },
   "rf-y-10": {
    "price": 15.0,
    "cur": "USD",
-   "checkedAt": "2026-11-09",
+   "checkedAt": "2026-11-10",
    "auto": true
   },
   "rf-y-20": {
    "price": 35.0,
    "cur": "USD",
-   "checkedAt": "2026-11-09",
+   "checkedAt": "2026-11-10",
    "auto": true
   },
   "rf-y-30": {
    "price": 50.0,
    "cur": "USD",
-   "checkedAt": "2026-11-09",
+   "checkedAt": "2026-11-10",
    "auto": true
   },
   "rf-y-50": {
    "price": 70.0,
    "cur": "USD",
-   "checkedAt": "2026-11-09",
+   "checkedAt": "2026-11-10",
    "auto": true
   },
   "rf-y-100": {
    "price": 90.0,
    "cur": "USD",
-   "checkedAt": "2026-11-09",
+   "checkedAt": "2026-11-10",
    "auto": true
   },
   "thr-17": {
    "price": 43.99,
    "cur": "USD",
-   "checkedAt": "2026-11-09",
+   "checkedAt": "2026-11-10",
    "auto": true
   },
   "thr-34": {
    "price": 74.99,
    "cur": "USD",
-   "checkedAt": "2026-11-09",
+   "checkedAt": "2026-11-10",
    "auto": true
   },
   "ubi-jp-60": {
    "price": 55.0,
    "cur": "USD",
-   "checkedAt": "2026-11-09",
+   "checkedAt": "2026-11-10",
    "auto": true
   },
   "bne-as-10": {
    "price": 26.99,
    "cur": "EUR",
-   "checkedAt": "2026-11-09",
+   "checkedAt": "2026-11-10",
    "auto": true
   },
   "bne-as-20": {
    "price": 45.99,
    "cur": "EUR",
-   "checkedAt": "2026-11-09",
+   "checkedAt": "2026-11-10",
    "auto": true
   },
   "bne-as-50": {
    "price": 59.99,
    "cur": "EUR",
-   "checkedAt": "2026-11-09",
+   "checkedAt": "2026-11-10",
    "auto": true
   },
   "bne-as-100": {
    "price": 79.99,
    "cur": "EUR",
-   "checkedAt": "2026-11-09",
+   "checkedAt": "2026-11-10",
    "auto": true
   },
   "chill-40": {
@@ -164,7 +164,7 @@
   "ban-10": {
    "price": 78.0,
    "cur": "HKD",
-   "checkedAt": "2026-11-09",
+   "checkedAt": "2026-11-10",
    "auto": true
   }
  },
@@ -324,7 +324,7 @@
      "Lucky2 [China, Japan, South Korea, Taiwa=23.0USD"
     ],
     "textPrices": [],
-    "textLen": 26176,
+    "textLen": 26155,
     "spa": [
      "Shopify"
     ]
@@ -356,7 +356,7 @@
      "Lucky2 [13 Countries/Regions] 365-Day 15=14.0USD"
     ],
     "textPrices": [],
-    "textLen": 25187,
+    "textLen": 25166,
     "spa": [
      "Shopify"
     ]
