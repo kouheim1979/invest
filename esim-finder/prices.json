@@ -1,66 +1,66 @@
 {
  "app": "esim-finder",
- "updatedAt": "2026-11-12T02:17:47.368986Z",
- "lastRunAt": "2026-11-12T02:17:47.368986Z",
+ "updatedAt": "2026-11-13T01:51:36.387643Z",
+ "lastRunAt": "2026-11-13T01:51:36.387643Z",
  "okCount": 20,
  "targetCount": 24,
  "rates": {
   "source": "Frankfurter(ECB)",
-  "date": "2026-11-11",
+  "date": "2026-11-12",
   "perJPY": {
-   "USD": 0.0062801,
-   "HKD": 0.049271,
-   "EUR": 0.005644,
-   "SGD": 0.0080545
+   "USD": 0.0062619,
+   "HKD": 0.049123,
+   "EUR": 0.005651,
+   "SGD": 0.0080521
   },
   "jpyPer": {
-   "USD": 159.2331,
-   "HKD": 20.2959,
-   "EUR": 177.1793,
-   "SGD": 124.1542
+   "USD": 159.6959,
+   "HKD": 20.3571,
+   "EUR": 176.9598,
+   "SGD": 124.1912
   }
  },
  "items": {
   "l2-40": {
    "price": 220,
    "cur": "HKD",
-   "checkedAt": "2026-11-12",
+   "checkedAt": "2026-11-13",
    "auto": true
   },
   "l2-12": {
    "price": 100,
    "cur": "HKD",
-   "checkedAt": "2026-11-12",
+   "checkedAt": "2026-11-13",
    "auto": true
   },
   "l2-60": {
    "price": 400,
    "cur": "HKD",
-   "checkedAt": "2026-11-12",
+   "checkedAt": "2026-11-13",
    "auto": true
   },
   "l2-15": {
    "price": 300,
    "cur": "HKD",
-   "checkedAt": "2026-11-12",
+   "checkedAt": "2026-11-13",
    "auto": true
   },
   "ls-30": {
    "price": 180,
    "cur": "HKD",
-   "checkedAt": "2026-11-12",
+   "checkedAt": "2026-11-13",
    "auto": true
   },
   "ls-24": {
    "price": 150,
    "cur": "HKD",
-   "checkedAt": "2026-11-12",
+   "checkedAt": "2026-11-13",
    "auto": true
   },
   "ls-40": {
    "price": 328,
    "cur": "HKD",
-   "checkedAt": "2026-11-12",
+   "checkedAt": "2026-11-13",
    "auto": true
   },
   "gs-20": {
@@ -78,73 +78,73 @@
   "rf-y-10": {
    "price": 11.97,
    "cur": "USD",
-   "checkedAt": "2026-11-12",
+   "checkedAt": "2026-11-13",
    "auto": true
   },
   "rf-y-20": {
    "price": 23.47,
    "cur": "USD",
-   "checkedAt": "2026-11-12",
+   "checkedAt": "2026-11-13",
    "auto": true
   },
   "rf-y-30": {
    "price": 34.97,
    "cur": "USD",
-   "checkedAt": "2026-11-12",
+   "checkedAt": "2026-11-13",
    "auto": true
   },
   "rf-y-50": {
    "price": 57.47,
    "cur": "USD",
-   "checkedAt": "2026-11-12",
+   "checkedAt": "2026-11-13",
    "auto": true
   },
   "rf-y-100": {
    "price": 113.97,
    "cur": "USD",
-   "checkedAt": "2026-11-12",
+   "checkedAt": "2026-11-13",
    "auto": true
   },
   "thr-17": {
    "price": 43.99,
    "cur": "USD",
-   "checkedAt": "2026-11-12",
+   "checkedAt": "2026-11-13",
    "auto": true
   },
   "thr-34": {
    "price": 74.99,
    "cur": "USD",
-   "checkedAt": "2026-11-12",
+   "checkedAt": "2026-11-13",
    "auto": true
   },
   "ubi-jp-60": {
    "price": 55.0,
    "cur": "USD",
-   "checkedAt": "2026-11-12",
+   "checkedAt": "2026-11-13",
    "auto": true
   },
   "bne-as-10": {
    "price": 26.99,
    "cur": "EUR",
-   "checkedAt": "2026-11-12",
+   "checkedAt": "2026-11-13",
    "auto": true
   },
   "bne-as-20": {
    "price": 45.99,
    "cur": "EUR",
-   "checkedAt": "2026-11-12",
+   "checkedAt": "2026-11-13",
    "auto": true
   },
   "bne-as-50": {
    "price": 59.99,
    "cur": "EUR",
-   "checkedAt": "2026-11-12",
+   "checkedAt": "2026-11-13",
    "auto": true
   },
   "bne-as-100": {
    "price": 79.99,
    "cur": "EUR",
-   "checkedAt": "2026-11-12",
+   "checkedAt": "2026-11-13",
    "auto": true
   },
   "chill-40": {
@@ -164,7 +164,7 @@
   "ban-10": {
    "price": 78.0,
    "cur": "HKD",
-   "checkedAt": "2026-11-12",
+   "checkedAt": "2026-11-13",
    "auto": true
   }
  },
@@ -232,36 +232,31 @@
    "url": "https://www.getroamify.com/en/esim/asia-one-year/esim-asia-one-year-365days-10gb-all/",
    "ok": true,
    "price": 11.97,
-   "method": "jsonld",
-   "changedFrom": 15.0
+   "method": "jsonld"
   },
   "rf-y-20": {
    "url": "https://www.getroamify.com/en/esim/asia-one-year/esim-asia-one-year-365days-20gb-all/",
    "ok": true,
    "price": 23.47,
-   "method": "jsonld",
-   "changedFrom": 35.0
+   "method": "jsonld"
   },
   "rf-y-30": {
    "url": "https://www.getroamify.com/en/esim/asia-one-year/esim-asia-one-year-365days-30gb-all/",
    "ok": true,
    "price": 34.97,
-   "method": "jsonld",
-   "changedFrom": 50.0
+   "method": "jsonld"
   },
   "rf-y-50": {
    "url": "https://www.getroamify.com/en/esim/asia-one-year/esim-asia-one-year-365days-50gb-all/",
    "ok": true,
    "price": 57.47,
-   "method": "jsonld",
-   "changedFrom": 70.0
+   "method": "jsonld"
   },
   "rf-y-100": {
    "url": "https://www.getroamify.com/en/esim/asia-one-year/esim-asia-one-year-365days-100gb-all/",
    "ok": true,
    "price": 113.97,
-   "method": "jsonld",
-   "changedFrom": 90.0
+   "method": "jsonld"
   },
   "bne-as-10": {
    "url": "https://www.bnesim.com/plans/asia/",
