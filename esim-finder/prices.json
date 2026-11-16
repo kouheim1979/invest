@@ -1,8 +1,8 @@
 {
  "app": "esim-finder",
- "updatedAt": "2026-11-15T01:05:12.686943Z",
- "lastRunAt": "2026-11-15T01:05:12.686943Z",
- "okCount": 22,
+ "updatedAt": "2026-11-16T01:04:27.826197Z",
+ "lastRunAt": "2026-11-16T01:04:27.826197Z",
+ "okCount": 20,
  "targetCount": 24,
  "rates": {
   "source": "Frankfurter(ECB)",
@@ -24,43 +24,43 @@
   "l2-40": {
    "price": 220,
    "cur": "HKD",
-   "checkedAt": "2026-11-15",
+   "checkedAt": "2026-11-16",
    "auto": true
   },
   "l2-12": {
    "price": 100,
    "cur": "HKD",
-   "checkedAt": "2026-11-15",
+   "checkedAt": "2026-11-16",
    "auto": true
   },
   "l2-60": {
    "price": 400,
    "cur": "HKD",
-   "checkedAt": "2026-11-15",
+   "checkedAt": "2026-11-16",
    "auto": true
   },
   "l2-15": {
    "price": 300,
    "cur": "HKD",
-   "checkedAt": "2026-11-15",
+   "checkedAt": "2026-11-16",
    "auto": true
   },
   "ls-30": {
    "price": 180,
    "cur": "HKD",
-   "checkedAt": "2026-11-15",
+   "checkedAt": "2026-11-16",
    "auto": true
   },
   "ls-24": {
    "price": 150,
    "cur": "HKD",
-   "checkedAt": "2026-11-15",
+   "checkedAt": "2026-11-16",
    "auto": true
   },
   "ls-40": {
    "price": 328,
    "cur": "HKD",
-   "checkedAt": "2026-11-15",
+   "checkedAt": "2026-11-16",
    "auto": true
   },
   "gs-20": {
@@ -78,73 +78,73 @@
   "rf-y-10": {
    "price": 11.97,
    "cur": "USD",
-   "checkedAt": "2026-11-15",
+   "checkedAt": "2026-11-16",
    "auto": true
   },
   "rf-y-20": {
    "price": 23.47,
    "cur": "USD",
-   "checkedAt": "2026-11-15",
+   "checkedAt": "2026-11-16",
    "auto": true
   },
   "rf-y-30": {
    "price": 34.97,
    "cur": "USD",
-   "checkedAt": "2026-11-15",
+   "checkedAt": "2026-11-16",
    "auto": true
   },
   "rf-y-50": {
    "price": 57.47,
    "cur": "USD",
-   "checkedAt": "2026-11-15",
+   "checkedAt": "2026-11-16",
    "auto": true
   },
   "rf-y-100": {
    "price": 113.97,
    "cur": "USD",
-   "checkedAt": "2026-11-15",
+   "checkedAt": "2026-11-16",
    "auto": true
   },
   "thr-17": {
    "price": 43.99,
    "cur": "USD",
-   "checkedAt": "2026-11-15",
+   "checkedAt": "2026-11-16",
    "auto": true
   },
   "thr-34": {
    "price": 74.99,
    "cur": "USD",
-   "checkedAt": "2026-11-15",
+   "checkedAt": "2026-11-16",
    "auto": true
   },
   "ubi-jp-60": {
    "price": 55.0,
    "cur": "USD",
-   "checkedAt": "2026-11-15",
+   "checkedAt": "2026-11-16",
    "auto": true
   },
   "bne-as-10": {
    "price": 26.99,
    "cur": "EUR",
-   "checkedAt": "2026-11-15",
+   "checkedAt": "2026-11-16",
    "auto": true
   },
   "bne-as-20": {
    "price": 45.99,
    "cur": "EUR",
-   "checkedAt": "2026-11-15",
+   "checkedAt": "2026-11-16",
    "auto": true
   },
   "bne-as-50": {
    "price": 59.99,
    "cur": "EUR",
-   "checkedAt": "2026-11-15",
+   "checkedAt": "2026-11-16",
    "auto": true
   },
   "bne-as-100": {
    "price": 79.99,
    "cur": "EUR",
-   "checkedAt": "2026-11-15",
+   "checkedAt": "2026-11-16",
    "auto": true
   },
   "chill-40": {
@@ -164,7 +164,7 @@
   "ban-10": {
    "price": 78.0,
    "cur": "HKD",
-   "checkedAt": "2026-11-15",
+   "checkedAt": "2026-11-16",
    "auto": true
   }
  },
@@ -302,10 +302,31 @@
   },
   "chill-40": {
    "url": "https://chillyik.com/en/products/lucky2-a30g",
-   "ok": true,
+   "ok": false,
    "status": "caution",
-   "price": 160,
-   "method": "shopifyjs",
+   "error": "shopifyjs: 候補が複数あり判断できない: 22, 28, 23",
+   "debug": {
+    "ldTypes": [
+     "AggregateRating",
+     "Brand",
+     "BreadcrumbList",
+     "DefinedRegion",
+     "HowTo",
+     "HowToStep",
+     "HowToSupply",
+     "HowToTool"
+    ],
+    "ldOffers": [
+     "Lucky2 [China, Japan, South Korea, Taiwa=22.0USD",
+     "Lucky2 [China, Japan, South Korea, Taiwa=28.0USD",
+     "Lucky2 [China, Japan, South Korea, Taiwa=23.0USD"
+    ],
+    "textPrices": [],
+    "textLen": 26155,
+    "spa": [
+     "Shopify"
+    ]
+   },
    "variants": [
     "for Hong Kong. Physical SIM Physical SIM: 在庫あり",
     "IM (no mailing, please leave your email): 在庫あり",
@@ -314,10 +335,30 @@
   },
   "chill-12": {
    "url": "https://chillyik.com/en/products/lk13c",
-   "ok": true,
+   "ok": false,
    "status": "caution",
-   "price": 75,
-   "method": "shopifyjs",
+   "error": "shopifyjs: 候補が複数あり判断できない: 11, 14",
+   "debug": {
+    "ldTypes": [
+     "AggregateRating",
+     "Brand",
+     "BreadcrumbList",
+     "DefinedRegion",
+     "HowTo",
+     "HowToStep",
+     "HowToSupply",
+     "HowToTool"
+    ],
+    "ldOffers": [
+     "Lucky2 [13 Countries/Regions] 365-Day 15=11.0USD",
+     "Lucky2 [13 Countries/Regions] 365-Day 15=14.0USD"
+    ],
+    "textPrices": [],
+    "textLen": 25166,
+    "spa": [
+     "Shopify"
+    ]
+   },
    "variants": [
     "n available) Physical Card Physical Card: 在庫あり",
     " by unlimited throttled data at 384kbps): 在庫あり"
