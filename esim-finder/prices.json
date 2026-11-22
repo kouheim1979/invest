@@ -1,7 +1,7 @@
 {
  "app": "esim-finder",
- "updatedAt": "2026-11-21T02:21:08.795593Z",
- "lastRunAt": "2026-11-21T02:21:08.795593Z",
+ "updatedAt": "2026-11-22T01:22:30.694592Z",
+ "lastRunAt": "2026-11-22T01:22:30.694592Z",
  "okCount": 20,
  "targetCount": 24,
  "rates": {
@@ -24,43 +24,43 @@
   "l2-40": {
    "price": 220,
    "cur": "HKD",
-   "checkedAt": "2026-11-21",
+   "checkedAt": "2026-11-22",
    "auto": true
   },
   "l2-12": {
    "price": 100,
    "cur": "HKD",
-   "checkedAt": "2026-11-21",
+   "checkedAt": "2026-11-22",
    "auto": true
   },
   "l2-60": {
    "price": 400,
    "cur": "HKD",
-   "checkedAt": "2026-11-21",
+   "checkedAt": "2026-11-22",
    "auto": true
   },
   "l2-15": {
    "price": 300,
    "cur": "HKD",
-   "checkedAt": "2026-11-21",
+   "checkedAt": "2026-11-22",
    "auto": true
   },
   "ls-30": {
    "price": 180,
    "cur": "HKD",
-   "checkedAt": "2026-11-21",
+   "checkedAt": "2026-11-22",
    "auto": true
   },
   "ls-24": {
    "price": 150,
    "cur": "HKD",
-   "checkedAt": "2026-11-21",
+   "checkedAt": "2026-11-22",
    "auto": true
   },
   "ls-40": {
    "price": 328,
    "cur": "HKD",
-   "checkedAt": "2026-11-21",
+   "checkedAt": "2026-11-22",
    "auto": true
   },
   "gs-20": {
@@ -78,73 +78,73 @@
   "rf-y-10": {
    "price": 11.97,
    "cur": "USD",
-   "checkedAt": "2026-11-21",
+   "checkedAt": "2026-11-22",
    "auto": true
   },
   "rf-y-20": {
    "price": 23.47,
    "cur": "USD",
-   "checkedAt": "2026-11-21",
+   "checkedAt": "2026-11-22",
    "auto": true
   },
   "rf-y-30": {
    "price": 34.97,
    "cur": "USD",
-   "checkedAt": "2026-11-21",
+   "checkedAt": "2026-11-22",
    "auto": true
   },
   "rf-y-50": {
    "price": 57.47,
    "cur": "USD",
-   "checkedAt": "2026-11-21",
+   "checkedAt": "2026-11-22",
    "auto": true
   },
   "rf-y-100": {
    "price": 113.97,
    "cur": "USD",
-   "checkedAt": "2026-11-21",
+   "checkedAt": "2026-11-22",
    "auto": true
   },
   "thr-17": {
    "price": 43.99,
    "cur": "USD",
-   "checkedAt": "2026-11-21",
+   "checkedAt": "2026-11-22",
    "auto": true
   },
   "thr-34": {
    "price": 74.99,
    "cur": "USD",
-   "checkedAt": "2026-11-21",
+   "checkedAt": "2026-11-22",
    "auto": true
   },
   "ubi-jp-60": {
    "price": 55.0,
    "cur": "USD",
-   "checkedAt": "2026-11-21",
+   "checkedAt": "2026-11-22",
    "auto": true
   },
   "bne-as-10": {
    "price": 26.99,
    "cur": "EUR",
-   "checkedAt": "2026-11-21",
+   "checkedAt": "2026-11-22",
    "auto": true
   },
   "bne-as-20": {
    "price": 45.99,
    "cur": "EUR",
-   "checkedAt": "2026-11-21",
+   "checkedAt": "2026-11-22",
    "auto": true
   },
   "bne-as-50": {
    "price": 59.99,
    "cur": "EUR",
-   "checkedAt": "2026-11-21",
+   "checkedAt": "2026-11-22",
    "auto": true
   },
   "bne-as-100": {
    "price": 79.99,
    "cur": "EUR",
-   "checkedAt": "2026-11-21",
+   "checkedAt": "2026-11-22",
    "auto": true
   },
   "chill-40": {
@@ -164,7 +164,7 @@
   "ban-10": {
    "price": 78.0,
    "cur": "HKD",
-   "checkedAt": "2026-11-21",
+   "checkedAt": "2026-11-22",
    "auto": true
   }
  },
